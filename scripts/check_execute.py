@@ -17,6 +17,7 @@ Modules listed in [tool.titanium].own_env run inside their own uv project.
 from __future__ import annotations
 
 import argparse
+import re
 import subprocess
 import sys
 import tempfile
@@ -26,6 +27,7 @@ from pathlib import Path
 from _common import ROOT, config, notebooks, own_env
 
 
+_ANSI = re.compile(r"\x1b\[[0-9;]*m")
 _NOISE = ("IPKernelApp", "warnings.warn", "DeprecationWarning", "UserWarning",
           "Kernel is running over TCP", "to enable transport encryption")
 
@@ -110,7 +112,13 @@ def run_one(nb: Path, *, save: bool, timeout: int) -> tuple[bool, str]:
     def on_error(cell, cell_index, execute_reply):
         for o in cell.get("outputs", []):
             if o.get("output_type") == "error":
-                _say(f"{label} cell {cell_index} ERROR {o.get('ename')}: {str(o.get('evalue', ''))[:200]}")
+                _say(f"{label} cell {cell_index} ERROR {o.get('ename')}: {str(o.get('evalue', ''))[:1200]}")
+                # The frames nearest the failure, so a validation error names
+                # the field and a library error names the call.
+                frames = [_ANSI.sub("", l) for l in o.get("traceback", [])]
+                for line in "\n".join(frames).splitlines()[-14:]:
+                    if line.strip():
+                        _say(f"    | {line[:200]}")
 
     client = NotebookClient(doc, timeout=timeout, kernel_name="python3",
                             resources={"metadata": {"path": str(nb.parent)}}, allow_errors=False,
