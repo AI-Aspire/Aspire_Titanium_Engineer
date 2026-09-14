@@ -45,7 +45,7 @@ mirror of it. Every notebook is three acts: **Learn** the idea from scratch,
 | 13 | [Guardrails 101](13_Guardrails_101/) | 30 min |
 | 14 | [Voice agents](14_Voice_Agents/) | 40 min |
 | 15 | [Prompt optimisation](15_Prompt_Optimization/) | 35 min |
-| 16 | GraphRAG | 40 min |
+| 16 | [GraphRAG](16_GraphRAG/) | 40 min |
 | 17 | Deep research | 35 min |
 | 18 | Off-the-shelf guardrails | 30 min |
 | 19 | Responsible AI | 25 min |
