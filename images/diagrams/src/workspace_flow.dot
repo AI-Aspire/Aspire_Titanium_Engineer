@@ -1,0 +1,19 @@
+digraph workspace_flow {
+  rankdir=LR; bgcolor="#F9F8F4"; pad=0.3; nodesep=0.35; ranksep=0.6;
+  node [shape=box, style="rounded,filled", fillcolor="#FFFFFF", color="#D6D0C2", fontname="Inter, Helvetica, Arial", fontcolor="#16130E", fontsize=12, penwidth=1.2];
+  edge [color="#55718F", penwidth=1.1, arrowsize=0.7];
+  subgraph cluster_ws { label="workspace/  (falls back to data/seed/)"; fontname="Inter, Helvetica, Arial"; fontcolor="#5A544B"; color="#E6E2D8"; style="rounded";
+    charter [label="charter", fillcolor="#F9EFEB", color="#B77258"];
+    prompts; transcripts; judge [label="rubric · vibe_checks\njudge_scores"];
+    corpus [label="corpus/", fillcolor="#ECF3FA", color="#6A89AB"]; eval_cases [label="eval_cases · ladder"]; agentic [label="wiki · agentic_runs"]; ragas [label="testset · ragas_scores"];
+    tasks [label="tasks · trajectories\ncapability_report"]; memory [label="memory · episodes"]; catalog [label="tools_catalog"]; report [label="multi_agent_report"]; guard [label="guardrail_cases\nladder_results"];
+    voice [label="voice_sessions"]; dspy [label="dspy_program"]; graph [label="graph · graph_eval"]; research [label="research_report"]; ots [label="ots_results"];
+    risk [label="risk_register"]; owasp [label="owasp_findings"]; release [label="deepeval_results\nrelease_decision"]; score [label="scorecard", fillcolor="#F9EFEB", color="#B77258"];
+  }
+  charter -> prompts -> transcripts -> judge;
+  {charter prompts transcripts judge} -> corpus;
+  corpus -> eval_cases -> agentic; corpus -> ragas;
+  eval_cases -> tasks -> memory; tasks -> catalog; tasks -> report; transcripts -> guard;
+  tasks -> voice; judge -> dspy; corpus -> graph; tasks -> research; guard -> ots;
+  {tasks guard ragas} -> risk; {corpus catalog} -> owasp; {eval_cases tasks} -> release; release -> score;
+}

@@ -1,0 +1,13 @@
+digraph agent_loop {
+  rankdir=LR; bgcolor="#F9F8F4"; pad=0.3; nodesep=0.5;
+  node [shape=box, style="rounded,filled", fillcolor="#FFFFFF", color="#D6D0C2", fontname="Inter, Helvetica, Arial", fontcolor="#16130E", fontsize=13, penwidth=1.2];
+  edge [color="#55718F", fontname="Inter, Helvetica, Arial", fontcolor="#5A544B", fontsize=11, penwidth=1.2, arrowsize=0.8];
+  user  [label="user question", fillcolor="#F9EFEB", color="#B77258"];
+  model [label="model\n(job description + tools)", fillcolor="#ECF3FA", color="#6A89AB"];
+  decide [label="tool call?", shape=diamond, fillcolor="#FFFFFF"];
+  tools [label="tools\n(search charter, search prompts, log request)"];
+  answer [label="answer", fillcolor="#F9EFEB", color="#B77258"];
+  mw    [label="middleware\nlog · limit · budget", shape=note, fillcolor="#F6F1E9", color="#DECFB8"];
+  user -> model; model -> decide; decide -> tools [label="yes"]; tools -> model [label="result"]; decide -> answer [label="no"];
+  mw -> model [style=dashed, arrowhead=none];
+}
