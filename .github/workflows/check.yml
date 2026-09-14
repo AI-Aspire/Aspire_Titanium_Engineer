@@ -1,0 +1,33 @@
+name: check
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+      - name: Install the pinned environment
+        run: uv sync --frozen --group dev
+      - name: Prose and brand lint
+        run: uv run python scripts/nb_lint.py
+      - name: Code cells compile and imports resolve
+        run: uv run python scripts/check_syntax.py
+      - name: Every import is declared
+        run: uv run python scripts/check_deps.py
+      - name: Relative links
+        run: uv run python scripts/check_links.py
+      - name: marimo mirrors are current
+        run: uv run python scripts/make_marimo.py --check
+      - name: No secrets or internal endpoints in outputs
+        run: uv run python scripts/strip_outputs.py --check
+      - name: Seed validates
+        run: uv run python scripts/check_workspace.py --seed
+      - name: Tests
+        run: uv run python -m pytest tests/ -q

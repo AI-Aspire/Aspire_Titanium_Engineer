@@ -1,0 +1,40 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+*.egg-info/
+
+# Secrets and local config
+.env
+.envrc
+.deepeval
+.streamlit/secrets.toml
+
+# Notebooks and marimo
+.ipynb_checkpoints/
+__marimo__/
+marimo/_static/
+marimo/_lsp/
+
+# The cohort's own artifacts. The seed copy in data/seed/ is tracked.
+workspace/*
+!workspace/.gitkeep
+
+# Local vector stores and caches
+.qdrant_local/
+.qdrant_storage/
+**/data/chroma/
+**/emb_cache/
+**/*.npy
+
+# Generated audio
+**/*.wav
+
+# Editors
+.vscode/
+.idea/
+.zed/
+.DS_Store

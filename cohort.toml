@@ -1,0 +1,13 @@
+# Per-cohort overlay. This is the only file that names a client.
+# Everything else in the repository is client-neutral.
+
+[cohort]
+id = "c4"
+name = "Cohort 4"
+client = ""          # e.g. "Example Corp". Empty means no client pill on the banner.
+city = ""            # e.g. "Chicago"
+groups = 8           # number of project groups; drives the pitch and demo blocks
+repo = "AI-Aspire/Aspire_Titanium_Engineer"   # the fork target used by the dev-environment module
+
+[banner]
+show_client = true

@@ -1,0 +1,26 @@
+name: execute
+
+# Runs the notebooks for real against the seed. Costs model calls, so it is
+# manual or weekly, never on every push.
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 6 * * 1"
+
+jobs:
+  execute:
+    runs-on: ubuntu-latest
+    env:
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      LLM_MODEL: gpt-4.1-mini
+      EMBED_MODEL: text-embedding-3-small
+      TE_SEED_MODE: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+      - run: uv sync --frozen --group dev --group graph --group optim
+      - run: uv run python -m spacy download en_core_web_sm
+      - name: Run every notebook in order against the seed
+        run: uv run python scripts/check_execute.py
