@@ -3,39 +3,26 @@
 ## Learn | Create | Grow
 
 ### Learn
-Seven prompt patterns, each shown weak first: persona, few-shot, reasoning budget, structured output, pasted context, self-refine, meta-prompting. Why each one works, in one call each.
+Try persona, few-shot examples, reasoning effort, requested output formats, and pasted context in interactive Claude Code.
 
 ### Create
-A pitch for your product refined against explicit criteria, a system prompt for your assistant written by the model, and every prompt of the session saved as your first corpus.
+Refine a draft, generate and test an instruction, and apply the patterns to your own product.
 
 ### Grow
-Prompts in production are versioned like code, tested against a regression set, and routed by budget. Ask your team which pattern moved your task most, and whether it is written down anywhere.
+Test prompts across representative inputs and check both format and facts.
 
 **Estimated time:** 30 minutes
-**Reads:** charter
-**Writes:** prompts
-
-## The patterns
-
-| # | Pattern | What it does | Reach for it when |
-|---|---|---|---|
-| 1 | Persona | the system prompt sets voice and length | any user-facing feature |
-| 2 | Few-shot | two labelled turns teach a convention | labels or formats the model cannot guess |
-| 3 | Reasoning budget | `effort` trades tokens for care | multi-step problems with a trap |
-| 4 | Structured output | a schema guarantees the shape | anything code parses |
-| 5 | Pasted context | the document goes in the prompt | facts the model does not have |
-| 6 | Self-refine | draft, critique against criteria, revise | quality bars you can write down |
-| 7 | Meta-prompting | the model writes the prompt | recurring tasks, prompt variants |
 
 ## Setup
 
-```bash
-make setup
-uv run jupyter lab      # open 02_Prompt_Patterns/Prompt_Patterns.ipynb
-```
+Open `Prompt_Patterns.ipynb` alongside Claude Code. Paste the prompts and compare the responses. Use `/clear` between independent examples; keep the same conversation for self-refine. The reasoning exercise changes `/effort`, then restores the previous setting.
 
-Needs `OPENAI_API_KEY` and `LLM_MODEL` in `.env`. The reasoning-budget task degrades cleanly on models without one.
+The notebook is a reading guide with no executable cells. `Prompt_Patterns.py` is its generated marimo mirror.
 
-## Data files
+## Examples
 
-None in this folder. The notebook reads the charter from the workspace and writes the `prompts` artifact.
+Each prompt has a collapsed recorded response. These are actual programmatic Claude Code runs, preserved in [recording data](data/recorded_responses.json). Your interactive responses may differ.
+
+## Course integration
+
+This version does not save a `prompts` workspace artifact. Later notebooks use existing or seed prompts instead of these conversations. Conversation export is not required for this lesson.
