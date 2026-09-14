@@ -75,6 +75,9 @@ def main(argv: list[str]) -> int:
             continue
         p = base / art.path
         if not ws._present(p, art.fmt):
+            if art.optional:
+                print(f"ℹ {name}: not in the {'seed' if args.seed else 'workspace'} ({art.optional})")
+                continue
             problems.append(f"{name}: missing ({art.path}; written by module {art.producer})")
             continue
         try:

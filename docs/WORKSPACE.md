@@ -53,6 +53,8 @@ after the artifact, never after a day, so a reorder never moves data.
 | guardrail_cases | `guardrails/cases.jsonl` | jsonl | 13 | id, input, attack, expected |
 | ladder_results | `guardrails/ladder_results.jsonl` | jsonl | 13 | case_id, rung, blocked |
 | voice_sessions | `research/voice_sessions.jsonl` | jsonl | 14 | id, question, answer |
+
+The voice sessions are the one optional artifact: the notebook needs the speech services running, and nothing later reads the file, so the seed may not carry it.
 | dspy_program | `research/dspy_program.json` | json | 15 | optimizer |
 | graph | `retrieval/graph.json` | json | 16 | nodes, edges |
 | graph_eval | `retrieval/graph_eval.json` | json | 16 | graph, vector |

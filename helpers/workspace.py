@@ -37,6 +37,7 @@ class Artifact:
     producer: str        # module directory prefix, e.g. "04"
     keys: tuple = ()     # required keys per row (jsonl/csv) or top-level keys (json)
     about: str = ""
+    optional: str = ""   # why the seed may lack it (nothing downstream reads it)
 
 
 _A = Artifact
@@ -82,7 +83,8 @@ SCHEMA: dict[str, Artifact] = {a.name: a for a in [
     _A("ladder_results", "guardrails/ladder_results.jsonl", "jsonl", "13", ("case_id", "rung", "blocked"),
        "Which rung of the guardrail ladder caught which case"),
     _A("voice_sessions", "research/voice_sessions.jsonl", "jsonl", "14", ("id", "question", "answer"),
-       "Spoken questions and the answers given"),
+       "Spoken questions and the answers given",
+       optional="needs the speech services running, and no later module reads it"),
     _A("dspy_program", "research/dspy_program.json", "json", "15", ("optimizer",),
        "The optimised judge program and its agreement score"),
     _A("graph", "retrieval/graph.json", "json", "16", ("nodes", "edges"), "A knowledge graph over the corpus"),
