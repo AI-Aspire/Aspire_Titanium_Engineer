@@ -11,6 +11,7 @@ notebook with fresh outputs still converts to the same .py.
 from __future__ import annotations
 
 import argparse
+import difflib
 import subprocess
 import sys
 import tempfile
@@ -44,14 +45,21 @@ def main(argv: list[str]) -> int:
                 tmp = Path(td) / "nb.py"
                 convert(nb, tmp)
                 fresh = _normalise(tmp.read_text(encoding="utf-8"))
-            if not py.exists() or _normalise(py.read_text(encoding="utf-8")) != fresh:
-                stale.append(py)
+            have = _normalise(py.read_text(encoding="utf-8")) if py.exists() else ""
+            if have != fresh:
+                # Say what changed, not only that something did: the same
+                # notebook can convert differently on another machine.
+                diff = list(difflib.unified_diff(have.splitlines(), fresh.splitlines(),
+                                                 "committed", "fresh", lineterm="", n=1))
+                stale.append((py, diff[:40]))
         else:
             convert(nb, py)
             print(f"✓ {py.relative_to(ROOT)}")
     if args.check:
-        for p in stale:
+        for p, diff in stale:
             print(f"✗ stale or missing: {p.relative_to(ROOT)}  (run: make marimo)")
+            for line in diff:
+                print(f"    {line}")
         if stale:
             return 1
         print(f"✓ {n} marimo mirror(s) are current")
