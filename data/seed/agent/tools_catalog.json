@@ -1,0 +1,35 @@
+{
+  "capability": "Look up an eval case or a trajectory by id or by question",
+  "tools": [
+    {
+      "name": "lookup",
+      "kind": "tool",
+      "when_to_use": "A small capability owned by one application; you own the wiring and the schema."
+    },
+    {
+      "name": "case_lookup",
+      "kind": "skill",
+      "when_to_use": "The reusable asset is mostly a procedure; drop in a folder and let the harness run the script."
+    },
+    {
+      "name": "mcp_server.py",
+      "kind": "mcp",
+      "when_to_use": "Several clients need runtime discovery of a capability someone else operates."
+    },
+    {
+      "name": "ask_trajectory_analyst",
+      "kind": "sub-agent",
+      "when_to_use": "The valuable boundary is separate reasoning, context, or policy, not just a function."
+    },
+    {
+      "name": "run_code_mode",
+      "kind": "code-mode",
+      "when_to_use": "Many calls or bulky intermediates justify a hardened execution runtime."
+    },
+    {
+      "name": "eval-lookup-api",
+      "kind": "utcp",
+      "when_to_use": "An API already exists and a manifest can describe it without adding a proxy server."
+    }
+  ]
+}

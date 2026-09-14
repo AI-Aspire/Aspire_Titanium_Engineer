@@ -49,7 +49,7 @@ mirror of it. Every notebook is three acts: **Learn** the idea from scratch,
 | 17 | Deep research | 35 min |
 | 18 | [Off-the-shelf guardrails](18_Off_The_Shelf_Guardrails/) | 30 min |
 | 19 | Responsible AI | 25 min |
-| 20 | OWASP LLM top 10 | 35 min |
+| 20 | [OWASP LLM top 10](20_OWASP_LLM_Top10/) | 35 min |
 | 21 | DeepEval | 35 min |
 
 A module without a link is still being verified against a live model. It lands, with its seed artifacts, as soon as its notebook runs green.

@@ -193,6 +193,18 @@
       "module": "18",
       "count": 30,
       "at": "2026-09-14T21:27:56+00:00"
+    },
+    {
+      "artifact": "tools_catalog",
+      "module": "11",
+      "count": 2,
+      "at": "2026-09-14T21:30:06+00:00"
+    },
+    {
+      "artifact": "owasp_findings",
+      "module": "20",
+      "count": 6,
+      "at": "2026-09-14T21:35:44+00:00"
     }
   ]
 }
