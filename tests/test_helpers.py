@@ -117,8 +117,11 @@ def test_own_env_modules_depend_on_the_root_package():
     from pathlib import Path
 
     root = Path(__file__).resolve().parent.parent
-    for name in ("08_SDG_RAGAS", "14_Voice_Agents"):
-        with (root / name / "pyproject.toml").open("rb") as fh:
+    # Discovered, not listed: modules land one at a time as each is verified,
+    # and the rule applies to whichever of them carry their own environment.
+    for pyproject in sorted(root.glob("[0-9][0-9]_*/pyproject.toml")):
+        name = pyproject.parent.name
+        with pyproject.open("rb") as fh:
             cfg = tomllib.load(fh)
         deps = " ".join(cfg["project"]["dependencies"]).lower()
         assert "aspire-titanium-engineer" in deps, f"{name} cannot import helpers"
