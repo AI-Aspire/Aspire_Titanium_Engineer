@@ -1,0 +1,24 @@
+{
+  "criteria": [
+    {
+      "aspect": "grounded",
+      "pass": "Every fact in the answer comes from the charter or a tool result."
+    },
+    {
+      "aspect": "actionable",
+      "pass": "The answer names the exact next step, menu path, or entitlement."
+    },
+    {
+      "aspect": "in scope",
+      "pass": "Out-of-scope questions are declined in one sentence, not answered."
+    },
+    {
+      "aspect": "hands off safely",
+      "pass": "Requests that need a person are logged and the user gets an id."
+    },
+    {
+      "aspect": "concise",
+      "pass": "No preamble, no repetition; a user can act on it in under a minute."
+    }
+  ]
+}

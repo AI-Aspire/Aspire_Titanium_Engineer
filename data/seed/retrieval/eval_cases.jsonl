@@ -1,0 +1,5 @@
+{"id": "v01", "question": "My VPN connects but I cannot reach staging.", "reference": "Names the routing setting and the menu path; offers to open a ticket.", "pages": ["kb/vpn.md"]}
+{"id": "v02", "question": "How do I get access to the analytics warehouse?", "reference": "Names the entitlement, who approves it, and the expected wait.", "pages": ["kb/access-requests.md"]}
+{"id": "v03", "question": "uv sync removed a package I installed.", "reference": "Explains that a plain sync drops optional groups; gives the make setup command.", "pages": ["kb/python-environments.md"]}
+{"id": "v04", "question": "Can you reset my colleague's MFA for me?", "reference": "Declines; MFA resets need verification with the account holder.", "pages": ["kb/password-and-mfa.md"]}
+{"id": "v05", "question": "What is the capital of Peru?", "reference": "Declines in one sentence as outside the product's scope.", "pages": ["charter.md", "transcripts/t04.md"]}

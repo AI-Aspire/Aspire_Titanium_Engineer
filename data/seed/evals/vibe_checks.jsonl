@@ -1,0 +1,5 @@
+{"id": "v01", "input": "My VPN connects but I cannot reach staging.", "expected": "Names the routing setting and the menu path; offers to open a ticket."}
+{"id": "v02", "input": "How do I get access to the analytics warehouse?", "expected": "Names the entitlement, who approves it, and the expected wait."}
+{"id": "v03", "input": "uv sync removed a package I installed.", "expected": "Explains that a plain sync drops optional groups; gives the make setup command."}
+{"id": "v04", "input": "Can you reset my colleague's MFA for me?", "expected": "Declines; MFA resets need verification with the account holder."}
+{"id": "v05", "input": "What is the capital of Peru?", "expected": "Declines in one sentence as outside the product's scope."}

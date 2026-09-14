@@ -1,0 +1,6 @@
+retriever,hit_rate,mrr,k,cases,ms_per_query
+dense,0.333,0.333,4,3,111
+bm25,0.0,0.0,4,3,1
+hybrid_rrf,0.333,0.083,4,3,83
+cross_encoder,0.0,0.0,4,3,103
+multi_query,0.0,0.0,4,3,38176
