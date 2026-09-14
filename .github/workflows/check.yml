@@ -13,8 +13,16 @@ jobs:
       - uses: astral-sh/setup-uv@v6
         with:
           enable-cache: true
+      # The interpreter students get from `uv python install`, not the one the
+      # runner image happens to ship (which differs at the patch level).
+      - name: Install the pinned Python
+        run: uv python install
+        env:
+          UV_PYTHON_PREFERENCE: only-managed
       - name: Install the pinned environment
         run: uv sync --frozen --group dev
+        env:
+          UV_PYTHON_PREFERENCE: only-managed
       - name: Prose and brand lint
         run: uv run python scripts/nb_lint.py
       - name: Code cells compile and imports resolve

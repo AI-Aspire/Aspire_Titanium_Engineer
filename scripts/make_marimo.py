@@ -11,6 +11,7 @@ notebook with fresh outputs still converts to the same .py.
 from __future__ import annotations
 
 import argparse
+import ast
 import difflib
 import subprocess
 import sys
@@ -28,7 +29,19 @@ def convert(nb: Path, out: Path) -> None:
 
 
 def _normalise(text: str) -> str:
-    return "\n".join(l for l in text.splitlines() if GENERATED_LINE not in l).strip()
+    """The mirror with the marimo version line removed, as a canonical form.
+
+    `marimo convert` writes code through `ast.unparse`, whose choice of
+    quotes inside f-strings has changed between CPython patch releases, so
+    two machines can print the same notebook differently. Comparing the
+    parsed tree ignores that; the text is the fallback for anything that
+    does not parse.
+    """
+    body = "\n".join(l for l in text.splitlines() if GENERATED_LINE not in l).strip()
+    try:
+        return ast.dump(ast.parse(body))
+    except SyntaxError:
+        return body
 
 
 def main(argv: list[str]) -> int:
