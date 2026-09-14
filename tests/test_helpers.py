@@ -156,3 +156,15 @@ def test_match_persona_tolerates_a_model_that_decorates_the_name():
     assert match_persona("Helpdesk Lead: runs the queue", names) == "helpdesk lead"
     assert match_persona("Jordan Hays", names) == "Jordan Hayes"
     assert match_persona("Finance Director", names) is None
+
+
+def test_litellm_model_prefixes_a_repo_id_for_a_self_hosted_server(monkeypatch):
+    """A Hugging Face repo id has a slash in it and is not a litellm provider."""
+    from helpers import config, llm
+
+    monkeypatch.setattr(config, "LLM_BASE", "http://server:8888/v1")
+    assert llm.litellm_model("unsloth/Qwen3.6-35B") == "openai/unsloth/Qwen3.6-35B"
+    assert llm.litellm_model("gpt-5.6-luna") == "openai/gpt-5.6-luna"
+    assert llm.litellm_model("openai/gpt-5.6-luna") == "openai/gpt-5.6-luna"
+    monkeypatch.setattr(config, "LLM_BASE", "")
+    assert llm.litellm_model("gpt-5.6-luna") == "gpt-5.6-luna"

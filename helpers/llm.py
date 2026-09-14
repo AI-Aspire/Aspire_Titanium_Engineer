@@ -177,3 +177,18 @@ def ready(*, embeddings: bool = False) -> str:
     if embeddings:
         line += f"\n✅ embeddings {C.EMBED_MODEL} at {C.EMBED_BASE or 'the same endpoint'}"
     return line
+
+
+def litellm_model(model: str | None = None) -> str:
+    """The model name litellm needs for the configured server.
+
+    litellm routes by a provider prefix. A self-hosted OpenAI-compatible server
+    is "openai/<name>", and a name that already carries a slash (a Hugging Face
+    repo id such as "unsloth/Qwen3.6-35B") is not a provider, so the prefix is
+    added unless one is already there or no base URL is set.
+    """
+    m = model or C.LLM_MODEL
+    if m.startswith(("openai/", "anthropic/")) or not C.LLM_BASE:
+        return m
+    return "openai/" + m
+

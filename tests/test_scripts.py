@@ -53,3 +53,12 @@ def test_child_error_skips_kernel_noise():
     assert E._child_error(blob) == "ValueError: no testset rows"
     assert E._child_error("[IPKernelApp] WARNING | noise\nreal failure here\n") == "real failure here"
     assert E._child_error("") == "failed with no message"
+
+
+def test_check_syntax_finds_a_name_no_cell_defines():
+    """Module 11 failed eight seconds in with NameError: 'Path'. Cheap to catch first."""
+    import check_syntax as C
+
+    found = C.undefined_names(["import json\nx = json.dumps({})", "p = Path('x')\nprint(p)", "display(p)"])
+    assert found == [(1, "'Path' is used but never defined or imported")]
+    assert C.undefined_names(["from pathlib import Path", "p = Path('x')"]) == []

@@ -81,6 +81,7 @@ dev = [
     "pytest>=8.3",
     "nbclient>=0.10",
     "marimo==0.24.2",     # pinned exactly: its version lands in every generated .py
+    "pyflakes>=3.2",
 ]
 optim = [
     "dspy>=3.0",
