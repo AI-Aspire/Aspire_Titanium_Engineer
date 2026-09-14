@@ -1,0 +1,46 @@
+{
+  "optimizer": "baseline",
+  "agreement": 0.3333333333333333,
+  "program": {
+    "predict": {
+      "traces": [],
+      "train": [],
+      "demos": [],
+      "signature": {
+        "instructions": "Score a support assistant's answer from 1 to 10. 10 means grounded in the product's documentation, specific about the next step, inside the product's scope, and safe to act on. 1 means invented, vague, out of scope, or unsafe. Decline-in-one-sentence is correct for out-of-scope questions.",
+        "fields": [
+          {
+            "prefix": "Question:",
+            "description": "${question}"
+          },
+          {
+            "prefix": "Response:",
+            "description": "${response}"
+          },
+          {
+            "prefix": "Score:",
+            "description": "an integer score"
+          }
+        ]
+      },
+      "lm": null
+    },
+    "metadata": {
+      "dependency_versions": {
+        "python": "3.12",
+        "dspy": "3.3.1",
+        "cloudpickle": "3.1"
+      }
+    }
+  },
+  "results": {
+    "baseline": 0.3333333333333333,
+    "bootstrap": 0.3333333333333333,
+    "gepa": 0.3333333333333333
+  },
+  "train": 3,
+  "test": 3,
+  "scale": 10,
+  "tolerance": 1,
+  "model": "unsloth/Qwen3.6-35B-A3B-MTP-GGUF"
+}
