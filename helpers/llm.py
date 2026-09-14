@@ -112,6 +112,35 @@ def reasoning_of(resp) -> str:
 
 # ── LangChain ────────────────────────────────────────────────────────────────
 
+_CHAT_CLASS = None
+
+
+def _chat_class():
+    """`ChatOpenAI`, minus the one field a self-hosted server may reject.
+
+    LangChain names the messages an agent produces after the agent, and sends
+    that `name` back on every later turn. The OpenAI API accepts it on any
+    message; a self-hosted OpenAI-compatible server may accept it only on tool
+    messages and refuse the whole request. When a base URL is set, the name
+    is dropped from everything but tool messages before the call goes out.
+    """
+    global _CHAT_CLASS
+    if _CHAT_CLASS is None:
+        from langchain_openai import ChatOpenAI
+
+        class ChatOpenAICompat(ChatOpenAI):
+            def _get_request_payload(self, input_, *, stop=None, **kwargs):
+                payload = super()._get_request_payload(input_, stop=stop, **kwargs)
+                if self.openai_api_base:
+                    for m in payload.get("messages", []):
+                        if isinstance(m, dict) and m.get("role") != "tool":
+                            m.pop("name", None)
+                return payload
+
+        _CHAT_CLASS = ChatOpenAICompat
+    return _CHAT_CLASS
+
+
 def chat_model(*, model: str | None = None, base_url: str | None = None,
                temperature=..., max_tokens=..., reasoning=..., **kw):
     """A configured `langchain_openai.ChatOpenAI`.
@@ -119,13 +148,11 @@ def chat_model(*, model: str | None = None, base_url: str | None = None,
     This replaces the line every notebook used to repeat:
         ChatOpenAI(model=..., api_key=..., base_url=..., timeout=120, max_retries=1)
     """
-    from langchain_openai import ChatOpenAI
-
     name = model or C.LLM_MODEL
     params = _sampling(temperature, max_tokens, reasoning)
     if not _REASONING_OK.get(name, True):
         params.pop("reasoning_effort", None)
-    return ChatOpenAI(
+    return _chat_class()(
         model=name, api_key=C.KEY, base_url=base_url or C.LLM_BASE,
         timeout=C.LLM_TIMEOUT, max_retries=C.LLM_MAX_RETRIES,
         **params, **kw,

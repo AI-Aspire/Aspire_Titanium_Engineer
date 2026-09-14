@@ -168,3 +168,20 @@ def test_litellm_model_prefixes_a_repo_id_for_a_self_hosted_server(monkeypatch):
     assert llm.litellm_model("openai/gpt-5.6-luna") == "openai/gpt-5.6-luna"
     monkeypatch.setattr(config, "LLM_BASE", "")
     assert llm.litellm_model("gpt-5.6-luna") == "gpt-5.6-luna"
+
+
+def test_chat_model_drops_message_names_for_a_self_hosted_server(monkeypatch):
+    """A self-hosted server refused a whole request over "name" on an assistant message."""
+    from langchain_core.messages import AIMessage, HumanMessage, ToolMessage
+    from helpers import config, llm
+
+    monkeypatch.setattr(config, "KEY", "sk-test")
+    monkeypatch.setattr(config, "LLM_BASE", "http://server:8888/v1")
+    msgs = [HumanMessage("hi", name="user1"), AIMessage("ok", name="scoper"),
+            ToolMessage("42", tool_call_id="c1", name="lookup")]
+    payload = llm.chat_model(model="m")._get_request_payload(msgs)
+    assert [m["role"] for m in payload["messages"]] == ["user", "assistant", "tool"]
+    assert not any("name" in m for m in payload["messages"] if m["role"] != "tool")
+    monkeypatch.setattr(config, "LLM_BASE", None)
+    payload = llm.chat_model(model="m")._get_request_payload(msgs)
+    assert "name" in payload["messages"][1]
