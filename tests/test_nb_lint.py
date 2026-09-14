@@ -151,3 +151,32 @@ def test_markdown_file_in_module_dir(tmp_path):
     p.write_text("# RAG\n\nThis is a comprehensive guide to Day 2!\n")
     rules = {f.rule for f in L.lint_markdown(p)}
     assert {"T001", "P002", "E001"} <= rules
+
+
+def test_explicit_path_skips_vendor_directories(tmp_path):
+    """Linting a named directory must not walk into a module's own .venv.
+
+    Two modules keep a virtual environment inside themselves; without this the
+    lint reported thousands of findings from third-party code.
+    """
+    mod = tmp_path / "08_Example"
+    (mod / ".venv" / "lib").mkdir(parents=True)
+    (mod / ".venv" / "lib" / "vendored.py").write_text("# leverage a comprehensive approach\n")
+    (mod / "README.md").write_text("# Example\n\nPlain and direct.\n")
+    found = {p.name for p in L.targets([str(mod)])}
+    assert "vendored.py" not in found
+    assert "README.md" in found
+
+
+def test_consulting_frame_rule_skips_generated_records():
+    """A helpdesk model saying "the menu path for your client" is data, not voice.
+
+    The seed is a record of what a model said and must not be hand-edited, so
+    the framing rule cannot apply there. The hard brand rules still do.
+    """
+    kw = dict(position=False, tells=False, brand=True, ignored=set())
+    text = "open a ticket for the exact menu path for your client\n[/admin][begin_admin_session]"
+    seed = {f.rule for f in L._phrases(text, "data/seed/transcripts/transcripts.jsonl", **kw)}
+    prose = {f.rule for f in L._phrases(text, "03_Agents_101/README.md", **kw)}
+    assert "B010" not in seed and "B011" in seed
+    assert "B010" in prose and "B011" in prose

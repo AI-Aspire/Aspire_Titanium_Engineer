@@ -136,3 +136,20 @@ def test_progress_helpers_survive_without_a_jupyter_frontend():
     with ui.spinner("working"):
         pass
     assert list(ui.track([1, 2, 3], "counting")) == [1, 2, 3]
+
+
+def test_match_persona_tolerates_a_model_that_decorates_the_name():
+    """RAGAS looks personas up by the exact name the model echoes back.
+
+    Reasoning models add the role in brackets, change the case, or drop a
+    word. Each of those cost a forty-minute run before the matcher existed.
+    """
+    from helpers.sdg import match_persona
+
+    names = ["Jordan Hayes", "helpdesk lead"]
+    assert match_persona("Jordan Hayes", names) == "Jordan Hayes"
+    assert match_persona("Jordan Hayes (Software Engineer)", names) == "Jordan Hayes"
+    assert match_persona("HELPDESK  LEAD", names) == "helpdesk lead"
+    assert match_persona("Helpdesk Lead: runs the queue", names) == "helpdesk lead"
+    assert match_persona("Jordan Hays", names) == "Jordan Hayes"
+    assert match_persona("Finance Director", names) is None

@@ -45,6 +45,13 @@ SKIP_PARTS = {".git", ".venv", "node_modules", "__pycache__", ".ipynb_checkpoint
 BRAND_EXEMPT = {"scripts/nb_lint.py", "tests/test_nb_lint.py", "tests/test_scripts.py", "scripts/strip_outputs.py"}
 # Files that may say "Day N": the schedule and the front page.
 POSITION_EXEMPT_PREFIXES = ("README.md", "docs/", "CLAUDE.md", "AGENTS.md", "00_Setup/", "project/", "data/")
+# Records of what a model said (the seed and the workspace) are data, not
+# teaching prose. The consulting-frame rule is about the authored voice, so it
+# does not apply there. The hard rules (former names, links, the injection
+# canary, home paths) still do, because they would mean the seed was
+# generated from contaminated inputs.
+FRAMING_EXEMPT_PREFIXES = ("data/seed/", "workspace/")
+FRAMING_RULES = {"B010"}
 
 _I = re.I
 POSITION = [
@@ -162,6 +169,8 @@ def _phrases(text: str, where: str, *, position: bool, tells: bool, brand: bool,
         groups += [(re.compile(p, _I), "reads as machine-written", rid, "fail") for p, rid in TELLS]
     if brand:
         groups += [(re.compile(p), "former client, partner, or corpus name", rid, "fail") for p, rid in BRAND]
+    if where.startswith(FRAMING_EXEMPT_PREFIXES):
+        groups = [g for g in groups if g[2] not in FRAMING_RULES]
     for pat, why, rid, level in groups:
         if rid in ignored or "*" in ignored:
             continue
@@ -312,13 +321,21 @@ def lint_other(path: Path) -> list[Finding]:
     return _phrases(text, rel, position=False, tells=False, brand=True, ignored=set())
 
 
+def _skipped(p: Path) -> bool:
+    return any(part in SKIP_PARTS for part in p.parts)
+
+
 def targets(paths: list[str]) -> list[Path]:
     if paths:
         out = []
         for p in paths:
             q = Path(p)
             out += sorted(q.rglob("*")) if q.is_dir() else [q]
-        return [p for p in out if p.is_file()]
+        # The same exclusions the whole-repo scan uses. Without this, linting a
+        # named directory walked into the virtual environment a module with its
+        # own environment keeps inside itself, and reported thousands of
+        # findings from third-party code.
+        return [p for p in out if p.is_file() and not _skipped(p)]
     out = []
     for p in sorted(ROOT.rglob("*")):
         if not p.is_file() or any(part in SKIP_PARTS for part in p.parts):

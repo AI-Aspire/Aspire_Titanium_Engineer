@@ -4,6 +4,7 @@
     python scripts/check_workspace.py --day 2        # everything produced on days 1-2
     python scripts/check_workspace.py --seed         # the committed seed, all days
     python scripts/check_workspace.py --seed --day 1
+    python scripts/check_workspace.py --seed --through 07   # producers up to module 07
     python scripts/check_workspace.py --status       # print where each artifact comes from
 """
 from __future__ import annotations
@@ -22,6 +23,8 @@ def main(argv: list[str]) -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--day", type=int, default=5)
     ap.add_argument("--seed", action="store_true", help="validate data/seed/ instead of the workspace")
+    ap.add_argument("--through", metavar="NN",
+                    help="only artifacts written by modules up to this one, in course order")
     ap.add_argument("--status", action="store_true")
     args = ap.parse_args(argv)
     if args.seed:
@@ -30,7 +33,15 @@ def main(argv: list[str]) -> int:
         ws.status()
         return 0
     base = ws.root()
-    wanted = {m for d, mods in ws.DAYS.items() if d <= args.day for m in mods}
+    order = [m for d in sorted(ws.DAYS) for m in ws.DAYS[d]]
+    if args.through:
+        if args.through not in order:
+            ap.error(f"--through must be one of {order}")
+        wanted = set(order[: order.index(args.through) + 1])
+        scope = f"through module {args.through}"
+    else:
+        wanted = {m for d, mods in ws.DAYS.items() if d <= args.day for m in mods}
+        scope = f"through day {args.day}"
     problems, ok = [], 0
     for name, art in ws.SCHEMA.items():
         if art.producer not in wanted:
@@ -53,9 +64,9 @@ def main(argv: list[str]) -> int:
     for pr in problems:
         print(f"✗ {pr}")
     if problems:
-        print(f"\n{len(problems)} problem(s) in the {label} through day {args.day}; {ok} artifact(s) valid.")
+        print(f"\n{len(problems)} problem(s) in the {label} {scope}; {ok} artifact(s) valid.")
         return 1
-    print(f"✓ {label} valid through day {args.day}: {ok} artifact(s)")
+    print(f"✓ {label} valid {scope}: {ok} artifact(s)")
     return 0
 
 
