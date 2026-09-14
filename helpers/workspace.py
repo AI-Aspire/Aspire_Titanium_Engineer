@@ -100,17 +100,20 @@ SCHEMA: dict[str, Artifact] = {a.name: a for a in [
        "DeepEval results for two versions of the agent"),
     _A("release_decision", "demo/release_decision.md", "md", "21", (), "Ship or hold, with evidence"),
     _A("scorecard", "demo/scorecard.jsonl", "jsonl", "project", ("group", "criterion", "score"),
-       "Demo day scores from the cohort's own harness"),
+       "Demo day scores from the cohort's own harness",
+       optional="written only if the cohort holds a demo day"),
 ]}
 
 # Which day each producing module runs on. This is the one place outside
 # docs/schedule/ that knows about days; notebooks never do.
+# Day 4 is the instructors' pick from 14 to 21; day 5 is optional, so its
+# only artifact is the demo scorecard, and only if a demo day is held.
 DAYS: dict[int, tuple[str, ...]] = {
-    1: ("01", "02", "03", "04"),
-    2: ("05", "06", "07", "08"),
-    3: ("09", "10", "11", "12", "13"),
-    4: ("14", "15", "16", "17", "18"),
-    5: ("19", "20", "21", "project"),
+    1: ("01", "02", "03", "04", "05"),
+    2: ("06", "07", "08", "09"),
+    3: ("10", "11", "12", "13"),
+    4: ("14", "15", "16", "17", "18", "19", "20", "21"),
+    5: ("project",),
 }
 
 

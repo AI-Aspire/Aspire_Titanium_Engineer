@@ -16,11 +16,11 @@ worked example called Deskmate, an internal IT helpdesk agent.
 
 | Day | Theme | Modules | Ends with |
 |---|---|---|---|
-| 1 | [Simple prototyping](docs/schedule/day1.md) | 01 to 04 | five-minute pitches |
-| 2 | [Retrieval](docs/schedule/day2.md) | 05 to 08 | measured RAG demos |
-| 3 | [Agents in practice](docs/schedule/day3.md) | 09 to 13 | agent pitches with a capability report |
-| 4 | [Advanced prototyping](docs/schedule/day4.md) | 14 to 18 | a decision per technique |
-| 5 | [Demo day](docs/schedule/day5.md) | 19 to 21 | fifteen-minute demos, scored by your own harness |
+| 1 | [Prototype and retrieve](docs/schedule/day1.md) | 01 to 05 | four-minute pitches |
+| 2 | [Retrieval and agent evals](docs/schedule/day2.md) | 06 to 09 | measured demos with a capability report |
+| 3 | [Agents in practice](docs/schedule/day3.md) | 10 to 13 | agent pitches with guardrail cases |
+| 4 | [Advanced prototyping, instructors' pick](docs/schedule/day4.md) | four of 14 to 21 | a decision per technique |
+| 5 | [Optional instruction](docs/schedule/day5.md) | by request | whatever the cohort asked for, demos if it wants them |
 
 ## Modules
 

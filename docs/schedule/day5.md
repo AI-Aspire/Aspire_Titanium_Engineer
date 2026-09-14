@@ -1,46 +1,26 @@
-# Day 5: demo day
+# Day 5: optional instruction
 
-*Ends with:* fifteen-minute demos per group in front of the executive panel,
-scored with the cohort's own evaluation harness.
+Nothing on this day is required. The room, the instructors, and the model
+server are available, and the day is built from what the cohort asks for.
 
-## Goals
+## What can fill it
 
-- Engineering: a risk register, an attack pass, a release decision with evidence
-- Group: the demo, and a scorecard the judges can read
+- Any module from the day 4 menu the instructors did not pick
+- A second pass at a module a group got stuck in, run against that group's own workspace
+- Open build time on the prototype, with instructors on call
+- A demo day, if the cohort wants one
 
-## Modules
+## If the cohort holds a demo day
 
-| # | Module | Demo | Reads | Writes |
-|---|---|---|---|---|
-| 19 | Responsible AI | 25 min | everything | risk_register |
-| 20 | OWASP LLM top 10 | 35 min | corpus, tools_catalog | owasp_findings |
-| 21 | DeepEval | 35 min | eval_cases, trajectories | deepeval_results, release_decision |
-| project | Demo app | | everything | scorecard |
-
-## Run of show
+Judges score with `project/DEMO_SCORECARD.md`, and each group's own harness
+runs in the room. The scores are written to the workspace as the `scorecard`
+artifact.
 
 | Time | Block | Min | What |
 |---|---|---|---|
-| 9:00 | 🧑‍🏫 | 15 | How demos are scored, with your own harness |
-| 9:15 | 🧑‍🏫 | 20 | The NIST AI risk management framework |
-| 9:35 | 🧑‍💻 | 25 | Module 19: a risk register from your artifacts |
-| 10:00 | 🧑‍🏫 | 15 | The OWASP top 10 for LLM applications |
-| 10:15 | 🧑‍💻 | 35 | Module 20: attack your own agent |
-| 10:50 | ☕ | 15 | |
-| 11:05 | 🧑‍🏫 | 15 | Evaluation frameworks and release decisions |
-| 11:20 | 🧑‍💻 | 35 | Module 21: a release decision with DeepEval |
-| 11:55 | 🧑‍🤝‍🧑 | 20 | Finalise |
-| 12:15 | 🍽 | 60 | |
 | 1:15 | 🧑‍🤝‍🧑 | 45 | Rehearsal. Audio, screen share, hand-offs |
 | 2:00 | 🎤 | 15 | Showcase introduction. Judges |
 | 2:15 | 🎤 | 120 | Demos, fifteen minutes per group including questions |
 | 4:15 | ☕ | 15 | |
-| 4:30 | 🎤 | 20 | Judges' reflections. Awards |
+| 4:30 | 🎤 | 20 | Judges' reflections |
 | 4:50 | 🧑‍🏫 | 10 | Wrap. `make check-day D=5` |
-
-## Reading
-
-- NIST AI risk management framework: https://www.nist.gov/itl/ai-risk-management-framework
-- OWASP top 10 for LLM applications: https://owasp.org/www-project-top-10-for-large-language-model-applications/
-- RAGAS: https://docs.ragas.io
-- DeepEval: https://docs.confident-ai.com
