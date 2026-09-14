@@ -12,12 +12,30 @@ from __future__ import annotations
 
 import argparse
 import os
+import subprocess
 import sys
 
 from _common import ROOT
 sys.path.insert(0, str(ROOT))
 
 from helpers import workspace as ws  # noqa: E402
+
+
+def _landed_modules() -> set[str]:
+    """Module ids whose folder git tracks; every folder present, outside git.
+
+    An author's checkout holds folders that have not landed yet, so presence
+    on disk is not enough there; in CI and in a fresh clone the two agree.
+    """
+    try:
+        out = subprocess.run(["git", "ls-files", "--", "[0-9][0-9]_*"], cwd=ROOT,
+                             capture_output=True, text=True, check=True).stdout
+        tracked = {line.split("/", 1)[0][:2] for line in out.splitlines() if "/" in line}
+        if tracked:
+            return tracked
+    except (OSError, subprocess.CalledProcessError):
+        pass
+    return {p.name[:2] for p in ROOT.glob("[0-9][0-9]_*") if p.is_dir()}
 
 
 def main(argv: list[str]) -> int:
@@ -27,7 +45,7 @@ def main(argv: list[str]) -> int:
     ap.add_argument("--through", metavar="NN",
                     help="only artifacts written by modules up to this one, in course order")
     ap.add_argument("--landed", action="store_true",
-                    help="only artifacts written by modules whose folder exists in this checkout")
+                    help="only artifacts written by modules whose folder git tracks (or exists, outside git)")
     ap.add_argument("--status", action="store_true")
     args = ap.parse_args(argv)
     if args.seed:
@@ -41,8 +59,7 @@ def main(argv: list[str]) -> int:
         # Modules land one at a time, each once its notebook has run green.
         # A module that is in the checkout must have produced its artifacts;
         # one that is not yet cannot be asked for them.
-        present = {p.name[:2] for p in ROOT.glob("[0-9][0-9]_*") if p.is_dir()}
-        wanted = {m for m in order if m in present}
+        wanted = {m for m in order if m in _landed_modules()}
         scope = f"for the {len(wanted)} landed module(s)"
     elif args.through:
         if args.through not in order:
