@@ -100,11 +100,15 @@ def main(argv: list[str]) -> int:
                     continue
                 problems.append(f"{module}: imports '{imp}', which is neither installed nor declared")
                 continue
-            dist = dists[0].lower().replace("_", "-")
+            # A namespace such as `langgraph` is provided by several distributions
+            # (langgraph, langgraph-checkpoint, ...) and their order differs by
+            # platform, so declaring any one of them satisfies the import.
+            names = [d.lower().replace("_", "-") for d in dists]
+            dist = names[0]
             if module in own_env:
-                if dist not in own.get(module, set()) and dist not in where:
+                if not any(n in own.get(module, set()) or n in where for n in names):
                     problems.append(f"{module}: imports '{imp}' ({dist}), not in {module}/pyproject.toml")
-            elif dist not in where:
+            elif not any(n in where for n in names):
                 problems.append(f"{module}: imports '{imp}' ({dist}), not declared in pyproject.toml")
 
     if args.list:
