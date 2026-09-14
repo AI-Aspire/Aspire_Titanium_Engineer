@@ -72,13 +72,50 @@ def run_marimo(nb: Path, *, timeout: int) -> tuple[bool, str]:
     return True, ""
 
 
+def _say(msg: str) -> None:
+    """Progress on stderr, flushed, so a log being tailed shows where a run is."""
+    print(f"  [{time.strftime('%H:%M:%S')}] {msg}", file=sys.stderr, flush=True)
+
+
+def _stderr_of(cell) -> str:
+    return "".join(o.get("text", "") for o in cell.get("outputs", [])
+                   if o.get("output_type") == "stream" and o.get("name") == "stderr")
+
+
 def run_one(nb: Path, *, save: bool, timeout: int) -> tuple[bool, str]:
     import nbformat
     from nbclient import NotebookClient
 
     doc = nbformat.read(nb, as_version=4)
+    total = sum(1 for c in doc.cells if c.cell_type == "code")
+    started: dict[int, float] = {}
+    label = nb.relative_to(ROOT) if nb.is_relative_to(ROOT) else nb
+
+    # A long run must say which cell it is on and what the kernel wrote to
+    # stderr, as it happens. Without this, a notebook that retried a call
+    # for an hour looked the same from outside as one making progress.
+    def on_start(cell, cell_index):
+        if cell.cell_type == "code":
+            started[cell_index] = time.time()
+            first = next((l for l in cell.source.splitlines() if l.strip() and not l.startswith("#")), "")
+            _say(f"{label} cell {cell_index} start: {first[:70]}")
+
+    def on_done(cell, cell_index, execute_reply):
+        if cell.cell_type == "code":
+            _say(f"{label} cell {cell_index} done in {time.time() - started.get(cell_index, time.time()):0.0f}s")
+            for line in _stderr_of(cell).splitlines():
+                if line.strip() and not any(n in line for n in _NOISE):
+                    _say(f"    stderr: {line[:160]}")
+
+    def on_error(cell, cell_index, execute_reply):
+        for o in cell.get("outputs", []):
+            if o.get("output_type") == "error":
+                _say(f"{label} cell {cell_index} ERROR {o.get('ename')}: {str(o.get('evalue', ''))[:200]}")
+
     client = NotebookClient(doc, timeout=timeout, kernel_name="python3",
-                            resources={"metadata": {"path": str(nb.parent)}}, allow_errors=False)
+                            resources={"metadata": {"path": str(nb.parent)}}, allow_errors=False,
+                            on_cell_start=on_start, on_cell_executed=on_done, on_cell_error=on_error)
+    _say(f"{label}: {total} code cells")
     try:
         client.execute()
     except Exception as e:  # noqa: BLE001
@@ -117,9 +154,16 @@ def main(argv: list[str]) -> int:
         elif own_env(mdir):
             cmd = ["uv", "run", "--project", str(mdir), "python", str(ROOT / "scripts/check_execute.py"),
                    "--single", str(nb), "--timeout", str(args.timeout)] + (["--save"] if args.save else [])
-            r = subprocess.run(cmd, text=True, capture_output=True)
-            ok = r.returncode == 0
-            err = _child_error(r.stdout + r.stderr)
+            # Stream the child's output as it comes, and keep a copy for the
+            # verdict; capturing it all would hide an hour of progress lines.
+            proc = subprocess.Popen(cmd, text=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+            lines = []
+            for line in proc.stdout:
+                lines.append(line)
+                if line.startswith("  ["):
+                    print(line, end="", file=sys.stderr, flush=True)
+            ok = proc.wait() == 0
+            err = _child_error("".join(lines))
         else:
             ok, err = run_one(nb, save=args.save, timeout=args.timeout)
         secs = time.time() - t0
