@@ -67,6 +67,24 @@
       "module": "07",
       "count": 6,
       "at": "2026-09-14T15:56:01+00:00"
+    },
+    {
+      "artifact": "tasks",
+      "module": "09",
+      "count": 5,
+      "at": "2026-09-14T19:22:40+00:00"
+    },
+    {
+      "artifact": "trajectories",
+      "module": "09",
+      "count": 10,
+      "at": "2026-09-14T20:02:34+00:00"
+    },
+    {
+      "artifact": "capability_report",
+      "module": "09",
+      "count": 34,
+      "at": "2026-09-14T20:02:34+00:00"
     }
   ]
 }
