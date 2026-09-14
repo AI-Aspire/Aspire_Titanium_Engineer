@@ -1,0 +1,8 @@
+# this module's own environment
+.venv/
+uv.lock
+
+# generated audio (regenerated on run)
+*.wav
+data/session*.json
+__pycache__/

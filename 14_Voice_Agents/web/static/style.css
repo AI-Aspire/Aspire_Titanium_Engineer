@@ -1,0 +1,88 @@
+/* AI Aspire palette: paper ground, slate for structure and actions, clay for
+   human-origin content, bronze for warnings. One light theme. */
+:root {
+  --paper: #F9F8F4; --surface: #FFFFFF; --ink: #16130E;
+  --muted: #5A544B; --line: #E6E2D8; --line-strong: #D6D0C2;
+  --slate: #324457; --slate-hover: #222F3D; --slate-soft: #ECF3FA; --slate-mid: #55718F;
+  --clay: #9A5C48; --clay-soft: #F9EFEB;
+  --bronze: #856A3F; --bronze-soft: #F6F1E9;
+  --planner: #55718F; --researcher: #324457; --aggregator: #6A89AB;
+  --critic: #B77258; --judge: #856A3F; --system: #5A544B;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--paper); color: var(--ink);
+  font: 15px/1.55 "Inter", "InterVariable", ui-sans-serif, system-ui, sans-serif;
+}
+header {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 14px 22px; border-bottom: 1px solid var(--line); background: var(--surface);
+  position: sticky; top: 0; z-index: 5;
+}
+.brand { font-size: 18px; font-family: "Newsreader", "Charter", Georgia, serif; }
+.brand .sub { color: var(--muted); font-size: 13px; font-family: "Inter", ui-sans-serif, system-ui, sans-serif; margin-left: 8px; }
+.meta { color: var(--muted); font-variant-numeric: tabular-nums; }
+#status {
+  max-width: 900px; margin: 16px auto 0; padding: 0 22px; color: var(--muted);
+}
+#ask {
+  max-width: 900px; margin: 14px auto; padding: 0 22px;
+  display: flex; gap: 10px; flex-wrap: wrap;
+}
+#question {
+  flex: 1; min-width: 240px; background: var(--surface); color: var(--ink);
+  border: 1px solid var(--line-strong); border-radius: 8px; padding: 12px 14px; font-size: 15px;
+}
+#question:focus { outline: 2px solid var(--slate-mid); outline-offset: 1px; }
+button {
+  background: var(--slate); color: #fff; border: 1px solid var(--slate); border-radius: 8px;
+  padding: 12px 18px; font-weight: 600; cursor: pointer; font-size: 15px;
+}
+button:hover { background: var(--slate-hover); border-color: var(--slate-hover); }
+button:disabled { opacity: .5; cursor: default; }
+#ptt { background: var(--surface); color: var(--slate); border: 1px solid var(--slate); }
+#ptt.recording { background: var(--clay-soft); color: var(--clay); border-color: var(--clay); }
+
+#tree { max-width: 900px; margin: 0 auto 40px; padding: 0 22px; }
+.card {
+  background: var(--surface); border: 1px solid var(--line); border-left: 4px solid var(--system);
+  border-radius: 8px; padding: 12px 16px; margin: 10px 0; opacity: .6;
+  transition: opacity .3s, box-shadow .3s;
+}
+.card.active { opacity: 1; box-shadow: 0 0 0 1px var(--slate-mid), 0 6px 20px rgba(34, 47, 61, 0.10); }
+.card.done { opacity: 1; }
+.card .who { display: flex; align-items: center; gap: 8px; font-weight: 600; margin-bottom: 4px; }
+.card .voice { color: var(--muted); font-weight: 500; font-size: 12px;
+  border: 1px solid var(--line); border-radius: 20px; padding: 1px 9px; }
+.card .angle { color: var(--muted); font-size: 13px; margin-bottom: 6px; }
+.card .bubble { white-space: pre-wrap; }
+.card.status { border-left-color: var(--system); font-style: italic; color: var(--muted); }
+.card.planner    { border-left-color: var(--planner); }
+.card.researcher { border-left-color: var(--researcher); }
+.card.aggregator { border-left-color: var(--aggregator); }
+.card.critic     { border-left-color: var(--critic); }
+.card.judge      { border-left-color: var(--judge); }
+
+#final {
+  max-width: 900px; margin: 0 auto 60px; padding: 20px 24px;
+  background: var(--surface); border: 1px solid var(--slate-mid); border-radius: 10px;
+}
+#final h2 { margin: 0 0 10px; color: var(--slate); font-family: "Newsreader", "Charter", Georgia, serif; font-weight: 500; }
+#final .body { white-space: pre-wrap; }
+.hidden { display: none; }
+
+/* Tool calls (search / fetch): a compact, unspoken chip that makes the
+   researchers' tool use visible, nested under the research flow. */
+.toolcall {
+  margin: 3px 0 3px 26px;
+  padding: 4px 11px;
+  color: var(--muted);
+  font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 12.5px;
+  border-left: 2px solid var(--slate-mid);
+  background: var(--slate-soft);
+  border-radius: 0 6px 6px 0;
+  white-space: pre-wrap;
+  animation: toolfade .25s ease-out;
+}
+@keyframes toolfade { from { opacity: 0; transform: translateX(-4px); } to { opacity: 1; transform: none; } }

@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Voice research panel</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <header>
+    <div class="brand"><b>Voice research panel</b> <span class="sub">AI Aspire</span></div>
+    <div class="meta"><span id="timer">00:00</span></div>
+  </header>
+
+  <div id="status">Ask a question. A planner splits it, three researchers read your corpus, then a critic and a judge argue over the answer. You hear each of them.</div>
+
+  <div id="ask">
+    <input id="question" placeholder="e.g. Why does the agent answer from a stale page, and what would fix it?" autocomplete="off" />
+    <button id="go">Research</button>
+    <button id="ptt" title="Hold to speak">Hold to talk</button>
+  </div>
+
+  <div id="tree"></div>
+  <div id="final" class="hidden"></div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

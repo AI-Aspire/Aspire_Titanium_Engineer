@@ -30,7 +30,7 @@ mirror of it. Every notebook is three acts: **Learn** the idea from scratch,
 
 | # | Module | Time |
 |---|---|---|
-| 01 | Dev environment | 30 min |
+| 01 | [Dev environment](01_Dev_Environment/) | 30 min |
 | 02 | [Prompt patterns](02_Prompt_Patterns/) | 30 min |
 | 03 | [Agents 101](03_Agents_101/) | 35 min |
 | 04 | [Vibe checks and judges](04_Vibe_Checks_and_Judges/) | 30 min |
