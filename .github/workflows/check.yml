@@ -19,8 +19,11 @@ jobs:
         run: uv python install
         env:
           UV_PYTHON_PREFERENCE: only-managed
+      # Every group, as `make setup` installs them: the syntax check resolves
+      # each notebook's imports, and the optimisation and graph modules import
+      # packages that live in optional groups.
       - name: Install the pinned environment
-        run: uv sync --frozen --group dev
+        run: uv sync --frozen --all-groups
         env:
           UV_PYTHON_PREFERENCE: only-managed
       - name: Prose and brand lint
