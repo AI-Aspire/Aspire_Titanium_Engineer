@@ -5,6 +5,7 @@
     python scripts/check_workspace.py --seed         # the committed seed, all days
     python scripts/check_workspace.py --seed --day 1
     python scripts/check_workspace.py --seed --through 07   # producers up to module 07
+    python scripts/check_workspace.py --seed --landed       # producers whose folder is in the checkout
     python scripts/check_workspace.py --status       # print where each artifact comes from
 """
 from __future__ import annotations
@@ -25,6 +26,8 @@ def main(argv: list[str]) -> int:
     ap.add_argument("--seed", action="store_true", help="validate data/seed/ instead of the workspace")
     ap.add_argument("--through", metavar="NN",
                     help="only artifacts written by modules up to this one, in course order")
+    ap.add_argument("--landed", action="store_true",
+                    help="only artifacts written by modules whose folder exists in this checkout")
     ap.add_argument("--status", action="store_true")
     args = ap.parse_args(argv)
     if args.seed:
@@ -34,7 +37,14 @@ def main(argv: list[str]) -> int:
         return 0
     base = ws.root()
     order = [m for d in sorted(ws.DAYS) for m in ws.DAYS[d]]
-    if args.through:
+    if args.landed:
+        # Modules land one at a time, each once its notebook has run green.
+        # A module that is in the checkout must have produced its artifacts;
+        # one that is not yet cannot be asked for them.
+        present = {p.name[:2] for p in ROOT.glob("[0-9][0-9]_*") if p.is_dir()}
+        wanted = {m for m in order if m in present}
+        scope = f"for the {len(wanted)} landed module(s)"
+    elif args.through:
         if args.through not in order:
             ap.error(f"--through must be one of {order}")
         wanted = set(order[: order.index(args.through) + 1])

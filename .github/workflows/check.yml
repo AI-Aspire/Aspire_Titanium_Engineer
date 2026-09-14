@@ -36,9 +36,9 @@ jobs:
       - name: No secrets or internal endpoints in outputs
         run: uv run python scripts/strip_outputs.py --check
       # The seed grows one module at a time as each notebook is verified against
-      # a model. Raise the bound when a module's artifacts land; drop the flag
-      # once module 21 is in and the seed covers all five days.
+      # a model: every module in the checkout must have its artifacts here.
+      # Drop the flag once all modules are in and the seed covers five days.
       - name: Seed validates
-        run: uv run python scripts/check_workspace.py --seed --through 07
+        run: uv run python scripts/check_workspace.py --seed --landed
       - name: Tests
         run: uv run python -m pytest tests/ -q
