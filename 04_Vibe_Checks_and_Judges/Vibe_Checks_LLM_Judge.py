@@ -27,7 +27,7 @@ def _(mo):
     ## Learn | Create | Grow
 
     ### Learn
-    Why a deliberate vibe check comes before a model judge: a written rubric, your own verdicts, one line of reasoning each. Then how a strict judge is built and validated.
+    Why a deliberate vibe check comes before a model judge: a written rubric, your own verdicts, one line of reasoning each. Then two scorers that cannot judge at all, to fix the floor and the ceiling any judge sits between.
     """)
     return
 
@@ -36,7 +36,7 @@ def _(mo):
 def _(mo):
     mo.md(r"""
     ### Create
-    A rubric and vibe checks for your product, three judges run over your transcripts, your hand scores attached, and a table of where the judges disagree with each other and with you.
+    A rubric and vibe checks for your product, three judges run over your transcripts, your hand scores attached, a table of where the judges disagree with each other and with you, and an interval on every agreement number.
     """)
     return
 
@@ -53,7 +53,7 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    **Estimated time:** 30 minutes
+    **Estimated time:** 35 minutes
     **Reads:** charter, transcripts
     **Writes:** rubric, vibe_checks, judge_scores
     """)
@@ -133,7 +133,7 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ## Task 1 of 7 — Write the rubric
+    ## Task 1 of 9 — Write the rubric
 
     A rubric is a list of aspects, each with one sentence on what pass looks like. Read it before judging anything. You are the judge, so you need to know what you are judging. Edit the aspects to match your charter.
     """)
@@ -166,7 +166,7 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ## Task 2 of 7 — Write the vibe checks
+    ## Task 2 of 9 — Write the vibe checks
 
     A vibe check is an input plus what a good answer must contain. Start from the example questions in your charter and add two of your own. These become the eval cases the retrieval notebooks reuse.
     """)
@@ -197,7 +197,18 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ## Task 3 of 7 — Judge by hand first
+    ### ❓ Question
+    Which of your five vibe checks would the agent most plausibly fail, and what would that failure look like in a transcript?
+
+    Answer:
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ## Task 3 of 9 — Judge by hand first
 
     Read each transcript against the rubric and record a verdict: `pass`, `mixed`, or `fail`, with one line of reasoning. If you are writing a paragraph, you are being too thorough. Your verdicts are the bar the model judge is measured against.
     """)
@@ -223,13 +234,48 @@ def _(ROWS):
     SCALE = {'pass': 10, 'mixed': 5, 'fail': 0}
     HUMAN = [{'id': rid, 'judge': 'human', 'score': SCALE.get(v['verdict']), 'rationale': v['rationale']} for rid, v in YOUR_VERDICTS.items() if v['verdict']]
     print(f'{len(HUMAN)} of {len(ROWS)} transcripts judged by hand')
-    return (HUMAN,)
+    return HUMAN, SCALE
 
 
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
     You should see a count of how many you judged. Fill in at least four before continuing; an empty verdict is skipped.
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ## Task 4 of 9 — Two dumb baselines before any judge
+
+    Before you trust any judge, find out what the agreement number reads when no judging happens. Two scorers that cannot judge: an echo that gives every transcript the middle score, and an oracle that copies your hand score. Run both through the agreement measure the judges get later: per transcript, one minus the gap to your score over ten, then the mean. Echo is the floor a judge must clear. Oracle is the ceiling, and if it reads anything but 1.0 the measure is broken. No model call here.
+    """)
+    return
+
+
+@app.cell
+def _(HUMAN, SCALE):
+    def agreement(scores: dict, human: dict) -> list:
+        """Per-transcript agreement with your hand score: 1.0 is the same score, 0.0 is ten points apart."""
+        return [1 - abs(scores[i] - human[i]) / 10 for i in human if i in scores]
+
+
+    human_by_id = {h["id"]: h["score"] for h in HUMAN}
+    assert human_by_id, "judge at least four transcripts by hand first"
+    echo = {i: SCALE["mixed"] for i in human_by_id}    # has read nothing and says "mixed" every time
+    oracle = dict(human_by_id)                         # cheats: copies your verdicts
+    for name, scorer in [("echo", echo), ("oracle", oracle)]:
+        per_row = agreement(scorer, human_by_id)
+        print(f"{name:<8} agreement {sum(per_row) / len(per_row):.2f}   per transcript {per_row}")
+    return agreement, echo, oracle
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    You should see echo well below 1.0 and oracle at exactly 1.0. Stop here if oracle reads anything else: the agreement measure is wrong, and every judge number that follows would be wrong with it.
     """)
     return
 
@@ -256,7 +302,7 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ## Task 4 of 7 — Build a strict judge
+    ## Task 5 of 9 — Build a strict judge
 
     A judge is another model call with a narrow job. Ask for JSON, then validate it before accepting it: an integer score from 0 to 10, a non-empty rationale, a parseable object. Malformed output is retried once and then reported, never turned into a neutral score.
     """)
@@ -266,26 +312,29 @@ def _(mo):
 @app.cell
 def _(JUDGE_MODEL, LLM, ROWS, json):
     def json_blocks(text: str):
-        blocks, depth, start, in_str, esc = [], 0, None, False, False
-        for i, ch in enumerate(text or ""):
+        blocks, depth, start, in_str, esc = ([], 0, None, False, False)
+        for i, ch in enumerate(text or ''):
             if esc:
-                esc = False; continue
-            if ch == "\\" and in_str:
-                esc = True; continue
+                esc = False
+                continue
+            if ch == '\\' and in_str:
+                esc = True
+                continue
             if ch == '"':
-                in_str = not in_str; continue
+                in_str = not in_str
+                continue
             if in_str:
                 continue
-            if ch == "{":
+            if ch == '{':
                 if depth == 0:
                     start = i
-                depth += 1
-            elif ch == "}" and depth > 0:
-                depth -= 1
+                depth = depth + 1
+            elif ch == '}' and depth > 0:
+                depth = depth - 1
                 if depth == 0 and start is not None:
-                    blocks.append(text[start:i + 1]); start = None
+                    blocks.append(text[start:i + 1])
+                    start = None
         return blocks
-
 
     def parse_judge(text: str) -> dict:
         for blob in reversed(json_blocks(text)):
@@ -293,38 +342,33 @@ def _(JUDGE_MODEL, LLM, ROWS, json):
                 obj = json.loads(blob)
             except json.JSONDecodeError:
                 continue
-            score, rationale = obj.get("score"), obj.get("rationale")
-            if isinstance(score, int) and not isinstance(score, bool) and 0 <= score <= 10 and isinstance(rationale, str) and rationale.strip():
-                return {"score": score, "rationale": rationale.strip()}
+            score, rationale = (obj.get('score'), obj.get('rationale'))
+            if isinstance(score, int) and (not isinstance(score, bool)) and (0 <= score <= 10) and isinstance(rationale, str) and rationale.strip():
+                return {'score': score, 'rationale': rationale.strip()}
         raise ValueError(f"invalid judge reply: {(text or '')[:120]!r}")
+    JUDGE_SYSTEM = 'Evaluate only the requested dimension. Reply with one JSON object: {"score": <integer 0-10>, "rationale": "<one specific sentence>"}.'
 
+    def make_judge(name: str, template: str, retries: int=1):
 
-    JUDGE_SYSTEM = ('Evaluate only the requested dimension. Reply with one JSON object: '
-                    '{"score": <integer 0-10>, "rationale": "<one specific sentence>"}.')
-
-
-    def make_judge(name: str, template: str, retries: int = 1):
         def judge(row: dict) -> dict:
             prompt = template
-            for key in ("question", "response", "evidence"):   # replace, not format: the charter may contain braces
-                prompt = prompt.replace("{" + key + "}", str(row.get(key, "")))
-            messages = [{"role": "system", "content": JUDGE_SYSTEM}, {"role": "user", "content": prompt}]
+            for key in ('question', 'response', 'evidence'):  # replace, not format: the charter may contain braces
+                prompt = prompt.replace('{' + key + '}', str(row.get(key, '')))
+            messages = [{'role': 'system', 'content': JUDGE_SYSTEM}, {'role': 'user', 'content': prompt}]
             for attempt in range(retries + 1):
                 if attempt:
-                    messages.append({"role": "user", "content": "That was invalid. Return only the JSON object."})
+                    messages.append({'role': 'user', 'content': 'That was invalid. Return only the JSON object.'})
                 resp = LLM(messages, model=JUDGE_MODEL, temperature=0.0)
                 try:
-                    return {"id": row["id"], "judge": name, **parse_judge(resp.choices[0].message.content)}
+                    return {'id': row['id'], 'judge': name, **parse_judge(resp.choices[0].message.content)}
                 except ValueError as e:
                     last = e
-            raise RuntimeError(f"judge {name} failed twice") from last
+            raise RuntimeError(f'judge {name} failed twice') from last
         judge.name = name
         return judge
-
-
-    smoke = make_judge("smoke", "Question: {question}\nResponse: {response}\n\nScore how well the response answers the question.")
-    repeat = [smoke(ROWS[0])["score"] for _ in range(3)]
-    print("same answer, three judge calls:", repeat, "range", max(repeat) - min(repeat))
+    smoke = make_judge('smoke', 'Question: {question}\nResponse: {response}\n\nScore how well the response answers the question.')
+    repeat = [smoke(ROWS[0])['score'] for _ in range(3)]
+    print('same answer, three judge calls:', repeat, 'range', max(repeat) - min(repeat))
     return (make_judge,)
 
 
@@ -339,7 +383,7 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ## Task 5 of 7 — Three judges that measure different things
+    ## Task 6 of 9 — Three judges that measure different things
 
     An answer can be clear and wrong. It can be grounded and useless. One score cannot carry that. Build three judges: groundedness against the charter and tool evidence, actionability against the rubric, and clarity on its own. Each judges only its dimension.
     """)
@@ -388,7 +432,18 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ## Task 6 of 7 — Score everything and save
+    ### ❓ Question
+    Read the groundedness rationale for the first transcript. Does it point at a line of the charter or the tool evidence, or does it restate the answer? What does that tell you about the prompt?
+
+    Answer:
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ## Task 7 of 9 — Score everything and save
 
     Run every judge on every transcript. Keep the record flat: one row per transcript per judge, with your hand score attached where you gave one. That file is the evidence, and it is what the prompt-optimisation notebook trains against.
     """)
@@ -397,18 +452,18 @@ def _(mo):
 
 @app.cell
 def _(HUMAN, JUDGES, JUDGE_MODEL, MODEL, ROWS, pd, ui, ws):
-    human_by_id = {h["id"]: h["score"] for h in HUMAN}
+    human_by_id_1 = {h['id']: h['score'] for h in HUMAN}
     SCORES = list(HUMAN)
-    for row in ui.track(ROWS, "judging"):
+    for row in ui.track(ROWS, 'judging'):
         for judge in JUDGES:
             result = judge(row)
-            result.update({"human_score": human_by_id.get(row["id"]), "judge_model": JUDGE_MODEL, "assistant_model": MODEL})
+            result.update({'human_score': human_by_id_1.get(row['id']), 'judge_model': JUDGE_MODEL, 'assistant_model': MODEL})
             SCORES.append(result)
-    ws.save("judge_scores", SCORES)
-    df = pd.DataFrame([s for s in SCORES if s["judge"] != "human"]).pivot(index="id", columns="judge", values="score")
-    df["human"] = pd.Series(human_by_id)
-    ui.table(df, title="score by transcript and judge", float_fmt="{:.0f}")
-    return (df,)
+    ws.save('judge_scores', SCORES)
+    df = pd.DataFrame([s for s in SCORES if s['judge'] != 'human']).pivot(index='id', columns='judge', values='score')
+    df['human'] = pd.Series(human_by_id_1)
+    ui.table(df, title='score by transcript and judge', float_fmt='{:.0f}')
+    return SCORES, df, human_by_id_1
 
 
 @app.cell(hide_code=True)
@@ -422,7 +477,7 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ## Task 7 of 7 — Find disagreement, not a winner
+    ## Task 8 of 9 — Find disagreement, not a winner
 
     The judges measure different things, so averaging them is meaningless. Sort by the spread between them instead. A large spread is a prompt to read the answer and the rationales, not proof that one judge is wrong. Where the judges disagree with you is the most useful row of all.
     """)
@@ -452,7 +507,7 @@ def _(JUDGES, df, matplotlib_style, ui):
     df["spread"] = matrix.max(axis=1) - matrix.min(axis=1)
     df["vs_human"] = (matrix.mean(axis=1) - df["human"]).abs()
     ui.table(df.sort_values("spread", ascending=False), title="rows to read first", float_fmt="{:.1f}")
-    return
+    return (np,)
 
 
 @app.cell(hide_code=True)
@@ -470,6 +525,44 @@ def _(mo):
     Pick the row with the largest spread. Which judge was right, and what evidence told you?
 
     Answer:
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ## Task 9 of 9 — Say how sure you are
+
+    Every agreement number came from a handful of transcripts, so put an interval on it before you rank judges. `bootstrap_ci` resamples the per-transcript agreements and reports where the mean lands 95% of the time. `difference_ci` does the same for the gap between two judges, paired on the same transcripts. The second table shows that gap at your real count, then with the same rows drawn up to 5, 20, and 100: the interval narrows with size alone, so the 100-row line is a demonstration, not evidence. An interval that spans zero means the data fits no difference: the gap could be which transcripts landed in the set. You have not measured a difference, only that you need more transcripts.
+    """)
+    return
+
+
+@app.cell
+def _(JUDGES, SCORES, agreement, echo, human_by_id_1, np, oracle, pd, ui):
+    from helpers.evals import bootstrap_ci, difference_ci
+    per_scorer = {j.name: agreement({s['id']: s['score'] for s in SCORES if s['judge'] == j.name}, human_by_id_1) for j in JUDGES}
+    per_scorer['echo'], per_scorer['oracle'] = (agreement(echo, human_by_id_1), agreement(oracle, human_by_id_1))
+    ci = pd.DataFrame([{'scorer': name, 'n': len(v), **dict(zip(('agreement', 'ci_low', 'ci_high'), bootstrap_ci(v)))} for name, v in per_scorer.items() if v]).set_index('scorer')
+    ui.table(ci, title='agreement with your hand scores, 95% interval')
+    ranked = sorted((j.name for j in JUDGES), key=lambda n: ci.loc[n, 'agreement'])
+    worst, best = (ranked[0], ranked[-1])
+    a, b = (per_scorer[worst], per_scorer[best])
+    rng = np.random.default_rng(0)
+    rows = []
+    for n in (len(a), 5, 20, 100):
+        idx = np.arange(len(a)) if n == len(a) else rng.integers(0, len(a), size=n)
+        diff, lo, hi = difference_ci([a[i] for i in idx], [b[i] for i in idx])
+        rows.append({'n': n, 'difference': diff, 'ci_low': lo, 'ci_high': hi, 'verdict': 'spans zero' if lo <= 0 <= hi else 'clear of zero'})
+    ui.table(pd.DataFrame(rows).set_index('n'), title=f'{best} minus {worst}, the same rows resampled to n')  # the same transcripts, drawn with replacement
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    You should see two tables: agreement per scorer with its interval, echo lowest and oracle at 1.0, then the same judge-versus-judge gap wider at 5 rows and narrower at 100. Stop here if the interval at your real count excludes zero and you were about to call that judge better: read its rationales first.
     """)
     return
 
@@ -519,6 +612,7 @@ def _(mo):
     | Three repeat scores on one case | Repeatability estimates across the whole set |
     | One model writing and judging | A separate judge model, or several |
     | A JSONL file in the workspace | Versioned datasets with prompt and model metadata, tracked per experiment |
+    | An interval from six transcripts | Intervals per slice on hundreds of cases, reported with every number |
     | Reading the heatmap | Release thresholds on calibrated metrics |
     """)
     return

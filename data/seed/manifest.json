@@ -289,6 +289,24 @@
       "module": "15",
       "count": 9,
       "at": "2026-09-15T06:24:50+00:00"
+    },
+    {
+      "artifact": "rubric",
+      "module": "04",
+      "count": 1,
+      "at": "2026-09-15T07:27:12+00:00"
+    },
+    {
+      "artifact": "vibe_checks",
+      "module": "04",
+      "count": 5,
+      "at": "2026-09-15T07:27:12+00:00"
+    },
+    {
+      "artifact": "judge_scores",
+      "module": "04",
+      "count": 24,
+      "at": "2026-09-15T07:34:19+00:00"
     }
   ]
 }
