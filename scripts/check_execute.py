@@ -64,10 +64,13 @@ def run_marimo(nb: Path, *, timeout: int, project: Path | None = None) -> tuple[
     python = ["uv", "run", "--project", str(project), "python"] if project else [sys.executable]
     with tempfile.TemporaryDirectory() as td:
         out = Path(td) / "out.html"
-        r = subprocess.run(
-            python + ["-m", "marimo", "export", "html", str(py), "-o", str(out), "--no-sandbox", "-f"],
-            cwd=ROOT, text=True, capture_output=True, timeout=timeout,
-        )
+        try:
+            r = subprocess.run(
+                python + ["-m", "marimo", "export", "html", str(py), "-o", str(out), "--no-sandbox", "-f"],
+                cwd=ROOT, text=True, capture_output=True, timeout=timeout,
+            )
+        except subprocess.TimeoutExpired:
+            return False, f"still running after {timeout}s; raise --timeout for a long notebook"
     blob = (r.stdout or "") + (r.stderr or "")
     if "some cells failed to execute" in blob or "MarimoExceptionRaised" in blob:
         line = next((l for l in blob.splitlines() if "Error" in l or "Raised" in l), "a cell failed")
