@@ -36,7 +36,7 @@ def _(mo):
 def _(mo):
     mo.md(r"""
     ### Create
-    Every task run more than once with pass^k, a planted regression to prove the harness catches it, and a capability report written from your own agent's runs.
+    Every task run more than once with pass^k, the spread in steps and tool output between identical runs, a planted regression to prove the harness catches it, and a capability report written from your own agent's runs.
     """)
     return
 
@@ -53,7 +53,7 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    **Estimated time:** 45 minutes
+    **Estimated time:** 50 minutes
     **Reads:** corpus, eval_cases
     **Writes:** tasks, trajectories, capability_report
     """)
@@ -137,7 +137,7 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ## Task 1 of 7 — Build the agent under test
+    ## Task 1 of 8 — Build the agent under test
 
     The agent answers from your corpus through one tool. The tool splits every page into `##` sections and returns the three sections that share the most terms with the query. The system prompt tells the agent to search before it answers, to ask one question when it lacks a detail, and to decline anything outside the product. Every trajectory you score comes from this loop.
     """)
@@ -244,7 +244,7 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ## Task 2 of 7 — Compose tasks from your eval cases
+    ## Task 2 of 8 — Compose tasks from your eval cases
 
     An eval case is a question and a reference answer. A task is more: a goal, a persona, an opening message that may leave a detail out, the details the user knows but will only reveal when asked, and a success condition the agent never sees. The model writes the persona and opening for each case. The success condition comes from the reference: the distinctive terms the answer must contain. Two planted tasks cover a request outside scope and a prompt injection.
     """)
@@ -330,7 +330,7 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ## Task 3 of 7 — Simulate the user
+    ## Task 3 of 8 — Simulate the user
 
     The simulated user is another model call with a goal and a list of things it knows. It says what it knows only when asked. It replies `DONE` when its goal is met and `GIVE UP` when the conversation loops. Those two signals are kept apart on purpose: collapsing them would score every success as an abandonment. The loop records every user turn, tool step, and reply, because you cannot rebuild the trace afterwards.
     """)
@@ -402,7 +402,7 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ## Task 4 of 7 — Score the trajectory, not the answer
+    ## Task 4 of 8 — Score the trajectory, not the answer
 
     Two scorers. The programmatic one is free and does not drift: for a lookup task, did at least half the facts appear and did the agent search at all; for the out-of-scope task, did it decline without searching. The judge scores the transcript from 0 to 10 against the reference and is the only scorer for the injection task. Keyword checks reward phrasing, so the judge score is kept next to every programmatic verdict.
     """)
@@ -491,7 +491,7 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ## Task 5 of 7 — Run every task, more than once
+    ## Task 5 of 8 — Run every task, more than once
 
     A model user rephrases and loses patience at different points, so one run is a sample of one. Run each task k times. pass^k is the chance that all k attempts succeed: an agent at 80% has a pass^3 near 0.5, which is not what 80% sounds like. The table shows both numbers per task.
     """)
@@ -542,7 +542,81 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ## Task 6 of 7 — Plant a regression and check the harness catches it
+    ## Task 6 of 8 — Quote the spread
+
+    One pass rate hides how differently the same task ran. Two runs of one task with nothing changed can take twice the steps and read twice the tool output, and both can pass. From the trajectories already collected, count per run the steps, the tool calls, and the characters of tool output that went back into the agent's context. The runs carry no token counts, so characters stand in, and the record keeps the first 600 characters of each result, so the count is a floor. Then quote min, median, and max per task. The spread is what a budget has to survive.
+    """)
+    return
+
+
+@app.cell
+def _(BASELINE, K, pd, ui):
+    def cost_of(tr: dict) -> dict:
+        """What one run cost, read from its recorded steps."""
+        tools = [s for s in tr["steps"] if s["role"] == "tool"]
+        return {"task_id": tr["task_id"], "run": tr["run"], "passed": tr["passed"], "steps": len(tr["steps"]),
+                "tool_calls": len(tools), "tool_chars": sum(len(s.get("result", "")) for s in tools)}
+
+
+    COSTS = pd.DataFrame([cost_of(r) for r in BASELINE])
+    SPREAD = COSTS.groupby("task_id")[["steps", "tool_calls", "tool_chars"]].agg(["min", "median", "max"])
+    shown = pd.DataFrame({metric: SPREAD[metric].apply(lambda r: f"{int(r['min']):,} / {int(r['median']):,} / {int(r['max']):,}", axis=1)
+                          for metric in ("steps", "tool_calls", "tool_chars")})
+    ui.table(shown, title=f"per task over {K} run(s) each: min / median / max (tool output in characters)")
+
+    widest = (SPREAD[("tool_chars", "max")] - SPREAD[("tool_chars", "min")]).idxmax()
+    lo, hi = int(SPREAD.loc[widest, ("tool_chars", "min")]), int(SPREAD.loc[widest, ("tool_chars", "max")])
+    if K == 1:
+        print("Every task ran once, so there is no spread to quote yet. Raise the repeat count and the table grows a range.")
+    elif hi == lo:
+        print(f"No task varied across {K} runs: check the runs are not replaying one opening before you trust that.")
+    else:
+        passed = int(COSTS[COSTS.task_id == widest].passed.sum())
+        print(f"The same task, {widest}, cost {lo:,} to {hi:,} characters of tool output across {K} runs, "
+              f"{int(SPREAD.loc[widest, ('steps', 'min')])} to {int(SPREAD.loc[widest, ('steps', 'max')])} steps, and passed {passed} of {K}.")
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    You should see a table with one row per task and min, median, and max for steps, tool calls, and tool output characters, then one sentence naming the task with the widest spread. Stop here if every min equals its max across three runs: the runs are identical, so check the simulated user is not replaying one opening.
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ### Budget at a percentile
+
+    Two runs of one agent task, identical model, prompt, tools, and settings, both correct:
+
+    | Run | Steps | Tool calls | Tokens |
+    |---|---|---|---|
+    | 1 | 9 | 16 | 45,792 |
+    | 2 | 11 | 32 | 96,788 |
+
+    More than double the tokens from identical inputs. A step budget tuned to the first run kills the second. A latency promise written from one measurement is fiction. So set a budget at the 95th percentile of many runs and quote the spread, never the mean. "It worked when I tried it" is a sample of one from a distribution you have not seen. The table above is the start of it.
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ### ❓ Question
+    Which task varied most between runs, and what in its trajectories explains it: a different opening from the simulated user, an extra search, a longer tool result, or a user who gave up early?
+
+    Answer:
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ## Task 7 of 8 — Plant a regression and check the harness catches it
 
     A harness you have not seen fail is not a harness. Break the retriever on purpose: every query returns the same first section. Run the same tasks once against the broken agent. Lookup tasks should drop. The out-of-scope and injection tasks should hold, because they never depended on retrieval. If nothing moves, the harness is measuring phrasing, not behaviour.
     """)
@@ -596,18 +670,7 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ### ❓ Question
-    Which category moved most under the planted regression, and which did not move at all? What does the unmoved one tell you about what it measures?
-
-    Answer:
-    """)
-    return
-
-
-@app.cell(hide_code=True)
-def _(mo):
-    mo.md(r"""
-    ## Task 7 of 7 — Write the capability report
+    ## Task 8 of 8 — Write the capability report
 
     The report is the artifact you defend every future change against. It names the agent and the model, gives the pass rate and pass^k per task, quotes the worst failure and the turn where it went wrong, and records the planted regression and whether the harness caught it. Later notebooks read this file.
     """)
@@ -671,6 +734,17 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
+    ### ❓ Question
+    Which category moved most under the planted regression, and which did not move at all? What does the unmoved one tell you about what it measures?
+
+    Answer:
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
     ## Your turn
 
     Add a scorer the final answer cannot show: did the agent ask the same question twice? Run it over the saved trajectories, count how many runs it flags, and explain to a teammate why a repeated question is invisible to both the fact check and the judge.
@@ -711,7 +785,7 @@ def _(mo):
     |---|---|
     | Six tasks from the eval cases plus two planted | Hundreds of tasks from targets, capabilities, and personas |
     | One model as agent, user, and judge | Separate models, the simulator validated against an oracle |
-    | Three repeats and pass^k | Enough repeats for confidence intervals, tracked per release |
+    | Three repeats, pass^k, a spread | Enough repeats for a p95 budget, tracked per release |
     | Keyword facts plus one judge | State assertions, calibrated judges, human review of disagreements |
     | One planted regression | Regressions replayed from real incidents before every release |
     | A markdown report in the workspace | A dashboard with per-capability trends and release gates |

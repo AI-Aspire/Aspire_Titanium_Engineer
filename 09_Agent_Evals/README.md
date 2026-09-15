@@ -6,12 +6,12 @@
 Agent evals as tasks with a goal and a hidden success condition, a simulated user that only reveals what it is asked, and scoring over the whole trajectory rather than the last message.
 
 ### Create
-Every task run more than once with pass^k, a planted regression to prove the harness catches it, and a capability report written from your own agent's runs.
+Every task run more than once with pass^k, the spread in steps and tool output between identical runs, a planted regression to prove the harness catches it, and a capability report written from your own agent's runs.
 
 ### Grow
 Production agent evals run on every change to the prompt, tools, or retriever, and the capability report is what a release manager reads. Bring your team the worst failure.
 
-**Estimated time:** 45 minutes
+**Estimated time:** 50 minutes
 **Reads:** corpus, eval_cases
 **Writes:** tasks, trajectories, capability_report
 
@@ -34,8 +34,9 @@ Production agent evals run on every change to the prompt, tools, or retriever, a
 | 3 | Simulate the user and record a full trajectory |
 | 4 | Score the trajectory programmatically and with a judge |
 | 5 | Run every task k times and compute pass^k |
-| 6 | Plant a regression and check the harness catches it |
-| 7 | Write the capability report |
+| 6 | Quote the spread: steps, tool calls, and tool output per run, min to max per task |
+| 7 | Plant a regression and check the harness catches it |
+| 8 | Write the capability report |
 
 ## Setup
 
