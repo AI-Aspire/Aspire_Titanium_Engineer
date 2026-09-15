@@ -238,10 +238,15 @@ def _(SCALE, TEST, TOL, dspy):
     def evaluate(program, examples, label: str) -> float:
         ok = 0
         for ex in examples:
-            got = as_int(program(question=ex.question, response=ex.response).score)
+            try:
+                got = as_int(program(question=ex.question, response=ex.response).score)
+            except Exception as e:  # noqa: BLE001  an empty or unparseable reply is a wrong answer, not a crash
+                got, note = -100, f"  ({type(e).__name__}: no usable reply)"
+            else:
+                note = ""
             hit = abs(got - ex.score) <= TOL
             ok += hit
-            print(f"  {'✅' if hit else '❌'} judge={got:>3}  human={ex.score:>3}  {ex.question[:60]}")
+            print(f"  {'✅' if hit else '❌'} judge={got:>3}  human={ex.score:>3}  {ex.question[:60]}{note}")
         acc = ok / max(1, len(examples))
         print(f"  {label}: {ok}/{len(examples)} agree ({acc:.0%})\n")
         return acc

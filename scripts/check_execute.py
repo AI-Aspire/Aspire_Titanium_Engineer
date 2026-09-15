@@ -73,8 +73,16 @@ def run_marimo(nb: Path, *, timeout: int, project: Path | None = None) -> tuple[
             return False, f"still running after {timeout}s; raise --timeout for a long notebook"
     blob = (r.stdout or "") + (r.stderr or "")
     if "some cells failed to execute" in blob or "MarimoExceptionRaised" in blob:
-        line = next((l for l in blob.splitlines() if "Error" in l or "Raised" in l), "a cell failed")
-        return False, line.strip()[:200]
+        lines = blob.splitlines()
+        i = next((k for k, l in enumerate(lines) if "Error" in l or "Raised" in l), None)
+        if i is None:
+            return False, "a cell failed"
+        # The lines around the first error name the cell and the frames, which
+        # the verdict alone does not.
+        for l in lines[max(0, i - 12): i + 4]:
+            if l.strip():
+                _say(f"    | {_ANSI.sub('', l)[:200]}")
+        return False, lines[i].strip()[:200]
     if r.returncode != 0:
         return False, blob.strip().splitlines()[-1][:200] if blob.strip() else f"exit {r.returncode}"
     return True, ""
