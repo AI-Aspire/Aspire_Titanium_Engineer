@@ -72,6 +72,25 @@ Outputs are committed, because they are what makes a notebook readable on
 GitHub. `make scrub` removes anything that must not be committed (keys, internal
 endpoints, home paths, oversized cells). CI fails on an unscrubbed notebook.
 
+### Interactive guides
+
+Some notebooks are reading guides for interactive Claude Code. Their tasks use
+conversation messages in place of code cells. Keep Learn, Create, Grow, the
+original lessons, and student-owned questions. The student interprets evidence;
+Claude may run the experiments described in the module README.
+
+Put extracted algorithms in a separate `*_tools.py`. The Python file with the
+notebook's name remains a generated marimo mirror. Keep real recorded results
+with provenance, and label any omitted source text. Do not present model output
+as a verified answer or fill the student's Your turn exercise.
+
+Test the tools directly, including real runs and optional workspace saves.
+`make execute` only renders these Markdown-only guides; it does not test their
+experiments. Likewise, `make seed` does not regenerate their artifacts from
+reading-guide cells. Use the documented experiment tools when regenerating
+those artifacts. Workspace writes are explicit; seed fallback supports reading
+and experimenting without a mandatory conversation-export workflow.
+
 ## Layout
 
 ```

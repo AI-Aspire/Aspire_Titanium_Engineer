@@ -16,7 +16,7 @@ def _(mo):
     mo.md(r"""
     # DCI vs agentic RAG
 
-    Your corpus already exists as pages. The question is what interface the agent gets to it: a retriever that returns ranked chunks, or file tools that list, search, and read the pages themselves. This notebook builds both, holds everything else constant, and scores them on your eval cases.
+    Compare two ways an agent reaches your corpus: ranked sections or tools that list, search, and read pages. Use interactive Claude Code to run the same experiment loop with each interface and inspect the evidence.
     """)
     return
 
@@ -65,59 +65,37 @@ def _(mo):
     mo.md(r"""
     ## Setup
 
-    Two terms. Direct corpus interaction, DCI, means the agent lists, searches, and reads the pages with file tools. Agentic RAG means the agent calls a retriever that returns ranked chunks and may call it again with a new query. The model, the loop, the questions, and the scoring stay the same; only the tools change.
+    Open interactive Claude Code in the repository. Use this guide as a sequence of messages. Claude runs the existing experiment tools; you inspect results and make the decisions. The experiment model comes from `.env`, independently of the model chatting with you.
     """)
     return
-
-
-@app.cell
-def _():
-    import json, re, time, textwrap
-
-    import pandas as pd
-    from openai import OpenAI
-    from rank_bm25 import BM25Okapi
-
-    from helpers.config import KEY, LLM_BASE, LLM_MODEL, require, budget
-    from helpers import workspace as ws, ui
-    from helpers.llm import client
-    from helpers.display import show
-    from helpers.judge import make_judge, parse_json
-
-    require("OPENAI_API_KEY")
-    client = client()
-    CORPUS_DIR = ws.load_path("corpus")
-    PAGES = {}
-    for p in sorted(CORPUS_DIR.rglob("*.md")):
-        rel = p.relative_to(CORPUS_DIR).as_posix()
-        if not rel.startswith("wiki/") and rel != "vibe_checks.md":   # the wiki is built below; the vibe checks page is the answer key
-            PAGES[rel] = p.read_text(encoding="utf-8")
-    CASES = ws.load("eval_cases")
-    print(f"✅ model {LLM_MODEL}; {len(PAGES)} pages; {len(CASES)} eval cases")
-    return (
-        BM25Okapi,
-        CASES,
-        LLM_MODEL,
-        PAGES,
-        budget,
-        client,
-        json,
-        make_judge,
-        parse_json,
-        pd,
-        re,
-        show,
-        textwrap,
-        time,
-        ui,
-        ws,
-    )
 
 
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    You should see a ✅ line with the model, a page count above five, and at least four eval cases. Stop here if the page count is zero: the corpus has not been built, so run the RAG notebook first or let the seed carry it.
+    ### Message to Claude
+
+    > Read the README beside this guide and inspect agentic_tools.py. Run inspect. Tell me which model and corpus are active, whether the cases come from workspace or seed, and the page and section counts. Do not save results yet.
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    You should see the model, input sources, page names, and eval cases. Stop here if the corpus or cases are empty.
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ### Read the implementation
+
+    The README beside this guide documents the commands Claude can run. `agentic_tools.py` contains the original experiment algorithms, extracted from the code cells. The other Python file is a generated marimo view of this guide. Reading source is optional; interpreting the results is your work.
+
+    Keep the current experiment results in the session. Ask Claude to run a new experiment only when the instructions call for one.
     """)
     return
 
@@ -140,32 +118,20 @@ def _(mo):
     return
 
 
-@app.cell
-def _(LLM_MODEL, PAGES, client, parse_json, show, ws):
-    def outline(text: str) -> tuple:
-        """(title, section headings) of one markdown page."""
-        lines = text.splitlines()
-        title = next((l[2:].strip() for l in lines if l.startswith('# ')), '')
-        return (title, [l[3:].strip() for l in lines if l.startswith('## ')])
-    DIGEST = '\n'.join((f"- {name} | {outline(t)[0]} | {' '.join(t.split())[:200]}" for name, t in PAGES.items()))
-    reply = client.chat.completions.create(model=LLM_MODEL, temperature=0, messages=[{'role': 'user', 'content': 'For each page below write one line, under fifteen words, saying what a reader should use it for. Return one JSON object: {"notes": [{"page": "<name>", "use_it_for": "<line>"}]}\n\n' + DIGEST}])
-    parsed = parse_json(reply.choices[0].message.content) or {}
-    USE = {n.get('page'): n.get('use_it_for', '') for n in parsed.get('notes', []) if isinstance(n, dict)}
-    rows = ['# Wiki index', '', 'Use this index to decide which page to read. Page names are stable tool inputs.', '', '| Page | Use it for | Sections |', '|---|---|---|']
-    for name, _text in PAGES.items():
-        title, heads = outline(_text)
-        rows.append(f"| `{name}` | {USE.get(name) or title or name} | {', '.join(heads[:5])} |")
-    rows += ['', 'Suggested navigation:', '', '- Start from the charter for what the product is and refuses to do, then follow a term to the page that operates on it.', '- For a question about a past request, read the whole transcript rather than one matching line.', "- When a search matches lines on several pages, read each page's section before answering."]
-    WIKI = '\n'.join(rows)
-    ws.save('wiki', WIKI)
-    show(WIKI)
-    return (WIKI,)
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ### Message to Claude
+
+    > Run wiki and show me the proposed purpose lines beside the page headings. Explain how outline builds the skeleton before the model adds descriptions. Let me check the descriptions against the source pages before we use a reviewed wiki for comparison.
+    """)
+    return
 
 
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    You should see a ✅ line and a rendered table with one row per page, a purpose line, and its sections. Stop here if the purpose column repeats the page title for every row: the model did not return JSON, so print `reply.choices[0].message.content` and check it.
+    You should see one wiki row per page. Purpose lines are model proposals. Stop here if a description does not match its page.
     """)
     return
 
@@ -180,59 +146,20 @@ def _(mo):
     return
 
 
-@app.cell
-def _(BM25Okapi, CASES, PAGES, WIKI, re, textwrap):
-    TOKEN = re.compile('[a-z0-9$%]+')
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ### Message to Claude
 
-    def tokenize(text: str) -> list:
-        return TOKEN.findall(text.lower())
-    chunks = []
-    for page, _text in PAGES.items():
-        sections = re.split('(?=^## )', _text, flags=re.M)
-        for i, section in enumerate((s for s in sections if s.strip())):
-            chunks.append({'id': f'{page}#s{i}', 'page': page, 'text': section.strip()})
-    bm25 = BM25Okapi([tokenize(c['text']) for c in chunks])
-
-    def search_chunks(query: str, k: int=4) -> str:
-        scores = bm25.get_scores(tokenize(query))
-        order = sorted(range(len(chunks)), key=lambda i: scores[i], reverse=True)[:max(1, min(k, 8))]
-        return '\n\n---\n\n'.join((f"[{chunks[i]['id']}]\n{chunks[i]['text'][:1000]}" for i in order))
-
-    def list_pages() -> str:
-        return WIKI
-
-    def grep_wiki(pattern: str) -> str:
-        try:
-            rx = re.compile(pattern, re.I)
-        except re.error:
-            rx = re.compile(re.escape(pattern), re.I)
-        hits = []
-        for page, text in PAGES.items():
-            for number, line in enumerate(text.splitlines(), 1):
-                if rx.search(line):
-                    hits.append(f'{page}:{number}: {line}')
-        return '\n'.join(hits[:40]) or '(no matches)'
-
-    def read_page(page: str) -> str:
-        return PAGES[page][:12000] if page in PAGES else f'(unknown page: {page})'
-
-    def schema(name, description, properties, required=()):
-        return {'type': 'function', 'function': {'name': name, 'description': description, 'parameters': {'type': 'object', 'properties': properties, 'required': list(required)}}}
-    RAG_FUNCS = {'search_chunks': search_chunks}
-    RAG_TOOLS = [schema('search_chunks', 'Search ranked corpus sections. Search again with a new query when evidence is incomplete.', {'query': {'type': 'string'}, 'k': {'type': 'integer'}}, ['query'])]
-    DCI_FUNCS = {'list_pages': list_pages, 'grep_wiki': grep_wiki, 'read_page': read_page}
-    DCI_TOOLS = [schema('list_pages', 'Read the wiki index: every page name, what it is for, and its sections.', {}), schema('grep_wiki', 'Search exact text or a regular expression across all pages; returns page:line: text.', {'pattern': {'type': 'string'}}, ['pattern']), schema('read_page', 'Read one complete page by its name from the index.', {'page': {'type': 'string', 'enum': sorted(PAGES)}}, ['page'])]
-    MODES = {'agentic_rag': (RAG_TOOLS, RAG_FUNCS), 'dci': (DCI_TOOLS, DCI_FUNCS)}
-    print(f'RAG index: {len(chunks)} sections over {len(PAGES)} pages')
-    print(textwrap.shorten(search_chunks(CASES[0]['question'], 2), 300))
-    print(grep_wiki('ticket')[:300])
-    return (MODES,)
+    > Run interfaces for the first eval question. Show the ranked sections, matching lines, and a whole-page result. Walk me through search_chunks, list_pages, grep_wiki, and read_page in the source. Which evidence and limits does each expose?
+    """)
+    return
 
 
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    You should see the section count, a chunk result with a `page#s` id, and grep lines in `page:line:` form. Stop here if grep returns no matches for a word you know is in the corpus: the pattern is being compiled as a regex, so escape it.
+    You should see section IDs, page-and-line matches, and page text. Stop here if you cannot trace a result back to its source. Whole-page reads are capped at 12,000 characters.
     """)
     return
 
@@ -253,51 +180,46 @@ def _(mo):
     mo.md(r"""
     ## Task 3 of 5 — One loop for both
 
-    The loop is the same for both modes: send the question and the tools, run whatever the model calls, append the results, repeat until it answers or hits the turn limit. It records every call and how many characters came back. Keeping the loop identical means any difference in behaviour comes from the interface, not the orchestration.
+    Both modes use the same model, question, system prompt, and turn limit. Only the tool interface changes. The trace records calls, returned evidence, and elapsed time. This controls the setup; model variability still affects individual runs.
     """)
     return
-
-
-@app.cell
-def _(CASES, LLM_MODEL, MODES, client, json, textwrap, time):
-    SYSTEM = 'Answer questions about the product only from tool evidence. Investigate before answering. Name the page you used. If the evidence is incomplete, say so.'
-
-    def run_agent(question: str, tools: list, funcs: dict, max_turns: int=6) -> dict:
-        messages = [{'role': 'system', 'content': SYSTEM}, {'role': 'user', 'content': question}]
-        trace, chars, started = ([], 0, time.perf_counter())
-        for _ in range(max_turns):
-            msg = client.chat.completions.create(model=LLM_MODEL, temperature=0, messages=messages, tools=tools, tool_choice='auto').choices[0].message
-            calls = msg.tool_calls or []
-            if not calls:
-                return {'answer': (msg.content or '').strip(), 'trace': trace, 'evidence_chars': chars, 'latency_s': round(time.perf_counter() - started, 2), 'stopped': 'answer'}
-            shaped = [{'id': c.id, 'type': 'function', 'function': {'name': c.function.name, 'arguments': c.function.arguments}} for c in calls]
-            messages.append({'role': 'assistant', 'content': msg.content or '', 'tool_calls': shaped})
-            for call in shaped:
-                name = call['function']['name']
-                try:
-                    args = json.loads(call['function']['arguments'] or '{}')
-                    if name not in funcs:
-                        raise KeyError(f'unknown tool {name}')
-                    result = str(funcs[name](**args))
-                except Exception as exc:
-                    args, result = ({}, f'(tool error: {type(exc).__name__}: {exc})')
-                chars += len(result)
-                trace.append({'tool': name, 'args': args, 'chars': len(result)})
-                messages.append({'role': 'tool', 'tool_call_id': call['id'], 'content': result})
-        return {'answer': '(max turns reached)', 'trace': trace, 'evidence_chars': chars, 'latency_s': round(time.perf_counter() - started, 2), 'stopped': 'max_turns'}
-    question = CASES[0]['question']
-    print('Q:', question)
-    for _mode, (_tools, _funcs) in MODES.items():
-        _r = run_agent(question, _tools, _funcs)
-        print(f"\n[{_mode}] {' -> '.join((t['tool'] for t in _r['trace'])) or '(no tools)'} | {_r['evidence_chars']} chars | {_r['latency_s']}s")
-        print(textwrap.shorten(_r['answer'], 400))
-    return (run_agent,)
 
 
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    You should see one block per mode: the tool sequence, the characters of evidence read, the latency, and a short answer that names a page. Stop here if a mode says max turns reached: the model is looping on the same call, so read its trace before scoring anything.
+    ### Message to Claude
+
+    > Run compare on the first eval question, using the reviewed wiki if available. Show both answers and their full tool traces, evidence characters, elapsed time, and stop reason. Explain the message loop in run_agent. Keep the comparison inside that loop so both modes use the same model and settings.
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    You should see both answers and the evidence each received. Stop here if either reaches the turn limit or answers without evidence; inspect that failure before scoring.
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    <details><summary>Recorded experiment: inspect calls beside scores</summary>
+
+    Real seed run with `gpt-4.1-mini`. These are tool outputs, not an interactive UI capture. Full runs and evidence: `data/recorded_experiments.json`.
+
+    | Case | Mode | Judge /10 | Calls | Stop |
+    |---|---|---|---|---|
+    | v01 | agentic_rag | 7 | 1 | answer |
+    | v01 | dci | 9 | 1 | answer |
+    | v04 | agentic_rag | 9 | 0 | answer |
+    | v04 | dci | 10 | 1 | answer |
+
+    A high judge score can coexist with zero evidence calls. That violates the experiment's evidence-only instruction even when the answer sounds right. Inspect the trace before choosing a mode. A new run may differ.
+
+    </details>
     """)
     return
 
@@ -320,26 +242,20 @@ def _(mo):
     return
 
 
-@app.cell
-def _(CASES, MODES, budget, make_judge, pd, run_agent, ui, ws):
-    coverage = make_judge('coverage', 'Question: {question}\nA good answer includes: {reference}\nAnswer: {response}\n\nScore 0-10 how completely and accurately the answer covers what a good answer includes.', needs_reference=True)
-    RUNS = []
-    for _case in ui.track(CASES[:budget(len(CASES), 3)], 'both modes'):
-        for _mode, (_tools, _funcs) in MODES.items():
-            _r = run_agent(_case['question'], _tools, _funcs)
-            verdict = coverage({'question': _case['question'], 'response': _r['answer'], 'reference': _case['reference']})
-            expected = _case.get('pages') or []
-            RUNS.append({'question': _case['question'], 'mode': _mode, 'answer': _r['answer'], 'case_id': _case['id'], 'score': verdict['score'], 'rationale': verdict['rationale'], 'named_expected_page': any((p.lower() in _r['answer'].lower() for p in expected)) if expected else None, 'calls': len(_r['trace']), 'evidence_chars': _r['evidence_chars'], 'latency_s': _r['latency_s'], 'stopped': _r['stopped'], 'trace': _r['trace']})
-    ws.save('agentic_runs', RUNS)
-    results = pd.DataFrame(RUNS)
-    ui.table(results.pivot(index='case_id', columns='mode', values='score'), title='judge score per case', float_fmt='{:.0f}')
-    return (results,)
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ### Message to Claude
+
+    > Run score over the current eval cases with both modes, using the same reviewed wiki. Show scores and rationales per case, whether each answer names an expected page, tool calls, evidence characters, latency, and stop reason. Keep failed or missing judge scores visible. Do not save yet.
+    """)
+    return
 
 
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    You should see a ✅ line with two rows per case and a table of judge scores, one column per mode. Stop here if a column is all None: the judge did not return JSON, so print one rationale and check the model's reply.
+    You should see two runs per case. Naming an expected page is a string check, not proof that the citation supports the answer. Stop here if a judge score is missing.
     """)
     return
 
@@ -360,30 +276,25 @@ def _(mo):
     mo.md(r"""
     ## Task 5 of 5 — Inspect the difference
 
-    There is no universal winner. Agentic RAG is usually cheaper when a question maps to one or two sections. DCI earns its extra calls when page structure, exact identifiers, or evidence on two pages matter, and it gives the model broader raw access, which production must gate per caller. Read the traces, not only the averages.
+    Read the biggest score gap and both routes before comparing averages. A retriever may find a useful section cheaply; file navigation may help with exact strings or evidence across pages. These are hypotheses to test on your cases. Neither interface is guaranteed to win.
     """)
-    return
-
-
-@app.cell
-def _(results, textwrap, ui):
-    summary = results.groupby("mode").agg(score=("score", "mean"), calls=("calls", "mean"),
-                                          evidence_chars=("evidence_chars", "mean"), latency_s=("latency_s", "mean"))
-    ui.table(summary, title="average per mode", float_fmt="{:.2f}")
-
-    for case_id, group in results.groupby("case_id", sort=False):
-        print(f"\n=== {case_id}: {group.iloc[0]['question']}")
-        for _, row in group.iterrows():
-            route = " -> ".join(t["tool"] for t in row["trace"]) or "(no tools)"
-            print(f"[{row['mode']}] score {row['score']} | {route} | {row['evidence_chars']} chars")
-            print("   ", textwrap.shorten(row["answer"], 260))
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    You should see a two-row summary and, per case, both traces with their scores and answers. Stop here if DCI never calls `read_page`: it is answering from grep lines alone, so tighten the system prompt to require reading the page before answering.
+    ### Message to Claude
+
+    > Using the results already produced, show mean score, calls, evidence characters, and latency by mode. Open the evidence for the largest score gap. Separate retrieval mistakes from answer mistakes. Do not choose an interface for my product; I will make that decision.
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    You should see a two-row summary and the underlying runs. Stop here if a conclusion depends only on averages or on page-name matches. Evidence characters and latency are proxies, not token billing.
     """)
     return
 
@@ -398,18 +309,23 @@ def _(mo):
     return
 
 
-@app.cell
-def _(MODES, run_agent, textwrap):
-    MY_CASES = [{'id': 'exact', 'question': '', 'reference': '', 'pages': []}, {'id': 'two_pages', 'question': '', 'reference': '', 'pages': []}]
-    for _case in [c for c in MY_CASES if c['question']]:
-        print(f"\n=== {_case['id']}: {_case['question']}")
-        for _mode, (_tools, _funcs) in MODES.items():
-            _r = run_agent(_case['question'], _tools, _funcs)
-            named = [p for p in _case['pages'] if p.lower() in _r['answer'].lower()]
-            print(f"[{_mode}] {' -> '.join((t['tool'] for t in _r['trace'])) or '(no tools)'} | named {named or 'no expected page'}")
-            print('   ', textwrap.shorten(_r['answer'], 300))
-    if not any((c['question'] for c in MY_CASES)):
-        print('fill in at least one case above, then rerun')
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    Describe your two cases and expected pages to Claude. Ask it to run those cases only after you have supplied your reasoning. You can inspect or modify the existing tools once you have chosen your approach.
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    <details><summary>Keep measured artifacts for later use</summary>
+
+    The tool can save its real outputs through `helpers.workspace` when you ask Claude to use `--save`. This runs an experiment and saves its results; it does not export your Claude conversation. Review inputs first. If you leave the workspace empty, readers use the labeled seed fallback.
+
+    </details>
+    """)
     return
 
 

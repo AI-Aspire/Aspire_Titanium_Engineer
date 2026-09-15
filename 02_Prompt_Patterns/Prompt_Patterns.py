@@ -16,7 +16,7 @@ def _(mo):
     mo.md(r"""
     # Prompt patterns
 
-    Before you reach for retrieval, a framework, or a new model, try prompting better. It is the cheapest lever you have. This notebook builds seven prompt patterns from scratch against your own charter, and saves every input and output so later notebooks can retrieve over them.
+    Try seven prompt patterns in Claude Code. Compare the answers and decide what helped. Each example includes a prompt to paste and a recorded response to inspect.
     """)
     return
 
@@ -27,25 +27,13 @@ def _(mo):
     ## Learn | Create | Grow
 
     ### Learn
-    Seven prompt patterns, each shown weak first: persona, few-shot, reasoning budget, structured output, pasted context, self-refine, meta-prompting. Why each one works, in one call each.
-    """)
-    return
+    Compare persona, examples, reasoning effort, requested output formats, and supplied facts.
 
-
-@app.cell(hide_code=True)
-def _(mo):
-    mo.md(r"""
     ### Create
-    A pitch for your product refined against explicit criteria, a system prompt for your assistant written by the model, and every prompt of the session saved as your first corpus.
-    """)
-    return
+    Add requirements to a draft, generate and test an instruction, then apply the patterns to your own project.
 
-
-@app.cell(hide_code=True)
-def _(mo):
-    mo.md(r"""
     ### Grow
-    Prompts in production are versioned like code, tested against a regression set, and routed by budget. Ask your team which pattern moved your task most, and whether it is written down anywhere.
+    Turn useful prompts into templates and test them across representative inputs.
     """)
     return
 
@@ -54,8 +42,6 @@ def _(mo):
 def _(mo):
     mo.md(r"""
     **Estimated time:** 30 minutes
-    **Reads:** charter
-    **Writes:** prompts
     """)
     return
 
@@ -65,51 +51,38 @@ def _(mo):
     mo.md(r"""
     ## Setup
 
-    The helper below makes one chat call. `instructions` is the system prompt, `effort` is the reasoning budget for models that have one. Every call is recorded in `PROMPTS` so the last cell can save the whole session.
+    Open Claude Code alongside this guide. Keep the same model and effort setting except when testing `/effort`.
+
+    Use `/clear` before independent comparisons. Stay in the same conversation for the self-refine draft and revision. Paste each quoted prompt as one message.
+
+    [Interactive commands](https://code.claude.com/docs/en/commands)
     """)
     return
-
-
-@app.cell
-def _():
-    import json, time
-
-    from openai import OpenAI
-    from IPython.display import display, Markdown
-
-    from helpers.config import KEY, LLM_BASE, LLM_MODEL, require
-    from helpers import workspace as ws
-    from helpers.llm import client
-
-    require("OPENAI_API_KEY")
-    client = client()
-    MODEL = LLM_MODEL
-    PROMPTS: list[dict] = []
-
-    def ask(user, instructions=None, effort=None, pattern="ad hoc", **kw) -> str:
-        """One chat call. `user` is a string or a list of role-message dicts."""
-        messages = [{"role": "system", "content": instructions}] if instructions else []
-        messages += [{"role": "user", "content": user}] if isinstance(user, str) else user
-        if effort:
-            kw["reasoning_effort"] = effort
-        resp = client.chat.completions.create(model=MODEL, messages=messages, **kw)
-        text = resp.choices[0].message.content or ""
-        PROMPTS.append({"pattern": pattern, "input": user if isinstance(user, str) else json.dumps(user),
-                        "output": text, "model": MODEL, "instructions": instructions or ""})
-        return text
-
-    def show(text: str) -> None:
-        display(Markdown(text))
-
-    CHARTER = ws.load("charter")
-    print(f"✅ model {MODEL} at {LLM_BASE or 'api.openai.com'}; charter is {len(CHARTER.split())} words")
-    return CHARTER, MODEL, PROMPTS, ask, client, json, show, time, ws
 
 
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    You should see a ✅ line naming the model and the charter length, and possibly an ℹ line saying the charter comes from the seed. Stop here if you get a missing-key error: copy `.env.template` to `.env` and fill it in.
+    ### What stays in context
+
+    `/clear` removes conversation history, but application and repository instructions remain. The role you paste is a user instruction; Claude Code manages its own system instructions.
+
+    If Claude reads files or uses tools, it has extra information. Keep that in mind when comparing it with an answer based only on the pasted text.
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    <details>
+    <summary>About the recorded responses</summary>
+
+    These are actual Claude Code responses, generated programmatically for reference. They used claude-sonnet-5, with tools disabled and repository instructions loaded. Effort was medium except for the low/high comparison. Your responses may differ.
+
+    [Recording data](data/recorded_responses.json) contains the exact prompts, responses, and settings.
+
+    </details>
     """)
     return
 
@@ -127,38 +100,80 @@ def _(mo):
     mo.md(r"""
     ## Task 1 of 7 — Persona
 
-    The system prompt does not change what the model knows. It changes how the model speaks. Ask one question from your charter three ways: no persona, a terse lead engineer, a patient onboarding buddy. Same facts, different voice.
+    Compare the same support question with and without a role and response constraints.
     """)
-    return
-
-
-@app.cell
-def _(ask, show):
-    QUESTION = "A colleague says the VPN connects but they cannot reach the staging database. What should they do first?"
-
-    print("weak: no persona")
-    show(ask(QUESTION, pattern="persona: none"))
-    return (QUESTION,)
-
-
-@app.cell
-def _(QUESTION, ask, show):
-    TERSE = ("You are a terse lead engineer. Answer in three sentences or fewer. "
-             "Give the exact step to take first. No pleasantries.")
-    PATIENT = ("You are a patient onboarding buddy. Explain the reasoning step by step, "
-               "anticipate the follow-up question, and end with one concrete next action.")
-
-    print("strong: terse lead engineer")
-    show(ask(QUESTION, instructions=TERSE, pattern="persona: terse"))
-    print("strong: patient onboarding buddy")
-    show(ask(QUESTION, instructions=PATIENT, pattern="persona: patient"))
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    You should see three answers to the same question in three voices. The facts should match; the length and tone should not. Stop here if all three read the same: your model may be ignoring the system prompt.
+    ### A: baseline
+
+    > A colleague says the VPN connects but they cannot reach the staging database. What should they do first?
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    <!-- lint: ignore L001 L002 S002 -->
+    <!-- Preserve the actual response verbatim; long recordings are collapsed. -->
+    <details>
+    <summary>Recorded response · 2026-09-14 · claude-sonnet-5</summary>
+
+    Fresh session; medium effort. Verbatim response:
+
+    > This isn't related to this repo or its coursework — it's a general IT/networking troubleshooting question, not something I can see specifics of (VPN config, staging DB network rules, credentials, etc.). A few generic first steps your colleague could try:
+    >
+    > 1. Confirm what "connects" means — is the VPN client showing "connected" with an assigned IP, and can they reach *other* internal resources (not just the DB)?
+    > 2. Check they're pointed at the right host/port for staging (not accidentally prod or a stale config) and that DNS resolves it while on VPN (`nslookup`/`dig`).
+    > 3. Test raw connectivity to the DB port, e.g. `nc -zv <host> <port>` or `telnet <host> <port>`, to isolate network reachability from auth/app-level issues.
+    > 4. Check if split-tunnel VPN config is excluding the DB's subnet.
+    >
+    > They should loop in whoever manages the staging infra/VPN (or check internal docs/Slack) since I don't have visibility into your network setup. Want me to help with something else in the repo instead?
+
+    </details>
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ### B: persona and constraints
+
+    > You are a terse lead engineer. Answer in three sentences or fewer. Give the first diagnostic step and explain why.
+    >
+    > A colleague says the VPN connects but they cannot reach the staging database. What should they do first?
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    <!-- lint: ignore S002 -->
+    <!-- Preserve the actual response verbatim; long recordings are collapsed. -->
+    <details>
+    <summary>Recorded response · 2026-09-14 · claude-sonnet-5</summary>
+
+    Fresh session; medium effort. Verbatim response:
+
+    > Have them run `nc -zv <staging-db-host> <port>` (or `telnet`) from their machine — this isolates whether it's a routing/firewall issue on the VPN split-tunnel vs. a DB-level problem (auth, wrong credentials, DB down). VPN "connected" only proves the tunnel is up, not that the specific subnet/port is routed through it.
+
+    </details>
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    Takeaway: The persona version is shorter and focuses on reachability; the baseline lists several checks. Role and length constraints changed together, so this does not isolate the effect of persona.
+
+    Ask the room: Which answer gives a clearer first action, and what would you verify before following it?
     """)
     return
 
@@ -168,37 +183,79 @@ def _(mo):
     mo.md(r"""
     ## Task 2 of 7 — Few-shot
 
-    The model knows what words mean. It does not know your conventions. Two labelled examples in the conversation teach it a convention it cannot guess. Here the convention is what counts as in scope for the product in your charter. Edit the examples to match your charter.
+    Examples teach a local convention. This example support desk handles reservations but routes equipment faults elsewhere. Its scope is different from Deskmate’s.
     """)
-    return
-
-
-@app.cell
-def _(CHARTER, ask, json, show):
-    SCOPE_INSTRUCTIONS = ("You triage incoming requests for the product described in the charter below. "
-                          "Classify each request as IN_SCOPE or OUT_OF_SCOPE and give a one-sentence reason. "
-                          'Reply with JSON: {"classification": "...", "reason": "..."}.\n\n' + CHARTER)
-
-    print("weak: no examples")
-    show(ask("Can you book me a meeting room for Thursday?", instructions=SCOPE_INSTRUCTIONS, pattern="few-shot: zero"))
-
-    scope_examples = [
-        {"role": "user", "content": "My VPN drops every twenty minutes on home wifi."},
-        {"role": "assistant", "content": '{"classification": "IN_SCOPE", "reason": "Connectivity to company systems is a helpdesk question."}'},
-        {"role": "user", "content": "Can you write my performance review for me?"},
-        {"role": "assistant", "content": '{"classification": "OUT_OF_SCOPE", "reason": "Not an IT or access question."}'},
-        {"role": "user", "content": "Can you book me a meeting room for Thursday?"},
-    ]
-    print("strong: two examples")
-    raw = ask(scope_examples, instructions=SCOPE_INSTRUCTIONS, pattern="few-shot: two examples")
-    print(json.dumps(json.loads(raw), indent=2))
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    You should see a JSON object with a classification and a reason. With examples, the reason should sound like the examples. Stop here if `json.loads` fails: the model wrapped the JSON in prose, which Task 4 fixes for good.
+    ### A: no examples
+
+    > Classify the request for this example support desk as IN_SCOPE or OUT_OF_SCOPE. Give the label and one sentence explaining it.
+    >
+    > Request: Can you reserve a meeting room for Thursday?
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    <!-- lint: ignore S002 -->
+    <!-- Preserve the actual response verbatim; long recordings are collapsed. -->
+    <details>
+    <summary>Recorded response · 2026-09-14 · claude-sonnet-5</summary>
+
+    Fresh session; medium effort. Verbatim response:
+
+    > **OUT_OF_SCOPE** — this is a facilities/scheduling request, not something a support desk (presumably handling product/account issues) would resolve.
+
+    </details>
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ### B: a local convention
+
+    > Classify the request for this example support desk as IN_SCOPE or OUT_OF_SCOPE. Give the label and one sentence explaining it.
+    >
+    > Example: Can you book a desk for my office visit?
+    > Label: IN_SCOPE. This desk handles workspace reservations.
+    >
+    > Example: My monitor will not turn on.
+    > Label: OUT_OF_SCOPE. This desk routes equipment faults to a separate hardware team.
+    >
+    > Request: Can you reserve a meeting room for Thursday?
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    <details>
+    <summary>Recorded response · 2026-09-14 · claude-sonnet-5</summary>
+
+    Fresh session; medium effort. Verbatim response:
+
+    > Label: IN_SCOPE. This is a workspace/room reservation request, same category as the desk-booking example.
+
+    </details>
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    Takeaway: The baseline assumes a conventional support scope and says OUT_OF_SCOPE. With examples, it follows the local reservation rule and says IN_SCOPE.
+
+    Ask the room: Which fact did the examples supply that the original request left unspecified?
     """)
     return
 
@@ -217,39 +274,11 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ## Task 3 of 7 — Reasoning budget
+    ## Task 3 of 7 — Reasoning effort
 
-    Some models can think before they answer, and you can set how much. More effort costs more tokens and more time. Compare no explicit reasoning against a high budget on a question with a trap in it, and read the token counts.
-    """)
-    return
+    Keep the model and prompt identical while changing `/effort`. This changes the reasoning setting, rather than adding “think carefully” to the prompt. Check which levels your model offers.
 
-
-@app.cell
-def _(ask, show, time):
-    TRAP = "I need my car cleaned. The car wash is fifty metres away. Should I walk or drive?"
-
-
-    def timed(effort):
-        t0 = time.perf_counter()
-        try:
-            text = ask(TRAP, effort=effort, pattern=f"reasoning: {effort or 'none'}")
-        except Exception as e:  # noqa: BLE001
-            return None, 0.0, f"this model has no reasoning budget ({type(e).__name__})"
-        return text, time.perf_counter() - t0, ""
-
-
-    for effort in (None, "high"):
-        text, secs, note = timed(effort)
-        print(f"effort={effort or 'none'}  latency={secs:0.1f}s  {note}")
-        if text:
-            show(text)
-    return
-
-
-@app.cell(hide_code=True)
-def _(mo):
-    mo.md(r"""
-    You should see two answers with latencies. The trap is that the car has to be at the car wash, so the answer is drive. A higher budget catches it more reliably. Stop here if both say walk and the note says the model has no reasoning budget; that is fine, keep going.
+    [Effort documentation](https://code.claude.com/docs/en/model-config#adjust-effort-level)
     """)
     return
 
@@ -257,36 +286,233 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ## Task 4 of 7 — Structured output
+    ### A: low effort
 
-    Asking politely for JSON works most of the time. Most of the time is not good enough for code that calls `json.loads`. A schema makes the shape a contract. Extract a product brief from your charter into a typed object.
+    Enter `/clear`, then `/effort low` as separate commands. Confirm the active level, start a timer, and send:
+
+    > I need my car cleaned. The car wash is fifty metres away. Should I walk or drive? Give a recommendation and a one-sentence reason.
     """)
     return
-
-
-@app.cell
-def _(CHARTER, MODEL, PROMPTS: list[dict], client):
-    from typing import List, Literal
-    from pydantic import BaseModel
-
-    class ProductBrief(BaseModel):
-        product_name: str
-        problem: str
-        users: List[str]
-        must_do: List[str]
-        must_not_do: List[str]
-        risk_level: Literal['low', 'medium', 'high']
-    _result = client.chat.completions.parse(model=MODEL, messages=[{'role': 'system', 'content': 'Extract a product brief from the charter.'}, {'role': 'user', 'content': CHARTER}], response_format=ProductBrief)
-    brief: ProductBrief = _result.choices[0].message.parsed
-    PROMPTS.append({'pattern': 'structured output', 'input': CHARTER, 'output': brief.model_dump_json(indent=2), 'model': MODEL, 'instructions': 'Extract a product brief from the charter.'})
-    print(brief.model_dump_json(indent=2))
-    return BaseModel, List, Literal
 
 
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    You should see valid JSON with every field filled and `risk_level` one of three allowed values. Stop here if you get a validation error: your endpoint may not support structured outputs, and the fallback is the few-shot JSON from Task 2.
+    <!-- lint: ignore S002 -->
+    <!-- Preserve the recorded response verbatim. -->
+    <details>
+    <summary>Recorded response · 2026-09-14 · claude-sonnet-5 · low effort</summary>
+
+    Programmatic recording in a fresh session. CLI-reported API duration: 2.04 seconds. This is not an interactive UI timing measurement. Verbatim response:
+
+    > Drive — you need the car at the car wash, not yourself, so walking there doesn't accomplish anything.
+
+    </details>
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ### B: high effort
+
+    Keep the same model. Enter `/clear`, then `/effort high`. Confirm the level, start a timer, and send the identical prompt:
+
+    > I need my car cleaned. The car wash is fifty metres away. Should I walk or drive? Give a recommendation and a one-sentence reason.
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    <!-- lint: ignore S002 -->
+    <!-- Preserve the recorded response verbatim. -->
+    <details>
+    <summary>Recorded response · 2026-09-14 · claude-sonnet-5 · high effort</summary>
+
+    Programmatic recording in a fresh session. CLI-reported API duration: 2.73 seconds. This is not an interactive UI timing measurement. Verbatim response:
+
+    > Drive — you need the car at the car wash to have it cleaned, so walking there wouldn't accomplish the task.
+
+    </details>
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    Takeaway: Both recorded answers choose to drive. Higher effort does not necessarily improve a simple answer, and one pair cannot establish a quality or speed advantage. Effort is a resource trade-off to measure, not a correctness guarantee.
+
+    Ask the room: What harder task would make extra reasoning worthwhile?
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ### Repeat and restore
+
+    Compare time and correctness on a few harder questions. Do not assume a longer answer is better. Compare your own timings with each other, not with the recordings’ API durations; they measure different things.
+
+    Restore your original effort setting before continuing; the setting can persist across conversations.
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ## Task 4 of 7 — Requesting an output format
+
+    Compare a free-form brief with a request for named JSON fields. Both prompts include the same facts. Check whether Claude follows the requested format.
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ### A: loose format
+
+    > Summarise the product described below as a product brief.
+    >
+    > Deskmate answers internal IT questions using the knowledge base and the requester’s own ticket history. Priya is a backend engineer who needs help reaching staging through the VPN. Marcus is the helpdesk lead who wants fewer repeat questions and an auditable log. Deskmate opens a ticket when it cannot answer. It never resets anything without confirmation, touches unverified entitlements, or repeats another user’s ticket text.
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    <!-- lint: ignore L001 L002 S001 S002 -->
+    <!-- Preserve the actual response verbatim; long recordings are collapsed. -->
+    <details>
+    <summary>Recorded response · 2026-09-14 · claude-sonnet-5</summary>
+
+    Fresh session; medium effort. Verbatim response:
+
+    > **Product Brief: Deskmate**
+    >
+    > **One-liner:** An internal IT support assistant that answers employee questions using the knowledge base plus the requester's own ticket history, escalating to a human ticket when it can't help.
+    >
+    > **Personas:**
+    > - **Priya (backend engineer)** — needs quick, accurate answers to technical questions, e.g., VPN access to staging.
+    > - **Marcus (helpdesk lead)** — wants fewer repeat/duplicate questions reaching the team and a fully auditable log of what Deskmate said and did.
+    >
+    > **Core behavior:**
+    > - Answers questions by combining the knowledge base with the requester's own ticket history (personalized, context-aware support).
+    > - Opens a ticket automatically when it cannot answer a question, ensuring nothing falls through the cracks.
+    >
+    > **Guardrails (things it explicitly will not do):**
+    > - Never resets anything (accounts, passwords, access, etc.) without explicit user confirmation.
+    > - Never touches entitlements that haven't been verified.
+    > - Never repeats or exposes another user's ticket text — keeps requester data siloed.
+    >
+    > **Why it matters:** Reduces repeat tickets and support load (Marcus's goal) while giving engineers like Priya fast self-service answers, without compromising on safety (no silent destructive actions) or privacy (no cross-user data leakage) — and leaves an audit trail for accountability.
+
+    </details>
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    <!-- lint: ignore L002 -->
+    <!-- Keep the full prompt copyable; long prompts are collapsed. -->
+    ### B: explicit fields
+
+    <details>
+    <summary>Expand the complete prompt to copy</summary>
+
+    > Extract a product brief from the text below. Return only one JSON object with exactly these fields, without Markdown fences or introductory prose:
+    > product_name: a string
+    > users: a list of names in the text
+    > must_do: a list of stated responsibilities
+    > must_not_do: a list of stated restrictions
+    >
+    > Do not invent details. Use an empty list for missing list information.
+    >
+    > Deskmate answers internal IT questions using the knowledge base and the requester’s own ticket history. Priya is a backend engineer who needs help reaching staging through the VPN. Marcus is the helpdesk lead who wants fewer repeat questions and an auditable log. Deskmate opens a ticket when it cannot answer. It never resets anything without confirmation, touches unverified entitlements, or repeats another user’s ticket text.
+
+    </details>
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    <details>
+    <summary>Recorded response · 2026-09-14 · claude-sonnet-5</summary>
+
+    Fresh session; medium effort. Verbatim response:
+
+    > ```json
+    > {
+    >   "product_name": "Deskmate",
+    >   "users": ["Priya", "Marcus"],
+    >   "must_do": [
+    >     "Answer internal IT questions using the knowledge base and the requester's own ticket history",
+    >     "Open a ticket when it cannot answer"
+    >   ],
+    >   "must_not_do": [
+    >     "Reset anything without confirmation",
+    >     "Touch unverified entitlements",
+    >     "Repeat another user's ticket text"
+    >   ]
+    > }
+    > ```
+
+    </details>
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    Takeaway: The response adds Markdown fences despite the explicit instruction not to. The JSON inside has the requested fields, but the whole response fails direct JSON parsing. A format request does not enforce a schema.
+
+    Ask the room: What would your application need to check before accepting this response?
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ### Message to Claude
+
+    > Read the tool reference in the README beside this guide. Run prompt_tools.py compare on the active charter. Show the plain JSON request and the schema-enforced result using the same input and fields. Explain ProductBrief and the actual validation outcome. Distinguish a valid shape from correct facts, and report any refusal or unsupported-endpoint error.
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    You should see two real API results using the configured experiment model. Both may validate on this run. The enforced call supplies the schema to the API; the plain request relies on following instructions. Stop here if the enforced result is absent or the fields misrepresent the charter. Correct structure does not guarantee correct content.
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    <details><summary>Recorded experiment: schema enforcement</summary>
+
+    Real seed-charter run with `gpt-4.1-mini`. Both calls returned valid product briefs in this run. The enforced call completed with `stop` and no refusal.
+
+    The plain call passed an independent Pydantic validation check; the enforced call supplied `ProductBrief` as the API response format and returned a parsed object. Check the contents against the charter even when validation succeeds.
+
+    Exact inputs, schema, response IDs, and both outputs: `data/recorded_schema_experiment.json`. This is an API experiment run by a repo tool, not a Claude UI response.
+
+    </details>
     """)
     return
 
@@ -296,28 +522,73 @@ def _(mo):
     mo.md(r"""
     ## Task 5 of 7 — Pasted context
 
-    The model knows nothing about your product. The simplest fix is to paste the document into the system prompt. This is retrieval by hand. Ask a question only your charter can answer, without and then with the charter.
+    Ask a question without the relevant facts, then supply them. Use `/clear` between the two prompts so the first answer cannot reuse facts from another example.
     """)
-    return
-
-
-@app.cell
-def _(CHARTER, ask, show):
-    CONTEXT_Q = "Who are the two named users of this product, and what does the product refuse to do?"
-
-    print("weak: no context")
-    show(ask(CONTEXT_Q, pattern="context: none"))
-
-    GROUNDED = ("Answer using only the charter below. If the charter does not say, say so.\n\n" + CHARTER)
-    print("strong: charter pasted in")
-    show(ask(CONTEXT_Q, instructions=GROUNDED, pattern="context: charter"))
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    You should see a first answer that guesses or declines, and a second that names the users and the refusals from your charter. Stop here if the second answer invents a user not in the charter.
+    ### A: missing context
+
+    > Who are the two named users of Deskmate, and what does the product refuse to do? Answer only from information supplied in this conversation. If it is missing, say so.
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    <!-- lint: ignore S002 -->
+    <!-- Preserve the actual response verbatim; long recordings are collapsed. -->
+    <details>
+    <summary>Recorded response · 2026-09-14 · claude-sonnet-5</summary>
+
+    Fresh session; medium effort. Verbatim response:
+
+    > That information isn't present in this conversation—no mention of "Deskmate" appears anywhere in the context I've been given.
+
+    </details>
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ### B: supplied context
+
+    > Who are the two named users of Deskmate, and what does the product refuse to do? Answer only from the text below. If it is missing, say so.
+    >
+    > Deskmate answers internal IT questions using the knowledge base and the requester’s own ticket history. Priya is a backend engineer who needs help reaching staging through the VPN. Marcus is the helpdesk lead who wants fewer repeat questions and an auditable log. Deskmate opens a ticket when it cannot answer. It never resets anything without confirmation, touches unverified entitlements, or repeats another user’s ticket text.
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    <details>
+    <summary>Recorded response · 2026-09-14 · claude-sonnet-5</summary>
+
+    Fresh session; medium effort. Verbatim response:
+
+    > The two named users are Priya (backend engineer needing VPN access to staging) and Marcus (helpdesk lead wanting fewer repeat questions and an auditable log).
+    >
+    > Deskmate refuses to: reset anything without confirmation, touch unverified entitlements, or repeat another user's ticket text.
+
+    </details>
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    Takeaway: Without the product facts, Claude acknowledges the gap. With them, it names Priya and Marcus and repeats the three restrictions.
+
+    Ask the room: Can you point to the supplied text supporting every claim in the second answer?
     """)
     return
 
@@ -346,30 +617,91 @@ def _(mo):
     mo.md(r"""
     ## Task 6 of 7 — Self-refine
 
-    A first draft is rarely the best draft. Self-refine is two calls: draft, then critique against explicit criteria and revise. The criteria are the point. You can read them, change them, and hand them to a teammate as the definition of good.
+    Draft an introduction, then add criteria and request a revision in the same conversation. The first draft was not given the checklist; this tests clearer requirements plus revision.
     """)
-    return
-
-
-@app.cell
-def _(CHARTER, ask, show):
-    DRAFT_Q = "Write the one-paragraph pitch for this product that we will read aloud to the room."
-    draft = ask(DRAFT_Q, instructions="Use only the charter below.\n\n" + CHARTER, pattern="self-refine: draft")
-    print("pass 1: draft")
-    show(draft)
-
-    REFINE = ("You are a senior editor. Evaluate the draft against these criteria:\n"
-              "1. Under 120 words.\n2. Names a real user from the charter.\n3. Ends with one specific ask.\n\n"
-              "Write a two-sentence critique, then the revised pitch under the heading REVISED.\n\n" + CHARTER)
-    print("pass 2: critique and revision")
-    show(ask(f"DRAFT:\n{draft}\n\nCritique and revise.", instructions=REFINE, pattern="self-refine: revised"))
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    You should see a draft, a short critique naming which criteria failed, and a revised pitch under a REVISED heading. Stop here if the critique says everything passed on the first try: tighten the criteria and rerun.
+    ### Turn 1: draft
+
+    > Write a short introduction that tells Priya what Deskmate can help with. Use only the text below.
+    >
+    > Deskmate answers internal IT questions using the knowledge base and the requester’s own ticket history. Priya is a backend engineer who needs help reaching staging through the VPN. Marcus is the helpdesk lead who wants fewer repeat questions and an auditable log. Deskmate opens a ticket when it cannot answer. It never resets anything without confirmation, touches unverified entitlements, or repeats another user’s ticket text.
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    <!-- lint: ignore S002 -->
+    <!-- Preserve the actual response verbatim; long recordings are collapsed. -->
+    <details>
+    <summary>Recorded response · 2026-09-14 · claude-sonnet-5</summary>
+
+    Fresh session; medium effort. Verbatim response:
+
+    > Hi Priya,
+    >
+    > Deskmate answers internal IT questions using the knowledge base and your own ticket history — for example, help reaching staging through the VPN. If it can't answer, it opens a ticket for you rather than guessing. It won't reset anything without your confirmation, won't touch entitlements it can't verify, and won't reuse another user's ticket text. For Marcus and the helpdesk team, this also means fewer repeat questions and an auditable log of what was asked and answered.
+
+    </details>
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ### Turn 2: add criteria and revise
+
+    > Review your introduction against these criteria:
+    > 1. Under 60 words.
+    > 2. Names Priya.
+    > 3. States at least one supported capability and at least one restriction.
+    > 4. Ends by asking what IT issue she needs help with.
+    > 5. Adds no claims absent from the supplied text.
+    >
+    > Give a short critique identifying which criteria pass or fail, then a revised introduction under REVISED. If the draft already meets the criteria, say so; do not invent a flaw.
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    <!-- lint: ignore L002 S001 S002 -->
+    <!-- Preserve the actual response verbatim; long recordings are collapsed. -->
+    <details>
+    <summary>Recorded response · 2026-09-14 · claude-sonnet-5</summary>
+
+    Continues the draft session; medium effort. Verbatim response:
+
+    > **Critique:**
+    > 1. **Fail** — draft is ~79 words, over the 60-word limit.
+    > 2. **Pass** — names Priya.
+    > 3. **Pass** — states a capability (answers IT questions via knowledge base/ticket history) and a restriction (won't reset anything without confirmation).
+    > 4. **Fail** — ends with a statement about Marcus/helpdesk, not a question asking what she needs help with.
+    > 5. **Pass** — no claims beyond the supplied text.
+    >
+    > **REVISED:**
+    >
+    > Hi Priya, Deskmate answers internal IT questions using the knowledge base and your own ticket history — helpful for things like reaching staging through the VPN. If it can't answer, it opens a ticket instead of guessing, and it never resets anything without your confirmation. What IT issue can I help you with today?
+
+    </details>
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    Takeaway: Adding the checklist produces a shorter revision that ends by asking about Priya’s issue. These requirements were not supplied to the first draft, so this demonstrates clearer requirements plus revision, not self-critique alone.
+
+    Ask the room: Which improvement follows directly from a requirement you added?
     """)
     return
 
@@ -379,40 +711,135 @@ def _(mo):
     mo.md(r"""
     ## Task 7 of 7 — Meta-prompting
 
-    So far you wrote the prompts. Meta-prompting asks the model to write one for you, from a task description, examples of bad output, and your quality bar. Then you run the generated prompt to see if it works.
+    Ask Claude to write an instruction, then test it against a simple baseline. For B, replace the recorded instruction with the one Claude just generated. Keep the context and question fixed.
     """)
-    return
-
-
-@app.cell
-def _(CHARTER, QUESTION, ask, show):
-    import re
-
-    META = ("You are a prompt engineer. Write a system prompt for the task below. It must be clear and short "
-            "and produce consistent outputs. Wrap the final prompt in <PROMPT> and </PROMPT> tags.")
-    TASK_DESCRIPTION = f"""
-    TASK: answer user questions for the product described in this charter.
-
-    {CHARTER}
-
-    Good output: answers from the charter, names the exact step or entitlement, offers a next action.
-    Bad output we have seen: guesses a policy, invents a menu path, answers a question outside the product's scope.
-    """
-    generated = ask(TASK_DESCRIPTION, instructions=META, pattern="meta-prompt: generate")
-    m = re.search(r"<PROMPT>(.*?)</PROMPT>", generated, re.S)
-    GENERATED_PROMPT = m.group(1).strip() if m else generated.strip()
-    print("generated prompt:")
-    show(GENERATED_PROMPT)
-
-    print("the generated prompt in use:")
-    show(ask(QUESTION, instructions=GENERATED_PROMPT, pattern="meta-prompt: applied"))
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    You should see a generated system prompt and then an answer to the Task 1 question written under it. Compare it with the Task 1 answers. Stop here if the generated prompt is longer than your charter: ask for a shorter one.
+    ### Generate an instruction
+
+    > Write a reusable instruction of at most 120 words for an assistant answering Deskmate questions. It will receive product context and a user question separately.
+    >
+    > It should answer only from supplied facts, acknowledge missing information, respect product restrictions, and offer a supported next action. Prevent invented policies, menu paths, and claims that actions were performed.
+    >
+    > Return only the instruction. Do not answer a support question yet.
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    <!-- lint: ignore L002 S002 -->
+    <!-- Preserve the actual response verbatim; long recordings are collapsed. -->
+    <details>
+    <summary>Recorded response · 2026-09-14 · claude-sonnet-5</summary>
+
+    Fresh session; medium effort. Verbatim response:
+
+    > Answer the user's question using only the supplied product context. If the needed information isn't present, say so plainly rather than guessing. Never invent policies, menu paths, settings, prices, or steps not explicitly stated in the context. Never claim to have performed an action (e.g., issued a refund, changed a setting, submitted a ticket) — you can only provide information and guidance. Respect any stated product restrictions or limitations exactly as given. If the context doesn't fully resolve the question, acknowledge the gap and suggest a concrete, supported next step (e.g., contacting a specific support channel mentioned in the context, checking a stated resource). Keep responses concise, factual, and free of speculation.
+
+    </details>
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ### A: baseline test
+
+    > Answer the support question using only the context supplied.
+    >
+    > Context:
+    > Deskmate answers internal IT questions using the knowledge base and the requester’s own ticket history. Priya is a backend engineer who needs help reaching staging through the VPN. Marcus is the helpdesk lead who wants fewer repeat questions and an auditable log. Deskmate opens a ticket when it cannot answer. It never resets anything without confirmation, touches unverified entitlements, or repeats another user’s ticket text.
+    >
+    > Question: My VPN connects but I cannot reach staging. What exact menu path should I use to fix it?
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    <!-- lint: ignore L002 S002 -->
+    <!-- Preserve the actual response verbatim; long recordings are collapsed. -->
+    <details>
+    <summary>Recorded response · 2026-09-14 · claude-sonnet-5</summary>
+
+    Fresh session; medium effort. Verbatim response:
+
+    > I don't have any knowledge base content in the supplied context — only a description of Deskmate's policies (it uses the KB and ticket history, opens a ticket when it can't answer, and never touches unverified entitlements or reuses another user's ticket text). No actual VPN/staging KB article or steps were provided to me.
+    >
+    > Since I have no article giving an exact menu path, I can't answer that specifically — and per the stated behavior, this is exactly the case where Deskmate would open a ticket rather than guess or fabricate steps. If you can share the relevant KB article text, I can walk through the exact menu path from it.
+
+    </details>
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    <!-- lint: ignore L001 L002 S002 -->
+    <!-- Keep the full prompt copyable; long prompts are collapsed. -->
+    ### B: generated instruction test
+
+    <details>
+    <summary>Expand the complete prompt to copy</summary>
+
+    > Answer the user's question using only the supplied product context. If the needed information isn't present, say so plainly rather than guessing. Never invent policies, menu paths, settings, prices, or steps not explicitly stated in the context. Never claim to have performed an action (e.g., issued a refund, changed a setting, submitted a ticket) — you can only provide information and guidance. Respect any stated product restrictions or limitations exactly as given. If the context doesn't fully resolve the question, acknowledge the gap and suggest a concrete, supported next step (e.g., contacting a specific support channel mentioned in the context, checking a stated resource). Keep responses concise, factual, and free of speculation.
+    >
+    > Answer the support question using only the context supplied.
+    >
+    > Context:
+    > Deskmate answers internal IT questions using the knowledge base and the requester’s own ticket history. Priya is a backend engineer who needs help reaching staging through the VPN. Marcus is the helpdesk lead who wants fewer repeat questions and an auditable log. Deskmate opens a ticket when it cannot answer. It never resets anything without confirmation, touches unverified entitlements, or repeats another user’s ticket text.
+    >
+    > Question: My VPN connects but I cannot reach staging. What exact menu path should I use to fix it?
+
+    </details>
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    <!-- lint: ignore S002 -->
+    <!-- Preserve the actual response verbatim; long recordings are collapsed. -->
+    <details>
+    <summary>Recorded response · 2026-09-14 · claude-sonnet-5</summary>
+
+    Fresh session; medium effort. Verbatim response:
+
+    > The context provided doesn't include a knowledge base article or menu path for fixing VPN-to-staging connectivity — only a general description of Deskmate's behavior and the roles of Priya and Marcus. I can't give you exact steps without inventing them.
+    >
+    > Since Deskmate opens a ticket when it cannot answer a question, the concrete next step here would be for a ticket to be opened so someone with access to the actual VPN/staging configuration can provide the correct menu path.
+
+    </details>
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    Takeaway: The generated instruction fits the length limit, and both test answers avoid inventing a menu path. The generated-prompt answer is shorter; this example does not establish a reliability improvement.
+
+    Ask the room: Did the generated instruction improve the answer on the criteria that matter?
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ### Apply the patterns to your project
+
+    Paste the charter your group wrote. Choose your own examples and criteria, then try the patterns on your product. For the activity below, request the named fields and inspect the answer; the group makes the decision.
     """)
     return
 
@@ -422,46 +849,7 @@ def _(mo):
     mo.md(r"""
     ## Your turn
 
-    Stack three patterns in one call: a persona, the charter as context, and a structured output with a decision (`proceed`, `redesign`, `pause`), a rationale, and up to three risks. Ask whether your group should build the product as described. Then explain to a teammate which pattern did the most work.
-    """)
-    return
-
-
-@app.cell
-def _(BaseModel, CHARTER, List, Literal, MODEL, PROMPTS: list[dict], client):
-    class Decision(BaseModel):
-        decision: Literal['proceed', 'redesign', 'pause']
-        rationale: str
-        risks: List[str]
-    STACKED = 'You are a sceptical engineering lead. Give a direct, evidence-based recommendation. Use only the charter below.\n\n' + CHARTER
-    _result = client.chat.completions.parse(model=MODEL, messages=[{'role': 'system', 'content': STACKED}, {'role': 'user', 'content': 'Should we build this product as described?'}], response_format=Decision)
-    decision: Decision = _result.choices[0].message.parsed
-    PROMPTS.append({'pattern': 'stacked', 'input': 'Should we build this product as described?', 'output': decision.model_dump_json(indent=2), 'model': MODEL, 'instructions': STACKED})  # edit the persona
-    print(decision.model_dump_json(indent=2))
-    return
-
-
-@app.cell(hide_code=True)
-def _(mo):
-    mo.md(r"""
-    ## Save your prompts
-
-    Every call this session is in `PROMPTS`. Saving it makes those inputs and outputs part of your workspace, where the retrieval notebooks will index them.
-    """)
-    return
-
-
-@app.cell
-def _(PROMPTS: list[dict], ws):
-    ws.save("prompts", PROMPTS)
-    print(f"patterns recorded: {sorted({p['pattern'].split(':')[0] for p in PROMPTS})}")
-    return
-
-
-@app.cell(hide_code=True)
-def _(mo):
-    mo.md(r"""
-    You should see a ✅ line with the row count and a list of pattern names. Stop here if the count is under ten: a task above did not run.
+    Stack three patterns in one message: a persona, the charter as context, and a structured output with a decision (`proceed`, `redesign`, `pause`), a rationale, and up to three risks. Ask whether your group should build the product as described. Then explain to a teammate which pattern did the most work.
     """)
     return
 
@@ -479,14 +867,14 @@ def _(mo):
     mo.md(r"""
     ## From prototype to production
 
-    | What we built | Production equivalent |
+    | Conversation pattern | Production requirement |
     |---|---|
-    | Two few-shot examples typed by hand | An example store with nearest-neighbour selection per input |
-    | The charter pasted into the system prompt | A retrieval pipeline: chunking, vector search, reranking |
-    | A two-call self-refine loop | Reflection agents and durable multi-step workflows |
-    | A Pydantic model as the output contract | Schema registries and validation middleware shared across teams |
-    | One persona string per call | Versioned prompt templates deployed like code, with A/B tests |
-    | Reading quality by eye | Judges and regression sets, which the evals notebook builds |
+    | Persona and examples | Versioned instructions with explicit message roles and held-out tests |
+    | Interactive effort settings | Repeated quality, latency, and usage measurements |
+    | Asking for JSON fields | Supported schema enforcement plus format and factual validation |
+    | Pasted context | Retrieval with sources and access controls |
+    | Draft and revision | Explicit acceptance criteria and independent checks |
+    | Generated instructions | Comparison against a baseline across representative tasks |
     """)
     return
 
@@ -496,9 +884,9 @@ def _(mo):
     mo.md(r"""
     ## Responsible controls
 
-    - Version every system prompt and record which version produced which output.
-    - A regression set of inputs with known-good structured outputs, run on every prompt edit.
-    - A reasoning-budget policy per task so cost does not drift with the model.
+    - Compare actual answers, including failures.
+    - Check claims against source facts; a model’s critique can also be wrong.
+    - Make your own product choices and explain the evidence behind them.
     """)
     return
 
@@ -508,9 +896,9 @@ def _(mo):
     mo.md(r"""
     ## Grow further
 
-    - Build a prompt regression set: five inputs with known-correct structured outputs. Assert on them after every prompt edit.
-    - Select few-shot examples dynamically by embedding a labelled library and retrieving the nearest ones per input.
-    - Log reasoning tokens and latency for every prompt in your prototype, then set the budget per task rather than globally.
+    - Pick five representative questions and define success before comparing prompts.
+    - Repeat trials to see whether an apparent improvement holds.
+    - Choose examples from real conventions your users need the assistant to follow.
     """)
     return
 

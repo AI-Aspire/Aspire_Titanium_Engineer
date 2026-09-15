@@ -172,9 +172,19 @@ def _present(p: Path, fmt: str) -> bool:
 def source(name: str) -> str | None:
     """'workspace', 'seed', or None."""
     art = SCHEMA[name]
-    if _present(root() / art.path, art.fmt) and not _invalid(root() / art.path, art):
+
+    def present(base: Path) -> bool:
+        p = base / art.path
+        if name == "corpus":
+            # A separately saved wiki is navigation, not a replacement corpus.
+            # Interactive experiments may save it while reading seed pages.
+            return any(q.is_file() and q.relative_to(p).parts[0] != "wiki"
+                       and q.name != "vibe_checks.md" for q in p.rglob("*.md"))
+        return _present(p, art.fmt)
+
+    if present(root()) and not _invalid(root() / art.path, art):
         return "workspace"
-    if _present(seed_root() / art.path, art.fmt):
+    if present(seed_root()):
         return "seed"
     return None
 
