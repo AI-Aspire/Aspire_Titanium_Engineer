@@ -808,7 +808,7 @@ def _(mo):
     mo.md(r"""
     ### Message to your assistant
 
-    > Read the tool reference in the README beside this guide. Run prompt_tools.py compare on the active charter. Show the plain JSON request and the schema-enforced result using the same input and fields. Explain ProductBrief and the actual validation outcome. Distinguish a valid shape from correct facts, and report any refusal or unsupported-endpoint error.
+    > Run the JSON-versus-schema experiment in `prompt_tools.py` on our project description. Show both results and explain what each method guarantees.
     """)
     return
 
