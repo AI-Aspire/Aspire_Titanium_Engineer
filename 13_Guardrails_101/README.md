@@ -3,15 +3,15 @@
 ## Learn | Create | Grow
 
 ### Learn
-A guardrail ladder from scratch: constrained decoding on recorded logits, a regex rung, a classifier trained in numpy, an LLM judge. What each rung costs and catches.
+A guardrail ladder from scratch: constrained decoding on recorded logits, a regex rung, a classifier trained in numpy, an LLM judge, and a policy table. What each rung costs, catches, and guarantees.
 
 ### Create
-A case set of benign inputs from your transcripts plus planted attacks, every rung run over it, and results per rung saved.
+A case set of benign inputs from your transcripts plus planted attacks, every rung run over it failing closed, and coverage next to false positives per rung saved.
 
 ### Grow
 Ship cheapest-first: the rungs that clear your coverage bar at your latency budget. Tell your team which rung you left out and what it would cost.
 
-**Estimated time:** 40 minutes
+**Estimated time:** 45 minutes
 **Reads:** transcripts
 **Writes:** guardrail_cases, ladder_results
 
@@ -34,7 +34,8 @@ Ship cheapest-first: the rungs that clear your coverage bar at your latency budg
 | 3 | Rung 1: four regexes, timed in microseconds |
 | 4 | Rung 2: train a logistic-regression classifier in numpy and compare it with the rules |
 | 5 | Rung 3: an LLM judge with a one-word verdict, timed |
-| 6 | Run every rung on every case, assemble the cheapest-first ladder, and save the results |
+| 6 | Rung 4: a policy table over roles, decided in microseconds without reading the text |
+| 7 | Run every rung on every case, failing closed, report coverage beside false positives, assemble the ladder, and save the results |
 
 ## Setup
 
