@@ -69,18 +69,6 @@
       "at": "2026-09-14T15:56:01+00:00"
     },
     {
-      "artifact": "testset",
-      "module": "08",
-      "count": 6,
-      "at": "2026-09-14T18:09:00+00:00"
-    },
-    {
-      "artifact": "ragas_scores",
-      "module": "08",
-      "count": 3,
-      "at": "2026-09-14T19:20:40+00:00"
-    },
-    {
       "artifact": "tasks",
       "module": "09",
       "count": 5,
@@ -223,6 +211,24 @@
       "module": "21",
       "count": 18,
       "at": "2026-09-14T22:06:08+00:00"
+    },
+    {
+      "artifact": "testset",
+      "module": "08",
+      "count": 6,
+      "at": "2026-09-14T22:47:11+00:00"
+    },
+    {
+      "artifact": "ragas_scores",
+      "module": "08",
+      "count": 2,
+      "at": "2026-09-14T23:36:24+00:00"
+    },
+    {
+      "artifact": "ragas_scores",
+      "module": "08",
+      "count": 3,
+      "at": "2026-09-15T00:05:27+00:00"
     }
   ]
 }

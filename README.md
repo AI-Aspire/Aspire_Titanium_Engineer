@@ -37,7 +37,7 @@ mirror of it. Every notebook is three acts: **Learn** the idea from scratch,
 | 05 | [RAG](05_RAG/) | 30 min |
 | 06 | [Advanced retrieval](06_Advanced_Retrieval/) | 35 min |
 | 07 | [Agentic retrieval](07_Agentic_Retrieval/) | 30 min |
-| 08 | SDG and RAGAS | 30 min |
+| 08 | [SDG and RAGAS](08_SDG_RAGAS/) | 30 min |
 | 09 | [Agent evals](09_Agent_Evals/) | 35 min |
 | 10 | [Agent memory](10_Agent_Memory/) | 30 min |
 | 11 | Agent architecture | 35 min |

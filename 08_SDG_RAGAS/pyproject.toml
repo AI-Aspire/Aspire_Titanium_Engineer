@@ -1,0 +1,56 @@
+# This module has its OWN virtual environment, isolated from the repository's shared one.
+#
+# Why: RAGAS 0.4.x imports a LangChain 0.3-only module path at load time, so it
+# pins this module to the LangChain <1 line. The rest of the repository runs
+# LangChain 1.x, which RAGAS cannot import. The shared helpers this notebook
+# uses (helpers.config, helpers.workspace, helpers.ui, helpers.display,
+# helpers.rag, helpers.judge) work on either line.
+#
+# Setup (from this folder):
+#   uv sync
+#   uv run jupyter lab
+
+[project]
+name = "titanium-sdg-ragas"
+version = "0.1.0"
+description = "Improving RAG with synthetic data generation and RAGAS (pinned to the LangChain 0.3.x line)"
+requires-python = ">=3.11,<3.13"
+dependencies = [
+    "aspire-titanium-engineer",   # the shared helpers, from the repository root
+    # LangChain 0.3.x line, the newest set RAGAS 0.4.x can import
+    "langchain<1",
+    "langchain-core<1",
+    "langchain-community<0.4",
+    "langchain-openai<1",
+    "langchain-qdrant<1",
+    "langchain-text-splitters<1",
+    "qdrant-client>=1.12",
+
+    # RAGAS + synthetic data generation
+    "ragas>=0.4.3",
+    "rapidfuzz>=3.9",
+    "datasets>=2.20",
+
+    # Shared helpers' runtime deps (helpers/ is imported from the repository root)
+    "openai>=1.66",
+    "litellm>=1.90",          # helpers.judge.parse_json
+    "python-dotenv>=1.2",     # helpers.config
+    "pydantic>=2.9",
+    "rich>=13.7",             # helpers.ui
+
+    # Data and charts
+    "numpy>=1.26",
+    "pandas>=2.2,!=3.0.4",
+    "matplotlib>=3.9",
+
+    # Notebook
+    "jupyter>=1.1",
+    "ipykernel>=6.29",
+    "nbconvert>=7.0",
+]
+
+[tool.uv]
+package = false
+
+[tool.uv.sources]
+aspire-titanium-engineer = { path = "..", editable = true }
