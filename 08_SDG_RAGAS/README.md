@@ -6,12 +6,12 @@
 Why a weak pipeline on purpose, how a synthetic test set is written by hand for one chunk and generated for the rest, and what four RAGAS metrics each measure.
 
 ### Create
-A test set generated from your corpus, RAGAS scores on your pipeline, one retrieval change, and the scores again.
+A test set generated from your corpus and curated before you trust it, RAGAS scores on your pipeline, one retrieval change, and the scores again with an interval on the difference.
 
 ### Grow
 Production teams keep the test set under version control and rerun it on every retrieval change. Tell your team your weakest metric and which way it moved.
 
-**Estimated time:** 35 minutes
+**Estimated time:** 40 minutes
 **Reads:** corpus
 **Writes:** testset, ragas_scores
 
@@ -24,16 +24,18 @@ Production teams keep the test set under version control and rerun it on every r
 | Answer relevancy | how directly the answer addresses the question |
 | Context precision | whether the chunks the reference needs are retrieved and ranked high |
 | Context recall | whether retrieval surfaced what the reference answer needs at all |
+| Datasheet | the counts and caveats that travel with a generated set: what was removed, and what it cannot test |
 
 ## What you will do
 
 | Task | What happens |
 |---|---|
 | 1 | Index the pages in memory and answer with a deliberately small `k` |
-| 2 | One question by hand from one chunk, then a RAGAS test set, saved |
-| 3 | Answer every generated question with the weak pipeline |
-| 4 | Score faithfulness, answer relevancy, context precision, context recall |
-| 5 | Raise `k`, score again, save both rows, chart the change |
+| 2 | One question by hand from one chunk, then a RAGAS test set |
+| 3 | Curate it: dedupe with 4-gram Jaccard, validate the schema, check for quoted pages, print a datasheet, save |
+| 4 | Answer every kept question with the weak pipeline |
+| 5 | Score faithfulness, answer relevancy, context precision, context recall |
+| 6 | Raise `k`, score again, save both rows, chart the change, put an interval on the faithfulness difference |
 
 ## Setup
 

@@ -36,7 +36,7 @@ def _(mo):
 def _(mo):
     mo.md(r"""
     ### Create
-    A test set generated from your corpus, RAGAS scores on your pipeline, one retrieval change, and the scores again.
+    A test set generated from your corpus and curated before you trust it, RAGAS scores on your pipeline, one retrieval change, and the scores again with an interval on the difference.
     """)
     return
 
@@ -53,7 +53,7 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    **Estimated time:** 35 minutes
+    **Estimated time:** 40 minutes
     **Reads:** corpus
     **Writes:** testset, ragas_scores
     """)
@@ -154,7 +154,7 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ## Task 1 of 5 — A weak pipeline on purpose
+    ## Task 1 of 6 — A weak pipeline on purpose
 
     Index the corpus pages into a disposable in-memory store and answer with a deliberately small `k` of 2, so the retriever fetches two chunks. The prompt stays fixed for the rest of the notebook. When the scores move later, retrieval moved them.
     """)
@@ -236,9 +236,9 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ## Task 2 of 5 — Generate the test set
+    ## Task 2 of 6 — Generate the test set
 
-    To score retrieval you need questions with known answers. The idea by hand: show the model one chunk, ask for a question that chunk answers and the answer drawn only from it. RAGAS does the same at scale. It builds a knowledge graph over the pages, then writes single-hop and multi-hop questions from different personas in varied styles, some terse, some misspelt, the way users type. If your workspace already holds a test set, the cell reuses it so the scores stay comparable from run to run. Delete the file to regenerate.
+    To score retrieval you need questions with known answers. The idea by hand: show the model one chunk, ask for a question that chunk answers and the answer drawn only from it. RAGAS does the same at scale. It builds a knowledge graph over the pages, then writes single-hop and multi-hop questions from different personas in varied styles, some terse, some misspelt, the way users type. Nothing is saved yet: the next task decides what survives. If your workspace already holds a test set, the cell reuses it so the scores stay comparable from run to run. Delete the file to regenerate.
     """)
     return
 
@@ -290,11 +290,10 @@ def _(
         page_docs = [Document(page_content=t, metadata={'page': n}) for n, t in PAGES.items()]
         _t0 = time.time()
         with ui.spinner('building the knowledge graph and writing questions'):
-            generated = generator.generate_with_langchain_docs(page_docs, testset_size=N_QUESTIONS, run_config=RunConfig(timeout=int(LLM_TIMEOUT), max_workers=3, max_retries=4))
-        gen_df = generated.to_pandas()
+            _generated = generator.generate_with_langchain_docs(page_docs, testset_size=N_QUESTIONS, run_config=RunConfig(timeout=int(LLM_TIMEOUT), max_workers=3, max_retries=4))
+        gen_df = _generated.to_pandas()
         TESTSET = [{'question': r['user_input'], 'reference': r['reference'], 'synthesizer': r.get('synthesizer_name', '')} for _, r in gen_df.iterrows()]
-        ws.save('testset', TESTSET)
-        print(f'{len(TESTSET)} of {N_QUESTIONS} questions in {time.time() - _t0:.0f}s')
+        print(f'{len(TESTSET)} of {N_QUESTIONS} questions in {time.time() - _t0:.0f}s; not saved until curated')
         if len(TESTSET) < N_QUESTIONS:
             print('ℹ fewer than asked: a synthesizer skipped a question it could not build from this corpus')
     gen_df[[c for c in ('user_input', 'reference', 'synthesizer_name') if c in gen_df.columns]]
@@ -323,7 +322,86 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ## Task 3 of 5 — Run the baseline over the test set
+    ## Task 3 of 6 — Curate the test set before you trust it
+
+    A generated test set is a draft, not a measurement. Throw out what should not count before you score anything. Near-duplicates first: two questions whose character 4-gram sets overlap by 0.7 or more are one question. Then a schema check with a small pydantic model, counted separately, because an empty reference is a different failure from a repeat. Then a leak check: a question that copies a whole sentence from a page, eight words or more, is a lookup the retriever cannot fail, so it measures nothing. Shorter overlaps are the names of things, which a question has to use. What survives is the test set the later tasks score, and the datasheet says what it cannot test.
+    """)
+    return
+
+
+@app.cell
+def _(PAGES, TESTSET, show, ws):
+    import re
+    from collections import Counter
+    from typing import Annotated
+    from pydantic import BaseModel, StringConstraints, ValidationError
+
+    def shingles(text: str, n: int=4) -> set:
+        """The set of character n-grams, case folded, whitespace collapsed."""
+        t = ' '.join(text.lower().split())
+        return {t[i:i + n] for i in range(max(len(t) - n + 1, 1))}
+
+    def jaccard(a: set, b: set) -> float:
+        return len(a & b) / len(a | b) if a and b else 0.0
+
+    def dedupe(rows: list, threshold: float=0.7) -> tuple:
+        """Keep a row only if its question is unlike every question kept so far."""
+        kept, seen, dropped = ([], [], [])
+        for row in rows:
+            s = shingles(str(row.get('question', '')))
+            if any((jaccard(s, other) >= threshold for other in seen)):
+                dropped.append(row)
+            else:
+                kept.append(row)
+                seen.append(s)
+        return (kept, dropped)
+
+    class TestRow(BaseModel):
+        question: Annotated[str, StringConstraints(strip_whitespace=True, min_length=1)]
+        reference: Annotated[str, StringConstraints(strip_whitespace=True, min_length=1)]
+
+    def word_runs(text: str, n: int=8) -> set:
+        """Every run of n consecutive words. Eight is a copied sentence; a shorter
+        run is usually the name of a thing, which a question has to use."""
+        w = re.findall('[a-z0-9]+', text.lower())
+        return {' '.join(w[i:i + n]) for i in range(len(w) - n + 1)}
+    _generated = len(TESTSET)
+    unique, duplicates = dedupe(TESTSET)
+    valid, invalid = ([], [])
+    for row in unique:
+        try:
+            TestRow(**row)
+            valid.append(row)
+        except ValidationError as e:
+            invalid.append((row, e.errors()[0]['msg']))
+    PAGE_RUNS = set().union(*(word_runs(t) for t in PAGES.values()))
+    leaked = [(r, sorted(word_runs(r['question']) & PAGE_RUNS)[0]) for r in valid if word_runs(r['question']) & PAGE_RUNS]
+    kept = [r for r in valid if r not in [l for l, _ in leaked]]
+    kept_back = 0
+    if not kept and leaked:
+        kept_back, kept = (len(leaked), valid)
+        print(f'⚠️ every row quoted a page; keeping all {kept_back}, flagged below, so there is something to score')
+    TESTSET_1 = kept
+    ws.save('testset', TESTSET_1)
+    mix = Counter((r.get('synthesizer') or 'unknown' for r in TESTSET_1))
+    show('\n'.join(['### Datasheet', '', '| | count |', '|---|---|', f'| generated | {_generated} |', f'| duplicates removed (4-gram Jaccard at 0.7 or more) | {len(duplicates)} |', f'| invalid (empty question or reference) | {len(invalid)} |', f"| leaked (a sentence of eight or more words copied from a page) | {len(leaked)}{(f' ({kept_back} kept back)' if kept_back else '')} |", f'| kept | {len(TESTSET_1)} |', '', 'Synthesizer mix: ' + (', '.join((f'{k} {v}' for k, v in mix.most_common())) or 'none'), '', 'Cannot test: every reference was written from a page, so no question asks for something the corpus does not hold, and the refusal the product should make never appears.']))
+    for row, why in [(r, f'invalid: {m}') for r, m in invalid] + [(r, f'quotes {p!r}') for r, p in leaked]:
+        print(f"{('kept back' if kept_back and 'quotes' in why else 'dropped')}: {row['question'][:70]!r} ({why})")
+    return (TESTSET_1,)
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    You should see a datasheet whose counts add up to the generated total unless rows were kept back, the synthesizer mix, and one line per removed row saying why. Stop here if kept is under three: the corpus is small, so raise `testset_size` and regenerate before scoring.
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ## Task 4 of 6 — Run the baseline over the test set
 
     Answer every generated question with the weak pipeline, keeping the retrieved chunks for each. Those chunks are what RAGAS needs to tell a retrieval miss from a generation miss.
     """)
@@ -331,9 +409,9 @@ def _(mo):
 
 
 @app.cell
-def _(TESTSET, baseline_retriever, run_rag, show, time):
+def _(TESTSET_1, baseline_retriever, run_rag, show, time):
     _t0 = time.time()
-    baseline_rows = run_rag(baseline_retriever, TESTSET)
+    baseline_rows = run_rag(baseline_retriever, TESTSET_1)
     print(f'answered {len(baseline_rows)} questions in {time.time() - _t0:.0f}s')
     show('Q: ' + baseline_rows[0]['user_input'] + '\n\nBaseline answer: ' + baseline_rows[0]['response'][:400])
     return (baseline_rows,)
@@ -350,7 +428,18 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ## Task 4 of 5 — Measure with RAGAS
+    ### ❓ Question
+    Read the first baseline answer next to its reference. Did the retriever miss the page, or did the model wander with the right page in front of it? What in the retrieved chunks tells you?
+
+    Answer:
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ## Task 5 of 6 — Measure with RAGAS
 
     Four metrics, each a judge call. Faithfulness: is every claim in the answer supported by the retrieved chunks. Answer relevancy: does the answer address the question. Context precision: are the retrieved chunks the ones the reference needs, ranked high. Context recall: did retrieval surface what the reference answer needs at all. The last two are the ones a small `k` hurts.
     """)
@@ -375,25 +464,23 @@ def _(
     judge = LangchainLLMWrapper(judge_llm)
     judge_emb = LangchainEmbeddingsWrapper(embeddings)
     COLUMNS = ['faithfulness', 'answer_relevancy', 'context_precision', 'context_recall']
+    PER_ROW = {}
 
-    def score(rows: list) -> dict:
-        """Mean of each metric over the rows, keyed by the four column names above."""
+    def score(rows: list, name: str) -> dict:
+        """Mean of each metric over the rows, keyed by the four column names above; the per-question frame is kept in PER_ROW."""  # one frame per variant, a row per question, for the interval later
 
         def _run():
-            return evaluate(EvaluationDataset.from_list(rows), metrics=METRICS, llm=judge, embeddings=judge_emb, run_config=RunConfig(timeout=int(LLM_TIMEOUT), max_retries=4, max_workers=3))  # a worker thread has no running event loop, so RAGAS gets a clean one of its own
+            return evaluate(EvaluationDataset.from_list(rows), metrics=METRICS, llm=judge, embeddings=judge_emb, run_config=RunConfig(timeout=int(LLM_TIMEOUT), max_retries=4, max_workers=3))
         with concurrent.futures.ThreadPoolExecutor(max_workers=1) as pool:
-            means = pool.submit(_run).result().to_pandas().select_dtypes('number').mean()
-        out = {}
-        for col, value in means.items():
-            key = 'context_precision' if 'context_precision' in col else col
-            if key in COLUMNS:
-                out[key] = round(float(value), 3)
-        return out
+            frame = pool.submit(_run).result().to_pandas()  # a worker thread has no running event loop, so RAGAS gets a clean one of its own
+        frame = frame.rename(columns={c: 'context_precision' for c in frame.columns if 'context_precision' in c})
+        PER_ROW[name] = frame
+        return {col: round(float(frame[col].mean()), 3) for col in COLUMNS if col in frame.columns}
     _t0 = time.time()
-    baseline_scores = score(baseline_rows)
+    baseline_scores = score(baseline_rows, 'baseline')
     print(f'scored in {time.time() - _t0:.0f}s')
     baseline_scores
-    return COLUMNS, baseline_scores, score
+    return COLUMNS, PER_ROW, baseline_scores, score
 
 
 @app.cell(hide_code=True)
@@ -407,20 +494,9 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ### ❓ Question
-    Which of the four metrics is lowest, and does that point at retrieval or at the model? What one change would you make first?
+    ## Task 6 of 6 — Change one thing and measure again
 
-    Answer:
-    """)
-    return
-
-
-@app.cell(hide_code=True)
-def _(mo):
-    mo.md(r"""
-    ## Task 5 of 5 — Change one thing and measure again
-
-    Raise `k` from 2 to 6 and run the same evaluation. Same prompt, same questions, same judge, so any movement is retrieval. Then save both rows. Context recall should climb. Faithfulness and relevancy can rise, hold, or dip, because more context is also more text to wander into. With a handful of questions the numbers are noisy; recall is the solid signal.
+    Raise `k` from 2 to 6 and run the same evaluation. Same prompt, same questions, same judge, so any movement is retrieval. Then save both rows. Context recall should climb. Faithfulness and relevancy can rise, hold, or dip, because more context is also more text to wander into. With a handful of questions the numbers are noisy, so the last lines put an interval on the faithfulness difference; recall is the solid signal.
     """)
     return
 
@@ -429,7 +505,8 @@ def _(mo):
 def _(
     CHUNK_SIZE,
     COLUMNS,
-    TESTSET,
+    PER_ROW,
+    TESTSET_1,
     baseline_scores,
     pd,
     run_rag,
@@ -438,17 +515,22 @@ def _(
     ui,
     ws,
 ):
-    improved_retriever = store.as_retriever(search_kwargs={"k": 6})
-    improved_rows = run_rag(improved_retriever, TESTSET)
-    improved_scores = score(improved_rows)
-
-    SCORES = [{"variant": "baseline k=2", **baseline_scores, "k": 2, "chunk_size": CHUNK_SIZE},
-              {"variant": "improved k=6", **improved_scores, "k": 6, "chunk_size": CHUNK_SIZE}]
-    ws.save("ragas_scores", SCORES)
-    compare = pd.DataFrame(SCORES).set_index("variant")[COLUMNS].T
-    compare["delta"] = compare.iloc[:, 1] - compare.iloc[:, 0]
-    compare.index.name = "metric"
-    ui.table(compare, title="baseline vs improved, same prompt and questions")
+    improved_retriever = store.as_retriever(search_kwargs={'k': 6})
+    improved_rows = run_rag(improved_retriever, TESTSET_1)
+    improved_scores = score(improved_rows, 'improved')
+    SCORES = [{'variant': 'baseline k=2', **baseline_scores, 'k': 2, 'chunk_size': CHUNK_SIZE}, {'variant': 'improved k=6', **improved_scores, 'k': 6, 'chunk_size': CHUNK_SIZE}]
+    ws.save('ragas_scores', SCORES)
+    compare = pd.DataFrame(SCORES).set_index('variant')[COLUMNS].T
+    compare['delta'] = compare.iloc[:, 1] - compare.iloc[:, 0]
+    compare.index.name = 'metric'
+    ui.table(compare, title='baseline vs improved, same prompt and questions')
+    from helpers.evals import difference_ci
+    paired = PER_ROW['baseline'][['faithfulness']].join(PER_ROW['improved'][['faithfulness']], lsuffix='_before', rsuffix='_after').dropna()
+    if len(paired) > 1:
+        diff, lo, hi = difference_ci(paired['faithfulness_before'].tolist(), paired['faithfulness_after'].tolist())
+        print(f'faithfulness, improved minus baseline: {diff:+.3f}, 95% interval [{lo:+.3f}, {hi:+.3f}] over {len(paired)} questions' + ('; spans zero, so not a measured difference' if lo <= 0 <= hi else ''))
+    else:
+        print('fewer than two questions scored on both runs, so no interval')
     return SCORES, compare
 
 
@@ -469,7 +551,18 @@ def _(compare):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    You should see a ✅ line with two rows written, a table with a delta column, and a bar chart with two bars per metric. Stop here if every delta is exactly zero: both runs used the same retriever, so check that `improved_retriever` has `k` set to 6.
+    You should see a ✅ line with two rows, a table with a delta column, a bar chart, and a faithfulness line with its interval. At six questions that interval usually spans zero: the delta is not yet a measured difference. Stop here if every delta is exactly zero: both runs used the same retriever, so check `k` on `improved_retriever`.
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ### ❓ Question
+    Which metric is lowest after the change, and does that point at retrieval or at the model? Which delta does the interval let you claim, and what would you change next?
+
+    Answer:
     """)
     return
 
@@ -485,14 +578,14 @@ def _(mo):
 
 
 @app.cell
-def _(COLUMNS, SCORES, TESTSET, build_store, pd, run_rag, score, ui, ws):
+def _(COLUMNS, SCORES, TESTSET_1, build_store, pd, run_rag, score, ui, ws):
     MY_CHUNK_SIZE = 400
-    small_store, small_chunks = build_store(MY_CHUNK_SIZE, 60, f"corpus_{MY_CHUNK_SIZE}")
-    my_rows = run_rag(small_store.as_retriever(search_kwargs={"k": 6}), TESTSET)
-    my_scores = score(my_rows)
-    SCORES.append({"variant": f"chunks {MY_CHUNK_SIZE} k=6", **my_scores, "k": 6, "chunk_size": MY_CHUNK_SIZE})
-    ws.save("ragas_scores", SCORES)
-    ui.table(pd.DataFrame(SCORES).set_index("variant")[COLUMNS], title="three variants")
+    small_store, small_chunks = build_store(MY_CHUNK_SIZE, 60, f'corpus_{MY_CHUNK_SIZE}')
+    my_rows = run_rag(small_store.as_retriever(search_kwargs={'k': 6}), TESTSET_1)
+    my_scores = score(my_rows, f'chunks {MY_CHUNK_SIZE}')
+    SCORES.append({'variant': f'chunks {MY_CHUNK_SIZE} k=6', **my_scores, 'k': 6, 'chunk_size': MY_CHUNK_SIZE})
+    ws.save('ragas_scores', SCORES)
+    ui.table(pd.DataFrame(SCORES).set_index('variant')[COLUMNS], title='three variants')
     return
 
 
@@ -515,6 +608,7 @@ def _(mo):
     | A few personas and query styles | Personas and styles tuned to real user traffic |
     | Four metrics run once in a notebook | Metric suites tracked over time per release |
     | `k` and chunk size changed by hand | Sweeps over chunking, retrieval, and rerankers |
+    | A datasheet printed in a cell | A datasheet committed beside the test set and reviewed before it gates anything |
     | A before and after chart | An eval gate in CI that blocks a regression |
     | One judge model | Several judges with human spot checks and bias controls |
     """)

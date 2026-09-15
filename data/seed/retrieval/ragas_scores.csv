@@ -1,4 +1,4 @@
 variant,faithfulness,answer_relevancy,context_precision,context_recall,k,chunk_size
-baseline k=2,0.917,0.696,0.5,0.438,2,800
-improved k=6,0.853,0.706,0.519,0.692,6,800
-chunks 400 k=6,0.714,0.668,0.439,0.497,6,400
+baseline k=2,0.9,0.646,0.5,0.35,2,800
+improved k=6,0.723,0.651,0.54,0.63,6,800
+chunks 400 k=6,0.857,0.602,0.287,0.492,6,400
