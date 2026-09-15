@@ -1,0 +1,35 @@
+{
+  "key": "effort-high",
+  "title": "B: high effort",
+  "provider": "OpenAI Responses API",
+  "model": "gpt-5.6-luna",
+  "returned_model": "gpt-5.6-luna",
+  "effort": "high",
+  "tools_enabled": false,
+  "repository_instructions_loaded": false,
+  "resume_from": null,
+  "messages": [
+    {
+      "role": "user",
+      "content": "Generate an SVG of a pelican riding a bicycle."
+    }
+  ],
+  "sent_message": "Generate an SVG of a pelican riding a bicycle.",
+  "response": "```svg\n<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 800 600\" width=\"800\" height=\"600\">\n  <title>Pelican Riding a Bicycle</title>\n  <desc>A cheerful pelican rides a blue bicycle beneath a sunny sky.</desc>\n\n  <defs>\n    <linearGradient id=\"sky\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\">\n      <stop offset=\"0\" stop-color=\"#b9e8ff\"/>\n      <stop offset=\"1\" stop-color=\"#f4fcff\"/>\n    </linearGradient>\n    <linearGradient id=\"feather\" x1=\"0\" y1=\"0\" x2=\"1\" y2=\"1\">\n      <stop offset=\"0\" stop-color=\"#ffffff\"/>\n      <stop offset=\"1\" stop-color=\"#dce7ec\"/>\n    </linearGradient>\n    <linearGradient id=\"wing\" x1=\"0\" y1=\"0\" x2=\"1\" y2=\"1\">\n      <stop offset=\"0\" stop-color=\"#7898aa\"/>\n      <stop offset=\"1\" stop-color=\"#456979\"/>\n    </linearGradient>\n    <linearGradient id=\"frame\" x1=\"0\" y1=\"0\" x2=\"1\" y2=\"1\">\n      <stop offset=\"0\" stop-color=\"#ef5b63\"/>\n      <stop offset=\"1\" stop-color=\"#b72f48\"/>\n    </linearGradient>\n  </defs>\n\n  <!-- Sky -->\n  <rect width=\"800\" height=\"600\" fill=\"url(#sky)\"/>\n  <circle cx=\" ninety\" cy=\" ninety\" r=\"42\" fill=\"#ffd85a\"/>\n  <g fill=\"#ffffff\" opacity=\".8\">\n    <path d=\"M100 180c12-25 48-28 65-5 8-8 20-13 33-13 25 0 44 17 47 39H85c1-10 6-16 15-21z\"/>\n    <path d=\"M610 120c10-21 40-25 55-5 7-7 17-11 28-11 21 0 37 15 39 33H598c1-7 5-13 12-17z\"/>\n  </g>\n\n  <!-- Ground -->\n  <path d=\"M70 550H730\" stroke=\"#8abf80\" stroke-width=\"8\" stroke-linecap=\"round\"/>\n  <path d=\"M120 550c20-18 40-18 60 0M640 550c20-18 40-18 60 0\"\n        fill=\"none\" stroke=\"#72ad6e\" stroke-width=\"5\"/>\n\n  <!-- Bicycle -->\n  <g stroke=\"#263f52\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n    <!-- Wheels -->\n    <g fill=\"none\" stroke-width=\"7\">\n      <circle cx=\"235\" cy=\"450\" r=\"98\" fill=\"#f8fcff\"/>\n      <circle cx=\"570\" cy=\"450\" r=\"98\" fill=\"#f8fcff\"/>\n    </g>\n\n    <!-- Spokes -->\n    <g stroke=\"#9ab0ba\" stroke-width=\"3\">\n      <path d=\"M235 352V548M137 450H333M166 381l138 138M166 519l138-138\"/>\n      <path d=\"M570 352V548M472 450H668M501 381l138 138M501 519l138-138\"/>\n    </g>\n\n    <!-- Frame -->\n    <g fill=\"none\" stroke=\"url(#frame)\" stroke-width=\"10\">\n      <path d=\"M235 450L344 326L430 450L235 450Z\"/>\n      <path d=\"M344 326L570 450\"/>\n      <path d=\"M430 450L570 450\"/>\n      <path d=\"M570 450L541 300\"/>\n    </g>\n\n    <!-- Fork and handlebar -->\n    <path d=\"M541 300l-13-18\" fill=\"none\" stroke=\"#263f52\" stroke-width=\"8\"/>\n    <path d=\"M527 282c13-13 32-15 48-5l15 9\" fill=\"none\" stroke=\"#263f52\" stroke-width=\"8\"/>\n    <path d=\"M590 286l-3 12\" fill=\"none\" stroke=\"#263f52\" stroke-width=\"8\"/>\n\n    <!-- Seat -->\n    <path d=\"M327 313h45\" stroke=\"#263f52\" stroke-width=\"9\"/>\n    <path d=\"M337 313l7 20\" fill=\"none\" stroke=\"#263f52\" stroke-width=\"6\"/>\n    <path d=\"M319 306c4-10 13-14 25-14h28c7 0 11 5 9 10l-4 8h-58z\"\n          fill=\"#4d7080\" stroke=\"#263f52\" stroke-width=\"5\"/>\n\n    <!-- Crank and pedals -->\n    <circle cx=\"430\" cy=\"450\" r=\"17\" fill=\"#ffd55c\" stroke=\"#263f52\" stroke-width=\"5\"/>\n    <path d=\"M430 450l42-25M430 450l-38 24\" fill=\"none\" stroke=\"#263f52\" stroke-width=\"6\"/>\n    <path d=\"M466 422h22M381 474h22\" fill=\"none\" stroke=\"#263f52\" stroke-width=\"6\"/>\n  </g>\n\n  <!-- Pelican -->\n  <g stroke=\"#3d5661\" stroke-width=\"5\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n    <!-- Tail -->\n    <path d=\"M318 287l-72 30 57 27 47-38z\" fill=\"#b8cbd2\"/>\n\n    <!-- Body -->\n    <ellipse cx=\"390\" cy=\"247\" rx=\"105\" ry=\"130\" fill=\"url(#feather)\"/>\n    <path d=\"M330 300c27 32 79 46 126 13\" fill=\"none\" stroke=\"#c1d1d6\" stroke-width=\"8\"/>\n\n    <!-- Legs -->\n    <g fill=\"none\" stroke=\"#e59435\" stroke-width=\"12\">\n      <path d=\"M370 335c4 28 5 51 16 69l44 46\"/>\n      <path d=\"M429 337c-3 27 8 48 25 67l-25 47\"/>\n    </g>\n    <g fill=\"#e59435\" stroke=\"#a9612e\" stroke-width=\"4\">\n      <path d=\"M427 447c9-2 19 1 28 8l18 3c5 1 6 8 0 10l-29 1c-10-3-17-10-17-22z\"/>\n      <path d=\"M429 449c-10 1-20 6-26 15l-17 8c-5 2-4 9 2 10l29-7c9-5 14-14 12-26z\"/>\n    </g>\n\n    <!-- Folded wing -->\n    <path d=\"M395 196c47 3 91 27 94 70 3 39-26 71-73 76-27 3-49-10-57-31 34-10 54-31 61-58-17-16-27-35-25-57z\"\n          fill=\"url(#wing)\"/>\n    <path d=\"M387 278c23 13 52 14 82 3M379 298c26 13 52 14 76 7\"\n          fill=\"none\" stroke=\"#9db4bf\" stroke-width=\"5\"/>\n\n    <!-- Neck and head -->\n    <path d=\"M366 180c-9-33 5-83 47-91 42-8 72 21 73 62 1 36-23 59-57 66z\"\n          fill=\"url(#feather)\"/>\n    <circle cx=\"420\" cy=\"119\" r=\"59\" fill=\"url(#feather)\"/>\n\n    <!-- Small crest -->\n    <path d=\"M378 70l-9-27 25 16 8-28 15 25 19-21 2 30\"\n          fill=\"#dce7ec\"/>\n\n    <!-- Beak -->\n    <path d=\"M461 113c48-12 105-3 150 18-35 17-88 27-145 16z\"\n          fill=\"#f6b83f\"/>\n    <path d=\"M465 146c47 8 94 4 137-15-18 39-66 62-112 48-18-6-30-17-35-33z\"\n          fill=\"#ed8840\"/>\n    <path d=\"M477 145c35 4 71 1 105-9\" fill=\"none\" stroke=\"#c76535\" stroke-width=\"4\"/>\n\n    <!-- Eye -->\n    <circle cx=\"438\" cy=\"106\" r=\"12\" fill=\"#ffffff\"/>\n    <circle cx=\"441\" cy=\"108\" r=\"6\" fill=\"#26343d\" stroke=\"none\"/>\n    <circle cx=\"444\" cy=\"105\" r=\"2.5\" fill=\"#ffffff\" stroke=\"none\"/>\n\n    <!-- Wing reaching toward handlebar -->\n    <path d=\"M458 202c29 8 54 27 66 52l21 43c4 9-2 17-11 13-24-11-44-36-56-61-11-22-24-34-38-39z\"\n          fill=\"url(#wing)\"/>\n    <path d=\"M533 302c5 5 9 8 15 8\" fill=\"none\" stroke=\"#7898aa\" stroke-width=\"8\"/>\n  </g>\n\n  <!-- Motion marks -->\n  <g fill=\"none\" stroke=\"#6aa6bd\" stroke-width=\"6\" stroke-linecap=\"round\" opacity=\".7\">\n    <path d=\"M104 382h52\"/>\n    <path d=\"M83 405h38\"/>\n    <path d=\"M663 350h43\"/>\n  </g>\n</svg>\n```",
+  "elapsed_seconds": 34.99,
+  "response_id": "resp_0d338ac1b2ae4a58016aa9b085373c87d08c70043b332d382a",
+  "usage": {
+    "input_tokens": 17,
+    "input_tokens_details": {
+      "cache_write_tokens": 0,
+      "cached_tokens": 0
+    },
+    "output_tokens": 3519,
+    "output_tokens_details": {
+      "reasoning_tokens": 1253
+    },
+    "total_tokens": 3536
+  },
+  "recording_mode": "model-only reference conversation; no coding-agent harness or repository context",
+  "status": "completed"
+}

@@ -23,7 +23,9 @@ Follow [Agent setup and controls](../docs/CODING_AGENTS.md) for environment requ
 
 ## Examples
 
-Each prompt has a collapsed recorded response. These are actual model-only OpenAI Responses API runs with `gpt-5.6-luna` (low effort, except the high-effort comparison), preserved in [recording data](data/recorded_responses.json). No tools or repository instructions were supplied; self-refine retains the preceding draft. These are reference conversations, not captures of a coding-agent interface. Your interactive responses may differ. Earlier Claude recordings remain in the versioned recording files.
+Each prompt has a collapsed recorded response. These are actual model-only OpenAI Responses API runs with `gpt-5.6-luna` (low effort, except the xhigh-effort comparison), preserved in [recording data](data/recorded_responses.json). No tools or repository instructions were supplied; self-refine retains the preceding draft. These are reference conversations, not captures of a coding-agent interface. Your interactive responses may differ. Earlier Claude recordings remain in the versioned recording files.
+
+The effort example shows low versus xhigh pelicans with measured generation times above the images (17.8 and 90.7 seconds). Times cover API request completion, excluding rendering. The earlier high-effort trial is retained in `data/recorded_pelican_high.json`.
 
 ## Course integration
 
