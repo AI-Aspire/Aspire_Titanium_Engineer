@@ -25,13 +25,25 @@ load_dotenv()
 MODEL = os.getenv("LLM_MODEL") or "gpt-4.1-mini"
 BASE = os.getenv("OPENAI_BASE_URL") or None
 KEY = os.getenv("OPENAI_API_KEY") or "EMPTY"
+_IS_APIM = bool(BASE and "azure-api.net" in BASE)
+
+
+def _chat_base(base: str, model: str) -> str:
+    """APIM lives at /deployments/{model}; other providers use base as-is."""
+    if _IS_APIM:
+        return f"{base.rstrip('/')}/deployments/{model}"
+    return base
 
 
 class LLM:
-    def __init__(self, model=MODEL, base=BASE, key=KEY, timeout: int = 600, temperature: float = 0.7):
+    def __init__(self, model=MODEL, base=BASE, key=KEY, timeout: int = 600, temperature: float = 1.0):
         self.model = model
+        # gpt-5.x reasoning models only accept temperature=1. On off-APIM
+        # providers you can still lower this per-call via chat(temperature=...).
         self.temperature = temperature
-        self.client = AsyncOpenAI(base_url=base, api_key=key, timeout=timeout)
+        extra = {"default_query": {"subscription-key": key}} if _IS_APIM else {}
+        self.client = AsyncOpenAI(
+            base_url=_chat_base(base, model), api_key=key, timeout=timeout, **extra)
 
     async def chat(self, system: str, user: str, temperature: float | None = None) -> str:
         r = await self.client.chat.completions.create(

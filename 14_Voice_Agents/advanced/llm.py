@@ -26,7 +26,12 @@ MODEL = os.getenv("LLM_MODEL", "gpt-4.1-mini")
 BASE_URL = os.getenv("OPENAI_BASE_URL") or None
 API_KEY = os.getenv("OPENAI_API_KEY", "EMPTY")
 
-client = AsyncOpenAI(base_url=BASE_URL, api_key=API_KEY, timeout=120)
+_IS_APIM = bool(BASE_URL and "azure-api.net" in BASE_URL)
+_client_base = (f"{BASE_URL.rstrip('/')}/deployments/{MODEL}"
+                if _IS_APIM else BASE_URL)
+_client_extra = {"default_query": {"subscription-key": API_KEY}} if _IS_APIM else {}
+
+client = AsyncOpenAI(base_url=_client_base, api_key=API_KEY, timeout=120, **_client_extra)
 
 
 def _thinking(enabled: bool) -> dict:
