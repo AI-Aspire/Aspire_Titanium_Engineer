@@ -31,6 +31,11 @@ Production evals use a separate judge model, human calibration on a sample, and 
 
 The distinction that matters: an answer can be grounded, actionable, or clear. Those overlap, and they are not the same measurement.
 
+## Before you arrive
+
+- Score five answers from any assistant you use by hand, pass, mixed, or fail, with one line of reasoning each; keep the sheet.
+- Judging LLM-as-a-judge with MT-Bench and Chatbot Arena: https://arxiv.org/abs/2306.05685
+
 ## Setup
 
 ```bash

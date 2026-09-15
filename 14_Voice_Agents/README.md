@@ -37,6 +37,11 @@ Production voice needs turn-taking rules, barge-in, and latency budgets per role
 | 5 | Run the full narrated session and listen to it |
 | 6 | Save the sessions |
 
+## Before you arrive
+
+- Record thirty seconds of yourself asking your product a question, on your phone, and bring the file.
+- Speech to text: https://developers.openai.com/api/docs/guides/speech-to-text
+
 ## Setup
 
 This module has its own environment, separate from the repository's shared one.

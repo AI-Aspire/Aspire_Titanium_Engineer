@@ -37,6 +37,11 @@ Ship cheapest-first: the rungs that clear your coverage bar at your latency budg
 | 6 | Rung 4: a policy table over roles, decided in microseconds without reading the text |
 | 7 | Run every rung on every case, failing closed, report coverage beside false positives, assemble the ladder, and save the results |
 
+## Before you arrive
+
+- Write down three requests your assistant must refuse and two that look similar but must pass; bring all five.
+- Efficient guided generation for large language models: https://arxiv.org/abs/2307.09702
+
 ## Setup
 
 ```bash

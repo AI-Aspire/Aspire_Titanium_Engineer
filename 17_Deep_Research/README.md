@@ -36,6 +36,11 @@ In production the trace is how you defend the report. Tell your team which bound
 | 5 | Compile the graph and stream a run |
 | 6 | Read the trace and save the report |
 
+## Before you arrive
+
+- Write down the one failure of your assistant you would most like explained, and the three sources you would check first.
+- Open deep research: https://www.langchain.com/blog/open-deep-research
+
 ## Setup
 
 ```bash

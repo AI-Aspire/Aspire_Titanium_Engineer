@@ -37,6 +37,11 @@ Production memory is per user, scoped, and forgets on purpose. Show your team on
 | 6 | Extract facts at session end and recall them in a fresh session |
 | 7 | Write MEMORY.md |
 
+## Before you arrive
+
+- Write down three facts about yourself an assistant should remember across sessions and one it must forget; bring the list.
+- Context engineering in agents: https://docs.langchain.com/oss/python/langchain/context-engineering
+
 ## Setup
 
 ```bash

@@ -37,6 +37,11 @@ Production retrieval means structure-aware chunking, incremental re-indexing, hy
 | 6 | Change `k` and compare two answers to one question |
 | 7 | Answer every vibe check and save the baseline runs with their contexts |
 
+## Before you arrive
+
+- Collect ten pages of the documents your product would answer from, as markdown or plain text, and bring the folder.
+- Retrieval-augmented generation: https://arxiv.org/abs/2005.11401
+
 ## Setup
 
 ```bash

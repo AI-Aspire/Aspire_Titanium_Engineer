@@ -37,6 +37,11 @@ Say what each guardrail stops and what it does not. Tell your team which case tr
 | 6 | Force the output tripwires with two unsafe demo agents |
 | 7 | Run every case and save the matrix |
 
+## Before you arrive
+
+- List the kinds of personal data your users might paste into a question, with one made-up example of each; bring the list.
+- Guardrails in the OpenAI Agents SDK: https://openai.github.io/openai-agents-python/guardrails/
+
 ## Setup
 
 ```bash

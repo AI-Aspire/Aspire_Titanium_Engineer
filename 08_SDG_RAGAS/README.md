@@ -37,6 +37,11 @@ Production teams keep the test set under version control and rerun it on every r
 | 5 | Score faithfulness, answer relevancy, context precision, context recall |
 | 6 | Raise `k`, score again, save both rows, chart the change, put an interval on the faithfulness difference |
 
+## Before you arrive
+
+- Read one of your documents and write one question it answers, with the answer drawn only from that page; bring the pair.
+- RAGAS metrics: https://docs.ragas.io/en/stable/concepts/metrics/available_metrics/
+
 ## Setup
 
 This module has its own environment because RAGAS pins the LangChain 0.3 line and the rest of the repository runs LangChain 1.x.

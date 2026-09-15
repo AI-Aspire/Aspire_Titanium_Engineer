@@ -38,6 +38,11 @@ Production picks a mechanism per capability by ownership, auth, and what enters 
 | 6 | UTCP: a manifest describes the API; the client calls it directly |
 | 7 | Write the catalogue |
 
+## Before you arrive
+
+- List the internal APIs your team already runs that an agent could call, and who owns each schema; bring the list.
+- Model Context Protocol: https://www.anthropic.com/news/model-context-protocol
+
 ## Setup
 
 ```bash

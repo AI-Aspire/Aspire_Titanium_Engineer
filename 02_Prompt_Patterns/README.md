@@ -27,6 +27,11 @@ Prompts in production are versioned like code, tested against a regression set, 
 | 6 | Self-refine | draft, critique against criteria, revise | quality bars you can write down |
 | 7 | Meta-prompting | the model writes the prompt | recurring tasks, prompt variants |
 
+## Before you arrive
+
+- Write down the one question your users ask most, in their words, and what a good answer must contain; bring both.
+- Self-refine: https://arxiv.org/abs/2303.17651
+
 ## Setup
 
 ```bash

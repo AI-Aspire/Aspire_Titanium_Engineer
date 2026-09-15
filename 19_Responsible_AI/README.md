@@ -38,6 +38,11 @@ A register is only useful if someone owns each row. Tell your team which row sur
 | 5 | Govern rows from rubric aspects with no judge; owners on every row |
 | 6 | Render the table and save the register |
 
+## Before you arrive
+
+- Read your company's AI or data-use policy and bring one rule your prototype would have to prove it follows.
+- NIST AI risk management framework: https://www.nist.gov/itl/ai-risk-management-framework
+
 ## Setup
 
 ```bash

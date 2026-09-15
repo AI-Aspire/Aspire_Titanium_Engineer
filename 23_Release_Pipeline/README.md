@@ -37,6 +37,11 @@ A deployment is a conversation with whoever runs the platform. Bring them the ma
 | 5 | Decide who may read what before retrieval, and see why filtering afterwards leaks |
 | 6 | Fill the deployment checklist from what the repository already answers, and mark the rest unknown |
 
+## Before you arrive
+
+- Ask whoever runs your platform which manifest properties they check before a deploy; bring the list, even if it is short.
+- Canarying releases: https://sre.google/workbook/canarying-releases/
+
 ## Setup
 
 ```bash

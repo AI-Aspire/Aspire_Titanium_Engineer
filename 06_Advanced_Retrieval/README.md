@@ -37,6 +37,11 @@ Ship the cheapest rung that clears your bar and write down which question type n
 | 4 | Score every rung on hit rate and MRR, chart it, save the ladder |
 | 5 | Tag every chunk with a group and compare dropping after ranking with filtering inside the query |
 
+## Before you arrive
+
+- Write five questions your users ask and, for each, name the document that holds the answer; bring the sheet.
+- Reciprocal rank fusion: https://plg.uwaterloo.ca/~gvcormac/cormacksigir09-rrf.pdf
+
 ## Setup
 
 ```bash

@@ -37,6 +37,11 @@ Rerun before the demo and read the decision aloud. Bring your team one pass and 
 | 6 | Score every run and save the result rows |
 | 7 | Fingerprint the case set, gate v2 per metric, and save the release decision |
 
+## Before you arrive
+
+- Write six eval cases, a question and the reference answer each, all answerable from your documents; bring the file.
+- DeepEval: https://docs.confident-ai.com
+
 ## Setup
 
 ```bash

@@ -35,6 +35,11 @@ Production multi-agent systems keep the source ledger and the audit next to ever
 | 4 | Build the verifier, writer, and evaluator, and wire the six nodes into a LangGraph |
 | 5 | Run it on your own results, read the audit, and save the report |
 
+## Before you arrive
+
+- Take one report your team wrote and check whether each claim cites a source you could open; count the ones that do not.
+- How we built our multi-agent research system: https://www.anthropic.com/engineering/multi-agent-research-system
+
 ## Setup
 
 ```bash

@@ -38,6 +38,11 @@ Production agent evals run on every change to the prompt, tools, or retriever, a
 | 7 | Plant a regression and check the harness catches it |
 | 8 | Write the capability report |
 
+## Before you arrive
+
+- Recall one real support conversation and write down the detail the user withheld until they were asked for it; bring it.
+- Tau-bench, tool-agent-user interaction: https://arxiv.org/abs/2406.12045
+
 ## Setup
 
 ```bash

@@ -33,6 +33,11 @@ In production, branch protection, required checks, and code owners enforce what 
 - The GitHub CLI logged in: `gh auth login`
 - A fork of the course repository, cloned: `gh repo fork <course repo> --clone`. The repository slug is in `cohort.toml`.
 
+## Before you arrive
+
+- Read the last five commit messages on a repository you work in and mark which ones a reviewer could scan; bring the list.
+- GitHub flow: https://docs.github.com/en/get-started/using-github/github-flow
+
 ## Setup
 
 ```bash

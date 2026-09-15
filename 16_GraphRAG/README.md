@@ -40,6 +40,11 @@ Decide from the numbers whether the graph earns its build cost. Bring your team 
 | 6 | Measure both on your eval cases |
 | 7 | Save the best graph and the scores |
 
+## Before you arrive
+
+- Write one question about your product whose answer needs two documents, and name both documents; bring the question.
+- From local to global, a GraphRAG approach: https://arxiv.org/abs/2404.16130
+
 ## Setup
 
 ```bash

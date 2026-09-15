@@ -36,6 +36,11 @@ A production harness adds a tool catalogue with auth and audit, persistent trace
 | 5 | Add logging and a model-call limit |
 | 6 | Save the transcripts |
 
+## Before you arrive
+
+- List the three lookups your assistant would need to answer real questions, with a one-line description of each; bring the list.
+- Building effective agents: https://www.anthropic.com/engineering/building-effective-agents
+
 ## Setup
 
 ```bash

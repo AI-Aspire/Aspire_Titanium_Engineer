@@ -39,6 +39,11 @@ Production optimisation reruns when the examples change and records what changed
 | 5 | GEPA, if the installed DSPy has it |
 | 6 | Compare, show what each optimizer changed, save the winner |
 
+## Before you arrive
+
+- Score six transcripts from your own assistant by hand on a 0 to 10 scale and keep the sheet; the optimizer trains on them.
+- DSPy: https://arxiv.org/abs/2310.03714
+
 ## Setup
 
 ```bash

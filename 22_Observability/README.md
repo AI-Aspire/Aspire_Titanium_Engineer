@@ -37,6 +37,11 @@ Production scores sampled traffic through the eval harness, not only latency. Br
 | 5 | Load test the configured endpoint at rising concurrency and save throughput and latency |
 | 6 | Save the redacted traces and write the monitoring file |
 
+## Before you arrive
+
+- Time ten requests to your model endpoint with curl and note the slowest one, not the average.
+- OpenTelemetry GenAI semantic conventions: https://github.com/open-telemetry/semantic-conventions-genai
+
 ## Setup
 
 ```bash

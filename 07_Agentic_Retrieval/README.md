@@ -34,6 +34,11 @@ Keep the cheaper mode that passes your questions and write down what kind of que
 | 4 | Score every eval case in both modes with your judge and save the runs |
 | 5 | Read the summary and the traces, case by case |
 
+## Before you arrive
+
+- Pick one document your product answers from and write its one-line purpose and its section headings by hand; bring the outline.
+- 12-factor agents, own your context window: https://github.com/humanlayer/12-factor-agents/blob/main/content/factor-03-own-your-context-window.md
+
 ## Setup
 
 ```bash

@@ -45,6 +45,11 @@ The categories come from the [OWASP Top 10 for LLM Applications](https://owasp.o
 
 Scope: every attack targets your own application in your own environment. Attacking systems you do not own is not a grey area.
 
+## Before you arrive
+
+- Put a unique canary string in your prototype's system prompt and note where its output is rendered; bring both.
+- OWASP top 10 for LLM applications: https://owasp.org/www-project-top-10-for-large-language-model-applications/
+
 ## Setup
 
 ```bash
