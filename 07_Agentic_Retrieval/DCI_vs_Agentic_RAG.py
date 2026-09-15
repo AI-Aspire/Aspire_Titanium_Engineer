@@ -207,18 +207,49 @@ def _(mo):
 def _(mo):
     mo.md(r"""
     <details><summary>Recorded experiment: inspect calls beside scores</summary>
-
-    Real seed run with `gpt-4.1-mini`. These are tool outputs, not an interactive UI capture. Full runs and evidence: `data/recorded_experiments.json`.
-
-    | Case | Mode | Judge /10 | Calls | Stop |
-    |---|---|---|---|---|
-    | v01 | agentic_rag | 7 | 1 | answer |
-    | v01 | dci | 9 | 1 | answer |
-    | v04 | agentic_rag | 9 | 0 | answer |
-    | v04 | dci | 10 | 1 | answer |
-
-    A high judge score can coexist with zero evidence calls. That violates the experiment's evidence-only instruction even when the answer sounds right. Inspect the trace before choosing a mode. A new run may differ.
-
+    <span class="markdown prose dark:prose-invert contents"><span class="paragraph">Real seed run with <code>gpt-4.1-mini</code>. These are tool outputs, not an interactive UI capture. Full runs and evidence: <code>data/recorded_experiments.json</code>.</span>
+    <table>
+    <thead>
+    <tr>
+    <th>Case</th>
+    <th>Mode</th>
+    <th>Judge /10</th>
+    <th>Calls</th>
+    <th>Stop</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+    <td>v01</td>
+    <td>agentic_rag</td>
+    <td>7</td>
+    <td>1</td>
+    <td>answer</td>
+    </tr>
+    <tr>
+    <td>v01</td>
+    <td>dci</td>
+    <td>9</td>
+    <td>1</td>
+    <td>answer</td>
+    </tr>
+    <tr>
+    <td>v04</td>
+    <td>agentic_rag</td>
+    <td>9</td>
+    <td>0</td>
+    <td>answer</td>
+    </tr>
+    <tr>
+    <td>v04</td>
+    <td>dci</td>
+    <td>10</td>
+    <td>1</td>
+    <td>answer</td>
+    </tr>
+    </tbody>
+    </table>
+    <span class="paragraph">A high judge score can coexist with zero evidence calls. That violates the experiment's evidence-only instruction even when the answer sounds right. Inspect the trace before choosing a mode. A new run may differ.</span></span>
     </details>
     """)
     return
@@ -321,9 +352,7 @@ def _(mo):
 def _(mo):
     mo.md(r"""
     <details><summary>Keep measured artifacts for later use</summary>
-
-    The tool can save its real outputs through `helpers.workspace` when you ask Claude to use `--save`. This runs an experiment and saves its results; it does not export your Claude conversation. Review inputs first. If you leave the workspace empty, readers use the labeled seed fallback.
-
+    <span class="markdown prose dark:prose-invert contents"><span class="paragraph">The tool can save its real outputs through <code>helpers.workspace</code> when you ask Claude to use <code>--save</code>. This runs an experiment and saves its results; it does not export your Claude conversation. Review inputs first. If you leave the workspace empty, readers use the labeled seed fallback.</span></span>
     </details>
     """)
     return

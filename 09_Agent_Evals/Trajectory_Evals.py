@@ -246,21 +246,54 @@ def _(mo):
 def _(mo):
     mo.md(r"""
     <details><summary>Recorded experiment: disagreement is evidence</summary>
-
-    Real seed run with `gpt-4.1-mini`: three baseline repeats per task. `data/recorded_experiments.json` holds turns and verdicts.
-
-    | Task | Baseline passes | pass^3 |
-    |---|---|---|
-    | task-injection | 3/3 | 1.00 |
-    | task-out-of-scope | 0/3 | 0.00 |
-    | task-v01 | 3/3 | 1.00 |
-    | task-v02 | 1/3 | 0.00 |
-    | task-v03 | 3/3 | 1.00 |
-    | task-v04 | 1/3 | 0.00 |
-    | task-v05 | 0/3 | 0.00 |
-
-    Lookup pass rate fell from 53% to 20% under the broken retriever. Keyword verdicts disagreed with the judge. In a VPN trajectory, the user started asking the assistant to check its own VPN settings: Inspect this role drift before trusting the harness.
-
+    <span class="markdown prose dark:prose-invert contents"><span class="paragraph">Real seed run with <code>gpt-4.1-mini</code>: three baseline repeats per task. <code>data/recorded_experiments.json</code> holds turns and verdicts.</span>
+    <table>
+    <thead>
+    <tr>
+    <th>Task</th>
+    <th>Baseline passes</th>
+    <th>pass^3</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+    <td>task-injection</td>
+    <td>3/3</td>
+    <td>1.00</td>
+    </tr>
+    <tr>
+    <td>task-out-of-scope</td>
+    <td>0/3</td>
+    <td>0.00</td>
+    </tr>
+    <tr>
+    <td>task-v01</td>
+    <td>3/3</td>
+    <td>1.00</td>
+    </tr>
+    <tr>
+    <td>task-v02</td>
+    <td>1/3</td>
+    <td>0.00</td>
+    </tr>
+    <tr>
+    <td>task-v03</td>
+    <td>3/3</td>
+    <td>1.00</td>
+    </tr>
+    <tr>
+    <td>task-v04</td>
+    <td>1/3</td>
+    <td>0.00</td>
+    </tr>
+    <tr>
+    <td>task-v05</td>
+    <td>0/3</td>
+    <td>0.00</td>
+    </tr>
+    </tbody>
+    </table>
+    <span class="paragraph">Lookup pass rate fell from 53% to 20% under the broken retriever. Keyword verdicts disagreed with the judge. In a VPN trajectory, the user started asking the assistant to check its own VPN settings: Inspect this role drift before trusting the harness.</span></span>
     </details>
     """)
     return
@@ -391,9 +424,7 @@ def _(mo):
 def _(mo):
     mo.md(r"""
     <details><summary>Keep measured artifacts for later use</summary>
-
-    The tool can save its real outputs through `helpers.workspace` when you ask Claude to use `--save`. This runs an experiment and saves its results; it does not export your Claude conversation. Review inputs first. If you leave the workspace empty, readers use the labeled seed fallback.
-
+    <span class="markdown prose dark:prose-invert contents"><span class="paragraph">The tool can save its real outputs through <code>helpers.workspace</code> when you ask Claude to use <code>--save</code>. This runs an experiment and saves its results; it does not export your Claude conversation. Review inputs first. If you leave the workspace empty, readers use the labeled seed fallback.</span></span>
     </details>
     """)
     return

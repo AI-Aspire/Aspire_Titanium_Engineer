@@ -77,11 +77,8 @@ def _(mo):
     mo.md(r"""
     <details>
     <summary>About the recorded responses</summary>
-
-    These are actual Claude Code responses, generated programmatically for reference. They used claude-sonnet-5, with tools disabled and repository instructions loaded. Effort was medium except for the low/high comparison. Your responses may differ.
-
-    [Recording data](data/recorded_responses.json) contains the exact prompts, responses, and settings.
-
+    <span class="markdown prose dark:prose-invert contents"><span class="paragraph">These are actual Claude Code responses, generated programmatically for reference. They used claude-sonnet-5, with tools disabled and repository instructions loaded. Effort was medium except for the low/high comparison. Your responses may differ.</span>
+    <span class="paragraph"><a href="data/recorded_responses.json">Recording data</a> contains the exact prompts, responses, and settings.</span></span>
     </details>
     """)
     return
@@ -122,18 +119,17 @@ def _(mo):
     <!-- Preserve the actual response verbatim; long recordings are collapsed. -->
     <details>
     <summary>Recorded response · 2026-09-14 · claude-sonnet-5</summary>
-
-    Fresh session; medium effort. Verbatim response:
-
-    > This isn't related to this repo or its coursework — it's a general IT/networking troubleshooting question, not something I can see specifics of (VPN config, staging DB network rules, credentials, etc.). A few generic first steps your colleague could try:
-    >
-    > 1. Confirm what "connects" means — is the VPN client showing "connected" with an assigned IP, and can they reach *other* internal resources (not just the DB)?
-    > 2. Check they're pointed at the right host/port for staging (not accidentally prod or a stale config) and that DNS resolves it while on VPN (`nslookup`/`dig`).
-    > 3. Test raw connectivity to the DB port, e.g. `nc -zv <host> <port>` or `telnet <host> <port>`, to isolate network reachability from auth/app-level issues.
-    > 4. Check if split-tunnel VPN config is excluding the DB's subnet.
-    >
-    > They should loop in whoever manages the staging infra/VPN (or check internal docs/Slack) since I don't have visibility into your network setup. Want me to help with something else in the repo instead?
-
+    <span class="markdown prose dark:prose-invert contents"><span class="paragraph">Fresh session; medium effort. Verbatim response:</span>
+    <blockquote>
+    <span class="paragraph">This isn't related to this repo or its coursework — it's a general IT/networking troubleshooting question, not something I can see specifics of (VPN config, staging DB network rules, credentials, etc.). A few generic first steps your colleague could try:</span>
+    <ol>
+    <li>Confirm what "connects" means — is the VPN client showing "connected" with an assigned IP, and can they reach <em>other</em> internal resources (not just the DB)?</li>
+    <li>Check they're pointed at the right host/port for staging (not accidentally prod or a stale config) and that DNS resolves it while on VPN (<code>nslookup</code>/<code>dig</code>).</li>
+    <li>Test raw connectivity to the DB port, e.g. <code>nc -zv &lt;host&gt; &lt;port&gt;</code> or <code>telnet &lt;host&gt; &lt;port&gt;</code>, to isolate network reachability from auth/app-level issues.</li>
+    <li>Check if split-tunnel VPN config is excluding the DB's subnet.</li>
+    </ol>
+    <span class="paragraph">They should loop in whoever manages the staging infra/VPN (or check internal docs/Slack) since I don't have visibility into your network setup. Want me to help with something else in the repo instead?</span>
+    </blockquote></span>
     </details>
     """)
     return
@@ -158,11 +154,10 @@ def _(mo):
     <!-- Preserve the actual response verbatim; long recordings are collapsed. -->
     <details>
     <summary>Recorded response · 2026-09-14 · claude-sonnet-5</summary>
-
-    Fresh session; medium effort. Verbatim response:
-
-    > Have them run `nc -zv <staging-db-host> <port>` (or `telnet`) from their machine — this isolates whether it's a routing/firewall issue on the VPN split-tunnel vs. a DB-level problem (auth, wrong credentials, DB down). VPN "connected" only proves the tunnel is up, not that the specific subnet/port is routed through it.
-
+    <span class="markdown prose dark:prose-invert contents"><span class="paragraph">Fresh session; medium effort. Verbatim response:</span>
+    <blockquote>
+    <span class="paragraph">Have them run <code>nc -zv &lt;staging-db-host&gt; &lt;port&gt;</code> (or <code>telnet</code>) from their machine — this isolates whether it's a routing/firewall issue on the VPN split-tunnel vs. a DB-level problem (auth, wrong credentials, DB down). VPN "connected" only proves the tunnel is up, not that the specific subnet/port is routed through it.</span>
+    </blockquote></span>
     </details>
     """)
     return
@@ -207,11 +202,10 @@ def _(mo):
     <!-- Preserve the actual response verbatim; long recordings are collapsed. -->
     <details>
     <summary>Recorded response · 2026-09-14 · claude-sonnet-5</summary>
-
-    Fresh session; medium effort. Verbatim response:
-
-    > **OUT_OF_SCOPE** — this is a facilities/scheduling request, not something a support desk (presumably handling product/account issues) would resolve.
-
+    <span class="markdown prose dark:prose-invert contents"><span class="paragraph">Fresh session; medium effort. Verbatim response:</span>
+    <blockquote>
+    <span class="paragraph"><strong>OUT_OF_SCOPE</strong> — this is a facilities/scheduling request, not something a support desk (presumably handling product/account issues) would resolve.</span>
+    </blockquote></span>
     </details>
     """)
     return
@@ -240,11 +234,10 @@ def _(mo):
     mo.md(r"""
     <details>
     <summary>Recorded response · 2026-09-14 · claude-sonnet-5</summary>
-
-    Fresh session; medium effort. Verbatim response:
-
-    > Label: IN_SCOPE. This is a workspace/room reservation request, same category as the desk-booking example.
-
+    <span class="markdown prose dark:prose-invert contents"><span class="paragraph">Fresh session; medium effort. Verbatim response:</span>
+    <blockquote>
+    <span class="paragraph">Label: IN_SCOPE. This is a workspace/room reservation request, same category as the desk-booking example.</span>
+    </blockquote></span>
     </details>
     """)
     return
@@ -302,11 +295,10 @@ def _(mo):
     <!-- Preserve the recorded response verbatim. -->
     <details>
     <summary>Recorded response · 2026-09-14 · claude-sonnet-5 · low effort</summary>
-
-    Programmatic recording in a fresh session. CLI-reported API duration: 2.04 seconds. This is not an interactive UI timing measurement. Verbatim response:
-
-    > Drive — you need the car at the car wash, not yourself, so walking there doesn't accomplish anything.
-
+    <span class="markdown prose dark:prose-invert contents"><span class="paragraph">Programmatic recording in a fresh session. CLI-reported API duration: 2.04 seconds. This is not an interactive UI timing measurement. Verbatim response:</span>
+    <blockquote>
+    <span class="paragraph">Drive — you need the car at the car wash, not yourself, so walking there doesn't accomplish anything.</span>
+    </blockquote></span>
     </details>
     """)
     return
@@ -331,11 +323,10 @@ def _(mo):
     <!-- Preserve the recorded response verbatim. -->
     <details>
     <summary>Recorded response · 2026-09-14 · claude-sonnet-5 · high effort</summary>
-
-    Programmatic recording in a fresh session. CLI-reported API duration: 2.73 seconds. This is not an interactive UI timing measurement. Verbatim response:
-
-    > Drive — you need the car at the car wash to have it cleaned, so walking there wouldn't accomplish the task.
-
+    <span class="markdown prose dark:prose-invert contents"><span class="paragraph">Programmatic recording in a fresh session. CLI-reported API duration: 2.73 seconds. This is not an interactive UI timing measurement. Verbatim response:</span>
+    <blockquote>
+    <span class="paragraph">Drive — you need the car at the car wash to have it cleaned, so walking there wouldn't accomplish the task.</span>
+    </blockquote></span>
     </details>
     """)
     return
@@ -392,28 +383,22 @@ def _(mo):
     <!-- Preserve the actual response verbatim; long recordings are collapsed. -->
     <details>
     <summary>Recorded response · 2026-09-14 · claude-sonnet-5</summary>
-
-    Fresh session; medium effort. Verbatim response:
-
-    > **Product Brief: Deskmate**
-    >
-    > **One-liner:** An internal IT support assistant that answers employee questions using the knowledge base plus the requester's own ticket history, escalating to a human ticket when it can't help.
-    >
-    > **Personas:**
-    > - **Priya (backend engineer)** — needs quick, accurate answers to technical questions, e.g., VPN access to staging.
-    > - **Marcus (helpdesk lead)** — wants fewer repeat/duplicate questions reaching the team and a fully auditable log of what Deskmate said and did.
-    >
-    > **Core behavior:**
-    > - Answers questions by combining the knowledge base with the requester's own ticket history (personalized, context-aware support).
-    > - Opens a ticket automatically when it cannot answer a question, ensuring nothing falls through the cracks.
-    >
-    > **Guardrails (things it explicitly will not do):**
-    > - Never resets anything (accounts, passwords, access, etc.) without explicit user confirmation.
-    > - Never touches entitlements that haven't been verified.
-    > - Never repeats or exposes another user's ticket text — keeps requester data siloed.
-    >
-    > **Why it matters:** Reduces repeat tickets and support load (Marcus's goal) while giving engineers like Priya fast self-service answers, without compromising on safety (no silent destructive actions) or privacy (no cross-user data leakage) — and leaves an audit trail for accountability.
-
+    <span class="markdown prose dark:prose-invert contents"><span class="paragraph">Fresh session; medium effort. Verbatim response:</span>
+    <blockquote>
+    <span class="paragraph"><strong>Product Brief: Deskmate</strong></span>
+    <span class="paragraph"><strong>One-liner:</strong> An internal IT support assistant that answers employee questions using the knowledge base plus the requester's own ticket history, escalating to a human ticket when it can't help.</span>
+    <span class="paragraph"><strong>Personas:</strong>
+    - <strong>Priya (backend engineer)</strong> — needs quick, accurate answers to technical questions, e.g., VPN access to staging.
+    - <strong>Marcus (helpdesk lead)</strong> — wants fewer repeat/duplicate questions reaching the team and a fully auditable log of what Deskmate said and did.</span>
+    <span class="paragraph"><strong>Core behavior:</strong>
+    - Answers questions by combining the knowledge base with the requester's own ticket history (personalized, context-aware support).
+    - Opens a ticket automatically when it cannot answer a question, ensuring nothing falls through the cracks.</span>
+    <span class="paragraph"><strong>Guardrails (things it explicitly will not do):</strong>
+    - Never resets anything (accounts, passwords, access, etc.) without explicit user confirmation.
+    - Never touches entitlements that haven't been verified.
+    - Never repeats or exposes another user's ticket text — keeps requester data siloed.</span>
+    <span class="paragraph"><strong>Why it matters:</strong> Reduces repeat tickets and support load (Marcus's goal) while giving engineers like Priya fast self-service answers, without compromising on safety (no silent destructive actions) or privacy (no cross-user data leakage) — and leaves an audit trail for accountability.</span>
+    </blockquote></span>
     </details>
     """)
     return
@@ -428,17 +413,15 @@ def _(mo):
 
     <details>
     <summary>Expand the complete prompt to copy</summary>
-
-    > Extract a product brief from the text below. Return only one JSON object with exactly these fields, without Markdown fences or introductory prose:
-    > product_name: a string
-    > users: a list of names in the text
-    > must_do: a list of stated responsibilities
-    > must_not_do: a list of stated restrictions
-    >
-    > Do not invent details. Use an empty list for missing list information.
-    >
-    > Deskmate answers internal IT questions using the knowledge base and the requester’s own ticket history. Priya is a backend engineer who needs help reaching staging through the VPN. Marcus is the helpdesk lead who wants fewer repeat questions and an auditable log. Deskmate opens a ticket when it cannot answer. It never resets anything without confirmation, touches unverified entitlements, or repeats another user’s ticket text.
-
+    <span class="markdown prose dark:prose-invert contents"><blockquote>
+    <span class="paragraph">Extract a product brief from the text below. Return only one JSON object with exactly these fields, without Markdown fences or introductory prose:
+    product_name: a string
+    users: a list of names in the text
+    must_do: a list of stated responsibilities
+    must_not_do: a list of stated restrictions</span>
+    <span class="paragraph">Do not invent details. Use an empty list for missing list information.</span>
+    <span class="paragraph">Deskmate answers internal IT questions using the knowledge base and the requester’s own ticket history. Priya is a backend engineer who needs help reaching staging through the VPN. Marcus is the helpdesk lead who wants fewer repeat questions and an auditable log. Deskmate opens a ticket when it cannot answer. It never resets anything without confirmation, touches unverified entitlements, or repeats another user’s ticket text.</span>
+    </blockquote></span>
     </details>
     """)
     return
@@ -449,25 +432,23 @@ def _(mo):
     mo.md(r"""
     <details>
     <summary>Recorded response · 2026-09-14 · claude-sonnet-5</summary>
-
-    Fresh session; medium effort. Verbatim response:
-
-    > ```json
-    > {
-    >   "product_name": "Deskmate",
-    >   "users": ["Priya", "Marcus"],
-    >   "must_do": [
-    >     "Answer internal IT questions using the knowledge base and the requester's own ticket history",
-    >     "Open a ticket when it cannot answer"
-    >   ],
-    >   "must_not_do": [
-    >     "Reset anything without confirmation",
-    >     "Touch unverified entitlements",
-    >     "Repeat another user's ticket text"
-    >   ]
-    > }
-    > ```
-
+    <span class="markdown prose dark:prose-invert contents"><span class="paragraph">Fresh session; medium effort. Verbatim response:</span>
+    <blockquote>
+    <div class="language-json codehilite"><pre><span></span><code><span class="p">{</span>
+    <span class="w">  </span><span class="nt">"product_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Deskmate"</span><span class="p">,</span>
+    <span class="w">  </span><span class="nt">"users"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"Priya"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Marcus"</span><span class="p">],</span>
+    <span class="w">  </span><span class="nt">"must_do"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+    <span class="w">    </span><span class="s2">"Answer internal IT questions using the knowledge base and the requester's own ticket history"</span><span class="p">,</span>
+    <span class="w">    </span><span class="s2">"Open a ticket when it cannot answer"</span>
+    <span class="w">  </span><span class="p">],</span>
+    <span class="w">  </span><span class="nt">"must_not_do"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+    <span class="w">    </span><span class="s2">"Reset anything without confirmation"</span><span class="p">,</span>
+    <span class="w">    </span><span class="s2">"Touch unverified entitlements"</span><span class="p">,</span>
+    <span class="w">    </span><span class="s2">"Repeat another user's ticket text"</span>
+    <span class="w">  </span><span class="p">]</span>
+    <span class="p">}</span>
+    </code></pre></div>
+    </blockquote></span>
     </details>
     """)
     return
@@ -505,13 +486,9 @@ def _(mo):
 def _(mo):
     mo.md(r"""
     <details><summary>Recorded experiment: schema enforcement</summary>
-
-    Real seed-charter run with `gpt-4.1-mini`. Both calls returned valid product briefs in this run. The enforced call completed with `stop` and no refusal.
-
-    The plain call passed an independent Pydantic validation check; the enforced call supplied `ProductBrief` as the API response format and returned a parsed object. Check the contents against the charter even when validation succeeds.
-
-    Exact inputs, schema, response IDs, and both outputs: `data/recorded_schema_experiment.json`. This is an API experiment run by a repo tool, not a Claude UI response.
-
+    <span class="markdown prose dark:prose-invert contents"><span class="paragraph">Real seed-charter run with <code>gpt-4.1-mini</code>. Both calls returned valid product briefs in this run. The enforced call completed with <code>stop</code> and no refusal.</span>
+    <span class="paragraph">The plain call passed an independent Pydantic validation check; the enforced call supplied <code>ProductBrief</code> as the API response format and returned a parsed object. Check the contents against the charter even when validation succeeds.</span>
+    <span class="paragraph">Exact inputs, schema, response IDs, and both outputs: <code>data/recorded_schema_experiment.json</code>. This is an API experiment run by a repo tool, not a Claude UI response.</span></span>
     </details>
     """)
     return
@@ -544,11 +521,10 @@ def _(mo):
     <!-- Preserve the actual response verbatim; long recordings are collapsed. -->
     <details>
     <summary>Recorded response · 2026-09-14 · claude-sonnet-5</summary>
-
-    Fresh session; medium effort. Verbatim response:
-
-    > That information isn't present in this conversation—no mention of "Deskmate" appears anywhere in the context I've been given.
-
+    <span class="markdown prose dark:prose-invert contents"><span class="paragraph">Fresh session; medium effort. Verbatim response:</span>
+    <blockquote>
+    <span class="paragraph">That information isn't present in this conversation—no mention of "Deskmate" appears anywhere in the context I've been given.</span>
+    </blockquote></span>
     </details>
     """)
     return
@@ -571,13 +547,11 @@ def _(mo):
     mo.md(r"""
     <details>
     <summary>Recorded response · 2026-09-14 · claude-sonnet-5</summary>
-
-    Fresh session; medium effort. Verbatim response:
-
-    > The two named users are Priya (backend engineer needing VPN access to staging) and Marcus (helpdesk lead wanting fewer repeat questions and an auditable log).
-    >
-    > Deskmate refuses to: reset anything without confirmation, touch unverified entitlements, or repeat another user's ticket text.
-
+    <span class="markdown prose dark:prose-invert contents"><span class="paragraph">Fresh session; medium effort. Verbatim response:</span>
+    <blockquote>
+    <span class="paragraph">The two named users are Priya (backend engineer needing VPN access to staging) and Marcus (helpdesk lead wanting fewer repeat questions and an auditable log).</span>
+    <span class="paragraph">Deskmate refuses to: reset anything without confirmation, touch unverified entitlements, or repeat another user's ticket text.</span>
+    </blockquote></span>
     </details>
     """)
     return
@@ -641,13 +615,11 @@ def _(mo):
     <!-- Preserve the actual response verbatim; long recordings are collapsed. -->
     <details>
     <summary>Recorded response · 2026-09-14 · claude-sonnet-5</summary>
-
-    Fresh session; medium effort. Verbatim response:
-
-    > Hi Priya,
-    >
-    > Deskmate answers internal IT questions using the knowledge base and your own ticket history — for example, help reaching staging through the VPN. If it can't answer, it opens a ticket for you rather than guessing. It won't reset anything without your confirmation, won't touch entitlements it can't verify, and won't reuse another user's ticket text. For Marcus and the helpdesk team, this also means fewer repeat questions and an auditable log of what was asked and answered.
-
+    <span class="markdown prose dark:prose-invert contents"><span class="paragraph">Fresh session; medium effort. Verbatim response:</span>
+    <blockquote>
+    <span class="paragraph">Hi Priya,</span>
+    <span class="paragraph">Deskmate answers internal IT questions using the knowledge base and your own ticket history — for example, help reaching staging through the VPN. If it can't answer, it opens a ticket for you rather than guessing. It won't reset anything without your confirmation, won't touch entitlements it can't verify, and won't reuse another user's ticket text. For Marcus and the helpdesk team, this also means fewer repeat questions and an auditable log of what was asked and answered.</span>
+    </blockquote></span>
     </details>
     """)
     return
@@ -677,20 +649,17 @@ def _(mo):
     <!-- Preserve the actual response verbatim; long recordings are collapsed. -->
     <details>
     <summary>Recorded response · 2026-09-14 · claude-sonnet-5</summary>
-
-    Continues the draft session; medium effort. Verbatim response:
-
-    > **Critique:**
-    > 1. **Fail** — draft is ~79 words, over the 60-word limit.
-    > 2. **Pass** — names Priya.
-    > 3. **Pass** — states a capability (answers IT questions via knowledge base/ticket history) and a restriction (won't reset anything without confirmation).
-    > 4. **Fail** — ends with a statement about Marcus/helpdesk, not a question asking what she needs help with.
-    > 5. **Pass** — no claims beyond the supplied text.
-    >
-    > **REVISED:**
-    >
-    > Hi Priya, Deskmate answers internal IT questions using the knowledge base and your own ticket history — helpful for things like reaching staging through the VPN. If it can't answer, it opens a ticket instead of guessing, and it never resets anything without your confirmation. What IT issue can I help you with today?
-
+    <span class="markdown prose dark:prose-invert contents"><span class="paragraph">Continues the draft session; medium effort. Verbatim response:</span>
+    <blockquote>
+    <span class="paragraph"><strong>Critique:</strong>
+    1. <strong>Fail</strong> — draft is ~79 words, over the 60-word limit.
+    2. <strong>Pass</strong> — names Priya.
+    3. <strong>Pass</strong> — states a capability (answers IT questions via knowledge base/ticket history) and a restriction (won't reset anything without confirmation).
+    4. <strong>Fail</strong> — ends with a statement about Marcus/helpdesk, not a question asking what she needs help with.
+    5. <strong>Pass</strong> — no claims beyond the supplied text.</span>
+    <span class="paragraph"><strong>REVISED:</strong></span>
+    <span class="paragraph">Hi Priya, Deskmate answers internal IT questions using the knowledge base and your own ticket history — helpful for things like reaching staging through the VPN. If it can't answer, it opens a ticket instead of guessing, and it never resets anything without your confirmation. What IT issue can I help you with today?</span>
+    </blockquote></span>
     </details>
     """)
     return
@@ -737,11 +706,10 @@ def _(mo):
     <!-- Preserve the actual response verbatim; long recordings are collapsed. -->
     <details>
     <summary>Recorded response · 2026-09-14 · claude-sonnet-5</summary>
-
-    Fresh session; medium effort. Verbatim response:
-
-    > Answer the user's question using only the supplied product context. If the needed information isn't present, say so plainly rather than guessing. Never invent policies, menu paths, settings, prices, or steps not explicitly stated in the context. Never claim to have performed an action (e.g., issued a refund, changed a setting, submitted a ticket) — you can only provide information and guidance. Respect any stated product restrictions or limitations exactly as given. If the context doesn't fully resolve the question, acknowledge the gap and suggest a concrete, supported next step (e.g., contacting a specific support channel mentioned in the context, checking a stated resource). Keep responses concise, factual, and free of speculation.
-
+    <span class="markdown prose dark:prose-invert contents"><span class="paragraph">Fresh session; medium effort. Verbatim response:</span>
+    <blockquote>
+    <span class="paragraph">Answer the user's question using only the supplied product context. If the needed information isn't present, say so plainly rather than guessing. Never invent policies, menu paths, settings, prices, or steps not explicitly stated in the context. Never claim to have performed an action (e.g., issued a refund, changed a setting, submitted a ticket) — you can only provide information and guidance. Respect any stated product restrictions or limitations exactly as given. If the context doesn't fully resolve the question, acknowledge the gap and suggest a concrete, supported next step (e.g., contacting a specific support channel mentioned in the context, checking a stated resource). Keep responses concise, factual, and free of speculation.</span>
+    </blockquote></span>
     </details>
     """)
     return
@@ -769,13 +737,11 @@ def _(mo):
     <!-- Preserve the actual response verbatim; long recordings are collapsed. -->
     <details>
     <summary>Recorded response · 2026-09-14 · claude-sonnet-5</summary>
-
-    Fresh session; medium effort. Verbatim response:
-
-    > I don't have any knowledge base content in the supplied context — only a description of Deskmate's policies (it uses the KB and ticket history, opens a ticket when it can't answer, and never touches unverified entitlements or reuses another user's ticket text). No actual VPN/staging KB article or steps were provided to me.
-    >
-    > Since I have no article giving an exact menu path, I can't answer that specifically — and per the stated behavior, this is exactly the case where Deskmate would open a ticket rather than guess or fabricate steps. If you can share the relevant KB article text, I can walk through the exact menu path from it.
-
+    <span class="markdown prose dark:prose-invert contents"><span class="paragraph">Fresh session; medium effort. Verbatim response:</span>
+    <blockquote>
+    <span class="paragraph">I don't have any knowledge base content in the supplied context — only a description of Deskmate's policies (it uses the KB and ticket history, opens a ticket when it can't answer, and never touches unverified entitlements or reuses another user's ticket text). No actual VPN/staging KB article or steps were provided to me.</span>
+    <span class="paragraph">Since I have no article giving an exact menu path, I can't answer that specifically — and per the stated behavior, this is exactly the case where Deskmate would open a ticket rather than guess or fabricate steps. If you can share the relevant KB article text, I can walk through the exact menu path from it.</span>
+    </blockquote></span>
     </details>
     """)
     return
@@ -790,16 +756,13 @@ def _(mo):
 
     <details>
     <summary>Expand the complete prompt to copy</summary>
-
-    > Answer the user's question using only the supplied product context. If the needed information isn't present, say so plainly rather than guessing. Never invent policies, menu paths, settings, prices, or steps not explicitly stated in the context. Never claim to have performed an action (e.g., issued a refund, changed a setting, submitted a ticket) — you can only provide information and guidance. Respect any stated product restrictions or limitations exactly as given. If the context doesn't fully resolve the question, acknowledge the gap and suggest a concrete, supported next step (e.g., contacting a specific support channel mentioned in the context, checking a stated resource). Keep responses concise, factual, and free of speculation.
-    >
-    > Answer the support question using only the context supplied.
-    >
-    > Context:
-    > Deskmate answers internal IT questions using the knowledge base and the requester’s own ticket history. Priya is a backend engineer who needs help reaching staging through the VPN. Marcus is the helpdesk lead who wants fewer repeat questions and an auditable log. Deskmate opens a ticket when it cannot answer. It never resets anything without confirmation, touches unverified entitlements, or repeats another user’s ticket text.
-    >
-    > Question: My VPN connects but I cannot reach staging. What exact menu path should I use to fix it?
-
+    <span class="markdown prose dark:prose-invert contents"><blockquote>
+    <span class="paragraph">Answer the user's question using only the supplied product context. If the needed information isn't present, say so plainly rather than guessing. Never invent policies, menu paths, settings, prices, or steps not explicitly stated in the context. Never claim to have performed an action (e.g., issued a refund, changed a setting, submitted a ticket) — you can only provide information and guidance. Respect any stated product restrictions or limitations exactly as given. If the context doesn't fully resolve the question, acknowledge the gap and suggest a concrete, supported next step (e.g., contacting a specific support channel mentioned in the context, checking a stated resource). Keep responses concise, factual, and free of speculation.</span>
+    <span class="paragraph">Answer the support question using only the context supplied.</span>
+    <span class="paragraph">Context:
+    Deskmate answers internal IT questions using the knowledge base and the requester’s own ticket history. Priya is a backend engineer who needs help reaching staging through the VPN. Marcus is the helpdesk lead who wants fewer repeat questions and an auditable log. Deskmate opens a ticket when it cannot answer. It never resets anything without confirmation, touches unverified entitlements, or repeats another user’s ticket text.</span>
+    <span class="paragraph">Question: My VPN connects but I cannot reach staging. What exact menu path should I use to fix it?</span>
+    </blockquote></span>
     </details>
     """)
     return
@@ -812,13 +775,11 @@ def _(mo):
     <!-- Preserve the actual response verbatim; long recordings are collapsed. -->
     <details>
     <summary>Recorded response · 2026-09-14 · claude-sonnet-5</summary>
-
-    Fresh session; medium effort. Verbatim response:
-
-    > The context provided doesn't include a knowledge base article or menu path for fixing VPN-to-staging connectivity — only a general description of Deskmate's behavior and the roles of Priya and Marcus. I can't give you exact steps without inventing them.
-    >
-    > Since Deskmate opens a ticket when it cannot answer a question, the concrete next step here would be for a ticket to be opened so someone with access to the actual VPN/staging configuration can provide the correct menu path.
-
+    <span class="markdown prose dark:prose-invert contents"><span class="paragraph">Fresh session; medium effort. Verbatim response:</span>
+    <blockquote>
+    <span class="paragraph">The context provided doesn't include a knowledge base article or menu path for fixing VPN-to-staging connectivity — only a general description of Deskmate's behavior and the roles of Priya and Marcus. I can't give you exact steps without inventing them.</span>
+    <span class="paragraph">Since Deskmate opens a ticket when it cannot answer a question, the concrete next step here would be for a ticket to be opened so someone with access to the actual VPN/staging configuration can provide the correct menu path.</span>
+    </blockquote></span>
     </details>
     """)
     return

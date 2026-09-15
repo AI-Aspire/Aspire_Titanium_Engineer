@@ -177,16 +177,26 @@ def _(mo):
     mo.md(r"""
     <details>
     <summary>Recorded experiment: one question</summary>
-
-    Seed corpus, 28 pages, 65 chunks, top four. Recorded 2026-09-15 (UTC).
-
-    | Method | Top pages, in rank order |
-    |---|---|
-    | dense | prompts/meta-prompt-applied.md; transcripts/t01.md; kb/vpn.md; transcripts/t01.md |
-    | bm25 | transcripts/t01.md; transcripts/t02.md; transcripts/t05.md; charter.md |
-
-    These are actual tool results. Repeated page names are different chunks from the same page. Page and chunk references, text hashes, and settings are in [the experiment record](data/recorded_experiments.json).
-
+    <span class="markdown prose dark:prose-invert contents"><span class="paragraph">Seed corpus, 28 pages, 65 chunks, top four. Recorded 2026-09-15 (UTC).</span>
+    <table>
+    <thead>
+    <tr>
+    <th>Method</th>
+    <th>Top pages, in rank order</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+    <td>dense</td>
+    <td>prompts/meta-prompt-applied.md; transcripts/t01.md; kb/vpn.md; transcripts/t01.md</td>
+    </tr>
+    <tr>
+    <td>bm25</td>
+    <td>transcripts/t01.md; transcripts/t02.md; transcripts/t05.md; charter.md</td>
+    </tr>
+    </tbody>
+    </table>
+    <span class="paragraph">These are actual tool results. Repeated page names are different chunks from the same page. Page and chunk references, text hashes, and settings are in <a href="data/recorded_experiments.json">the experiment record</a>.</span></span>
     </details>
     """)
     return
@@ -266,19 +276,50 @@ def _(mo):
     mo.md(r"""
     <details>
     <summary>Recorded experiment: measured ladder</summary>
-
-    5 seed cases; top four; embeddings text-embedding-3-small; rewrites gpt-4.1-mini. Recorded 2026-09-15 (UTC).
-
-    | Retriever | Hit rate | MRR | Search ms/query |
-    |---|---:|---:|---:|
-    | dense | 0.800 | 0.533 | 192.06 |
-    | bm25 | 0.200 | 0.067 | 0.26 |
-    | hybrid_rrf | 0.400 | 0.150 | 201.25 |
-    | cross_encoder | 0.200 | 0.200 | 310.67 |
-    | multi_query | 0.200 | 0.200 | 1798.72 |
-
-    Search time excludes model loading and index construction. This is one sequential run, not a latency benchmark. The full record contains labels, ranked chunks, rewrites, timings, and model settings.
-
+    <span class="markdown prose dark:prose-invert contents"><span class="paragraph">5 seed cases; top four; embeddings text-embedding-3-small; rewrites gpt-4.1-mini. Recorded 2026-09-15 (UTC).</span>
+    <table>
+    <thead>
+    <tr>
+    <th>Retriever</th>
+    <th style="text-align: right;">Hit rate</th>
+    <th style="text-align: right;">MRR</th>
+    <th style="text-align: right;">Search ms/query</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+    <td>dense</td>
+    <td style="text-align: right;">0.800</td>
+    <td style="text-align: right;">0.533</td>
+    <td style="text-align: right;">192.06</td>
+    </tr>
+    <tr>
+    <td>bm25</td>
+    <td style="text-align: right;">0.200</td>
+    <td style="text-align: right;">0.067</td>
+    <td style="text-align: right;">0.26</td>
+    </tr>
+    <tr>
+    <td>hybrid_rrf</td>
+    <td style="text-align: right;">0.400</td>
+    <td style="text-align: right;">0.150</td>
+    <td style="text-align: right;">201.25</td>
+    </tr>
+    <tr>
+    <td>cross_encoder</td>
+    <td style="text-align: right;">0.200</td>
+    <td style="text-align: right;">0.200</td>
+    <td style="text-align: right;">310.67</td>
+    </tr>
+    <tr>
+    <td>multi_query</td>
+    <td style="text-align: right;">0.200</td>
+    <td style="text-align: right;">0.200</td>
+    <td style="text-align: right;">1798.72</td>
+    </tr>
+    </tbody>
+    </table>
+    <span class="paragraph">Search time excludes model loading and index construction. This is one sequential run, not a latency benchmark. The full record contains labels, ranked chunks, rewrites, timings, and model settings.</span></span>
     </details>
     """)
     return
@@ -381,11 +422,8 @@ def _(mo):
     mo.md(r"""
     <details>
     <summary>About the recorded experiments</summary>
-
-    The recordings were produced by `retrieval_tools.py` on the seed corpus. Proposed labels are included as proposals, not treated as reviewed truth. Scoring used the existing seed eval cases. No live workspace artifacts were changed for these recordings.
-
-    If you want to keep an experiment for later workflows, ask Claude to run the score tool with its save option. That writes only the actual cases and measured ladder through the workspace helper. No conversation export is involved.
-
+    <span class="markdown prose dark:prose-invert contents"><span class="paragraph">The recordings were produced by <code>retrieval_tools.py</code> on the seed corpus. Proposed labels are included as proposals, not treated as reviewed truth. Scoring used the existing seed eval cases. No live workspace artifacts were changed for these recordings.</span>
+    <span class="paragraph">If you want to keep an experiment for later workflows, ask Claude to run the score tool with its save option. That writes only the actual cases and measured ladder through the workspace helper. No conversation export is involved.</span></span>
     </details>
     """)
     return

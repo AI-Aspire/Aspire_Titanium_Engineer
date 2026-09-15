@@ -246,22 +246,50 @@ def _(mo):
 def _(mo):
     mo.md(r"""
     <details><summary>Recorded experiment: corpus research and source limits</summary>
-
-    Real seed run with `gpt-4.1-mini`, web search off. Explicit question: how the helpdesk assistant handles VPN routing. One research task. Full state and report: `data/recorded_experiments.json`.
-
-    | Measure | Observed |
-    |---|---|
-    | Clarification needed | No |
-    | Research loops | 1 |
-    | Corpus search calls | 1 |
-    | Web search calls | 0 |
-    | Extraction results | 2 |
-    | Distinct observed sources | 3 |
-    | Unobserved citations | 0 |
-    | Search-only citations | 1 |
-
-    The report passed the save checks in a temporary workspace. Still check the cited passages: source membership does not verify claims.
-
+    <span class="markdown prose dark:prose-invert contents"><span class="paragraph">Real seed run with <code>gpt-4.1-mini</code>, web search off. Explicit question: how the helpdesk assistant handles VPN routing. One research task. Full state and report: <code>data/recorded_experiments.json</code>.</span>
+    <table>
+    <thead>
+    <tr>
+    <th>Measure</th>
+    <th>Observed</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+    <td>Clarification needed</td>
+    <td>No</td>
+    </tr>
+    <tr>
+    <td>Research loops</td>
+    <td>1</td>
+    </tr>
+    <tr>
+    <td>Corpus search calls</td>
+    <td>1</td>
+    </tr>
+    <tr>
+    <td>Web search calls</td>
+    <td>0</td>
+    </tr>
+    <tr>
+    <td>Extraction results</td>
+    <td>2</td>
+    </tr>
+    <tr>
+    <td>Distinct observed sources</td>
+    <td>3</td>
+    </tr>
+    <tr>
+    <td>Unobserved citations</td>
+    <td>0</td>
+    </tr>
+    <tr>
+    <td>Search-only citations</td>
+    <td>1</td>
+    </tr>
+    </tbody>
+    </table>
+    <span class="paragraph">The report passed the save checks in a temporary workspace. Still check the cited passages: source membership does not verify claims.</span></span>
     </details>
     """)
     return
@@ -364,9 +392,7 @@ def _(mo):
 def _(mo):
     mo.md(r"""
     <details><summary>Keep measured artifacts for later use</summary>
-
-    The tool can save its real outputs through `helpers.workspace` when you ask Claude to use `--save`. This runs an experiment and saves its results; it does not export your Claude conversation. Review inputs first. If you leave the workspace empty, readers use the labeled seed fallback.
-
+    <span class="markdown prose dark:prose-invert contents"><span class="paragraph">The tool can save its real outputs through <code>helpers.workspace</code> when you ask Claude to use <code>--save</code>. This runs an experiment and saves its results; it does not export your Claude conversation. Review inputs first. If you leave the workspace empty, readers use the labeled seed fallback.</span></span>
     </details>
     """)
     return

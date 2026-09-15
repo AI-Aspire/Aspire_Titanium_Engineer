@@ -13,6 +13,8 @@ from __future__ import annotations
 import argparse
 import ast
 import difflib
+import json
+import re
 import subprocess
 import sys
 import tempfile
@@ -23,9 +25,25 @@ from _common import ROOT, notebooks
 GENERATED_LINE = "__generated_with"
 
 
+def render_disclosures(source: str) -> str:
+    """Render Markdown inside HTML disclosures, which marimo leaves literal."""
+    import marimo as mo
+
+    pattern = r"(<details\b[^>]*>\s*<summary\b[^>]*>.*?</summary>)(.*?)(</details>)"
+    return re.sub(pattern, lambda m: m[1] + "\n" + mo.md(m[2].strip()).text + "\n" + m[3],
+                  source, flags=re.S)
+
+
 def convert(nb: Path, out: Path) -> None:
-    subprocess.run([sys.executable, "-m", "marimo", "convert", str(nb), "-o", str(out)],
-                   check=True, capture_output=True, text=True)
+    doc = json.loads(nb.read_text(encoding="utf-8"))
+    for cell in doc["cells"]:
+        if cell["cell_type"] == "markdown":
+            cell["source"] = render_disclosures("".join(cell["source"])).splitlines(keepends=True)
+    with tempfile.TemporaryDirectory() as td:
+        prepared = Path(td) / nb.name
+        prepared.write_text(json.dumps(doc), encoding="utf-8")
+        subprocess.run([sys.executable, "-m", "marimo", "convert", str(prepared), "-o", str(out)],
+                       check=True, capture_output=True, text=True)
 
 
 def _normalise(text: str) -> str:
