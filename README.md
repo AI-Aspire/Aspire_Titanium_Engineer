@@ -48,7 +48,7 @@ mirror of it. Every notebook is three acts: **Learn** the idea from scratch,
 | 16 | [GraphRAG](16_GraphRAG/) | 40 min |
 | 17 | [Deep research](17_Deep_Research/) | 35 min |
 | 18 | [Off-the-shelf guardrails](18_Off_The_Shelf_Guardrails/) | 30 min |
-| 19 | Responsible AI | 25 min |
+| 19 | [Responsible AI](19_Responsible_AI/) | 25 min |
 | 20 | [OWASP LLM top 10](20_OWASP_LLM_Top10/) | 35 min |
 | 21 | [DeepEval](21_DeepEval/) | 35 min |
 
