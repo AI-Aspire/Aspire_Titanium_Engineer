@@ -19,7 +19,7 @@ Open `Prompt_Patterns.ipynb` alongside Codex, Claude Code, VS Code Copilot, or a
 
 The notebook is a reading guide with no executable cells. `Prompt_Patterns.py` is its generated marimo mirror.
 
-Follow [Agent setup and controls](../docs/CODING_AGENTS.md) for environment requirements, fresh conversations, and optional product-specific controls.
+Product documentation: [Codex](https://developers.openai.com/codex/), [Claude Code](https://code.claude.com/docs/en/overview), [VS Code Copilot](https://code.visualstudio.com/docs/agents/overview).
 
 ## Examples
 

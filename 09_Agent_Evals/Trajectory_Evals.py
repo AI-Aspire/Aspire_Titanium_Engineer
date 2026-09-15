@@ -67,7 +67,7 @@ def _(mo):
 
     Open the repository in your coding assistant (Codex, Claude Code, Copilot, or another tool-enabled assistant). Work through the messages below. Your coding assistant operates the experiment tools. The configured experiment model plays agent, simulated user, and judge; your interactive coding-assistant session is the controller. The judge runs at temperature zero.
 
-    [Agent setup and controls](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/eli/interactive-prompt-patterns/docs/CODING_AGENTS.md).
+    Product documentation: [Codex](https://developers.openai.com/codex/), [Claude Code](https://code.claude.com/docs/en/overview), [VS Code Copilot](https://code.visualstudio.com/docs/agents/overview).
     """)
     return
 

@@ -21,7 +21,7 @@ Open `Retrieval_Ladder.ipynb` alongside your coding assistant. Ask it to run the
 
 Use `make setup` for the shared environment. BM25 works without a model key; dense retrieval needs configured embeddings, labelling and query expansion need the chat model, and the local cross-encoder downloads on first use. These tools read `.env`; the model serving your coding assistant is separate from the experiment models. Optional Cohere reranking needs `COHERE_API_KEY`.
 
-For Codex, Claude Code, Copilot, or another coding assistant, see [agent setup and controls](../docs/CODING_AGENTS.md). Use file and terminal tools in the environment where the repository dependencies are installed.
+Product documentation: [Codex](https://developers.openai.com/codex/), [Claude Code](https://code.claude.com/docs/en/overview), [VS Code Copilot](https://code.visualstudio.com/docs/agents/overview).
 
 ## Tool reference for your assistant
 

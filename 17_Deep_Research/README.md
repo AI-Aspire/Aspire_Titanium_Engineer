@@ -12,7 +12,7 @@ Open `Unroll_Deep_Research.ipynb` as a reading guide and open an interactive cod
 
 Use the shared repository environment and configured `.env`. Your coding assistant's chat model and authentication are separate from the model/API key used by these experiments. The tool prints model and workspace/seed provenance; never print credentials. Commands return JSON on stdout and progress on stderr. No workspace writes happen without `--save`.
 
-For Codex, Claude Code, Copilot, or another coding assistant, see [agent setup and controls](../docs/CODING_AGENTS.md). Use file and terminal tools in the environment where the repository dependencies are installed.
+Product documentation: [Codex](https://developers.openai.com/codex/), [Claude Code](https://code.claude.com/docs/en/overview), [VS Code Copilot](https://code.visualstudio.com/docs/agents/overview).
 
 ## Tool reference for your assistant
 

@@ -67,7 +67,7 @@ def _(mo):
 
     Open the repository in your coding assistant (Codex, Claude Code, Copilot, or another tool-enabled assistant). Use this guide as a sequence of messages. Your coding assistant runs the existing experiment tools; you inspect results and make the decisions. The experiment model comes from `.env`, independently of the model chatting with you.
 
-    [Agent setup and controls](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/eli/interactive-prompt-patterns/docs/CODING_AGENTS.md).
+    Product documentation: [Codex](https://developers.openai.com/codex/), [Claude Code](https://code.claude.com/docs/en/overview), [VS Code Copilot](https://code.visualstudio.com/docs/agents/overview).
     """)
     return
 

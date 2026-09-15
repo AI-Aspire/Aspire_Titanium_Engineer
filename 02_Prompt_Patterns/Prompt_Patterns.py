@@ -51,9 +51,11 @@ def _(mo):
     mo.md(r"""
     ## Setup
 
-    Open Codex, Claude Code, VS Code Copilot, or another interactive coding assistant alongside this guide. Follow [Agent setup and controls](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/eli/interactive-prompt-patterns/docs/CODING_AGENTS.md). Keep the same model and effort setting except when testing reasoning effort.
+    Open Codex, Claude Code, VS Code Copilot, or another interactive coding assistant alongside this guide. Keep the same model and effort setting except when testing reasoning effort.
 
     Start a new conversation before each independent comparison. Stay in the same conversation for the self-refine draft and revision. Paste each quoted prompt as one message.
+
+    Product documentation: [Codex](https://developers.openai.com/codex/), [Claude Code](https://code.claude.com/docs/en/overview), [VS Code Copilot](https://code.visualstudio.com/docs/agents/overview).
     """)
     return
 
@@ -271,7 +273,7 @@ def _(mo):
 
     Keep the model and prompt identical while changing the actual reasoning-effort setting. Asking the model to “think carefully” is a different experiment.
 
-    Use your assistant’s [effort controls](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/eli/interactive-prompt-patterns/docs/CODING_AGENTS.md#reasoning-effort). If unavailable, choose a supported model for both trials or inspect the recorded pair. Do not compare different models and attribute the result only to effort.
+    Use your assistant’s reasoning-effort setting. If unavailable, choose a supported model for both trials or inspect the recorded pair. Do not compare different models and attribute the result only to effort.
 
     The prompt follows [Simon Willison’s SVG comparison](https://simonwillison.net/2026/Jul/9/gpt-5-6/).
     """)
