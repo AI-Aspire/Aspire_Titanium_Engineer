@@ -10,11 +10,11 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from mcp.server.mcpserver import MCPServer  # noqa: E402
+from mcp.server.fastmcp import FastMCP  # noqa: E402
 
 import eval_lookup  # noqa: E402
 
-server = MCPServer("Eval lookup", log_level="WARNING")
+server = FastMCP("Eval lookup", log_level="WARNING")
 
 
 @server.tool()
