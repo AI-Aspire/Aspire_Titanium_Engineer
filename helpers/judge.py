@@ -107,7 +107,7 @@ def make_judge(name: str, template: str, *, needs_reference: bool = False):
                   .replace("{question}", str(row.get("question", "")))
                   .replace("{response}", str(row.get("response", "")))
                   .replace("{reference}", str(row.get("reference") or "")))
-        resp = _chat(temperature=0.0, messages=[
+        resp = _chat(temperature=1.0, messages=[
             {"role": "system", "content": JUDGE_SYSTEM},
             {"role": "user", "content": prompt},
         ])

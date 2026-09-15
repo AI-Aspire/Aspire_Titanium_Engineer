@@ -358,7 +358,7 @@ def _(JUDGE_MODEL, LLM, ROWS, json):
             for attempt in range(retries + 1):
                 if attempt:
                     messages.append({'role': 'user', 'content': 'That was invalid. Return only the JSON object.'})
-                resp = LLM(messages, model=JUDGE_MODEL, temperature=0.0)
+                resp = LLM(messages, model=JUDGE_MODEL, temperature=1.0)
                 try:
                     return {'id': row['id'], 'judge': name, **parse_judge(resp.choices[0].message.content)}
                 except ValueError as e:

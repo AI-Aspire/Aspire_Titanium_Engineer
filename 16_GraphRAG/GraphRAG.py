@@ -723,7 +723,7 @@ def _(EVAL, GRAPHS, GraphRAG, baseline, chat, json, pd, re, tok):
 
     def judge(q: str, ref: str, ans: str) -> bool:
         try:
-            raw = re.sub(r"^```(?:json)?\s*|\s*```$", "", chat(_JUDGE.format(q=q, ref=ref, ans=ans), temperature=0.0))
+            raw = re.sub(r"^```(?:json)?\s*|\s*```$", "", chat(_JUDGE.format(q=q, ref=ref, ans=ans), temperature=1.0))
             return bool(json.loads(raw).get("correct", False))
         except Exception:  # noqa: BLE001 - an unparseable verdict counts as incorrect
             return False

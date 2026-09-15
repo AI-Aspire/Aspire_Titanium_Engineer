@@ -95,9 +95,9 @@ def _():
     from helpers.judge import parse_json
 
     require("OPENAI_API_KEY")
-    app_llm = chat_model(temperature=0)
+    app_llm = chat_model(temperature=1)
     judge_llm = judge_model()
-    sdg_llm = chat_model(model=SDG_MODEL, base_url=RAGAS_BASE, temperature=0)
+    sdg_llm = chat_model(model=SDG_MODEL, base_url=RAGAS_BASE, temperature=1)
     embeddings = embeddings_model()
 
     CORPUS_DIR = ws.load_path("corpus")

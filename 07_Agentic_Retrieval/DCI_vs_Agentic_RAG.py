@@ -148,7 +148,7 @@ def _(LLM_MODEL, PAGES, client, parse_json, show, ws):
         title = next((l[2:].strip() for l in lines if l.startswith('# ')), '')
         return (title, [l[3:].strip() for l in lines if l.startswith('## ')])
     DIGEST = '\n'.join((f"- {name} | {outline(t)[0]} | {' '.join(t.split())[:200]}" for name, t in PAGES.items()))
-    reply = client.chat.completions.create(model=LLM_MODEL, temperature=0, messages=[{'role': 'user', 'content': 'For each page below write one line, under fifteen words, saying what a reader should use it for. Return one JSON object: {"notes": [{"page": "<name>", "use_it_for": "<line>"}]}\n\n' + DIGEST}])
+    reply = client.chat.completions.create(model=LLM_MODEL, temperature=1, messages=[{'role': 'user', 'content': 'For each page below write one line, under fifteen words, saying what a reader should use it for. Return one JSON object: {"notes": [{"page": "<name>", "use_it_for": "<line>"}]}\n\n' + DIGEST}])
     parsed = parse_json(reply.choices[0].message.content) or {}
     USE = {n.get('page'): n.get('use_it_for', '') for n in parsed.get('notes', []) if isinstance(n, dict)}
     rows = ['# Wiki index', '', 'Use this index to decide which page to read. Page names are stable tool inputs.', '', '| Page | Use it for | Sections |', '|---|---|---|']
@@ -266,7 +266,7 @@ def _(CASES, LLM_MODEL, MODES, client, json, textwrap, time):
         messages = [{'role': 'system', 'content': SYSTEM}, {'role': 'user', 'content': question}]
         trace, chars, started = ([], 0, time.perf_counter())
         for _ in range(max_turns):
-            msg = client.chat.completions.create(model=LLM_MODEL, temperature=0, messages=messages, tools=tools, tool_choice='auto').choices[0].message
+            msg = client.chat.completions.create(model=LLM_MODEL, temperature=1, messages=messages, tools=tools, tool_choice='auto').choices[0].message
             calls = msg.tool_calls or []
             if not calls:
                 return {'answer': (msg.content or '').strip(), 'trace': trace, 'evidence_chars': chars, 'latency_s': round(time.perf_counter() - started, 2), 'stopped': 'answer'}

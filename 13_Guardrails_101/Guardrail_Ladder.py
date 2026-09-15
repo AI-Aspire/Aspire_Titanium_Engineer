@@ -353,7 +353,7 @@ def _(CASES, LLM_MODEL, client, time):
 
     def judge_check(text: str) -> dict:
         start = time.perf_counter()
-        reply = client.chat.completions.create(model=LLM_MODEL, temperature=0, messages=[{'role': 'user', 'content': POLICY.format(text=text)}]).choices[0].message.content or ''
+        reply = client.chat.completions.create(model=LLM_MODEL, temperature=1, messages=[{'role': 'user', 'content': POLICY.format(text=text)}]).choices[0].message.content or ''
         return {'allowed': bool(reply.strip()) and 'BLOCK' not in reply.upper(), 'raw': reply.strip()[:40] or '(empty)', 'ms': round((time.perf_counter() - start) * 1000)}
     for _c in (CASES[0], CASES[-1]):
         _r = judge_check(_c['input'])

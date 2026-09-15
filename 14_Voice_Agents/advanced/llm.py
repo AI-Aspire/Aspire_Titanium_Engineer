@@ -128,7 +128,7 @@ async def end_of_turn(transcript: str) -> tuple[bool, float, str]:
         model=MODEL,
         messages=[{"role": "system", "content": EOT_SYSTEM},
                   {"role": "user", "content": f"User so far: \"{transcript.strip()}\"\nAnswer:"}],
-        max_tokens=3, temperature=0.0, extra_body=_thinking(False))
+        max_tokens=3, temperature=1.0, extra_body=_thinking(False))
     raw = (resp.choices[0].message.content or "").strip().upper()
     ms = (time.perf_counter() - t0) * 1000
     return raw.startswith("COMPLETE"), ms, raw

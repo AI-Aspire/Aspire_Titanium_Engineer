@@ -89,7 +89,7 @@ def _():
 
     def chat(messages: list[dict], tools: list | None = None) -> dict:
         """One chat call. Returns {"content": str, "tool_calls": [openai-shaped dicts]}."""
-        kw = dict(model=LLM_MODEL, messages=messages, temperature=0)
+        kw = dict(model=LLM_MODEL, messages=messages, temperature=1)
         if tools:
             kw["tools"], kw["tool_choice"] = tools, "auto"
         m = client.chat.completions.create(**kw).choices[0].message

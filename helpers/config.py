@@ -91,7 +91,7 @@ COHERE_KEY = _str("COHERE_API_KEY")
 LLM_TIMEOUT = _num("LLM_TIMEOUT", 600.0)            # seconds; generous by default
 LLM_MAX_RETRIES = _int("LLM_MAX_RETRIES", 3)
 LLM_TEMPERATURE = _num("LLM_TEMPERATURE", None)     # None means do not send one
-JUDGE_TEMPERATURE = _num("JUDGE_TEMPERATURE", 0.0)  # judges want determinism
+JUDGE_TEMPERATURE = _num("JUDGE_TEMPERATURE", 1.0)  # gpt-5.x reasoning models only accept 1.0
 # Empty means no cap, which is what a reasoning model needs: a cap truncates it
 # mid-thought. Set it only if your provider bills by the token and you must.
 LLM_MAX_TOKENS = _int("LLM_MAX_TOKENS", None)

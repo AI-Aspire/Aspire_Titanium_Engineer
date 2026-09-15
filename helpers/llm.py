@@ -12,7 +12,7 @@ functions are the only thing that reads them.
 Every function takes keyword overrides, so a notebook that genuinely needs a
 different temperature for one call says so at the call site:
 
-    llm.chat(prompt, temperature=0)
+    llm.chat(prompt, temperature=1)
 
 Heavy imports sit inside the functions, so importing this module is cheap and a
 missing extra fails at the call with a message naming what to install.

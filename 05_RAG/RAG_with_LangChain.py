@@ -403,7 +403,7 @@ def _(QUESTION, chat_model, format_docs, itemgetter, show, vectorstore):
     from langchain_core.prompts import ChatPromptTemplate
     from langchain_openai import ChatOpenAI
 
-    llm = chat_model(temperature=0)
+    llm = chat_model(temperature=1)
 
     prompt = ChatPromptTemplate.from_template(
         "You are the assistant described in the product charter. Answer from the context only.\n"

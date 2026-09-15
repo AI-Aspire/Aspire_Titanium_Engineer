@@ -382,7 +382,7 @@ def _(LLM_MODEL, client, json):
             for _ in range(2):
                 if last_error:
                     messages.append({"role": "user", "content": f"That failed validation: {last_error}. Return one corrected JSON object only."})
-                text = client.chat.completions.create(model=self.model_name, messages=messages, temperature=0).choices[0].message.content or ""
+                text = client.chat.completions.create(model=self.model_name, messages=messages, temperature=1).choices[0].message.content or ""
                 if schema is None:
                     return text
                 try:

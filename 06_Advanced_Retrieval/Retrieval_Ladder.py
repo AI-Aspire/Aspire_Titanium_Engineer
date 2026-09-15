@@ -97,7 +97,7 @@ def _():
     PAGE_OF = [d.metadata['page'] for d in DOCS]
     K = 4
     VIBES = ws.load('vibe_checks')
-    llm = chat_model(temperature=0)
+    llm = chat_model(temperature=1)
     print(f'✅ {len(PAGES)} pages -> {len(CHUNKS)} chunks; {len(VIBES)} vibe checks; chat {LLM_MODEL}; embeddings {EMBED_MODEL}')
     return (
         CHUNKS,
