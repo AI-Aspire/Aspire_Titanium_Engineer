@@ -14,10 +14,10 @@ for the group's agent.
 
 | # | Module | Demo | Reads | Writes |
 |---|---|---|---|---|
-| 06 | Advanced retrieval | 35 min | corpus, vibe_checks | eval_cases, ladder |
-| 07 | Agentic retrieval | 30 min | corpus, eval_cases | wiki, agentic_runs |
-| 08 | SDG and RAGAS | 30 min | corpus | testset, ragas_scores |
-| 09 | Agent evals | 35 min | corpus, eval_cases | tasks, trajectories, capability_report |
+| 06 | Advanced retrieval | 45 min | corpus, vibe_checks | eval_cases, ladder |
+| 07 | Agentic retrieval | 35 min | corpus, eval_cases | wiki, agentic_runs |
+| 08 | SDG and RAGAS | 40 min | corpus | testset, ragas_scores |
+| 09 | Agent evals | 50 min | corpus, eval_cases | tasks, trajectories, capability_report |
 
 ## Run of show
 

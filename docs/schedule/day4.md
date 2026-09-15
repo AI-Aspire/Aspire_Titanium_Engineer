@@ -17,13 +17,13 @@ the cohort's projects need. Anything not picked stays available on day 5.
 | # | Module | Demo | Reads | Writes | Pick it when |
 |---|---|---|---|---|---|
 | 14 | Voice agents | 40 min | capability_report | voice_sessions | users will speak to the product |
-| 15 | Prompt optimisation | 35 min | judge_scores, vibe_checks | dspy_program | a prompt is the bottleneck and there is a metric to optimise |
-| 16 | GraphRAG | 40 min | corpus, trajectories | graph, graph_eval | questions span entities and relations, not passages |
+| 15 | Prompt optimisation | 30 min | judge_scores, vibe_checks | dspy_program | a prompt is the bottleneck and there is a metric to optimise |
+| 16 | GraphRAG | 50 min | corpus, trajectories | graph, graph_eval | questions span entities and relations, not passages |
 | 17 | Deep research | 35 min | capability_report | research_report | answers need many sources and a report, not a reply |
-| 18 | Off-the-shelf guardrails | 30 min | guardrail_cases | ots_results | the ladder from day 3 is going to production |
+| 18 | Off-the-shelf guardrails | 35 min | guardrail_cases | ots_results | the ladder from day 3 is going to production |
 | 19 | Responsible AI | 25 min | everything | risk_register | the prototype will face a review board |
-| 20 | OWASP LLM top 10 | 35 min | corpus, tools_catalog | owasp_findings | the agent has tools and reads untrusted text |
-| 21 | DeepEval | 35 min | eval_cases, trajectories | deepeval_results, release_decision | a release decision is due |
+| 20 | OWASP LLM top 10 | 50 min | corpus, tools_catalog | owasp_findings | the agent has tools and reads untrusted text |
+| 21 | DeepEval | 40 min | eval_cases, trajectories | deepeval_results, release_decision | a release decision is due |
 | 22 | Observability and incidents | 40 min | trajectories, eval_cases, corpus | traces, load_test, monitoring | someone will have to run it and be woken by it |
 | 23 | Release pipeline | 40 min | deepeval_results, eval_cases, trajectories, tools_catalog | eval_gate, canary_verdict, deploy_checklist | it is going anywhere near production |
 

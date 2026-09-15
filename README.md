@@ -33,24 +33,24 @@ mirror of it. Every notebook is three acts: **Learn** the idea from scratch,
 | 01 | [Dev environment](01_Dev_Environment/) | 30 min |
 | 02 | [Prompt patterns](02_Prompt_Patterns/) | 30 min |
 | 03 | [Agents 101](03_Agents_101/) | 35 min |
-| 04 | [Vibe checks and judges](04_Vibe_Checks_and_Judges/) | 30 min |
-| 05 | [RAG](05_RAG/) | 30 min |
-| 06 | [Advanced retrieval](06_Advanced_Retrieval/) | 35 min |
-| 07 | [Agentic retrieval](07_Agentic_Retrieval/) | 30 min |
-| 08 | [SDG and RAGAS](08_SDG_RAGAS/) | 30 min |
-| 09 | [Agent evals](09_Agent_Evals/) | 35 min |
-| 10 | [Agent memory](10_Agent_Memory/) | 30 min |
-| 11 | [Agent architecture](11_Agent_Architecture/) | 35 min |
-| 12 | [Multi-agent](12_Multi_Agent/) | 30 min |
-| 13 | [Guardrails 101](13_Guardrails_101/) | 30 min |
+| 04 | [Vibe checks and judges](04_Vibe_Checks_and_Judges/) | 35 min |
+| 05 | [RAG](05_RAG/) | 35 min |
+| 06 | [Advanced retrieval](06_Advanced_Retrieval/) | 45 min |
+| 07 | [Agentic retrieval](07_Agentic_Retrieval/) | 35 min |
+| 08 | [SDG and RAGAS](08_SDG_RAGAS/) | 40 min |
+| 09 | [Agent evals](09_Agent_Evals/) | 50 min |
+| 10 | [Agent memory](10_Agent_Memory/) | 45 min |
+| 11 | [Agent architecture](11_Agent_Architecture/) | 45 min |
+| 12 | [Multi-agent](12_Multi_Agent/) | 50 min |
+| 13 | [Guardrails 101](13_Guardrails_101/) | 45 min |
 | 14 | [Voice agents](14_Voice_Agents/) | 40 min |
-| 15 | [Prompt optimisation](15_Prompt_Optimization/) | 35 min |
-| 16 | [GraphRAG](16_GraphRAG/) | 40 min |
+| 15 | [Prompt optimisation](15_Prompt_Optimization/) | 30 min |
+| 16 | [GraphRAG](16_GraphRAG/) | 50 min |
 | 17 | [Deep research](17_Deep_Research/) | 35 min |
-| 18 | [Off-the-shelf guardrails](18_Off_The_Shelf_Guardrails/) | 30 min |
+| 18 | [Off-the-shelf guardrails](18_Off_The_Shelf_Guardrails/) | 35 min |
 | 19 | [Responsible AI](19_Responsible_AI/) | 25 min |
-| 20 | [OWASP LLM top 10](20_OWASP_LLM_Top10/) | 35 min |
-| 21 | [DeepEval](21_DeepEval/) | 35 min |
+| 20 | [OWASP LLM top 10](20_OWASP_LLM_Top10/) | 50 min |
+| 21 | [DeepEval](21_DeepEval/) | 40 min |
 | 22 | [Observability and incidents](22_Observability/) | 40 min |
 | 23 | [Release pipeline](23_Release_Pipeline/) | 40 min |
 

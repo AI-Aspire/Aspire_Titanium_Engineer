@@ -12,10 +12,10 @@ capability is called, and the guardrail cases it must pass.
 
 | # | Module | Demo | Reads | Writes |
 |---|---|---|---|---|
-| 10 | Agent memory | 30 min | trajectories | memory, episodes |
-| 11 | Agent architecture | 35 min | eval_cases, trajectories | tools_catalog |
-| 12 | Multi-agent | 30 min | capability_report, ragas_scores | multi_agent_report |
-| 13 | Guardrails 101 | 30 min | transcripts | guardrail_cases, ladder_results |
+| 10 | Agent memory | 45 min | trajectories | memory, episodes |
+| 11 | Agent architecture | 45 min | eval_cases, trajectories | tools_catalog |
+| 12 | Multi-agent | 50 min | capability_report, ragas_scores | multi_agent_report |
+| 13 | Guardrails 101 | 45 min | transcripts | guardrail_cases, ladder_results |
 
 ## Run of show
 

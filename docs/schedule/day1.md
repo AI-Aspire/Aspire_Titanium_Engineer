@@ -17,8 +17,8 @@ own artifacts.
 | 01 | Dev environment | 30 min | | manifest, charter |
 | 02 | Prompt patterns | 30 min | charter | prompts |
 | 03 | Agents 101 | 35 min | charter, prompts | transcripts |
-| 04 | Vibe checks and judges | 30 min | transcripts | rubric, vibe_checks, judge_scores |
-| 05 | RAG | 30 min | charter, prompts, transcripts, vibe_checks | corpus, baseline_runs |
+| 04 | Vibe checks and judges | 35 min | transcripts | rubric, vibe_checks, judge_scores |
+| 05 | RAG | 35 min | charter, prompts, transcripts, vibe_checks | corpus, baseline_runs |
 
 ## Run of show
 
