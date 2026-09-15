@@ -40,7 +40,7 @@ mirror of it. Every notebook is three acts: **Learn** the idea from scratch,
 | 08 | [SDG and RAGAS](08_SDG_RAGAS/) | 30 min |
 | 09 | [Agent evals](09_Agent_Evals/) | 35 min |
 | 10 | [Agent memory](10_Agent_Memory/) | 30 min |
-| 11 | Agent architecture | 35 min |
+| 11 | [Agent architecture](11_Agent_Architecture/) | 35 min |
 | 12 | Multi-agent | 30 min |
 | 13 | [Guardrails 101](13_Guardrails_101/) | 30 min |
 | 14 | [Voice agents](14_Voice_Agents/) | 40 min |
