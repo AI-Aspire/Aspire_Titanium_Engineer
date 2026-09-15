@@ -773,14 +773,28 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    <!-- lint: ignore L001 L002 S001 S002 H002 -->
-    <!-- Preserve the verbatim recorded response. -->
+    <!-- lint: ignore L001 L002 -->
+    <!-- Display formatting only; the raw recording is preserved in data. -->
     <details>
     <summary>Recorded response · 2026-09-15 · gpt-5.6-luna</summary>
-    <span class="markdown prose dark:prose-invert contents"><span class="paragraph">Fresh reference conversation; low effort. Verbatim response:</span>
-    <blockquote>
-    <span class="paragraph">{"product_name":"Deskmate","users":["Priya","Marcus"],"must_do":["Answer internal IT questions using the knowledge base and the requester’s own ticket history","Open a ticket when it cannot answer"],"must_not_do":["Reset anything without confirmation","Touch unverified entitlements","Repeat another user’s ticket text"]}</span>
-    </blockquote></span>
+    <span class="markdown prose dark:prose-invert contents"><span class="paragraph">Fresh reference conversation; low effort. JSON formatted for readability; values unchanged.</span>
+    <div class="language-json codehilite"><pre><span></span><code><span class="p">{</span>
+    <span class="w">  </span><span class="nt">"product_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Deskmate"</span><span class="p">,</span>
+    <span class="w">  </span><span class="nt">"users"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+    <span class="w">    </span><span class="s2">"Priya"</span><span class="p">,</span>
+    <span class="w">    </span><span class="s2">"Marcus"</span>
+    <span class="w">  </span><span class="p">],</span>
+    <span class="w">  </span><span class="nt">"must_do"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+    <span class="w">    </span><span class="s2">"Answer internal IT questions using the knowledge base and the requester’s own ticket history"</span><span class="p">,</span>
+    <span class="w">    </span><span class="s2">"Open a ticket when it cannot answer"</span>
+    <span class="w">  </span><span class="p">],</span>
+    <span class="w">  </span><span class="nt">"must_not_do"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+    <span class="w">    </span><span class="s2">"Reset anything without confirmation"</span><span class="p">,</span>
+    <span class="w">    </span><span class="s2">"Touch unverified entitlements"</span><span class="p">,</span>
+    <span class="w">    </span><span class="s2">"Repeat another user’s ticket text"</span>
+    <span class="w">  </span><span class="p">]</span>
+    <span class="p">}</span>
+    </code></pre></div></span>
     </details>
     """)
     return
