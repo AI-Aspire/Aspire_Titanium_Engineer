@@ -68,9 +68,11 @@ def client(*, base_url: str | None = None, model: str | None = None,
            timeout: float | None = None, max_retries: int | None = None):
     """A configured `openai.OpenAI`. Cached, so repeat calls reuse the connection.
 
-    When `base_url` points at the Accenture APIM gateway, adds the deployment-scoped
-    path and injects `?subscription-key=` as a default query param on every request
-    (the SDK strips query params from `base_url`, so this is the only reliable hook).
+    When `base_url` points at the Accenture APIM gateway, injects
+    `?subscription-key=` as a `default_query` (the SDK strips query params from
+    `base_url`, so this is the only reliable hook). The deployment-scoped
+    `/deployments/{model}` prefix is added only when the URL is the chat
+    endpoint (C.LLM_BASE); an explicit override (e.g. C.EMBED_BASE) is taken as-is.
     """
     from openai import OpenAI
 
@@ -82,7 +84,10 @@ def client(*, base_url: str | None = None, model: str | None = None,
         max_retries=C.LLM_MAX_RETRIES if max_retries is None else max_retries,
     )
     if _is_apim(url):
-        kwargs["base_url"] = _apim_chat_base(url, model or C.LLM_MODEL)
+        # Only rewrite to /deployments/{model} for the chat endpoint. Embeddings
+        # on APIM don't want that suffix — they're routed by the JSON body's model.
+        if base_url is None or url == C.LLM_BASE:
+            kwargs["base_url"] = _apim_chat_base(url, model or C.LLM_MODEL)
         kwargs["default_query"] = {"subscription-key": C.KEY}
     return OpenAI(**kwargs)
 

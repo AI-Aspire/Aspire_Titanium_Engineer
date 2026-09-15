@@ -76,6 +76,7 @@ def _():
     from collections import Counter
     from dataclasses import dataclass, asdict
 
+    import httpx
     import networkx as nx
     import numpy as np
     import pandas as pd
@@ -87,9 +88,20 @@ def _():
 
     require("OPENAI_API_KEY")
     client = make_client()
-    embed_client = make_client(base_url=EMBED_BASE)
+    # APIM's /openai/embeddings returns 404; the wildcard route only accepts the
+    # bare /openai root with the model in the JSON body. Off-APIM the SDK works
+    # normally, so the code path is picked once at import time.
+    _IS_APIM_EMBED = bool(EMBED_BASE and "azure-api.net" in EMBED_BASE)
+    if not _IS_APIM_EMBED:
+        embed_client = make_client(base_url=EMBED_BASE)
+    else:
+        _apim_embed_root = EMBED_BASE.rstrip("/")
+        if _apim_embed_root.endswith("/embeddings"):
+            _apim_embed_root = _apim_embed_root[: -len("/embeddings")]
 
-    def chat(prompt: str, temperature: float = 0.2) -> str:
+    def chat(prompt: str, temperature: float = 1.0) -> str:
+        # gpt-5.x reasoning models only accept temperature=1.0. Off-APIM
+        # the caller can still pass a different value at the call site.
         r = client.chat.completions.create(model=LLM_MODEL, temperature=temperature,
                                            messages=[{"role": "user", "content": prompt}])
         return (r.choices[0].message.content or "").strip()
@@ -98,8 +110,17 @@ def _():
         """(n, d) float32, L2-normalised, held in memory only."""
         out = []
         for i in range(0, len(texts), batch):
-            resp = embed_client.embeddings.create(model=EMBED_MODEL, input=texts[i:i + batch])
-            out.extend(d.embedding for d in resp.data)
+            if _IS_APIM_EMBED:
+                r = httpx.post(_apim_embed_root,
+                               params={"subscription-key": KEY},
+                               json={"model": EMBED_MODEL, "input": texts[i:i + batch]},
+                               timeout=120)
+                r.raise_for_status()
+                data = sorted(r.json()["data"], key=lambda d: d["index"])
+                out.extend(d["embedding"] for d in data)
+            else:
+                resp = embed_client.embeddings.create(model=EMBED_MODEL, input=texts[i:i + batch])
+                out.extend(d.embedding for d in resp.data)
         v = np.asarray(out, dtype=np.float32)
         return v / np.clip(np.linalg.norm(v, axis=-1, keepdims=True), 1e-12, None)
 
