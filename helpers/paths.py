@@ -13,12 +13,13 @@ from pathlib import Path
 _HELPERS = Path(__file__).resolve().parent
 
 
-def module_dir() -> Path:
+def module_dir(_frame=None) -> Path:
     """The folder of the notebook that calls this.
 
     marimo is asked first; failing that, the caller's `__file__` (a script
     or a test); failing that, the working directory, which is what Jupyter
-    sets to the notebook's folder.
+    sets to the notebook's folder. Only the direct caller is inspected: the
+    frames behind a Jupyter cell belong to the kernel and carry its files.
     """
     try:
         import marimo as mo
@@ -29,17 +30,13 @@ def module_dir() -> Path:
                 return Path(d)
     except Exception:  # noqa: BLE001  not installed, or not running under marimo
         pass
-    frame = inspect.currentframe()
-    for _ in range(3):
-        frame = frame.f_back if frame else None
-        if frame is None:
-            break
-        f = frame.f_globals.get("__file__")
-        if f and not Path(f).resolve().is_relative_to(_HELPERS):
-            return Path(f).resolve().parent
+    frame = _frame or inspect.currentframe().f_back
+    f = frame.f_globals.get("__file__") if frame else None
+    if f and not Path(f).resolve().is_relative_to(_HELPERS):
+        return Path(f).resolve().parent
     return Path.cwd()
 
 
 def local(*parts: str) -> Path:
     """A path beside the notebook: `local("data", "trace.npz")`."""
-    return module_dir().joinpath(*parts)
+    return module_dir(inspect.currentframe().f_back).joinpath(*parts)
