@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Titanium Engineer Labs — Participant Setup</title>
+<style>
+  body { font: 15px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+         max-width: 820px; margin: 2rem auto; padding: 0 1.2rem; color: #1b1f24; }
+  h1 { font-size: 1.6rem; border-bottom: 2px solid #0969da; padding-bottom: .4rem; }
+  h2 { font-size: 1.15rem; margin-top: 2rem; color: #0969da; }
+  h3 { font-size: 1rem; margin-top: 1.2rem; }
+  code, pre { font-family: "SF Mono", Consolas, monospace; font-size: .88rem; }
+  pre { background: #f6f8fa; border: 1px solid #d0d7de; border-radius: 6px;
+        padding: .8rem 1rem; overflow-x: auto; }
+  code:not(pre code) { background: #f0f2f4; padding: 1px 6px; border-radius: 3px; }
+  table { border-collapse: collapse; width: 100%; margin: .8rem 0; }
+  th, td { border: 1px solid #d0d7de; padding: .45rem .7rem; text-align: left; font-size: .92rem; vertical-align: top; }
+  th { background: #f6f8fa; }
+  .os-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .os-grid > div h4 { margin: 0 0 .3rem 0; font-size: .95rem; color: #57606a; }
+  .os-grid > div pre { margin: 0; }
+  .note { background: #fff8c5; border-left: 4px solid #d4a72c; padding: .6rem .9rem; margin: 1rem 0; }
+  .warn { background: #ffebe9; border-left: 4px solid #cf222e; padding: .6rem .9rem; margin: 1rem 0; }
+  .ok   { background: #dafbe1; border-left: 4px solid #1a7f37; padding: .6rem .9rem; margin: 1rem 0; }
+  ol > li { margin-bottom: .5rem; }
+  @media (max-width: 600px) { .os-grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<h1>Titanium Engineer Labs — Setup</h1>
+<p>Get your local environment running in about 15 minutes. Works on macOS and Windows.</p>
+
+<h2>Prerequisites</h2>
+<ul>
+  <li><b>Python 3.12</b> — from <a href="https://www.python.org/downloads/">python.org</a></li>
+  <li><b>uv</b> — the Python installer/venv manager: <a href="https://docs.astral.sh/uv/getting-started/installation/">install instructions</a></li>
+  <li><b>git</b> — from <a href="https://git-scm.com/">git-scm.com</a></li>
+  <li><b>Your APIM subscription key</b> — sent by email from the AIP team</li>
+  <li><b>Node.js ≥ 22</b> — <em>only</em> for Module 14's code-mode agent. Skip if you don't need it. <a href="https://nodejs.org">nodejs.org</a></li>
+  <li><b>Accenture VPN</b> — <em>only</em> for Module 14 Azure Speech. All other modules go through APIM and work without VPN.</li>
+</ul>
+
+<h2>1. Clone the repo and switch branches</h2>
+<div class="os-grid">
+<div>
+  <h4>macOS / Linux / WSL</h4>
+<pre>git clone https://dev.azure.com/LLMGenAITitaniumEngineering/LLMGenAITitaniumEngineering/_git/titanium-engineer-labs
+cd titanium-engineer-labs
+git checkout ACN_AIP_ADAPTED_LABS</pre>
+</div>
+<div>
+  <h4>Windows (PowerShell or cmd)</h4>
+<pre>git clone https://dev.azure.com/LLMGenAITitaniumEngineering/LLMGenAITitaniumEngineering/_git/titanium-engineer-labs
+cd titanium-engineer-labs
+git checkout ACN_AIP_ADAPTED_LABS</pre>
+</div>
+</div>
+
+<h2>2. Create your <code>.env</code></h2>
+<div class="os-grid">
+<div>
+  <h4>macOS / Linux / WSL</h4>
+<pre>cp .env.template .env</pre>
+</div>
+<div>
+  <h4>Windows (PowerShell)</h4>
+<pre>Copy-Item .env.template .env</pre>
+</div>
+</div>
+
+<p>Open <code>.env</code> in any editor and paste your keys:</p>
+<pre>APIM_KEY=&lt;your-individual-apim-key&gt;      # required — drives OpenAI, Embed, Anthropic, Cohere
+SPEECH_KEY=&lt;shared-speech-key&gt;           # only for Module 14 Voice
+TAVILY_API_KEY=&lt;tavily-key&gt;              # optional — Module 13 Deep Research falls back cleanly if empty</pre>
+
+<div class="note"><b>Never commit <code>.env</code>.</b> It's in <code>.gitignore</code>. To confirm: <code>git check-ignore .env</code> should print <code>.env</code>.</div>
+
+<h2>3. Install the shared environment</h2>
+<div class="os-grid">
+<div>
+  <h4>macOS / Linux / WSL</h4>
+<pre>make setup</pre>
+</div>
+<div>
+  <h4>Windows (PowerShell)</h4>
+<pre>uv sync --group dev --group graph --group optim</pre>
+</div>
+</div>
+<p>Takes 2–5 minutes on the first run. Installs LangChain, torch, spaCy, DSPy, and every module dependency except modules 08 and 14 (they have their own venvs).</p>
+
+<div class="warn"><b>Windows: don't run bare <code>uv sync</code>.</b> It removes the optional groups. Always include <code>--group dev --group graph --group optim</code>, or install <a href="https://gnuwin32.sourceforge.net/packages/make.htm">GNU Make</a> and use <code>make setup</code> like macOS.</div>
+
+<h2>4. Two modules need their own venv</h2>
+<div class="os-grid">
+<div>
+  <h4>macOS / Linux / WSL</h4>
+<pre>cd 08_SDG_RAGAS && uv sync && cd ..
+cd 14_Voice_Agents && uv sync && cd ..</pre>
+</div>
+<div>
+  <h4>Windows (PowerShell)</h4>
+<pre>Push-Location 08_SDG_RAGAS; uv sync; Pop-Location
+Push-Location 14_Voice_Agents; uv sync; Pop-Location</pre>
+</div>
+</div>
+
+<h2>5. Register Jupyter kernels (so VS Code can find them)</h2>
+<pre>uv run python -m ipykernel install --user --name titanium-engineer-labs --display-name "Titanium Labs (root)"
+
+cd 08_SDG_RAGAS  &amp;&amp; uv run python -m ipykernel install --user --name titanium-08-ragas --display-name "Titanium 08 (RAGAS)"  &amp;&amp; cd ..
+cd 14_Voice_Agents &amp;&amp; uv run python -m ipykernel install --user --name titanium-14-voice --display-name "Titanium 14 (Voice)" &amp;&amp; cd ..</pre>
+
+<p>On Windows PowerShell replace <code>&amp;&amp;</code> with <code>;</code> and <code>cd ..</code> with <code>cd ..</code> (works either way).</p>
+
+<h2>6. Verify APIM is reachable</h2>
+<div class="os-grid">
+<div>
+  <h4>macOS / Linux / WSL</h4>
+<pre>./validate_apim.sh &lt;your-apim-key&gt;</pre>
+</div>
+<div>
+  <h4>Windows (PowerShell)</h4>
+<pre>.\validate_apim.ps1 &lt;your-apim-key&gt;
+
+# or from cmd.exe:
+validate_apim.cmd &lt;your-apim-key&gt;</pre>
+</div>
+</div>
+<p>All 7 checks should say <b>OK</b>. If any fail, check your APIM key.</p>
+<div class="note"><b>Windows PowerShell execution policy</b> may block the script. One-time fix for the current session:<br>
+<code>Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass</code></div>
+
+<h2>7. Open in VS Code</h2>
+<pre>code .</pre>
+<p>Open any <code>.ipynb</code>, click the kernel picker (top-right), and select:</p>
+
+<table>
+<tr><th>Notebook location</th><th>Kernel</th></tr>
+<tr><td>Modules 02–07, 09–13, 15–23 (most modules)</td><td><b>Titanium Labs (root)</b></td></tr>
+<tr><td><code>08_SDG_RAGAS/*.ipynb</code></td><td><b>Titanium 08 (RAGAS)</b></td></tr>
+<tr><td><code>14_Voice_Agents/*.ipynb</code></td><td><b>Titanium 14 (Voice)</b></td></tr>
+</table>
+
+<h2>Known limitations</h2>
+<div class="warn">
+  <b>Module 14 Voice</b> — needs Accenture VPN active. Azure Speech is VNet-restricted and returns <code>403</code> without VPN. All other modules work without VPN.
+</div>
+<div class="note">
+  <b>Module 13 Deep Research</b> — needs <code>TAVILY_API_KEY</code>. Without it, the web-search steps skip cleanly and the notebook still runs on the local corpus.
+</div>
+<div class="note">
+  <b>Module 11 Agent Architecture</b> — the last sub-agent cell can take several minutes on gpt-5.5. Be patient; if it times out, restart the kernel and re-run just that cell.
+</div>
+
+<h2>Troubleshooting</h2>
+<table>
+<tr><th>Error</th><th>Fix</th></tr>
+<tr>
+  <td><code>AuthenticationError: 401 missing subscription key</code></td>
+  <td>Your <code>APIM_KEY</code> is wrong or blank. Check <code>.env</code>.</td>
+</tr>
+<tr>
+  <td><code>NoSuchKernel: titanium-08-ragas</code> (or -14-voice)</td>
+  <td>Step 4 or 5 wasn't run for that module. Re-run the two commands for that specific module.</td>
+</tr>
+<tr>
+  <td>Module 16 says <code>rdflib not installed</code></td>
+  <td>Wrong kernel selected — pick <b>Titanium Labs (root)</b>, not a system Python.</td>
+</tr>
+<tr>
+  <td>Module 14: <code>403 Forbidden</code> on <code>cognitiveservices.azure.com</code></td>
+  <td>Connect Accenture VPN (FortiClient LLM COE HUB), then re-run.</td>
+</tr>
+<tr>
+  <td>Module 14: <code>Node.js &gt;= 22 not found</code></td>
+  <td>Install Node 22 (see prerequisites) and restart JupyterLab / VS Code so the kernel picks up the new PATH.</td>
+</tr>
+<tr>
+  <td><code>BadRequestError: temperature does not support 0.0</code></td>
+  <td>You're on an older commit. <code>git pull</code> and restart the kernel.</td>
+</tr>
+<tr>
+  <td>Windows: <code>make: command not found</code></td>
+  <td>Use the direct <code>uv sync --group dev --group graph --group optim</code> command instead.</td>
+</tr>
+</table>
+
+<h2>Need help?</h2>
+<p>Post in the cohort Teams channel with:</p>
+<ul>
+  <li>Module and notebook name</li>
+  <li>Full error text (last 10–20 lines)</li>
+  <li>Which kernel is selected (top-right of the notebook)</li>
+  <li>Output of <code>python -c "import sys; print(sys.executable)"</code> from a notebook cell</li>
+</ul>
+
+</body>
+</html>
