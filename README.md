@@ -19,7 +19,7 @@ worked example called Deskmate, an internal IT helpdesk agent.
 | 1 | [Prototype and retrieve](docs/schedule/day1.md) | 01 to 05 | four-minute pitches |
 | 2 | [Retrieval and agent evals](docs/schedule/day2.md) | 06 to 09 | measured demos with a capability report |
 | 3 | [Agents in practice](docs/schedule/day3.md) | 10 to 13 | agent pitches with guardrail cases |
-| 4 | [Advanced prototyping, instructors' pick](docs/schedule/day4.md) | four of 14 to 21 | a decision per technique |
+| 4 | [Advanced prototyping, instructors' pick](docs/schedule/day4.md) | four of 14 to 23 | a decision per technique |
 | 5 | [Optional instruction](docs/schedule/day5.md) | by request | whatever the cohort asked for, demos if it wants them |
 
 ## Modules
@@ -51,6 +51,8 @@ mirror of it. Every notebook is three acts: **Learn** the idea from scratch,
 | 19 | [Responsible AI](19_Responsible_AI/) | 25 min |
 | 20 | [OWASP LLM top 10](20_OWASP_LLM_Top10/) | 35 min |
 | 21 | [DeepEval](21_DeepEval/) | 35 min |
+| 22 | Observability and incidents | 40 min |
+| 23 | Release pipeline | 40 min |
 
 A module without a link is still being verified against a live model. It lands, with its seed artifacts, as soon as its notebook runs green.
 

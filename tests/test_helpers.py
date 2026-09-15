@@ -199,3 +199,109 @@ def test_local_paths_follow_the_caller_not_the_working_directory(tmp_path, monke
     ns = {}
     exec("from helpers.paths import module_dir\nd = module_dir()", ns)   # a kernel: no __file__
     assert ns["d"] == tmp_path.resolve()
+
+
+# ── helpers.evals ────────────────────────────────────────────────────────────
+
+def test_bootstrap_interval_contains_the_mean():
+    from helpers.evals import bootstrap_ci
+
+    mean, low, high = bootstrap_ci([0.2, 0.4, 0.6, 0.8, 1.0], seed=1)
+    assert abs(mean - 0.6) < 1e-9
+    assert low <= mean <= high
+    assert low < high
+
+
+def test_bootstrap_is_deterministic_for_a_seed_and_moves_with_it():
+    from helpers.evals import bootstrap_ci
+
+    values = [0.11, 0.42, 0.57, 0.63, 0.78, 0.81, 0.9, 0.97]
+    assert bootstrap_ci(values, seed=3) == bootstrap_ci(values, seed=3)
+    assert bootstrap_ci(values, seed=3) != bootstrap_ci(values, seed=4)
+
+
+def test_bootstrap_refuses_an_empty_list():
+    import pytest
+    from helpers.evals import bootstrap_ci
+
+    with pytest.raises(ValueError):
+        bootstrap_ci([])
+
+
+def test_difference_interval_narrows_with_more_cases():
+    import numpy as np
+    from helpers.evals import difference_ci
+
+    rng = np.random.default_rng(7)
+    widths = []
+    for n in (8, 64, 512):
+        before = (rng.random(n) < 0.80).astype(float)
+        after = (rng.random(n) < 0.88).astype(float)
+        _, low, high = difference_ci(before, after, seed=0)
+        widths.append(high - low)
+    assert widths[0] > widths[1] > widths[2]
+
+
+def test_difference_is_after_minus_before_and_paired_when_lengths_match():
+    from helpers.evals import difference_ci
+
+    before = [0.5, 0.5, 0.5, 0.5]
+    after = [0.7, 0.7, 0.7, 0.7]
+    delta, low, high = difference_ci(before, after)
+    assert abs(delta - 0.2) < 1e-9
+    assert abs(low - 0.2) < 1e-9 and abs(high - 0.2) < 1e-9   # paired: no spread at all
+
+
+def test_difference_falls_back_to_independent_resampling_for_unequal_lengths():
+    from helpers.evals import difference_ci
+
+    delta, low, high = difference_ci([0.0, 1.0, 1.0], [1.0, 1.0, 0.0, 1.0, 1.0], seed=2)
+    assert abs(delta - (0.8 - 2 / 3)) < 1e-9
+    assert low <= delta <= high
+
+
+def test_fingerprint_ignores_case_order_and_notices_a_changed_case():
+    from helpers.evals import fingerprint
+
+    cases = [{"id": "v01", "question": "a"}, {"id": "v02", "question": "b"}]
+    fp = fingerprint(cases)
+    assert len(fp) == 12 and fp == fingerprint(list(reversed(cases)))
+    assert fp == fingerprint([{"id": "v01", "question": "changed"}, {"id": "v02"}])
+    assert fp != fingerprint(cases + [{"id": "v03"}])
+    assert fp != fingerprint(cases, keys=("id", "question"))
+
+
+def test_compare_refuses_when_the_case_set_changed():
+    from helpers.evals import compare
+
+    before = {"fingerprint": "aaaaaaaaaaaa", "scores": {"faithfulness": 0.9}}
+    after = {"fingerprint": "bbbbbbbbbbbb", "scores": {"faithfulness": 0.95}}
+    out = compare(before, after)
+    assert out["comparable"] is False and out["delta"] == {}
+    assert "aaaaaaaaaaaa" in out["reason"] and "bbbbbbbbbbbb" in out["reason"]
+
+
+def test_compare_reports_a_delta_per_shared_metric():
+    from helpers.evals import compare
+
+    before = {"fingerprint": "f", "scores": {"a": 0.5, "b": 0.8}}
+    after = {"fingerprint": "f", "scores": {"a": 0.7, "b": 0.6, "c": 1.0}}
+    out = compare(before, after)
+    assert out["comparable"] is True
+    assert set(out["delta"]) == {"a", "b"}
+    assert abs(out["delta"]["a"] - 0.2) < 1e-9 and abs(out["delta"]["b"] + 0.2) < 1e-9
+
+
+def test_gate_names_every_metric_under_its_minimum():
+    from helpers.evals import gate
+
+    out = gate({"a": 0.9, "b": 0.5, "c": 0.7}, {"a": 0.8, "b": 0.6, "c": 0.7})
+    assert out == {"passed": False, "failed": ["b"]}
+    assert gate({"a": 0.9}, {"a": 0.8}) == {"passed": True, "failed": []}
+
+
+def test_gate_fails_a_metric_that_is_missing():
+    from helpers.evals import gate
+
+    assert gate({"a": 0.9}, {"a": 0.8, "b": 0.5}) == {"passed": False, "failed": ["b"]}
+    assert gate({"a": None}, {"a": 0.0})["failed"] == ["a"]

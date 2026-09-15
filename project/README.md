@@ -8,6 +8,7 @@ the workspace copies it in when you run the dev-environment notebook.
 | `CHARTER.md` | first morning | the problem, the users, the product vision |
 | `PITCH.md` | end of each day | the current pitch, five minutes of it |
 | `DECISIONS.md` | fourth day | one line per technique: in, out, and why |
+| `READOUT.md` | last day | the headline, the numbers, and proceed, narrow, or stop |
 | `DEMO_SCORECARD.md` | demo day, if the cohort holds one | what the judges score |
 | `app/` | from the third day | the Streamlit starter for your demo |
 

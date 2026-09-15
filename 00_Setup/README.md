@@ -51,6 +51,25 @@ uv run python scripts/check_workspace.py --status
 Every row should say `seed`. That means the notebooks will run on the worked
 example until your group produces its own artifacts.
 
+## Before you arrive: check the network
+
+Corporate networks block or inspect some of the hosts the notebooks need.
+Find out on your own desk, not in the room.
+
+```bash
+make preflight
+```
+
+One row per host, with a verdict.
+
+| Verdict | What it means for you |
+|---|---|
+| open | The host answers and a public certificate authority signed it. Nothing to do. |
+| intercepted | The host answers, but a private CA signed the certificate. A proxy is inspecting the traffic. The terminal works because your machine trusts that CA; a container or a fresh environment does not, so keep the CA file to hand and note which variables the table lists. |
+| blocked | The name did not resolve or the connection did not open. Ask whoever runs the proxy to allow the host, or bring the wheels on a laptop that can reach it. |
+
+The command exits with an error only when every host failed.
+
 ## Troubleshooting
 
 - **`ModuleNotFoundError` in a notebook that worked before.** A plain `uv sync`

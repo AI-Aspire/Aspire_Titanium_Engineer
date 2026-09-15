@@ -38,8 +38,9 @@ jobs:
         run: uv run python scripts/make_marimo.py --check
       - name: No secrets or internal endpoints in outputs
         run: uv run python scripts/strip_outputs.py --check
-      # Every module has landed, so the committed seed must cover all five days.
+      # Scoped to the modules git tracks, so a new module can land alone;
+      # once every folder is in, this is the whole seed.
       - name: Seed validates
-        run: uv run python scripts/check_workspace.py --seed
+        run: uv run python scripts/check_workspace.py --seed --landed
       - name: Tests
         run: uv run python -m pytest tests/ -q

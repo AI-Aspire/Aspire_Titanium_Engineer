@@ -27,7 +27,7 @@ own artifacts.
 | 9:00 | 🎤 | 15 | Welcome, how the week works, the course eats itself |
 | 9:15 | 🧑‍🏫 | 20 | PoC, MVP, production. The project brief |
 | 9:35 | 🧑‍💻 | 30 | Module 01: dev environment and workspace |
-| 10:05 | 🧑‍🤝‍🧑 | 25 | Form groups. Write the charter |
+| 10:05 | 🧑‍🤝‍🧑 | 25 | Form groups. Write the charter: the agent-or-function test, five golden examples, the napkin |
 | 10:30 | ☕ | 15 | |
 | 10:45 | 🧑‍🏫 | 15 | Prompt patterns |
 | 11:00 | 🧑‍💻 | 30 | Module 02: prompt patterns |

@@ -46,7 +46,7 @@ what they actually said.
 |---|---|
 | `### ❓ Question` cells, under `Answer:` | their reading of what just happened |
 | `## Your turn` sections | the change they chose to make, and why |
-| `project/CHARTER.md`, `PITCH.md`, `DECISIONS.md` | the group's problem, product, and choices |
+| `project/CHARTER.md`, `PITCH.md`, `DECISIONS.md`, `READOUT.md` | the group's problem, product, choices, and recommendation |
 
 The same goes for the demo-day artifacts. A release decision and a risk
 register are worth something only if they reflect what the evidence actually

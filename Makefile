@@ -1,10 +1,11 @@
-.PHONY: deps execute-marimo syntax help setup setup-graph setup-optim setup-all marimo scrub lint links check check-day execute seed seed-validate banner diagrams clean
+.PHONY: deps execute-marimo syntax help preflight setup setup-graph setup-optim setup-all marimo scrub lint links check check-day execute seed seed-validate banner diagrams clean
 
 # Read-only gates run with --no-sync so they never add or remove a package.
 # Anything that executes a notebook uses --all-groups so the optional groups
 # are present. A bare `uv run --group dev` would uninstall them.
 
 help:
+	@echo "preflight     check the network allows the hosts the course needs"
 	@echo "setup         install the shared environment (keeps optional groups already present)"
 	@echo "setup-graph   add the GraphRAG group (spacy, networkx) and the spaCy model"
 	@echo "setup-optim   add the prompt-optimisation group (dspy)"
@@ -28,6 +29,9 @@ help:
 # sync would silently uninstall a group a student installed on purpose. Keep
 # every group already present. marker = a package only that group installs.
 OPTIONAL_GROUPS = graph:spacy optim:dspy
+
+preflight:
+	uv run --no-sync python scripts/preflight.py
 
 setup:
 	@groups=" --group dev"; \

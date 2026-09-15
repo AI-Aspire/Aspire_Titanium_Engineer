@@ -64,6 +64,12 @@ The voice sessions are the one optional artifact: the notebook needs the speech 
 | owasp_findings | `guardrails/owasp_findings.jsonl` | jsonl | 20 | id, category, succeeded |
 | deepeval_results | `demo/deepeval_results.jsonl` | jsonl | 21 | test, version, passed |
 | release_decision | `demo/release_decision.md` | md | 21 | |
+| traces | `ops/traces.jsonl` | jsonl | 22 | span, ms |
+| load_test | `ops/load_test.csv` | csv | 22 | concurrency, req_per_s, p50_ms |
+| monitoring | `ops/monitoring.md` | md | 22 | |
+| eval_gate | `demo/eval_gate.json` | json | 23 | passed, minimum |
+| canary_verdict | `demo/canary_verdict.json` | json | 23 | verdict |
+| deploy_checklist | `demo/deploy_checklist.md` | md | 23 | |
 | scorecard | `demo/scorecard.jsonl` | jsonl | project | group, criterion, score |
 
 ## Checking it

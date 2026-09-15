@@ -24,7 +24,7 @@ and nowhere else in the repository.
 
 ## Day 4 and day 5
 
-Day 4 is your pick of four modules from 14 to 21; `docs/schedule/day4.md`
+Day 4 is your pick of four modules from 14 to 23; `docs/schedule/day4.md`
 says when each one earns its slot. Day 5 is optional and built from what the
 cohort asks for. If it holds a demo day, the judges score with
 `project/DEMO_SCORECARD.md`, each group's own harness runs in the room, and

@@ -24,9 +24,12 @@ the cohort's projects need. Anything not picked stays available on day 5.
 | 19 | Responsible AI | 25 min | everything | risk_register | the prototype will face a review board |
 | 20 | OWASP LLM top 10 | 35 min | corpus, tools_catalog | owasp_findings | the agent has tools and reads untrusted text |
 | 21 | DeepEval | 35 min | eval_cases, trajectories | deepeval_results, release_decision | a release decision is due |
+| 22 | Observability and incidents | 40 min | trajectories, eval_cases, corpus | traces, load_test, monitoring | someone will have to run it and be woken by it |
+| 23 | Release pipeline | 40 min | deepeval_results, eval_cases, trajectories, tools_catalog | eval_gate, canary_verdict, deploy_checklist | it is going anywhere near production |
 
-Modules 19 to 21 are the release-readiness set. Pick them together when a
-cohort is heading for a demo or a pilot.
+Modules 19 to 23 are the release-readiness set. Pick from them when a
+cohort is heading for a demo or a pilot; 22 and 23 are what running it for
+real needs.
 
 ## Shape of the day
 
