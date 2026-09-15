@@ -747,21 +747,18 @@ def _(mo):
 def _(mo):
     mo.md(r"""
     <!-- lint: ignore L002 -->
-    <!-- Keep the full prompt copyable; long prompts are collapsed. -->
+    <!-- Keep the full prompt visible and copyable. -->
     ### B: explicit fields
 
-    <details>
-    <summary>Expand the complete prompt to copy</summary>
-    <span class="markdown prose dark:prose-invert contents"><blockquote>
-    <span class="paragraph">Extract a product brief from the text below. Return only one JSON object with exactly these fields, without Markdown fences or introductory prose:
-    product_name: a string
-    users: a list of names in the text
-    must_do: a list of stated responsibilities
-    must_not_do: a list of stated restrictions</span>
-    <span class="paragraph">Do not invent details. Use an empty list for missing list information.</span>
-    <span class="paragraph">Deskmate answers internal IT questions using the knowledge base and the requester’s own ticket history. Priya is a backend engineer who needs help reaching staging through the VPN. Marcus is the helpdesk lead who wants fewer repeat questions and an auditable log. Deskmate opens a ticket when it cannot answer. It never resets anything without confirmation, touches unverified entitlements, or repeats another user’s ticket text.</span>
-    </blockquote></span>
-    </details>
+    > Extract a product brief from the text below. Return only one JSON object with exactly these fields, without Markdown fences or introductory prose:
+    > product_name: a string
+    > users: a list of names in the text
+    > must_do: a list of stated responsibilities
+    > must_not_do: a list of stated restrictions
+    >
+    > Do not invent details. Use an empty list for missing list information.
+    >
+    > Deskmate answers internal IT questions using the knowledge base and the requester’s own ticket history. Priya is a backend engineer who needs help reaching staging through the VPN. Marcus is the helpdesk lead who wants fewer repeat questions and an auditable log. Deskmate opens a ticket when it cannot answer. It never resets anything without confirmation, touches unverified entitlements, or repeats another user’s ticket text.
     """)
     return
 
@@ -1095,16 +1092,14 @@ def _(mo):
     <!-- Keep the complete prompt copyable. -->
     ### B: generated instruction test
 
-    <details>
-    <summary>Expand the complete prompt to copy</summary>
-    <span class="markdown prose dark:prose-invert contents"><blockquote>
-    <span class="paragraph">You are a Deskmate support assistant. Use only the supplied product context and the user’s question. Do not infer, invent, or rely on outside knowledge for features, policies, permissions, menu paths, troubleshooting steps, or outcomes. If the context does not establish an answer, say what is missing and ask a focused clarifying question or recommend a supported next action. Respect all stated product restrictions and eligibility requirements. Never claim an action was performed, a setting was changed, or an issue was resolved unless the supplied facts explicitly confirm it. Answer clearly and concisely, separating confirmed facts from uncertainty.</span>
-    <span class="paragraph">Answer the support question using only the context supplied.</span>
-    <span class="paragraph">Context:
-    Deskmate answers internal IT questions using the knowledge base and the requester’s own ticket history. Priya is a backend engineer who needs help reaching staging through the VPN. Marcus is the helpdesk lead who wants fewer repeat questions and an auditable log. Deskmate opens a ticket when it cannot answer. It never resets anything without confirmation, touches unverified entitlements, or repeats another user’s ticket text.</span>
-    <span class="paragraph">Question: My VPN connects but I cannot reach staging. What exact menu path should I use to fix it?</span>
-    </blockquote></span>
-    </details>
+    > You are a Deskmate support assistant. Use only the supplied product context and the user’s question. Do not infer, invent, or rely on outside knowledge for features, policies, permissions, menu paths, troubleshooting steps, or outcomes. If the context does not establish an answer, say what is missing and ask a focused clarifying question or recommend a supported next action. Respect all stated product restrictions and eligibility requirements. Never claim an action was performed, a setting was changed, or an issue was resolved unless the supplied facts explicitly confirm it. Answer clearly and concisely, separating confirmed facts from uncertainty.
+    >
+    > Answer the support question using only the context supplied.
+    >
+    > Context:
+    > Deskmate answers internal IT questions using the knowledge base and the requester’s own ticket history. Priya is a backend engineer who needs help reaching staging through the VPN. Marcus is the helpdesk lead who wants fewer repeat questions and an auditable log. Deskmate opens a ticket when it cannot answer. It never resets anything without confirmation, touches unverified entitlements, or repeats another user’s ticket text.
+    >
+    > Question: My VPN connects but I cannot reach staging. What exact menu path should I use to fix it?
     """)
     return
 
