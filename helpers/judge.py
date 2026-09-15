@@ -10,36 +10,34 @@ notebooks can reuse it without rebuilding it. Same idea: one LLM call, JSON in, 
 """
 import os
 import json
-import litellm as _litellm
 
-from .config import KEY, LLM_MODEL as _LLM_MODEL, LLM_BASE as _LLM_BASE
-
-_litellm.suppress_debug_info = True
-os.environ.setdefault("LITELLM_LOG", "ERROR")
+from .config import (KEY, LLM_MODEL as _LLM_MODEL, LLM_BASE as _LLM_BASE,
+                     apim_chat_client, _is_apim)
 
 
 def _resolve_model() -> str:
-    """Route an OpenAI-named model to a self-hosted server, with the same fallback
-    the evals notebook uses when LLM_MODEL isn't set, so the judge always has a model to call."""
+    """The model name to call. Stripped of any provider prefix, since we call the
+    OpenAI SDK directly rather than routing through litellm."""
     m = _LLM_MODEL
     if not m:
-        if os.environ.get("ANTHROPIC_API_KEY") and not os.environ.get("OPENAI_API_KEY"):
-            return "anthropic/claude-haiku-4-5-20251001"
         return "gpt-4.1-mini"
-    if m.startswith(("openai/", "anthropic/")) or not _LLM_BASE:
-        return m
-    return "openai/" + m
+    return m.removeprefix("openai/").removeprefix("anthropic/")
 
 
 _MODEL = _resolve_model()
 
+# The APIM path returns 401 through litellm (which sends Authorization: Bearer
+# and cannot forward query params); the OpenAI SDK with default_query works.
+# Off-APIM we still use the SDK — one code path, no litellm dependency.
+_CLIENT = apim_chat_client(_MODEL)
+
 
 def _chat(messages, **kw):
-    kw.setdefault("api_key", KEY)
-    if _LLM_BASE and str(_MODEL).startswith("openai/"):
-        kw.setdefault("api_base", _LLM_BASE)
+    # `api_key` / `api_base` may leak in from callers that assume litellm; drop them.
+    kw.pop("api_key", None)
+    kw.pop("api_base", None)
     # NOTE: never set max_tokens — the self-hosted model reasons before it answers.
-    return _litellm.completion(model=_MODEL, messages=messages, **kw)
+    return _CLIENT.chat.completions.create(model=_MODEL, messages=messages, **kw)
 
 
 def _json_blocks(text: str):
