@@ -6,12 +6,12 @@
 A ladder of retrievers on the same questions: dense, BM25 written from scratch, fusion with RRF, a cross-encoder reranker, multi-query. What each rung adds and what it costs.
 
 ### Create
-Eval cases labelled with the pages that hold the evidence, and a scored table of hit rate and MRR per rung over your corpus.
+Eval cases labelled with the pages that hold the evidence, a scored table of hit rate and MRR per rung over your corpus, and a permission filter that runs inside the query rather than after it.
 
 ### Grow
 Ship the cheapest rung that clears your bar and write down which question type needs the expensive one. In production the bar is measured on every change, not once.
 
-**Estimated time:** 40 minutes
+**Estimated time:** 45 minutes
 **Reads:** corpus, vibe_checks
 **Writes:** eval_cases, ladder
 
@@ -35,6 +35,7 @@ Ship the cheapest rung that clears your bar and write down which question type n
 | 2 | BM25 from scratch, then `rank_bm25`, then dense search over the same chunks |
 | 3 | Fuse with RRF, rerank with a cross-encoder, expand the query |
 | 4 | Score every rung on hit rate and MRR, chart it, save the ladder |
+| 5 | Tag every chunk with a group and compare dropping after ranking with filtering inside the query |
 
 ## Setup
 

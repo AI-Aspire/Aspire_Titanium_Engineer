@@ -36,7 +36,7 @@ def _(mo):
 def _(mo):
     mo.md(r"""
     ### Create
-    Eval cases labelled with the pages that hold the evidence, and a scored table of hit rate and MRR per rung over your corpus.
+    Eval cases labelled with the pages that hold the evidence, a scored table of hit rate and MRR per rung over your corpus, and a permission filter that runs inside the query rather than after it.
     """)
     return
 
@@ -53,7 +53,7 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    **Estimated time:** 40 minutes
+    **Estimated time:** 45 minutes
     **Reads:** corpus, vibe_checks
     **Writes:** eval_cases, ladder
     """)
@@ -74,36 +74,31 @@ def _(mo):
 def _():
     import math, os, re, time
     from collections import Counter
-
-    os.environ.setdefault("TOKENIZERS_PARALLELISM", "false")
+    os.environ.setdefault('TOKENIZERS_PARALLELISM', 'false')
     import pandas as pd
     from langchain_core.documents import Document
     from langchain_openai import ChatOpenAI, OpenAIEmbeddings
     from langchain_text_splitters import RecursiveCharacterTextSplitter
-
     from helpers.config import KEY, LLM_BASE, LLM_MODEL, EMBED_BASE, EMBED_MODEL, COHERE_KEY, require, budget
     from helpers import workspace as ws, ui
     from helpers.llm import chat_model, embeddings_model
-
-    require("OPENAI_API_KEY")
-    CORPUS_DIR = ws.load_path("corpus")
+    require('OPENAI_API_KEY')
+    CORPUS_DIR = ws.load_path('corpus')
     PAGES = {}
-    for p in sorted(CORPUS_DIR.rglob("*.md")):
+    for p in sorted(CORPUS_DIR.rglob('*.md')):
         rel = p.relative_to(CORPUS_DIR).as_posix()
-        if not rel.startswith("wiki/") and rel != "vibe_checks.md":
-            PAGES[rel] = p.read_text(encoding="utf-8")
-
+        if not rel.startswith('wiki/') and rel != 'vibe_checks.md':
+            PAGES[rel] = p.read_text(encoding='utf-8')
     splitter = RecursiveCharacterTextSplitter(chunk_size=800, chunk_overlap=120)
-    DOCS = splitter.split_documents([Document(page_content=t, metadata={"page": n}) for n, t in PAGES.items()])
-    for i, d in enumerate(DOCS):
-        d.metadata["chunk"] = i
+    DOCS = splitter.split_documents([Document(page_content=t, metadata={'page': n}) for n, t in PAGES.items()])
+    for i, _d in enumerate(DOCS):
+        _d.metadata['chunk'] = i
     CHUNKS = [d.page_content for d in DOCS]
-    PAGE_OF = [d.metadata["page"] for d in DOCS]
+    PAGE_OF = [d.metadata['page'] for d in DOCS]
     K = 4
-
-    VIBES = ws.load("vibe_checks")
+    VIBES = ws.load('vibe_checks')
     llm = chat_model(temperature=0)
-    print(f"✅ {len(PAGES)} pages -> {len(CHUNKS)} chunks; {len(VIBES)} vibe checks; chat {LLM_MODEL}; embeddings {EMBED_MODEL}")
+    print(f'✅ {len(PAGES)} pages -> {len(CHUNKS)} chunks; {len(VIBES)} vibe checks; chat {LLM_MODEL}; embeddings {EMBED_MODEL}')
     return (
         CHUNKS,
         COHERE_KEY,
@@ -144,7 +139,7 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ## Task 1 of 4 — Label the evidence
+    ## Task 1 of 5 — Label the evidence
 
     A retrieval score needs an answer key: for each question, which pages hold the evidence. Labelling pages rather than chunks keeps the labels valid when you change the chunk size later. The model proposes the pages from a one-line digest of each; you correct it. A question outside the product gets no page, and the scorer skips it.
     """)
@@ -185,7 +180,7 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ## Task 2 of 4 — Dense and sparse
+    ## Task 2 of 5 — Dense and sparse
 
     Dense search finds text with a similar meaning. It blurs exact tokens: a setting name, an error string, an entitlement id. BM25 scores by term overlap, so it finds those. The from-scratch class below is the whole algorithm: term frequency that saturates, weighted by how rare the term is, normalised by document length. The library version is one line and gives the same ranking.
     """)
@@ -266,7 +261,7 @@ def _(DOCS, HARD, K, PAGE_OF, bm25_search, embeddings_model, ui):
 
     print("dense: ", [PAGE_OF[i] for i in dense_search(HARD)])
     print("bm25:  ", [PAGE_OF[i] for i in bm25_search(HARD)])
-    return (dense_search,)
+    return dense_search, qdrant, store
 
 
 @app.cell(hide_code=True)
@@ -291,7 +286,7 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ## Task 3 of 4 — Fuse, rerank, expand
+    ## Task 3 of 5 — Fuse, rerank, expand
 
     Dense and BM25 win on different questions, so let both vote. Reciprocal rank fusion adds `1 / (60 + rank)` from each list; a chunk near the top of both wins with no score normalisation. A cross-encoder then reads the question and each candidate together and reorders the shortlist. Query expansion asks the question three more ways before fusing. Each rung costs more than the one below it.
     """)
@@ -391,7 +386,7 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ## Task 4 of 4 — Score the ladder
+    ## Task 4 of 5 — Score the ladder
 
     Two numbers per rung, over the labelled cases. Hit rate: did any of the top `K` chunks come from a labelled page. MRR: one over the rank of the first such chunk, averaged, so a hit at rank 1 scores 1 and a hit at rank 4 scores 0.25. Latency is in the table too, because the top rungs pay for their gains in seconds.
     """)
@@ -419,7 +414,7 @@ def _(CASES, K, PAGE_OF, RETRIEVERS, budget, pd, time, ui, ws):
     ws.save('ladder', LADDER)
     ladder_df = pd.DataFrame(LADDER).set_index('retriever')
     ui.table(ladder_df, title=f'the ladder at k={K} over {len(SCORED)} cases')
-    return PER_CASE, ladder_df, score_case
+    return PER_CASE, SCORED, ladder_df, score_case
 
 
 @app.cell
@@ -463,6 +458,72 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
+    ## Task 5 of 5 — Filter before you rank
+
+    An index that holds pages with different access rules turns retrieval into an authorisation bypass: the model quotes a page to someone who could never open it. Tag every chunk with a group, a stand-in for a real access list: transcripts belong to the helpdesk, everything else to everyone. Then build the dense retriever twice for a user in everyone. The first ranks and then drops what the user may not read. The second passes the permission into the query, so Qdrant never scores a forbidden chunk. Dropping after ranking looks the same in a demo and fails in production: the match itself leaks, through counts, gaps, and rank positions.
+    """)
+    return
+
+
+@app.cell
+def _(CHUNKS, K, PAGES, SCORED, qdrant, store):
+    from qdrant_client.models import FieldCondition, Filter, MatchAny, MatchValue
+
+    def group_of(page: str) -> str:
+        """A stand-in for a real access list: transcripts belong to the helpdesk, everything else to everyone."""
+        return 'helpdesk' if page.startswith('transcripts/') else 'everyone'
+    for group in ('helpdesk', 'everyone'):
+        members = [p for p in PAGES if group_of(p) == group]
+        if members:
+            qdrant.set_payload('ladder', payload={'group': group}, key='metadata', points=Filter(must=[FieldCondition(key='metadata.page', match=MatchAny(any=members))]))  # tag the chunks already in the store, page by page
+    helpdesk_only = Filter(must=[FieldCondition(key='metadata.group', match=MatchValue(value='helpdesk'))])
+    print(f"{qdrant.count('ladder', count_filter=helpdesk_only).count} of {len(CHUNKS)} chunks are helpdesk-only")
+    USER_GROUP = 'everyone'
+
+    def post_filter(query: str, k: int=K) -> tuple:
+        """(a) rank first, then drop what the user may not read. Returns (everything ranked, what survived)."""
+        ranked = store.similarity_search(query, k=k)
+        return (ranked, [d for d in ranked if d.metadata.get('group') == USER_GROUP])
+    allowed = Filter(must=[FieldCondition(key='metadata.group', match=MatchValue(value=USER_GROUP))])
+    pre_filtered = store.as_retriever(search_kwargs={'k': K, 'filter': allowed})
+    leaky = next((c['question'] for c in SCORED if len(post_filter(c['question'])[1]) < K), SCORED[0]['question'])
+    _ranked, kept = post_filter(leaky)
+    print(f'\nQ: {leaky}\nuser group: {USER_GROUP}\n')
+    print('(a) rank, then drop:')
+    for _d in _ranked:
+        ok = _d.metadata.get('group') == USER_GROUP
+        print(f"    {('kept   ' if ok else 'DROPPED')} {_d.metadata['page']}  [{_d.metadata.get('group')}]")
+    print(f'    returned {len(kept)} of {K}: the dropped pages still ranked, and the gap says so')  # (b) the permission travels with the query
+    print('(b) filter in the query, then rank:')
+    allowed_docs = pre_filtered.invoke(leaky)
+    for _d in allowed_docs:
+        print(f"    kept    {_d.metadata['page']}  [{_d.metadata.get('group')}]")
+    print(f'    returned {len(allowed_docs)} of {K}, every one readable by {USER_GROUP}')
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    You should see the helpdesk chunk count, then one question with its ranked list marked kept or dropped and fewer than four kept, then four kept pages from the filtered query. Stop here if nothing is dropped for any question: no transcript ranked, so ask about a conversation from your transcripts.
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ### ❓ Question
+    In (a) the short list leaks: what does a user in everyone learn from the count alone, and from the rank a permitted page lands at? Does (b) leak anything as written, and what would you have to display, a total match count, a score, a rank across all groups, before it did?
+
+    Answer:
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
     ## Your turn
 
     Write one question over your corpus where exactly one retriever gets the right page at rank 1. Label its pages, run it through every rung, and write one sentence on why that rung won. If you cannot find such a question, that is a finding too: dense search is enough for this corpus.
@@ -475,9 +536,9 @@ def _(K, PAGE_OF, RETRIEVERS, score_case):
     MY_CASE = {'id': 'mine', 'question': '', 'pages': []}  # fill in a question and the pages that answer it
     if MY_CASE['question'] and MY_CASE['pages']:
         for _name, _search in RETRIEVERS.items():
-            ranked = _search(MY_CASE['question'], K)
-            _hit, _rr = score_case(MY_CASE, ranked)
-            print(f'{_name:<14} rr={_rr:.2f}  {[PAGE_OF[i] for i in ranked]}')
+            _ranked = _search(MY_CASE['question'], K)
+            _hit, _rr = score_case(MY_CASE, _ranked)
+            print(f'{_name:<14} rr={_rr:.2f}  {[PAGE_OF[i] for i in _ranked]}')
     else:
         print('fill in MY_CASE above, then rerun')
     return
