@@ -1,0 +1,4 @@
+{"span": "request", "ms": 54412.2, "status": "ok", "id": "7d52ad30", "parent": null, "question_len": 43}
+{"span": "retrieve", "ms": 0.0, "status": "ok", "id": "07ac4026", "parent": "7d52ad30", "k": 3, "hits": 3}
+{"span": "generate", "ms": 54412.1, "status": "ok", "gen_ai.request.model": "unsloth/Qwen3.6-35B-A3B-MTP-GGUF", "gen_ai.response.model": "unsloth/Qwen3.6-35B-A3B-MTP-GGUF", "gen_ai.usage.input_tokens": 466, "gen_ai.usage.output_tokens": 1774, "id": "3d8ea733", "parent": "7d52ad30"}
+{"span": "guardrail", "ms": 0.0, "status": "ok", "id": "35b8a8c5", "parent": "7d52ad30", "refused": false, "empty": false}
