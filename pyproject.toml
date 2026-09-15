@@ -52,7 +52,14 @@ course = [
     "onnxruntime<1.24; sys_platform == 'darwin' and platform_machine == 'x86_64'",
     "torch<2.3; sys_platform == 'darwin' and platform_machine == 'x86_64'",
     "transformers<5; sys_platform == 'darwin' and platform_machine == 'x86_64'",
-    "numpy<2; sys_platform == 'darwin' and platform_machine == 'x86_64'",
+    # Force a newer torch on Apple Silicon: torch 2.2.x was built against numpy 1.x
+    # and blows up with "NameError: name 'nn' is not defined" alongside numpy>=2.
+    # sentence-transformers 5.x requires torch>=2.5 anyway.
+    "torch>=2.5; sys_platform == 'darwin' and platform_machine == 'arm64'",
+    # Pin numpy<2 on ALL macOS (not just Intel): torch 2.2.x arm64 wheels were
+    # also built against the numpy 1.x ABI, and mixing them with numpy 2.x
+    # crashes at import time.
+    "numpy<2; sys_platform == 'darwin'",
 
     # Data and display
     "numpy>=1.26",
@@ -62,7 +69,10 @@ course = [
     "tiktoken>=0.8",
 
     # Tools, skills, MCP, sub-agents
-    "mcp>=1.2",
+    # mcp 2.x renamed FastMCP → MCPServer and broke every notebook that imports
+    # `from mcp.server.fastmcp import FastMCP`. Pin to the 1.x line until the
+    # curriculum is updated to the 2.x names.
+    "mcp>=1.2,<2",
 
     # Evaluation frameworks
     "deepeval>=4.1,<5",

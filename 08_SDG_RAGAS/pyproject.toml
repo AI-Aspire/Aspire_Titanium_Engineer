@@ -40,6 +40,7 @@ dependencies = [
 
     # Data and charts
     "numpy>=1.26",
+    "numpy<2; sys_platform == 'darwin'",   # torch's macOS wheels want the numpy 1.x ABI
     "pandas>=2.2,!=3.0.4",
     "matplotlib>=3.9",
 
