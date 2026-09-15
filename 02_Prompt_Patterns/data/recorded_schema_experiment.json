@@ -1,0 +1,103 @@
+{
+  "schema": {
+    "properties": {
+      "product_name": {
+        "title": "Product Name",
+        "type": "string"
+      },
+      "problem": {
+        "title": "Problem",
+        "type": "string"
+      },
+      "users": {
+        "items": {
+          "type": "string"
+        },
+        "title": "Users",
+        "type": "array"
+      },
+      "must_do": {
+        "items": {
+          "type": "string"
+        },
+        "title": "Must Do",
+        "type": "array"
+      },
+      "must_not_do": {
+        "items": {
+          "type": "string"
+        },
+        "title": "Must Not Do",
+        "type": "array"
+      },
+      "risk_level": {
+        "enum": [
+          "low",
+          "medium",
+          "high"
+        ],
+        "title": "Risk Level",
+        "type": "string"
+      }
+    },
+    "required": [
+      "product_name",
+      "problem",
+      "users",
+      "must_do",
+      "must_not_do",
+      "risk_level"
+    ],
+    "title": "ProductBrief",
+    "type": "object"
+  },
+  "messages": [
+    {
+      "role": "system",
+      "content": "Extract a product brief from the charter. Return only JSON matching this schema:\n{\"properties\": {\"product_name\": {\"title\": \"Product Name\", \"type\": \"string\"}, \"problem\": {\"title\": \"Problem\", \"type\": \"string\"}, \"users\": {\"items\": {\"type\": \"string\"}, \"title\": \"Users\", \"type\": \"array\"}, \"must_do\": {\"items\": {\"type\": \"string\"}, \"title\": \"Must Do\", \"type\": \"array\"}, \"must_not_do\": {\"items\": {\"type\": \"string\"}, \"title\": \"Must Not Do\", \"type\": \"array\"}, \"risk_level\": {\"enum\": [\"low\", \"medium\", \"high\"], \"title\": \"Risk Level\", \"type\": \"string\"}}, \"required\": [\"product_name\", \"problem\", \"users\", \"must_do\", \"must_not_do\", \"risk_level\"], \"title\": \"ProductBrief\", \"type\": \"object\"}"
+    },
+    {
+      "role": "user",
+      "content": "# Charter: Deskmate\n\n## The problem\n\nEvery engineer in the building files a helpdesk ticket about once a month:\na VPN that drops, an access request that sits in a queue, a laptop that will\nnot install a package. The helpdesk answers the same forty questions on\nrepeat, first response takes a day, and the knowledge base that would answer\nmost of them is twelve pages nobody reads.\n\n## The users\n\n- **Priya, a backend engineer.** Asks \"why can't I reach the staging database\n  from the VPN\" at 9 am and wants a fix, not a ticket number.\n- **Marcus, the helpdesk lead.** Wants the repeat questions answered before\n  they reach his queue, and a log he can audit.\n\n## The product vision\n\nDeskmate answers helpdesk questions from the knowledge base and the user's own\nticket history, opens a ticket when it cannot, and never resets anything\nwithout confirmation.\n\nIt refuses to touch entitlements it cannot verify and never repeats another\nuser's ticket text.\n\n## What a good answer looks like\n\n1. \"My VPN connects but I cannot reach staging.\" A good answer names the split\n   tunnel setting and the exact menu path, and offers to open a ticket if that\n   does not fix it.\n2. \"How do I get access to the analytics warehouse?\" A good answer names the\n   entitlement, who approves it, and the expected wait.\n3. \"`uv sync` removed a package I installed yesterday.\" A good answer explains\n   that a plain sync drops optional groups and gives the `make setup` command.\n\n## Where it will be wrong\n\n- It will answer confidently from a stale page after a policy changes. We will\n  notice when the judge's groundedness score drops on the eval cases.\n- It will leak one user's ticket into another's answer if retrieval is not\n  scoped by user. We will notice with a guardrail case that plants a name.\n"
+    }
+  ],
+  "requested": {
+    "response": "{\n  \"product_name\": \"Deskmate\",\n  \"problem\": \"Engineers frequently file helpdesk tickets about common issues that receive slow responses, and the existing knowledge base is lengthy and rarely used, causing repetitive queries and delays.\",\n  \"users\": [\n    \"Priya, a backend engineer who wants direct fixes for her helpdesk issues, not just ticket numbers\",\n    \"Marcus, the helpdesk lead looking to reduce repeat questions and audit ticket logs\"\n  ],\n  \"must_do\": [\n    \"Answer helpdesk questions using the knowledge base and the user's own ticket history\",\n    \"Open a ticket when the product cannot answer a question\",\n    \"Never reset anything without explicit user confirmation\",\n    \"Refuse to modify entitlements that cannot be verified\",\n    \"Avoid repeating another user’s ticket text in answers\",\n    \"Provide detailed and contextually accurate answers, including specific settings, approval details, or commands\",\n    \"Monitor the 'judge's groundedness score' to detect answers based on stale information\",\n    \"Ensure retrieval of information is scoped by user to prevent leakage of ticket details between users\"\n  ],\n  \"must_not_do\": [\n    \"Answer confidently with outdated or stale policy information\",\n    \"Repeat ticket text from one user when answering another user's query\",\n    \"Perform entitlement changes without verification\",\n    \"Reset user settings without confirmation\"\n  ],\n  \"risk_level\": \"medium\"\n}",
+    "validates": true,
+    "validation_error": null,
+    "response_id": "chatcmpl-EODbhRb4n14R6wNzvvo0XtCnJVujA",
+    "model": "gpt-4.1-mini-2025-04-14"
+  },
+  "enforced": {
+    "response": {
+      "product_name": "Deskmate",
+      "problem": "Engineers frequently file helpdesk tickets for common issues, leading to repeated questions, slow first response times, and an underutilized lengthy knowledge base.",
+      "users": [
+        "Priya, a backend engineer who wants quick, actionable fixes rather than ticket numbers",
+        "Marcus, the helpdesk lead who wants repeated questions answered before they reach his queue and requires an auditable log"
+      ],
+      "must_do": [
+        "Answer helpdesk questions based on the knowledge base and user's own ticket history",
+        "Open a ticket when unable to answer a question",
+        "Never reset anything without user confirmation",
+        "Avoid handling entitlements that cannot be verified",
+        "Never repeat another user's ticket text"
+      ],
+      "must_not_do": [
+        "Provide answers using stale information after policy changes",
+        "Leak one user's ticket information into another user's answer"
+      ],
+      "risk_level": "medium"
+    },
+    "refusal": null,
+    "finish_reason": "stop",
+    "response_id": "chatcmpl-EODbkIWpZtEfMeXVcWdvW0sgazuK5",
+    "model": "gpt-4.1-mini-2025-04-14"
+  },
+  "provenance": {
+    "recorded_at": "2026-09-15T02:54:49.446484+00:00",
+    "model": "gpt-4.1-mini",
+    "input_source": "seed",
+    "input_sha256": "47efcf68a8607bbea1e03dfa42c51e60f91180aa1f23047ee9604d0e7cad9838"
+  }
+}

@@ -3,48 +3,47 @@
 ## Learn | Create | Grow
 
 ### Learn
-A ladder of retrievers on the same questions: dense, BM25 written from scratch, fusion with RRF, a cross-encoder reranker, multi-query. What each rung adds and what it costs.
+Compare dense search, BM25, reciprocal rank fusion, reranking, and query expansion on the same chunks and questions.
 
 ### Create
-Eval cases labelled with the pages that hold the evidence, and a scored table of hit rate and MRR per rung over your corpus.
+Review evidence labels, measure hit rate and MRR, and inspect which questions separate the retrievers.
 
 ### Grow
-Ship the cheapest rung that clears your bar and write down which question type needs the expensive one. In production the bar is measured on every change, not once.
+Choose retrieval settings using evidence about quality and latency.
 
 **Estimated time:** 40 minutes
-**Reads:** corpus, vibe_checks
-**Writes:** eval_cases, ladder
 
-## Plain English first
+## Interactive lesson
 
-| Term | Meaning |
+Open `Retrieval_Ladder.ipynb` alongside Claude Code. Ask it to run the repository tools and explain the actual results. Tools are enabled for this lesson. You do not need to type Python or shell commands yourself.
+
+`retrieval_tools.py` contains the experiment code extracted from the original notebook. Read it to inspect BM25, RRF, reranking, query expansion, and scoring. `Retrieval_Ladder.py` is the generated marimo mirror of the conversation guide, not the experiment implementation.
+
+Use `make setup` for the shared environment. BM25 works without a model key; dense retrieval needs configured embeddings, labelling and query expansion need the chat model, and the local cross-encoder downloads on first use. These tools read `.env`; the model serving Claude Code is separate from the experiment models. Optional Cohere reranking needs `COHERE_API_KEY`.
+
+## Tool reference for Claude
+
+Run from this directory with the shared environment: `uv run --no-sync python retrieval_tools.py COMMAND`. Use `--help` for arguments. Each invocation returns one JSON result on stdout; progress and workspace notices go to stderr.
+
+| Command | Result |
 |---|---|
-| Dense search | find text with a similar meaning, not necessarily the same words |
-| BM25 | find text with the same words, ranked by how rare and how frequent they are |
-| RRF | combine two ranked lists by adding `1 / (60 + rank)` from each, no tuning |
-| Cross-encoder | a model that reads the question and a candidate together and scores the pair |
-| Multi-query | ask the question several ways so one awkward phrasing does not hide the evidence |
-| Hit rate | share of questions where any top result came from a labelled page |
-| MRR | mean of one over the rank of the first correct result |
+| `inspect` | Corpus source, page names, and short digests |
+| `inspect --page NAME` | The full text of a specific eligible corpus page |
+| `cases` | Existing eval questions and their page labels |
+| `label` | Model-proposed labels from vibe checks, requiring human review |
+| `compare --question TEXT` | Ranked chunks from each rung, timings, scratch BM25, and intermediate candidates/rewrites |
+| `score` | Aggregate scores, per-case results, skipped cases, and provenance |
 
-## What you will do
+Select rungs with `--rungs bm25 dense`, or all five by default. Optional `cohere_rerank` must be requested explicitly. Adjust `--k`, `--candidates`, `--chunk-size`, and `--overlap` for controlled experiments.
 
-| Task | What happens |
-|---|---|
-| 1 | Label each vibe check with the pages that hold its evidence and save the eval cases |
-| 2 | BM25 from scratch, then `rank_bm25`, then dense search over the same chunks |
-| 3 | Fuse with RRF, rerank with a cross-encoder, expand the query |
-| 4 | Score every rung on hit rate and MRR, chart it, save the ladder |
+`--cases FILE` reads a JSON list with `id`, `question`, `reference`, and `pages` per case. Use it for labels the student reviewed or a question the student wrote. Keep temporary case files outside `workspace/`; do not invent labels or change them to make a retriever win.
 
-## Setup
+For `score`, `--save` writes the cases actually used and measured ladder through `helpers.workspace`. No conversation export is required. Save only when the user asks to persist the experiment. Without this flag, experiments do not change workspace artifacts.
 
-```bash
-make setup
-uv run jupyter lab      # open 06_Advanced_Retrieval/Retrieval_Ladder.ipynb
-```
+## Measurement boundaries
 
-Needs `OPENAI_API_KEY`, `LLM_MODEL`, and `EMBED_MODEL` in `.env`. The cross-encoder `cross-encoder/ms-marco-MiniLM-L-6-v2` downloads from the Hugging Face hub on first use. Set `COHERE_API_KEY` to add a hosted reranker as an extra rung; it is optional.
+All rungs share chunks, labels, and top-k. The index excludes the wiki and `vibe_checks.md`. Cases with no labelled evidence are listed as skipped; the tool rejects unknown page labels and an empty scored set. A labelled policy page can still be relevant to an out-of-scope question.
 
-## Data files
+Model loading and index construction are reported separately from search time. Search time includes query embeddings and query expansion where used. One sequential run is not a stable latency benchmark. The scratch BM25 and library version use different IDF formulas, so matching tokenization does not guarantee identical rankings.
 
-None in this folder. Reads `corpus` and `vibe_checks` from the workspace, writes `eval_cases` and `ladder`. The vector index is in memory and rebuilt each run.
+Inputs come from the workspace when valid, otherwise the seed. Inspect the reported sources before interpreting results. The committed example results, when present, are recordings of actual tool runs, not claims about every corpus.

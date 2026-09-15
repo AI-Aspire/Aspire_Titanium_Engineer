@@ -78,3 +78,17 @@ def test_build_corpus_renders_pages(tmp_path, monkeypatch):
 
 def test_slug():
     assert ws._slug("Chain of Thought!") == "chain-of-thought"
+
+
+def test_wiki_alone_does_not_hide_seed_corpus(tmp_path, monkeypatch):
+    monkeypatch.setenv('TE_WORKSPACE', str(tmp_path / 'workspace'))
+    seed = tmp_path / 'seed'
+    monkeypatch.setattr(ws, 'seed_root', lambda: seed)
+    (seed / 'corpus').mkdir(parents=True)
+    (seed / 'corpus' / 'guide.md').write_text('# Actual corpus\n\nEvidence to retrieve.')
+    ws.save('wiki', '# Wiki index\n\nNavigation generated from the seed corpus.')
+    assert ws.source('wiki') == 'workspace'
+    assert ws.source('corpus') == 'seed'
+    assert ws.load_path('corpus') == seed / 'corpus'
+    ws.save_dir('corpus', {'own.md': '# Actual group corpus\n\nGroup evidence.'})
+    assert ws.source('corpus') == 'workspace'

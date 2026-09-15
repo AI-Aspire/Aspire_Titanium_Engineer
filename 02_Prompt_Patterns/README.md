@@ -26,3 +26,11 @@ Each prompt has a collapsed recorded response. These are actual programmatic Cla
 ## Course integration
 
 This version does not save a `prompts` workspace artifact. Later notebooks use existing or seed prompts instead of these conversations. Conversation export is not required for this lesson.
+
+## Tool reference for Claude
+
+Task 4 also demonstrates the original application-side schema contract. From this directory, run `uv run --no-sync python prompt_tools.py compare`. Students ask for the experiment in interactive Claude Code; they do not type this command.
+
+`prompt_tools.py` contains the original `ProductBrief` fields and `client.chat.completions.parse` call. It compares a plain JSON request with schema enforcement on the same active charter and requested fields. `--text` accepts an explicit input instead. This uses the repository's configured model/API key, independently of Claude Code authentication. It writes no workspace artifacts.
+
+Inspect actual validation, refusal, and finish status. A supported endpoint can enforce shape; it cannot establish factual accuracy. Both calls may succeed, and unsupported endpoints may fail. The real seed recording is `data/recorded_schema_experiment.json`. The other Python file remains the generated marimo guide.

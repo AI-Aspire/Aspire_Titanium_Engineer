@@ -1,50 +1,43 @@
-# Unroll deep research
+# Unroll Deep Research
 
-## Learn | Create | Grow
+Inspect a six-node research workflow, run it on a measured capability failure, and check the findings, compressed dossier, report, and source trace.
 
-### Learn
-Deep research unrolled into six nodes: clarify, brief, plan, research, compress, write. Typed contracts between them and a trace you can read.
+Estimated time: 35 minutes. Reads: capability_report, corpus. Writes, when requested: research_report.
 
-### Create
-A report on the top failure mode in your capability report, researched over your corpus with optional web search, and saved with its trace.
+## Use the guide
 
-### Grow
-In production the trace is how you defend the report. Tell your team which boundary did the most work and one gap the report admitted.
+Open `Unroll_Deep_Research.ipynb` as a reading guide and open interactive Claude Code in the repository. Send the messages one at a time, inspect the evidence, and answer the questions yourself. Students do not need to type shell commands or run notebook cells.
 
-**Estimated time:** 35 minutes
-**Reads:** capability_report, corpus
-**Writes:** research_report
+`research_tools.py` contains the experiment algorithms students may inspect. `Unroll_Deep_Research.py` is the generated marimo mirror of the guide, not the tool implementation.
 
-## Plain English first
+Use the shared repository environment and configured `.env`. Claude Code's chat model and authentication are separate from the model/API key used by these experiments. The tool prints model and workspace/seed provenance; never print credentials. Commands return JSON on stdout and progress on stderr. No workspace writes happen without `--save`.
 
-| Term | Meaning |
-|---|---|
-| Brief | the question rewritten as a target with success criteria |
-| Plan | independent research tasks, each with a search query |
-| Researcher | one task run in isolation: search, extract, reflect, hand over a finding |
-| Compression | the findings reduced to a dossier the writer can hold |
-| Trace | one event per node, so you can see where the budget went |
+## Tool reference for Claude
 
-## What you will do
+From this directory, run `uv run --no-sync python research_tools.py COMMAND`.
 
-| Task | What happens |
-|---|---|
-| 1 | Derive the question from the top failure mode; define the contracts and budgets |
-| 2 | Build the corpus search and extract tools; add Tavily when a key is set |
-| 3 | Clarify, brief, and plan nodes |
-| 4 | Research and compress nodes |
-| 5 | Compile the graph and stream a run |
-| 6 | Read the trace and save the report |
+- `inspect`: input sources, selected failure, question, budgets, and web availability.
+- `tools`: actual corpus search and extraction, plus optional web search.
+- `plan`: clarification decision, brief, and bounded task list.
+- `research`: plan, researcher loops, findings, and compressed dossier.
+- `run`: stream the full LangGraph workflow; return all state, report, trace summary, and citation audit.
+- `--question TEXT`: use the question the student agreed to study.
+- `--tasks N`, `--loops N`, `--extracts N`: research tasks, loops per task, and web extraction URLs per loop. Defaults: three, one, one.
+- `--corpus-only`: disable optional Tavily use explicitly.
+- `--save`: with `run`, save the measured report and trace through `helpers.workspace`. Unresolved clarification or unobserved citations prevent saving. The tool still returns the state and audit with a blocked save status and exit code 2, so the failed check is inspectable.
 
-## Setup
+Each command is a fresh experiment. Keep a result to inspect later nodes without rerunning. Use the same explicit question and budgets for controlled comparisons; plans may still vary. Do not run the student's deeper-budget exercise or write its interpretation until they choose their approach.
 
-```bash
-make setup
-uv run jupyter lab      # open 17_Deep_Research/Unroll_Deep_Research.ipynb
-```
+## What the experiment measures
 
-Needs `OPENAI_API_KEY` and `LLM_MODEL` in `.env`. `TAVILY_API_KEY` is optional; without it the researchers read only your corpus.
+The original typed contracts, term-overlap search, optional Tavily wrappers, isolated researcher functions, thread pool, reflection loop, compression, writer, and LangGraph are preserved. Clarification receives the actual corpus page list and capability report so it can identify available inputs. The graph remains linear: clarification records a decision but does not stop execution. In the interactive guide, pause after the planning command if clarification is needed.
 
-## Data files
+No Tavily key is required for corpus research. When web search is off, the extract-URL setting has no effect. Corpus extraction reads up to two hits per loop, capped at 3,000 characters each. Search and extraction budgets limit evidence, not total tokens or billing. Trace counts are not latency or dollar-cost measurements.
 
-None in this folder. Reads `capability_report` and `corpus` from the workspace, writes `research_report`.
+Traces include search-source identities as well as extracted sources. The citation audit checks source membership and identifies search-only citations. It does not verify entailment, freshness, or authority. A source being observed is not proof of a claim. The finding filter drops unobserved source names instead of silently substituting other citations. Open gaps remain part of the report.
+
+## Recorded example
+
+`data/recorded_experiments.json` contains real tool results on the labeled seed fallback. These are experiment outputs, not captures of the interactive Claude UI. Use them to illustrate what to inspect, not as expected scores for a new run.
+
+Saving is optional. `--save` runs the experiment and stores the newly measured outputs; it does not save an earlier preview by copying its text. Downstream readers use labeled seed artifacts until you choose to produce workspace results.

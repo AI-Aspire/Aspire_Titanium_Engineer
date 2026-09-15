@@ -486,12 +486,31 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    <details>
-    <summary>From a format request to a contract</summary>
+    ### Message to Claude
 
-    Asking for JSON is a prompt instruction. Applications need schema enforcement and validation to make output dependable. Asking Claude to repair an answer is useful, but it is not an independent validation step.
+    > Read the tool reference in the README beside this guide. Run prompt_tools.py compare on the active charter. Show the plain JSON request and the schema-enforced result using the same input and fields. Explain ProductBrief and the actual validation outcome. Distinguish a valid shape from correct facts, and report any refusal or unsupported-endpoint error.
+    """)
+    return
 
-    [Structured-output documentation](https://code.claude.com/docs/en/headless#get-structured-output)
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    You should see two real API results using the configured experiment model. Both may validate on this run. The enforced call supplies the schema to the API; the plain request relies on following instructions. Stop here if the enforced result is absent or the fields misrepresent the charter. Correct structure does not guarantee correct content.
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    <details><summary>Recorded experiment: schema enforcement</summary>
+
+    Real seed-charter run with `gpt-4.1-mini`. Both calls returned valid product briefs in this run. The enforced call completed with `stop` and no refusal.
+
+    The plain call passed an independent Pydantic validation check; the enforced call supplied `ProductBrief` as the API response format and returned a parsed object. Check the contents against the charter even when validation succeeds.
+
+    Exact inputs, schema, response IDs, and both outputs: `data/recorded_schema_experiment.json`. This is an API experiment run by a repo tool, not a Claude UI response.
 
     </details>
     """)

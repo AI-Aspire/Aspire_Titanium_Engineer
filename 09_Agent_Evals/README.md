@@ -1,51 +1,46 @@
-# Trajectory evals
+# Trajectory Evals
 
-## Learn | Create | Grow
+Run a simulated user against a corpus agent, inspect full trajectories, compare deterministic checks with a judge, and test whether a planted retrieval regression is detected.
 
-### Learn
-Agent evals as tasks with a goal and a hidden success condition, a simulated user that only reveals what it is asked, and scoring over the whole trajectory rather than the last message.
+Estimated time: 45 minutes. Reads: corpus, eval_cases. Writes, when requested: tasks, trajectories, capability_report.
 
-### Create
-Every task run more than once with pass^k, a planted regression to prove the harness catches it, and a capability report written from your own agent's runs.
+## Use the guide
 
-### Grow
-Production agent evals run on every change to the prompt, tools, or retriever, and the capability report is what a release manager reads. Bring your team the worst failure.
+Open `Trajectory_Evals.ipynb` as a reading guide and open interactive Claude Code in the repository. Send the messages one at a time, inspect the evidence, and answer the questions yourself. Students do not need to type shell commands or run notebook cells.
 
-**Estimated time:** 45 minutes
-**Reads:** corpus, eval_cases
-**Writes:** tasks, trajectories, capability_report
+`eval_tools.py` contains the experiment algorithms students may inspect. `Trajectory_Evals.py` is the generated marimo mirror of the guide, not the tool implementation.
 
-## Plain English first
+Use the shared repository environment and configured `.env`. Claude Code's chat model and authentication are separate from the model/API key used by these experiments. The tool prints model and workspace/seed provenance; never print credentials. Commands return JSON on stdout and progress on stderr. No workspace writes happen without `--save`.
 
-| Term | Meaning |
-|---|---|
-| Task | a goal for the agent plus a success condition the agent never sees |
-| Trajectory | the whole conversation: user turns, tool calls, and replies |
-| Simulated user | a model playing a persona that reveals details only when asked |
-| pass^k | the chance that all k repeats of a task succeed |
-| Planted regression | a deliberate break used to prove the harness can see one |
+## Tool reference for Claude
 
-## What you will do
+From this directory, run `uv run --no-sync python eval_tools.py COMMAND`.
 
-| Task | What happens |
-|---|---|
-| 1 | Build the agent under test with one keyword search tool over the corpus |
-| 2 | Compose tasks from your eval cases and add two planted ones |
-| 3 | Simulate the user and record a full trajectory |
-| 4 | Score the trajectory programmatically and with a judge |
-| 5 | Run every task k times and compute pass^k |
-| 6 | Plant a regression and check the harness catches it |
-| 7 | Write the capability report |
+- `inspect`: active corpus, cases, section count, and provenance.
+- `compose`: model-proposed tasks from up to six eval cases, plus the original out-of-scope and injection tasks.
+- `demo`: one simulation and both scoring views.
+- `run`: repeated baseline simulations, one broken-retriever run per task, summaries, and capability report.
+- `--tasks FILE`: reuse a reviewed JSON task list from `compose` instead of generating new personas and success conditions.
+- `--limit N`: source-case limit when composing; default six.
+- `--repeats N`: baseline repeats; default three, minimum two.
+- `--save`: with `run`, save actual tasks, trajectories, and report through `helpers.workspace`.
 
-## Setup
+After `compose`, retain the returned `tasks` list in a scratch JSON file outside the workspace and reuse it with `--tasks` for demo and run. This is an experiment input, not a conversation export. Ask the student to supply any changes to success conditions; do not invent their answers or implement their Your turn scorer before they describe an approach.
 
-```bash
-make setup
-uv run jupyter lab      # open 09_Agent_Evals/Trajectory_Evals.ipynb
-```
+For the first search demonstration, import the file with `importlib.util`, call `initialize()`, and invoke `search_kb.invoke({'query': ...})`. Importing alone does not run models. The same source exposes `simulate`, `verify`, `judge`, `score`, and `pass_k` for inspection.
 
-Needs `OPENAI_API_KEY` and `LLM_MODEL` in `.env`. No embeddings, no vector store.
+## What the experiment measures
 
-## Data files
+The original section ranker, LangChain agent, persona generator, simulator, deterministic checks, judge, combinatorial pass^k, and misrouted retriever remain readable in the tool file. Tool results are matched by call ID; simulator stop signals match exactly. Generated wiki and answer-key pages are excluded from retrieval.
 
-None in this folder. Reads `corpus` and `eval_cases` from the workspace, writes `tasks`, `trajectories`, and `capability_report`.
+The agent sees the user conversation and corpus tools, not hidden success conditions. The simulator sees its persona, goal, and private details; the scorer sees the task and trajectory. One configured model fills all three roles, so correlated errors remain possible.
+
+Keyword checks can accept a wrong answer or reject a paraphrase. The decline check does not enforce the rubric's one-sentence requirement. The judge sees conversation turns and tool names; deterministic scoring decides lookup passes. With three observations, pass^3 is zero or one. The broken variant has only one observation per task: inspect traces before attributing differences to the change. The injection task includes retrieval, so it may also regress.
+
+The report's first agent turn is only an excerpt. It does not identify the causal failure turn. No repeated-question solution is supplied; that is the student's exercise.
+
+## Recorded example
+
+`data/recorded_experiments.json` contains real tool results on the labeled seed fallback. Repeated tool evidence is stored as character counts and SHA-256 hashes; live runs return full evidence. These are experiment outputs, not captures of the interactive Claude UI. Use them to illustrate what to inspect, not as expected scores for a new run.
+
+Saving is optional. `--save` runs the experiment and stores the newly measured outputs; it does not save an earlier preview by copying its text. Downstream readers use labeled seed artifacts until you choose to produce workspace results.

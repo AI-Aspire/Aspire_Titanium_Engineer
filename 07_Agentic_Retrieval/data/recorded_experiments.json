@@ -1,0 +1,236 @@
+{
+  "provenance": {
+    "recorded_at": "2026-09-15T02:42:57.301444+00:00",
+    "model": "gpt-4.1-mini",
+    "inputs": {
+      "corpus": "seed",
+      "eval_cases": "seed"
+    },
+    "corpus_sha256": "71a9440ca138d807c96a47c7a777013368a40cb38baecdedc828c9a5c2046207"
+  },
+  "case_source": "seed",
+  "wiki": "# Wiki index\n\nUse this index to decide which page to read. Page names are stable tool inputs.\n\n| Page | Use it for | Sections |\n|---|---|---|\n| `charter.md` | Understand the product purpose and the main problem it solves. | The problem, The users, The product vision, What a good answer looks like, Where it will be wrong |\n| `kb/access-requests.md` | Learn how to request and get approval for access entitlements. | Entitlements, How to request, Why a request sits |\n| `kb/laptops.md` | Find instructions for requesting or replacing laptops and admin rights. | Requesting one, Administrator rights, Encryption and backups, Lost or stolen |\n| `kb/password-and-mfa.md` | Reset passwords and manage multi-factor authentication settings. | Resetting a password, MFA, Lockouts, What the helpdesk will never do |\n| `kb/python-environments.md` | Set up and manage Python environments following engineering standards. | The optional-group problem, Intel Macs, Local vector stores, Proxies |\n| `kb/tickets.md` | Understand ticket priority levels and expected response times. | Priority, Writing a good ticket, Statuses |\n| `kb/vpn.md` | Get instructions for installing and connecting to the company VPN. | Connecting, Split tunnelling, Known issues, When to file a ticket |\n| `prompts/context-charter.md` | See examples of prompt usage with product charter context. | Example 1 |\n| `prompts/context-none.md` | See examples of prompt usage without any product context. | Example 1 |\n| `prompts/few-shot-two-examples.md` | Review few-shot prompt examples with two training instances. | Example 1 |\n| `prompts/few-shot-zero.md` | Review few-shot prompt examples with zero training instances. | Example 1 |\n| `prompts/meta-prompt-applied.md` | See applied meta-prompt examples for troubleshooting scenarios. | Example 1 |\n| `prompts/meta-prompt-generate.md` | Generate answers based on the product charter using meta-prompts. | Example 1, The problem, The users, The product vision, What a good answer looks like |\n| `prompts/persona-none.md` | See prompt examples with no specific persona applied. | Example 1 |\n| `prompts/persona-patient.md` | See prompt examples using a patient, explanatory persona. | Example 1 |\n| `prompts/persona-terse.md` | See prompt examples using a terse, concise persona. | Example 1 |\n| `prompts/reasoning-high.md` | See prompt examples with detailed, high-level reasoning. | Example 1 |\n| `prompts/reasoning-none.md` | See prompt examples with no reasoning provided. | Example 1 |\n| `prompts/self-refine-draft.md` | View draft examples of self-refined prompt outputs. | Example 1 |\n| `prompts/self-refine-revised.md` | View revised examples of self-refined prompt outputs. | Example 1 |\n| `prompts/stacked.md` | See examples of stacked prompt patterns for decision making. | Example 1 |\n| `prompts/structured-output.md` | See examples of structured output formatting in prompts. | Example 1, The problem, The users, The product vision, What a good answer looks like |\n| `transcripts/t01.md` | Review a transcript about VPN timeout troubleshooting. | Tool calls |\n| `transcripts/t02.md` | Review a transcript about requesting and approving access. | Tool calls |\n| `transcripts/t03.md` | Review a transcript about MFA override requests and limitations. |  |\n| `transcripts/t04.md` | Review a transcript clarifying product scope on remote work policy. |  |\n| `transcripts/t05.md` | Review a transcript about VPN timeout troubleshooting (similar to t01). | Tool calls |\n| `transcripts/t06.md` | Review a transcript about access requests and approval process. | Tool calls |\n\nSuggested navigation:\n\n- Start from the charter for what the product is and refuses to do, then follow a term to the page that operates on it.\n- For a question about a past request, read the whole transcript rather than one matching line.\n- When a search matches lines on several pages, read each page's section before answering.",
+  "wiki_status": "model proposal; review purpose lines",
+  "runs": [
+    {
+      "mode": "agentic_rag",
+      "question": "My VPN connects but I cannot reach staging.",
+      "answer": "If your VPN connects but you cannot reach the staging environment, the issue might be related to the VPN split tunnel setting. You should check the split tunnel configuration in your VPN client. The exact menu path to find this setting depends on your VPN software, but typically it is under network or connection settings.\n\nIf adjusting the split tunnel setting does not resolve the issue, you can open a support ticket for further assistance.\n\nThis information is from the \"prompts/persona-terse.md\" and \"charter.md\" pages.",
+      "trace": [
+        {
+          "tool": "search_chunks",
+          "args": {
+            "query": "VPN connects but cannot reach staging"
+          },
+          "chars": 2163,
+          "result": "[prompts/persona-terse.md#s1]\n## Example 1\n\n**Input**\n\nA colleague says the VPN connects but they cannot reach the staging database. What should they do first?\n\n**Output**\n\nRun `nc -zv <staging-db-ip> <port>` from the connected machine to verify TCP reachability and routing. If it fails, audit local firewall rules and VPN split-tunnel configuration; if it succeeds, check the database service status and connection credentials.\n\n_Model: unsloth/Qwen3.6-35B-A3B-MTP-GGUF_\n\n---\n\n[transcripts/t05.md#s1]\n## Tool calls\n\n- `search_charter` {\"query\": \"staging database VPN timeout split tunnel menu path\"} → [What a good answer looks like]\n1. \"My VPN connects but I cannot reach staging.\" A good answer names the split tunnel setting and the exact menu path, and offers to open a ticket if that does not fix it. 2. \"How do I get access to the analytics warehouse?\" A good answer names the entitlement, who approves it, and the expected wait. 3. \"`uv sync` removed a package I installed yesterday.\" A good answer explains that a plain sync drops optional groups and gives the `make setup` command.\n\n---\n\n[charter.md#s4]\n## What a good answer looks like\n\n1. \"My VPN connects but I cannot reach staging.\" A good answer names the split\n   tunnel setting and the exact menu path, and offers to open a ticket if that\n   does not fix it.\n2. \"How do I get access to the analytics warehouse?\" A good answer names the\n   entitlement, who approves it, and the expected wait.\n3. \"`uv sync` removed a package I installed yesterday.\" A good answer explains\n   that a plain sync drops optional groups and gives the `make setup` command.\n\n---\n\n[prompts/meta-prompt-generate.md#s5]\n## What a good answer looks like\n\n1. \"My VPN connects but I cannot reach staging.\" A good answer names the split\n   tunnel setting and the exact menu path, and offers to open a ticket if that\n   does not fix it.\n2. \"How do I get access to the analytics warehouse?\" A good answer names the\n   entitlement, who approves it, and the expected wait.\n3. \"`uv sync` removed a package I installed yesterday.\" A good answer explains\n   that a plain sync drops optional groups and gives the `make setup` command."
+        }
+      ],
+      "evidence_chars": 2163,
+      "latency_s": 2.19,
+      "stopped": "answer",
+      "case_id": "v01",
+      "score": 7,
+      "rationale": "The answer names the routing setting (split tunnel) and suggests checking it, but does not provide a specific menu path and only generally offers to open a ticket.",
+      "named_expected_page": false,
+      "calls": 1
+    },
+    {
+      "mode": "dci",
+      "question": "My VPN connects but I cannot reach staging.",
+      "answer": "If your VPN connects but you cannot reach staging, first check that the VPN client shows a green shield indicating it is connected. Since staging is on a private range, ensure that in the VPN client settings under Routing, the option \"Route private ranges\" is enabled. After enabling it, restart the VPN client. If it still does not work, try toggling your wifi off and on and reconnecting the VPN, especially if you are on hotel wifi. Also, make sure you do not have two VPN clients installed simultaneously. If after these steps staging is still unreachable, you should file a ticket including the output of the command `ping staging-db.internal`.\n\nThis information is from the \"VPN\" page in the knowledge base.",
+      "trace": [
+        {
+          "tool": "read_page",
+          "args": {
+            "page": "kb/vpn.md"
+          },
+          "chars": 888,
+          "result": "# VPN\n\n## Connecting\n\nInstall the VPN client from the software centre. Sign in with your company\naccount. The client shows a green shield when connected.\n\n## Split tunnelling\n\nBy default only company networks route through the VPN. Staging and the\nanalytics warehouse are on the private range, so they need the VPN connected.\nIf the shield is green and staging still times out, open the client, choose\nSettings, then Routing, and confirm \"Route private ranges\" is on. Restart the\nclient after changing it.\n\n## Known issues\n\n- On hotel wifi the client sometimes connects but passes no traffic. Toggle\n  wifi off and on, then reconnect.\n- Two VPN clients installed at once will fight. Remove the old one.\n\n## When to file a ticket\n\nIf you have restarted the client and the routing setting is on and staging is\nstill unreachable, file a ticket with the output of `ping staging-db.internal`.\n"
+        }
+      ],
+      "evidence_chars": 888,
+      "latency_s": 2.28,
+      "stopped": "answer",
+      "case_id": "v01",
+      "score": 9,
+      "rationale": "The answer names the routing setting and menu path and offers to open a ticket, covering the key points well.",
+      "named_expected_page": false,
+      "calls": 1
+    },
+    {
+      "mode": "agentic_rag",
+      "question": "How do I get access to the analytics warehouse?",
+      "answer": "To get access to the analytics warehouse, you need to request the entitlement called \"warehouse-read\" for read access or \"warehouse-write\" for write access. The \"warehouse-read\" entitlement is approved by the data platform lead and typically takes one working day for approval. The \"warehouse-write\" entitlement requires approval from both the data platform lead and your manager, with a typical wait time of two working days.\n\nThis information is from the access requests knowledge base page (kb/access-requests.md).",
+      "trace": [
+        {
+          "tool": "search_chunks",
+          "args": {
+            "query": "access to analytics warehouse"
+          },
+          "chars": 2283,
+          "result": "[transcripts/t02.md#s0]\n# Transcript t02\n\n**user:** \"How do I request access to the analytics warehouse, and who actually has to approve it?\"\n\n**assistant:** To request access to the analytics warehouse, you need to ask for the **analytics_warehouse** entitlement. This request must be approved by your **manager**. The expected wait time for approval is typically one business day.\n\nIf you encounter any issues or if the process takes longer than expected, I can open a helpdesk ticket for you.\n\n---\n\n[transcripts/t06.md#s0]\n# Transcript t06\n\n**user:** \"How do I request access to the analytics warehouse, and who actually has to approve it?\"\n\n**assistant:** Based on the product charter and previous prompt outputs, I cannot provide the specific steps to request access, the entitlement name, or the required approver for the analytics warehouse. The documentation specifies that a good answer should include these details, but they are not currently available in my reference materials.\n\n---\n\n[kb/access-requests.md#s1]\n## Entitlements\n\nAccess is granted per entitlement, not per system. The common ones:\n\n| Entitlement | Grants | Approver | Typical wait |\n|---|---|---|---|\n| `warehouse-read` | read access to the analytics warehouse | the data platform lead | one working day |\n| `warehouse-write` | write access to the warehouse | the data platform lead and your manager | two working days |\n| `staging-deploy` | deploying to staging | your team lead | same day |\n| `prod-deploy` | deploying to production | the release manager | after a change review |\n| `admin-laptop` | local administrator on your laptop | IT security | one working day, justification required |\n\n---\n\n[transcripts/t02.md#s1]\n## Tool calls\n\n- `search_charter` {\"query\": \"analytics warehouse access request approval\"} → [What a good answer looks like]\n1. \"My VPN connects but I cannot reach staging.\" A good answer names the split tunnel setting and the exact menu path, and offers to open a ticket if that does not fix it. 2. \"How do I get access to the analytics warehouse?\" A good answer names the entitlement, who approves it, and the expected wait. 3. \"`uv sync` removed a package I installed yesterday.\" A good answer explains that a plain sync drops optional groups and gives the `make setup` command."
+        }
+      ],
+      "evidence_chars": 2283,
+      "latency_s": 2.1,
+      "stopped": "answer",
+      "case_id": "v02",
+      "score": 10,
+      "rationale": "The answer names the entitlements, specifies who approves them, and provides expected wait times, fully meeting the criteria.",
+      "named_expected_page": true,
+      "calls": 1
+    },
+    {
+      "mode": "dci",
+      "question": "How do I get access to the analytics warehouse?",
+      "answer": "To get access to the analytics warehouse, you need to request the entitlement called \"warehouse-read\" for read access or \"warehouse-write\" for write access. The approver for these entitlements is the data platform lead. \n\nYou can request access by opening the access portal, searching for the entitlement name, and providing a one-line reason. The approver will be notified, and you will receive an email when access is granted. \n\nTypical wait times are one working day for read access and two working days for write access.\n\nThis information is from the \"Access requests\" page.",
+      "trace": [
+        {
+          "tool": "read_page",
+          "args": {
+            "page": "kb/access-requests.md"
+          },
+          "chars": 992,
+          "result": "# Access requests\n\n## Entitlements\n\nAccess is granted per entitlement, not per system. The common ones:\n\n| Entitlement | Grants | Approver | Typical wait |\n|---|---|---|---|\n| `warehouse-read` | read access to the analytics warehouse | the data platform lead | one working day |\n| `warehouse-write` | write access to the warehouse | the data platform lead and your manager | two working days |\n| `staging-deploy` | deploying to staging | your team lead | same day |\n| `prod-deploy` | deploying to production | the release manager | after a change review |\n| `admin-laptop` | local administrator on your laptop | IT security | one working day, justification required |\n\n## How to request\n\nOpen the access portal, search the entitlement name, and give a one-line\nreason. The approver is notified. You are emailed when it is granted.\n\n## Why a request sits\n\nMost delays are a missing reason or a manager on leave. Check the portal\nbefore filing a ticket; it shows who the request is waiting on.\n"
+        }
+      ],
+      "evidence_chars": 992,
+      "latency_s": 2.52,
+      "stopped": "answer",
+      "case_id": "v02",
+      "score": 10,
+      "rationale": "The answer names the entitlements, specifies the approver, and provides expected wait times as required.",
+      "named_expected_page": false,
+      "calls": 1
+    },
+    {
+      "mode": "agentic_rag",
+      "question": "uv sync removed a package I installed.",
+      "answer": "When `uv sync` removes a package you installed, it is because a plain sync drops optional groups. To fix this, you should run the command `make setup` to restore the packages. This explanation is from the page \"What a good answer looks like.\"",
+      "trace": [
+        {
+          "tool": "search_chunks",
+          "args": {
+            "query": "uv sync removed a package I installed"
+          },
+          "chars": 2219,
+          "result": "[charter.md#s4]\n## What a good answer looks like\n\n1. \"My VPN connects but I cannot reach staging.\" A good answer names the split\n   tunnel setting and the exact menu path, and offers to open a ticket if that\n   does not fix it.\n2. \"How do I get access to the analytics warehouse?\" A good answer names the\n   entitlement, who approves it, and the expected wait.\n3. \"`uv sync` removed a package I installed yesterday.\" A good answer explains\n   that a plain sync drops optional groups and gives the `make setup` command.\n\n---\n\n[prompts/meta-prompt-generate.md#s5]\n## What a good answer looks like\n\n1. \"My VPN connects but I cannot reach staging.\" A good answer names the split\n   tunnel setting and the exact menu path, and offers to open a ticket if that\n   does not fix it.\n2. \"How do I get access to the analytics warehouse?\" A good answer names the\n   entitlement, who approves it, and the expected wait.\n3. \"`uv sync` removed a package I installed yesterday.\" A good answer explains\n   that a plain sync drops optional groups and gives the `make setup` command.\n\n---\n\n[prompts/structured-output.md#s5]\n## What a good answer looks like\n\n1. \"My VPN connects but I cannot reach staging.\" A good answer names the split\n   tunnel setting and the exact menu path, and offers to open a ticket if that\n   does not fix it.\n2. \"How do I get access to the analytics warehouse?\" A good answer names the\n   entitlement, who approves it, and the expected wait.\n3. \"`uv sync` removed a package I installed yesterday.\" A good answer explains\n   that a plain sync drops optional groups and gives the `make setup` command.\n\n---\n\n[transcripts/t02.md#s1]\n## Tool calls\n\n- `search_charter` {\"query\": \"analytics warehouse access request approval\"} → [What a good answer looks like]\n1. \"My VPN connects but I cannot reach staging.\" A good answer names the split tunnel setting and the exact menu path, and offers to open a ticket if that does not fix it. 2. \"How do I get access to the analytics warehouse?\" A good answer names the entitlement, who approves it, and the expected wait. 3. \"`uv sync` removed a package I installed yesterday.\" A good answer explains that a plain sync drops optional groups and gives the `make setup` command."
+        }
+      ],
+      "evidence_chars": 2219,
+      "latency_s": 1.67,
+      "stopped": "answer",
+      "case_id": "v03",
+      "score": 8,
+      "rationale": "The answer explains that a plain sync drops optional groups and provides the make setup command, but lacks detail on why optional groups are dropped.",
+      "named_expected_page": false,
+      "calls": 1
+    },
+    {
+      "mode": "dci",
+      "question": "uv sync removed a package I installed.",
+      "answer": "The reason `uv sync` removed a package you installed is that `uv sync` is exact and removes anything not in the groups it was asked for. So if you installed an optional group package manually, a plain `uv sync` will silently uninstall it. \n\nTo avoid this, repositories that follow the standard provide a `make setup` command, which keeps groups that are already present.\n\nThis information is from the \"kb/python-environments.md\" page.",
+      "trace": [
+        {
+          "tool": "grep_wiki",
+          "args": {
+            "pattern": "uv sync"
+          },
+          "chars": 1970,
+          "result": "charter.md:34: 3. \"`uv sync` removed a package I installed yesterday.\" A good answer explains\nkb/python-environments.md:7: `uv sync` is exact. It removes anything not in the groups it was asked for.\nkb/python-environments.md:8: So a plain `uv sync` silently uninstalls an optional group you installed on\nprompts/meta-prompt-generate.md:43: 3. \"`uv sync` removed a package I installed yesterday.\" A good answer explains\nprompts/structured-output.md:40: 3. \"`uv sync` removed a package I installed yesterday.\" A good answer explains\ntranscripts/t01.md:16: 1. \"My VPN connects but I cannot reach staging.\" A good answer names the split tunnel setting and the exact menu path, and offers to open a ticket if that does not fix it. 2. \"How do I get access to the analytics warehouse?\" A good answer names the entitlement, who approves it, and the expected wait. 3. \"`uv sync` removed a package I installed yesterday.\" A good answer explains that a plain sync drops optional groups and gives the `make setup` command.\ntranscripts/t02.md:12: 1. \"My VPN connects but I cannot reach staging.\" A good answer names the split tunnel setting and the exact menu path, and offers to open a ticket if that does not fix it. 2. \"How do I get access to the analytics warehouse?\" A good answer names the entitlement, who approves it, and the expected wait. 3. \"`uv sync` removed a package I installed yesterday.\" A good answer explains that a plain sync drops optional groups and gives the `make setup` command.\ntranscripts/t05.md:17: 1. \"My VPN connects but I cannot reach staging.\" A good answer names the split tunnel setting and the exact menu path, and offers to open a ticket if that does not fix it. 2. \"How do I get access to the analytics warehouse?\" A good answer names the entitlement, who approves it, and the expected wait. 3. \"`uv sync` removed a package I installed yesterday.\" A good answer explains that a plain sync drops optional groups and gives the `make setup` command."
+        },
+        {
+          "tool": "read_page",
+          "args": {
+            "page": "kb/python-environments.md"
+          },
+          "chars": 978,
+          "result": "# Python environments\n\nThe engineering standard is `uv` with one environment per repository.\n\n## The optional-group problem\n\n`uv sync` is exact. It removes anything not in the groups it was asked for.\nSo a plain `uv sync` silently uninstalls an optional group you installed on\npurpose, and the next notebook fails with `ModuleNotFoundError` even though\nyou changed nothing. Repositories that follow the standard provide\n`make setup`, which keeps groups that are already present.\n\n## Intel Macs\n\nSeveral packages stopped publishing Intel macOS wheels. Pin `torch<2.3`,\n`transformers<5`, `onnxruntime<1.24`, and `numpy<2` on Intel, or use a cloud\nmodel for the week.\n\n## Local vector stores\n\nThe embedded Qdrant store is single-writer. \"Storage folder already accessed\nby another instance\" means a second kernel holds the folder. Restart the other\nkernel.\n\n## Proxies\n\nIf wheel downloads hang on the office network, set `HTTPS_PROXY` to the value\non the intranet networking page.\n"
+        }
+      ],
+      "evidence_chars": 2948,
+      "latency_s": 2.66,
+      "stopped": "answer",
+      "case_id": "v03",
+      "score": 8,
+      "rationale": "The answer explains that a plain sync drops optional groups and mentions the make setup command, but does not explicitly provide the exact make setup command syntax.",
+      "named_expected_page": true,
+      "calls": 2
+    },
+    {
+      "mode": "agentic_rag",
+      "question": "Can you reset my colleague's MFA for me?",
+      "answer": "I don't have the capability to reset MFA for your colleague. You may need to contact your IT administrator or use your organization's designated system for managing MFA settings. If you want, I can help you find instructions or relevant information about MFA reset procedures. Would you like me to do that?",
+      "trace": [],
+      "evidence_chars": 0,
+      "latency_s": 0.95,
+      "stopped": "answer",
+      "case_id": "v04",
+      "score": 9,
+      "rationale": "The answer appropriately declines and advises contacting the IT administrator, but it does not explicitly mention the need for verification with the account holder.",
+      "named_expected_page": false,
+      "calls": 0
+    },
+    {
+      "mode": "dci",
+      "question": "Can you reset my colleague's MFA for me?",
+      "answer": "I cannot reset your colleague's MFA directly through chat. The helpdesk requires verification by phone call to the registered number or confirmation from the colleague's manager before resetting MFA. You or your colleague should contact the helpdesk through the proper channels for this process. \n\nThis information is from the \"Passwords and MFA\" page.",
+      "trace": [
+        {
+          "tool": "read_page",
+          "args": {
+            "page": "kb/password-and-mfa.md"
+          },
+          "chars": 788,
+          "result": "# Passwords and MFA\n\n## Resetting a password\n\nUse the self-service reset page. It sends a code to your registered phone.\nIf your phone has changed, the helpdesk resets it after verifying your\nidentity with your manager.\n\n## MFA\n\nEvery account uses an authenticator app. When you change phones, register the\nnew device before wiping the old one. If you did not, the helpdesk issues a\none-time bypass code after verification.\n\n## Lockouts\n\nFive wrong passwords lock the account for fifteen minutes. A lockout that\nrepeats with no attempts from you is reported to security.\n\n## What the helpdesk will never do\n\nThe helpdesk never asks for your password and never resets MFA on a request\nthat arrives by chat alone. Verification is by phone call to your registered\nnumber or by your manager.\n"
+        }
+      ],
+      "evidence_chars": 788,
+      "latency_s": 1.77,
+      "stopped": "answer",
+      "case_id": "v04",
+      "score": 10,
+      "rationale": "The answer correctly declines and explains the need for verification with the account holder before resetting MFA.",
+      "named_expected_page": false,
+      "calls": 1
+    },
+    {
+      "mode": "agentic_rag",
+      "question": "What is the capital of Peru?",
+      "answer": "I could not find information about the capital of Peru in the product-related documents available. The evidence is incomplete. If you want, I can provide the answer based on general knowledge.",
+      "trace": [
+        {
+          "tool": "search_chunks",
+          "args": {
+            "query": "capital of Peru"
+          },
+          "chars": 1810,
+          "result": "[prompts/few-shot-zero.md#s1]\n## Example 1\n\n**Input**\n\nCan you book me a meeting room for Thursday?\n\n**Output**\n\n{\"classification\": \"OUT_OF_SCOPE\", \"reason\": \"The request is about booking a meeting room, which falls outside Deskmate's defined scope of handling IT helpdesk issues like VPN connectivity, access requests, and software problems.\"}\n\n_Model: unsloth/Qwen3.6-35B-A3B-MTP-GGUF_\n\n---\n\n[prompts/context-none.md#s1]\n## Example 1\n\n**Input**\n\nWho are the two named users of this product, and what does the product refuse to do?\n\n**Output**\n\nI'd be happy to help, but you haven't mentioned which product you're referring to. Could you please share the name of the product or provide a bit more context? Once I know that, I can quickly tell you who the two named users are and what the product refuses to do.\n\n_Model: unsloth/Qwen3.6-35B-A3B-MTP-GGUF_\n\n---\n\n[kb/vpn.md#s4]\n## When to file a ticket\n\nIf you have restarted the client and the routing setting is on and staging is\nstill unreachable, file a ticket with the output of `ping staging-db.internal`.\n\n---\n\n[prompts/few-shot-two-examples.md#s1]\n## Example 1\n\n**Input**\n\n[{\"role\": \"user\", \"content\": \"My VPN drops every twenty minutes on home wifi.\"}, {\"role\": \"assistant\", \"content\": \"{\\\"classification\\\": \\\"IN_SCOPE\\\", \\\"reason\\\": \\\"Connectivity to company systems is a helpdesk question.\\\"}\"}, {\"role\": \"user\", \"content\": \"Can you write my performance review for me?\"}, {\"role\": \"assistant\", \"content\": \"{\\\"classification\\\": \\\"OUT_OF_SCOPE\\\", \\\"reason\\\": \\\"Not an IT or access question.\\\"}\"}, {\"role\": \"user\", \"content\": \"Can you book me a meeting room for Thursday?\"}]\n\n**Output**\n\n{\"classification\": \"OUT_OF_SCOPE\", \"reason\": \"Booking a meeting room is an administrative task, not an IT helpdesk issue.\"}\n\n_Model: unsloth/Qwen3.6-35B-A3B-MTP-GGUF_"
+        }
+      ],
+      "evidence_chars": 1810,
+      "latency_s": 1.47,
+      "stopped": "answer",
+      "case_id": "v05",
+      "score": 9,
+      "rationale": "The answer clearly declines in one sentence and explains the reason, aligning well with the good answer criteria.",
+      "named_expected_page": false,
+      "calls": 1
+    },
+    {
+      "mode": "dci",
+      "question": "What is the capital of Peru?",
+      "answer": "The provided product documentation does not contain information about the capital of Peru. Therefore, I cannot answer this question based on the product evidence.",
+      "trace": [],
+      "evidence_chars": 0,
+      "latency_s": 0.76,
+      "stopped": "answer",
+      "case_id": "v05",
+      "score": 10,
+      "rationale": "The answer correctly declines to provide information outside the product's scope in one sentence.",
+      "named_expected_page": false,
+      "calls": 0
+    }
+  ]
+}

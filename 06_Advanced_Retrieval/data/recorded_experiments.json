@@ -1,0 +1,3213 @@
+{
+  "recording_format": "Tool results with source-text fields replaced by SHA-256 hashes to avoid duplicating corpus passages. Ranks, labels, metrics, rewrites, and provenance are unchanged. Read a page with inspect --page and check the corpus fingerprint before comparing new runs.",
+  "inspect": {
+    "recorded_at_utc": "2026-09-15T00:07:34.174305+00:00",
+    "corpus_source": "seed",
+    "corpus_sha256": "71a9440ca138d807c96a47c7a777013368a40cb38baecdedc828c9a5c2046207",
+    "page_count": 28,
+    "chat_model": "gpt-4.1-mini",
+    "embedding_model": "text-embedding-3-small",
+    "reranker": "cross-encoder/ms-marco-MiniLM-L-6-v2",
+    "rrf_constant": 60,
+    "packages": {
+      "rank-bm25": "0.2.2",
+      "langchain-text-splitters": "1.1.2",
+      "sentence-transformers": "5.7.0",
+      "qdrant-client": "1.19.0"
+    },
+    "pages": [
+      {
+        "page": "charter.md",
+        "digest": "# Charter: Deskmate ## The problem Every engineer in the building files a helpdesk ticket about once a month: a VPN that drops, an access request that sits in a queue, a laptop that will not install a package. The helpdesk answers the same "
+      },
+      {
+        "page": "kb/access-requests.md",
+        "digest": "# Access requests ## Entitlements Access is granted per entitlement, not per system. The common ones: | Entitlement | Grants | Approver | Typical wait | |---|---|---|---| | `warehouse-read` | read access to the analytics warehouse | the dat"
+      },
+      {
+        "page": "kb/laptops.md",
+        "digest": "# Laptops ## Requesting one New starters get a laptop on their first day. Replacements are requested through the hardware portal and take three to five working days. ## Administrator rights Engineers do not have local administrator rights b"
+      },
+      {
+        "page": "kb/password-and-mfa.md",
+        "digest": "# Passwords and MFA ## Resetting a password Use the self-service reset page. It sends a code to your registered phone. If your phone has changed, the helpdesk resets it after verifying your identity with your manager. ## MFA Every account u"
+      },
+      {
+        "page": "kb/python-environments.md",
+        "digest": "# Python environments The engineering standard is `uv` with one environment per repository. ## The optional-group problem `uv sync` is exact. It removes anything not in the groups it was asked for. So a plain `uv sync` silently uninstalls a"
+      },
+      {
+        "page": "kb/tickets.md",
+        "digest": "# Tickets ## Priority | Priority | Meaning | First response | |---|---|---| | P1 | many people cannot work | fifteen minutes | | P2 | one person cannot work | two hours | | P3 | slowed down, has a workaround | one working day | | P4 | quest"
+      },
+      {
+        "page": "kb/vpn.md",
+        "digest": "# VPN ## Connecting Install the VPN client from the software centre. Sign in with your company account. The client shows a green shield when connected. ## Split tunnelling By default only company networks route through the VPN. Staging and "
+      },
+      {
+        "page": "prompts/context-charter.md",
+        "digest": "# Prompt pattern: context: charter ## Example 1 **Input** Who are the two named users of this product, and what does the product refuse to do? **Output** Based on the charter: - **Named users:** Priya (a backend engineer) and Marcus (the he"
+      },
+      {
+        "page": "prompts/context-none.md",
+        "digest": "# Prompt pattern: context: none ## Example 1 **Input** Who are the two named users of this product, and what does the product refuse to do? **Output** I'd be happy to help, but you haven't mentioned which product you're referring to. Could "
+      },
+      {
+        "page": "prompts/few-shot-two-examples.md",
+        "digest": "# Prompt pattern: few-shot: two examples ## Example 1 **Input** [{\"role\": \"user\", \"content\": \"My VPN drops every twenty minutes on home wifi.\"}, {\"role\": \"assistant\", \"content\": \"{\\\"classification\\\": \\\"IN_SCOPE\\\", \\\"reason\\\": \\\"Connectivity"
+      },
+      {
+        "page": "prompts/few-shot-zero.md",
+        "digest": "# Prompt pattern: few-shot: zero ## Example 1 **Input** Can you book me a meeting room for Thursday? **Output** {\"classification\": \"OUT_OF_SCOPE\", \"reason\": \"The request is about booking a meeting room, which falls outside Deskmate's define"
+      },
+      {
+        "page": "prompts/meta-prompt-applied.md",
+        "digest": "# Prompt pattern: meta-prompt: applied ## Example 1 **Input** A colleague says the VPN connects but they cannot reach the staging database. What should they do first? **Output** First, verify basic connectivity and routing using these exact"
+      },
+      {
+        "page": "prompts/meta-prompt-generate.md",
+        "digest": "# Prompt pattern: meta-prompt: generate ## Example 1 **Input** TASK: answer user questions for the product described in this charter. # Charter: Deskmate ## The problem Every engineer in the building files a helpdesk ticket about once a mon"
+      },
+      {
+        "page": "prompts/persona-none.md",
+        "digest": "# Prompt pattern: persona: none ## Example 1 **Input** A colleague says the VPN connects but they cannot reach the staging database. What should they do first? **Output** They should **first verify basic network reachability from their mach"
+      },
+      {
+        "page": "prompts/persona-patient.md",
+        "digest": "# Prompt pattern: persona: patient ## Example 1 **Input** A colleague says the VPN connects but they cannot reach the staging database. What should they do first? **Output** Let’s walk through this together so you can isolate exactly where "
+      },
+      {
+        "page": "prompts/persona-terse.md",
+        "digest": "# Prompt pattern: persona: terse ## Example 1 **Input** A colleague says the VPN connects but they cannot reach the staging database. What should they do first? **Output** Run `nc -zv <staging-db-ip> <port>` from the connected machine to ve"
+      },
+      {
+        "page": "prompts/reasoning-high.md",
+        "digest": "# Prompt pattern: reasoning: high ## Example 1 **Input** I need my car cleaned. The car wash is fifty metres away. Should I walk or drive? **Output** You should **drive the car**. Since the goal is to get the car cleaned, it actually needs "
+      },
+      {
+        "page": "prompts/reasoning-none.md",
+        "digest": "# Prompt pattern: reasoning: none ## Example 1 **Input** I need my car cleaned. The car wash is fifty metres away. Should I walk or drive? **Output** You'll actually need to **drive** it there. Since a car wash needs the vehicle itself to c"
+      },
+      {
+        "page": "prompts/self-refine-draft.md",
+        "digest": "# Prompt pattern: self-refine: draft ## Example 1 **Input** Write the one-paragraph pitch for this product that we will read aloud to the room. **Output** Every engineer in the building wastes time waiting a full day for helpdesk answers to"
+      },
+      {
+        "page": "prompts/self-refine-revised.md",
+        "digest": "# Prompt pattern: self-refine: revised ## Example 1 **Input** DRAFT: Every engineer in the building wastes time waiting a full day for helpdesk answers to the same forty recurring issues, while our twelve-page knowledge base goes unread. De"
+      },
+      {
+        "page": "prompts/stacked.md",
+        "digest": "# Prompt pattern: stacked ## Example 1 **Input** Should we build this product as described? **Output** { \"decision\": \"proceed\", \"rationale\": \"The user wants a direct, evidence-based recommendation from a skeptical engineering lead perspecti"
+      },
+      {
+        "page": "prompts/structured-output.md",
+        "digest": "# Prompt pattern: structured output ## Example 1 **Input** # Charter: Deskmate ## The problem Every engineer in the building files a helpdesk ticket about once a month: a VPN that drops, an access request that sits in a queue, a laptop that"
+      },
+      {
+        "page": "transcripts/t01.md",
+        "digest": "# Transcript t01 **user:** \"I’m getting a timeout when I try to ping the staging DB over the VPN even though my connection shows as active. What setting am I missing?\" **assistant:** You are likely missing the **split tunnel** setting in yo"
+      },
+      {
+        "page": "transcripts/t02.md",
+        "digest": "# Transcript t02 **user:** \"How do I request access to the analytics warehouse, and who actually has to approve it?\" **assistant:** To request access to the analytics warehouse, you need to ask for the **analytics_warehouse** entitlement. T"
+      },
+      {
+        "page": "transcripts/t03.md",
+        "digest": "# Transcript t03 **user:** \"My manager already signed off on bypassing the MFA requirement for this legacy script—can you get security to actually apply that override?\" **assistant:** I cannot contact Security directly to apply overrides. I"
+      },
+      {
+        "page": "transcripts/t04.md",
+        "digest": "# Transcript t04 **user:** \"Does HR have an update on the new remote work policy starting next month?\" **assistant:** Deskmate is focused on IT and engineering helpdesk support (such as VPNs, access requests, and laptops) and does not cover"
+      },
+      {
+        "page": "transcripts/t05.md",
+        "digest": "# Transcript t05 **user:** \"I’m getting a timeout when I try to ping the staging DB over the VPN even though my connection shows as active. What setting am I missing?\" **assistant:** The issue is likely with your **split tunnel** setting. W"
+      },
+      {
+        "page": "transcripts/t06.md",
+        "digest": "# Transcript t06 **user:** \"How do I request access to the analytics warehouse, and who actually has to approve it?\" **assistant:** Based on the product charter and previous prompt outputs, I cannot provide the specific steps to request acc"
+      }
+    ]
+  },
+  "label_proposals": {
+    "recorded_at_utc": "2026-09-15T00:09:41.496028+00:00",
+    "corpus_source": "seed",
+    "corpus_sha256": "71a9440ca138d807c96a47c7a777013368a40cb38baecdedc828c9a5c2046207",
+    "page_count": 28,
+    "chat_model": "gpt-4.1-mini",
+    "embedding_model": "text-embedding-3-small",
+    "reranker": "cross-encoder/ms-marco-MiniLM-L-6-v2",
+    "rrf_constant": 60,
+    "packages": {
+      "rank-bm25": "0.2.2",
+      "langchain-text-splitters": "1.1.2",
+      "sentence-transformers": "5.7.0",
+      "qdrant-client": "1.19.0"
+    },
+    "status": "proposals requiring human review",
+    "cases": [
+      {
+        "id": "v01",
+        "question": "My VPN connects but I cannot reach staging.",
+        "reference": "Names the routing setting and the menu path; offers to open a ticket.",
+        "pages": [
+          "kb/vpn.md",
+          "transcripts/t01.md",
+          "transcripts/t05.md"
+        ]
+      },
+      {
+        "id": "v02",
+        "question": "How do I get access to the analytics warehouse?",
+        "reference": "Names the entitlement, who approves it, and the expected wait.",
+        "pages": [
+          "kb/access-requests.md"
+        ]
+      },
+      {
+        "id": "v03",
+        "question": "uv sync removed a package I installed.",
+        "reference": "Explains that a plain sync drops optional groups; gives the make setup command.",
+        "pages": [
+          "kb/python-environments.md"
+        ]
+      },
+      {
+        "id": "v04",
+        "question": "Can you reset my colleague's MFA for me?",
+        "reference": "Declines; MFA resets need verification with the account holder.",
+        "pages": [
+          "kb/password-and-mfa.md"
+        ]
+      },
+      {
+        "id": "v05",
+        "question": "What is the capital of Peru?",
+        "reference": "Declines in one sentence as outside the product's scope.",
+        "pages": [
+          "transcripts/t04.md"
+        ]
+      }
+    ]
+  },
+  "comparison": {
+    "recorded_at_utc": "2026-09-15T00:10:52.049076+00:00",
+    "corpus_source": "seed",
+    "corpus_sha256": "71a9440ca138d807c96a47c7a777013368a40cb38baecdedc828c9a5c2046207",
+    "page_count": 28,
+    "chat_model": "gpt-4.1-mini",
+    "embedding_model": "text-embedding-3-small",
+    "reranker": "cross-encoder/ms-marco-MiniLM-L-6-v2",
+    "rrf_constant": 60,
+    "packages": {
+      "rank-bm25": "0.2.2",
+      "langchain-text-splitters": "1.1.2",
+      "sentence-transformers": "5.7.0",
+      "qdrant-client": "1.19.0"
+    },
+    "chunk_count": 65,
+    "chunk_size": 800,
+    "chunk_overlap": 120,
+    "candidates": 12,
+    "startup_ms": 5191.98,
+    "timing_note": "Search timings exclude index construction/model loading; include query embeddings and query expansion where used. Single sequential run, not a latency benchmark.",
+    "question": "My VPN connects but I cannot reach staging.",
+    "k": 4,
+    "rankings": {
+      "dense": {
+        "ms": 173.5,
+        "results": [
+          {
+            "rank": 1,
+            "chunk": 17,
+            "page": "prompts/meta-prompt-applied.md",
+            "source_text_sha256": "047d2e2799e24a6bdfbff0ca98f1e280085795ba395bc25b6d41a730f2232277"
+          },
+          {
+            "rank": 2,
+            "chunk": 54,
+            "page": "transcripts/t01.md",
+            "source_text_sha256": "6a4cdb409b8cfd6f8e74cf3a7790dddb53faf3153f73aee4f86505280a3907c5"
+          },
+          {
+            "rank": 3,
+            "chunk": 10,
+            "page": "kb/vpn.md",
+            "source_text_sha256": "622badd68cb38587a2ad374eb636948fb27f687c70e87a344d8fde78e7cdb9fe"
+          },
+          {
+            "rank": 4,
+            "chunk": 52,
+            "page": "transcripts/t01.md",
+            "source_text_sha256": "0fd4267a2140ff54e520a621f74ca1dc1f610948c3f60282fb38b7778e473995"
+          }
+        ],
+        "trace": {}
+      },
+      "bm25": {
+        "ms": 0.16,
+        "results": [
+          {
+            "rank": 1,
+            "chunk": 55,
+            "page": "transcripts/t01.md",
+            "source_text_sha256": "7095176ae3e34124f7f8162b5e758adce444359de9b800b164aa9e0ad4023735"
+          },
+          {
+            "rank": 2,
+            "chunk": 57,
+            "page": "transcripts/t02.md",
+            "source_text_sha256": "68cb470848c92491f4529237e86bf692dbb8d0017c4e30923bcfec100dfa37fa"
+          },
+          {
+            "rank": 3,
+            "chunk": 61,
+            "page": "transcripts/t05.md",
+            "source_text_sha256": "a3fa5cda2dbb573a8bbeab700afb03907abbc1aabd0bad2bfaf97e996e665360"
+          },
+          {
+            "rank": 4,
+            "chunk": 1,
+            "page": "charter.md",
+            "source_text_sha256": "20acd8cb1080c639203334021b0781cceb4d539f0e0db23b8afd4bdf2ba4954d"
+          }
+        ],
+        "trace": {}
+      },
+      "hybrid_rrf": {
+        "ms": 178.58,
+        "results": [
+          {
+            "rank": 1,
+            "chunk": 55,
+            "page": "transcripts/t01.md",
+            "source_text_sha256": "7095176ae3e34124f7f8162b5e758adce444359de9b800b164aa9e0ad4023735"
+          },
+          {
+            "rank": 2,
+            "chunk": 16,
+            "page": "prompts/meta-prompt-applied.md",
+            "source_text_sha256": "226303248fe97e6e30d341527d6cb9fd4a1a80b74c5073833d510d77b177ec3f"
+          },
+          {
+            "rank": 3,
+            "chunk": 26,
+            "page": "prompts/persona-patient.md",
+            "source_text_sha256": "ad85b0e73e1303b51c2240cd7087cfe3fa22c8cfc927a029853eb9be8c3bd302"
+          },
+          {
+            "rank": 4,
+            "chunk": 30,
+            "page": "prompts/persona-terse.md",
+            "source_text_sha256": "c017cd40635d16c453bca70d050b65770e75ae578db14e28c5bd6351af950984"
+          }
+        ],
+        "trace": {
+          "dense_candidates": [
+            {
+              "rank": 1,
+              "chunk": 17,
+              "page": "prompts/meta-prompt-applied.md",
+              "source_text_sha256": "047d2e2799e24a6bdfbff0ca98f1e280085795ba395bc25b6d41a730f2232277"
+            },
+            {
+              "rank": 2,
+              "chunk": 54,
+              "page": "transcripts/t01.md",
+              "source_text_sha256": "6a4cdb409b8cfd6f8e74cf3a7790dddb53faf3153f73aee4f86505280a3907c5"
+            },
+            {
+              "rank": 3,
+              "chunk": 10,
+              "page": "kb/vpn.md",
+              "source_text_sha256": "622badd68cb38587a2ad374eb636948fb27f687c70e87a344d8fde78e7cdb9fe"
+            },
+            {
+              "rank": 4,
+              "chunk": 52,
+              "page": "transcripts/t01.md",
+              "source_text_sha256": "0fd4267a2140ff54e520a621f74ca1dc1f610948c3f60282fb38b7778e473995"
+            },
+            {
+              "rank": 5,
+              "chunk": 16,
+              "page": "prompts/meta-prompt-applied.md",
+              "source_text_sha256": "226303248fe97e6e30d341527d6cb9fd4a1a80b74c5073833d510d77b177ec3f"
+            },
+            {
+              "rank": 6,
+              "chunk": 26,
+              "page": "prompts/persona-patient.md",
+              "source_text_sha256": "ad85b0e73e1303b51c2240cd7087cfe3fa22c8cfc927a029853eb9be8c3bd302"
+            },
+            {
+              "rank": 7,
+              "chunk": 60,
+              "page": "transcripts/t05.md",
+              "source_text_sha256": "9be6ce7ca5c8b56e370467c71af3688acd66eac6424140b5ccf1d0da77d93746"
+            },
+            {
+              "rank": 8,
+              "chunk": 29,
+              "page": "prompts/persona-patient.md",
+              "source_text_sha256": "6f8776e475b15c4719e00daadeb51c79fda8c21b27e34a0b46e74711ec8828df"
+            },
+            {
+              "rank": 9,
+              "chunk": 23,
+              "page": "prompts/persona-none.md",
+              "source_text_sha256": "2cf34d5a485e1688270fe902864d4b450a1cd514200f523563f885a19067213f"
+            },
+            {
+              "rank": 10,
+              "chunk": 30,
+              "page": "prompts/persona-terse.md",
+              "source_text_sha256": "c017cd40635d16c453bca70d050b65770e75ae578db14e28c5bd6351af950984"
+            },
+            {
+              "rank": 11,
+              "chunk": 55,
+              "page": "transcripts/t01.md",
+              "source_text_sha256": "7095176ae3e34124f7f8162b5e758adce444359de9b800b164aa9e0ad4023735"
+            },
+            {
+              "rank": 12,
+              "chunk": 28,
+              "page": "prompts/persona-patient.md",
+              "source_text_sha256": "967998aeed5de7683f763314b87c8fd601ecb10d7e4c87c75a64c1d2e117e57f"
+            }
+          ],
+          "bm25_candidates": [
+            {
+              "rank": 1,
+              "chunk": 55,
+              "page": "transcripts/t01.md",
+              "source_text_sha256": "7095176ae3e34124f7f8162b5e758adce444359de9b800b164aa9e0ad4023735"
+            },
+            {
+              "rank": 2,
+              "chunk": 57,
+              "page": "transcripts/t02.md",
+              "source_text_sha256": "68cb470848c92491f4529237e86bf692dbb8d0017c4e30923bcfec100dfa37fa"
+            },
+            {
+              "rank": 3,
+              "chunk": 61,
+              "page": "transcripts/t05.md",
+              "source_text_sha256": "a3fa5cda2dbb573a8bbeab700afb03907abbc1aabd0bad2bfaf97e996e665360"
+            },
+            {
+              "rank": 4,
+              "chunk": 1,
+              "page": "charter.md",
+              "source_text_sha256": "20acd8cb1080c639203334021b0781cceb4d539f0e0db23b8afd4bdf2ba4954d"
+            },
+            {
+              "rank": 5,
+              "chunk": 20,
+              "page": "prompts/meta-prompt-generate.md",
+              "source_text_sha256": "20acd8cb1080c639203334021b0781cceb4d539f0e0db23b8afd4bdf2ba4954d"
+            },
+            {
+              "rank": 6,
+              "chunk": 46,
+              "page": "prompts/structured-output.md",
+              "source_text_sha256": "20acd8cb1080c639203334021b0781cceb4d539f0e0db23b8afd4bdf2ba4954d"
+            },
+            {
+              "rank": 7,
+              "chunk": 16,
+              "page": "prompts/meta-prompt-applied.md",
+              "source_text_sha256": "226303248fe97e6e30d341527d6cb9fd4a1a80b74c5073833d510d77b177ec3f"
+            },
+            {
+              "rank": 8,
+              "chunk": 30,
+              "page": "prompts/persona-terse.md",
+              "source_text_sha256": "c017cd40635d16c453bca70d050b65770e75ae578db14e28c5bd6351af950984"
+            },
+            {
+              "rank": 9,
+              "chunk": 62,
+              "page": "transcripts/t06.md",
+              "source_text_sha256": "8c666c1c2c45267387641860d81f88c53d000178dd00000efcde7c89df510b9d"
+            },
+            {
+              "rank": 10,
+              "chunk": 26,
+              "page": "prompts/persona-patient.md",
+              "source_text_sha256": "ad85b0e73e1303b51c2240cd7087cfe3fa22c8cfc927a029853eb9be8c3bd302"
+            },
+            {
+              "rank": 11,
+              "chunk": 23,
+              "page": "prompts/persona-none.md",
+              "source_text_sha256": "2cf34d5a485e1688270fe902864d4b450a1cd514200f523563f885a19067213f"
+            },
+            {
+              "rank": 12,
+              "chunk": 58,
+              "page": "transcripts/t03.md",
+              "source_text_sha256": "e258a6792cfe7d45138e9f798932c26f4e3cd56b89e874dd162693f34b3869b1"
+            }
+          ]
+        }
+      },
+      "cross_encoder": {
+        "ms": 284.02,
+        "results": [
+          {
+            "rank": 1,
+            "chunk": 17,
+            "page": "prompts/meta-prompt-applied.md",
+            "source_text_sha256": "047d2e2799e24a6bdfbff0ca98f1e280085795ba395bc25b6d41a730f2232277"
+          },
+          {
+            "rank": 2,
+            "chunk": 30,
+            "page": "prompts/persona-terse.md",
+            "source_text_sha256": "c017cd40635d16c453bca70d050b65770e75ae578db14e28c5bd6351af950984"
+          },
+          {
+            "rank": 3,
+            "chunk": 23,
+            "page": "prompts/persona-none.md",
+            "source_text_sha256": "2cf34d5a485e1688270fe902864d4b450a1cd514200f523563f885a19067213f"
+          },
+          {
+            "rank": 4,
+            "chunk": 26,
+            "page": "prompts/persona-patient.md",
+            "source_text_sha256": "ad85b0e73e1303b51c2240cd7087cfe3fa22c8cfc927a029853eb9be8c3bd302"
+          }
+        ],
+        "trace": {
+          "rerank_candidates": [
+            {
+              "rank": 1,
+              "chunk": 55,
+              "page": "transcripts/t01.md",
+              "source_text_sha256": "7095176ae3e34124f7f8162b5e758adce444359de9b800b164aa9e0ad4023735"
+            },
+            {
+              "rank": 2,
+              "chunk": 16,
+              "page": "prompts/meta-prompt-applied.md",
+              "source_text_sha256": "226303248fe97e6e30d341527d6cb9fd4a1a80b74c5073833d510d77b177ec3f"
+            },
+            {
+              "rank": 3,
+              "chunk": 26,
+              "page": "prompts/persona-patient.md",
+              "source_text_sha256": "ad85b0e73e1303b51c2240cd7087cfe3fa22c8cfc927a029853eb9be8c3bd302"
+            },
+            {
+              "rank": 4,
+              "chunk": 30,
+              "page": "prompts/persona-terse.md",
+              "source_text_sha256": "c017cd40635d16c453bca70d050b65770e75ae578db14e28c5bd6351af950984"
+            },
+            {
+              "rank": 5,
+              "chunk": 23,
+              "page": "prompts/persona-none.md",
+              "source_text_sha256": "2cf34d5a485e1688270fe902864d4b450a1cd514200f523563f885a19067213f"
+            },
+            {
+              "rank": 6,
+              "chunk": 17,
+              "page": "prompts/meta-prompt-applied.md",
+              "source_text_sha256": "047d2e2799e24a6bdfbff0ca98f1e280085795ba395bc25b6d41a730f2232277"
+            },
+            {
+              "rank": 7,
+              "chunk": 54,
+              "page": "transcripts/t01.md",
+              "source_text_sha256": "6a4cdb409b8cfd6f8e74cf3a7790dddb53faf3153f73aee4f86505280a3907c5"
+            },
+            {
+              "rank": 8,
+              "chunk": 57,
+              "page": "transcripts/t02.md",
+              "source_text_sha256": "68cb470848c92491f4529237e86bf692dbb8d0017c4e30923bcfec100dfa37fa"
+            },
+            {
+              "rank": 9,
+              "chunk": 10,
+              "page": "kb/vpn.md",
+              "source_text_sha256": "622badd68cb38587a2ad374eb636948fb27f687c70e87a344d8fde78e7cdb9fe"
+            },
+            {
+              "rank": 10,
+              "chunk": 61,
+              "page": "transcripts/t05.md",
+              "source_text_sha256": "a3fa5cda2dbb573a8bbeab700afb03907abbc1aabd0bad2bfaf97e996e665360"
+            },
+            {
+              "rank": 11,
+              "chunk": 52,
+              "page": "transcripts/t01.md",
+              "source_text_sha256": "0fd4267a2140ff54e520a621f74ca1dc1f610948c3f60282fb38b7778e473995"
+            },
+            {
+              "rank": 12,
+              "chunk": 1,
+              "page": "charter.md",
+              "source_text_sha256": "20acd8cb1080c639203334021b0781cceb4d539f0e0db23b8afd4bdf2ba4954d"
+            }
+          ]
+        }
+      },
+      "multi_query": {
+        "ms": 1898.6,
+        "results": [
+          {
+            "rank": 1,
+            "chunk": 17,
+            "page": "prompts/meta-prompt-applied.md",
+            "source_text_sha256": "047d2e2799e24a6bdfbff0ca98f1e280085795ba395bc25b6d41a730f2232277"
+          },
+          {
+            "rank": 2,
+            "chunk": 30,
+            "page": "prompts/persona-terse.md",
+            "source_text_sha256": "c017cd40635d16c453bca70d050b65770e75ae578db14e28c5bd6351af950984"
+          },
+          {
+            "rank": 3,
+            "chunk": 23,
+            "page": "prompts/persona-none.md",
+            "source_text_sha256": "2cf34d5a485e1688270fe902864d4b450a1cd514200f523563f885a19067213f"
+          },
+          {
+            "rank": 4,
+            "chunk": 26,
+            "page": "prompts/persona-patient.md",
+            "source_text_sha256": "ad85b0e73e1303b51c2240cd7087cfe3fa22c8cfc927a029853eb9be8c3bd302"
+          }
+        ],
+        "trace": {
+          "queries": [
+            "My VPN connects but I cannot reach staging.",
+            "VPN connects but cannot access staging environment",
+            "VPN connected but staging server unreachable",
+            "Troubleshoot VPN connection to staging site"
+          ],
+          "rerank_candidates": [
+            {
+              "rank": 1,
+              "chunk": 17,
+              "page": "prompts/meta-prompt-applied.md",
+              "source_text_sha256": "047d2e2799e24a6bdfbff0ca98f1e280085795ba395bc25b6d41a730f2232277"
+            },
+            {
+              "rank": 2,
+              "chunk": 54,
+              "page": "transcripts/t01.md",
+              "source_text_sha256": "6a4cdb409b8cfd6f8e74cf3a7790dddb53faf3153f73aee4f86505280a3907c5"
+            },
+            {
+              "rank": 3,
+              "chunk": 23,
+              "page": "prompts/persona-none.md",
+              "source_text_sha256": "2cf34d5a485e1688270fe902864d4b450a1cd514200f523563f885a19067213f"
+            },
+            {
+              "rank": 4,
+              "chunk": 26,
+              "page": "prompts/persona-patient.md",
+              "source_text_sha256": "ad85b0e73e1303b51c2240cd7087cfe3fa22c8cfc927a029853eb9be8c3bd302"
+            },
+            {
+              "rank": 5,
+              "chunk": 30,
+              "page": "prompts/persona-terse.md",
+              "source_text_sha256": "c017cd40635d16c453bca70d050b65770e75ae578db14e28c5bd6351af950984"
+            },
+            {
+              "rank": 6,
+              "chunk": 10,
+              "page": "kb/vpn.md",
+              "source_text_sha256": "622badd68cb38587a2ad374eb636948fb27f687c70e87a344d8fde78e7cdb9fe"
+            },
+            {
+              "rank": 7,
+              "chunk": 52,
+              "page": "transcripts/t01.md",
+              "source_text_sha256": "0fd4267a2140ff54e520a621f74ca1dc1f610948c3f60282fb38b7778e473995"
+            },
+            {
+              "rank": 8,
+              "chunk": 16,
+              "page": "prompts/meta-prompt-applied.md",
+              "source_text_sha256": "226303248fe97e6e30d341527d6cb9fd4a1a80b74c5073833d510d77b177ec3f"
+            },
+            {
+              "rank": 9,
+              "chunk": 60,
+              "page": "transcripts/t05.md",
+              "source_text_sha256": "9be6ce7ca5c8b56e370467c71af3688acd66eac6424140b5ccf1d0da77d93746"
+            },
+            {
+              "rank": 10,
+              "chunk": 55,
+              "page": "transcripts/t01.md",
+              "source_text_sha256": "7095176ae3e34124f7f8162b5e758adce444359de9b800b164aa9e0ad4023735"
+            },
+            {
+              "rank": 11,
+              "chunk": 24,
+              "page": "prompts/persona-none.md",
+              "source_text_sha256": "e7c5002d24f72cebe88d779e8282e5b16ce55a78504e177adabeda50696efa7e"
+            },
+            {
+              "rank": 12,
+              "chunk": 28,
+              "page": "prompts/persona-patient.md",
+              "source_text_sha256": "967998aeed5de7683f763314b87c8fd601ecb10d7e4c87c75a64c1d2e117e57f"
+            }
+          ]
+        }
+      }
+    },
+    "scratch_bm25": [
+      {
+        "rank": 1,
+        "chunk": 55,
+        "page": "transcripts/t01.md",
+        "source_text_sha256": "7095176ae3e34124f7f8162b5e758adce444359de9b800b164aa9e0ad4023735"
+      },
+      {
+        "rank": 2,
+        "chunk": 61,
+        "page": "transcripts/t05.md",
+        "source_text_sha256": "a3fa5cda2dbb573a8bbeab700afb03907abbc1aabd0bad2bfaf97e996e665360"
+      },
+      {
+        "rank": 3,
+        "chunk": 57,
+        "page": "transcripts/t02.md",
+        "source_text_sha256": "68cb470848c92491f4529237e86bf692dbb8d0017c4e30923bcfec100dfa37fa"
+      },
+      {
+        "rank": 4,
+        "chunk": 1,
+        "page": "charter.md",
+        "source_text_sha256": "20acd8cb1080c639203334021b0781cceb4d539f0e0db23b8afd4bdf2ba4954d"
+      }
+    ]
+  },
+  "evaluation": {
+    "recorded_at_utc": "2026-09-15T00:11:03.036054+00:00",
+    "corpus_source": "seed",
+    "corpus_sha256": "71a9440ca138d807c96a47c7a777013368a40cb38baecdedc828c9a5c2046207",
+    "page_count": 28,
+    "chat_model": "gpt-4.1-mini",
+    "embedding_model": "text-embedding-3-small",
+    "reranker": "cross-encoder/ms-marco-MiniLM-L-6-v2",
+    "rrf_constant": 60,
+    "packages": {
+      "rank-bm25": "0.2.2",
+      "langchain-text-splitters": "1.1.2",
+      "sentence-transformers": "5.7.0",
+      "qdrant-client": "1.19.0"
+    },
+    "chunk_count": 65,
+    "chunk_size": 800,
+    "chunk_overlap": 120,
+    "candidates": 12,
+    "startup_ms": 5216.39,
+    "timing_note": "Search timings exclude index construction/model loading; include query embeddings and query expansion where used. Single sequential run, not a latency benchmark.",
+    "cases_source": "seed",
+    "cases": [
+      {
+        "id": "v01",
+        "question": "My VPN connects but I cannot reach staging.",
+        "reference": "Names the routing setting and the menu path; offers to open a ticket.",
+        "pages": [
+          "kb/vpn.md"
+        ]
+      },
+      {
+        "id": "v02",
+        "question": "How do I get access to the analytics warehouse?",
+        "reference": "Names the entitlement, who approves it, and the expected wait.",
+        "pages": [
+          "kb/access-requests.md"
+        ]
+      },
+      {
+        "id": "v03",
+        "question": "uv sync removed a package I installed.",
+        "reference": "Explains that a plain sync drops optional groups; gives the make setup command.",
+        "pages": [
+          "kb/python-environments.md"
+        ]
+      },
+      {
+        "id": "v04",
+        "question": "Can you reset my colleague's MFA for me?",
+        "reference": "Declines; MFA resets need verification with the account holder.",
+        "pages": [
+          "kb/password-and-mfa.md"
+        ]
+      },
+      {
+        "id": "v05",
+        "question": "What is the capital of Peru?",
+        "reference": "Declines in one sentence as outside the product's scope.",
+        "pages": [
+          "charter.md",
+          "transcripts/t04.md"
+        ]
+      }
+    ],
+    "skipped_cases": [],
+    "ladder": [
+      {
+        "retriever": "dense",
+        "hit_rate": 0.8,
+        "mrr": 0.533,
+        "k": 4,
+        "cases": 5,
+        "ms_per_query": 192.06
+      },
+      {
+        "retriever": "bm25",
+        "hit_rate": 0.2,
+        "mrr": 0.067,
+        "k": 4,
+        "cases": 5,
+        "ms_per_query": 0.26
+      },
+      {
+        "retriever": "hybrid_rrf",
+        "hit_rate": 0.4,
+        "mrr": 0.15,
+        "k": 4,
+        "cases": 5,
+        "ms_per_query": 201.25
+      },
+      {
+        "retriever": "cross_encoder",
+        "hit_rate": 0.2,
+        "mrr": 0.2,
+        "k": 4,
+        "cases": 5,
+        "ms_per_query": 310.67
+      },
+      {
+        "retriever": "multi_query",
+        "hit_rate": 0.2,
+        "mrr": 0.2,
+        "k": 4,
+        "cases": 5,
+        "ms_per_query": 1798.72
+      }
+    ],
+    "per_case": [
+      {
+        "case": "v01",
+        "question": "My VPN connects but I cannot reach staging.",
+        "retriever": "dense",
+        "hit": 1.0,
+        "rr": 0.3333333333333333,
+        "ms": 183.4,
+        "results": [
+          {
+            "rank": 1,
+            "chunk": 17,
+            "page": "prompts/meta-prompt-applied.md",
+            "source_text_sha256": "047d2e2799e24a6bdfbff0ca98f1e280085795ba395bc25b6d41a730f2232277"
+          },
+          {
+            "rank": 2,
+            "chunk": 54,
+            "page": "transcripts/t01.md",
+            "source_text_sha256": "6a4cdb409b8cfd6f8e74cf3a7790dddb53faf3153f73aee4f86505280a3907c5"
+          },
+          {
+            "rank": 3,
+            "chunk": 10,
+            "page": "kb/vpn.md",
+            "source_text_sha256": "622badd68cb38587a2ad374eb636948fb27f687c70e87a344d8fde78e7cdb9fe"
+          },
+          {
+            "rank": 4,
+            "chunk": 52,
+            "page": "transcripts/t01.md",
+            "source_text_sha256": "0fd4267a2140ff54e520a621f74ca1dc1f610948c3f60282fb38b7778e473995"
+          }
+        ],
+        "trace": {}
+      },
+      {
+        "case": "v02",
+        "question": "How do I get access to the analytics warehouse?",
+        "retriever": "dense",
+        "hit": 1.0,
+        "rr": 0.3333333333333333,
+        "ms": 201.09,
+        "results": [
+          {
+            "rank": 1,
+            "chunk": 56,
+            "page": "transcripts/t02.md",
+            "source_text_sha256": "f2923f47eb175cdb632148630600613cac71839d06a4e5e22bddd708199fe79f"
+          },
+          {
+            "rank": 2,
+            "chunk": 62,
+            "page": "transcripts/t06.md",
+            "source_text_sha256": "8c666c1c2c45267387641860d81f88c53d000178dd00000efcde7c89df510b9d"
+          },
+          {
+            "rank": 3,
+            "chunk": 3,
+            "page": "kb/access-requests.md",
+            "source_text_sha256": "8ce06c8361f54403ac02285e2249801417271a0c29febdca067f927a69250bcc"
+          },
+          {
+            "rank": 4,
+            "chunk": 63,
+            "page": "transcripts/t06.md",
+            "source_text_sha256": "db9ed8ceadfc0a07b30322f599b19cb12e2dc9c459b6a3ab5f1902fd5fde699e"
+          }
+        ],
+        "trace": {}
+      },
+      {
+        "case": "v03",
+        "question": "uv sync removed a package I installed.",
+        "retriever": "dense",
+        "hit": 1.0,
+        "rr": 1.0,
+        "ms": 171.07,
+        "results": [
+          {
+            "rank": 1,
+            "chunk": 7,
+            "page": "kb/python-environments.md",
+            "source_text_sha256": "88d948c53d05652039ebe71bb5f554f940ff3aa90027764a455548f66a7a7298"
+          },
+          {
+            "rank": 2,
+            "chunk": 55,
+            "page": "transcripts/t01.md",
+            "source_text_sha256": "7095176ae3e34124f7f8162b5e758adce444359de9b800b164aa9e0ad4023735"
+          },
+          {
+            "rank": 3,
+            "chunk": 61,
+            "page": "transcripts/t05.md",
+            "source_text_sha256": "a3fa5cda2dbb573a8bbeab700afb03907abbc1aabd0bad2bfaf97e996e665360"
+          },
+          {
+            "rank": 4,
+            "chunk": 57,
+            "page": "transcripts/t02.md",
+            "source_text_sha256": "68cb470848c92491f4529237e86bf692dbb8d0017c4e30923bcfec100dfa37fa"
+          }
+        ],
+        "trace": {}
+      },
+      {
+        "case": "v04",
+        "question": "Can you reset my colleague's MFA for me?",
+        "retriever": "dense",
+        "hit": 1.0,
+        "rr": 1.0,
+        "ms": 246.68,
+        "results": [
+          {
+            "rank": 1,
+            "chunk": 6,
+            "page": "kb/password-and-mfa.md",
+            "source_text_sha256": "fd35528965fffc5d161186901c1d8d7aeffb65809aa816c9b981478ab1cc0159"
+          },
+          {
+            "rank": 2,
+            "chunk": 58,
+            "page": "transcripts/t03.md",
+            "source_text_sha256": "e258a6792cfe7d45138e9f798932c26f4e3cd56b89e874dd162693f34b3869b1"
+          },
+          {
+            "rank": 3,
+            "chunk": 22,
+            "page": "prompts/meta-prompt-generate.md",
+            "source_text_sha256": "4c115b0e2890427b7914bc133f482f7bec9c20bf181b8fc539578f191d04325f"
+          },
+          {
+            "rank": 4,
+            "chunk": 18,
+            "page": "prompts/meta-prompt-applied.md",
+            "source_text_sha256": "951b2ac5ea89a817c3d5c5943c1951b4fd5b6b2bc2db3be8367536c98ccca30c"
+          }
+        ],
+        "trace": {}
+      },
+      {
+        "case": "v05",
+        "question": "What is the capital of Peru?",
+        "retriever": "dense",
+        "hit": 0.0,
+        "rr": 0.0,
+        "ms": 158.08,
+        "results": [
+          {
+            "rank": 1,
+            "chunk": 63,
+            "page": "transcripts/t06.md",
+            "source_text_sha256": "db9ed8ceadfc0a07b30322f599b19cb12e2dc9c459b6a3ab5f1902fd5fde699e"
+          },
+          {
+            "rank": 2,
+            "chunk": 5,
+            "page": "kb/laptops.md",
+            "source_text_sha256": "b7d4e536b94452241d8a7bd4c409dac7f0a9342072cc3c689aa89d0a7af1e73e"
+          },
+          {
+            "rank": 3,
+            "chunk": 12,
+            "page": "prompts/context-charter.md",
+            "source_text_sha256": "60230bcac24c121702c5b67e35ed205d91ebd151d1ef7e31ab609cd92dab14a1"
+          },
+          {
+            "rank": 4,
+            "chunk": 42,
+            "page": "prompts/self-refine-revised.md",
+            "source_text_sha256": "e8c3c33ae41d7b7b5e021b97c03a86054b5f04e05dda5ab300009bd79c9573fa"
+          }
+        ],
+        "trace": {}
+      },
+      {
+        "case": "v01",
+        "question": "My VPN connects but I cannot reach staging.",
+        "retriever": "bm25",
+        "hit": 0.0,
+        "rr": 0.0,
+        "ms": 0.26,
+        "results": [
+          {
+            "rank": 1,
+            "chunk": 55,
+            "page": "transcripts/t01.md",
+            "source_text_sha256": "7095176ae3e34124f7f8162b5e758adce444359de9b800b164aa9e0ad4023735"
+          },
+          {
+            "rank": 2,
+            "chunk": 57,
+            "page": "transcripts/t02.md",
+            "source_text_sha256": "68cb470848c92491f4529237e86bf692dbb8d0017c4e30923bcfec100dfa37fa"
+          },
+          {
+            "rank": 3,
+            "chunk": 61,
+            "page": "transcripts/t05.md",
+            "source_text_sha256": "a3fa5cda2dbb573a8bbeab700afb03907abbc1aabd0bad2bfaf97e996e665360"
+          },
+          {
+            "rank": 4,
+            "chunk": 1,
+            "page": "charter.md",
+            "source_text_sha256": "20acd8cb1080c639203334021b0781cceb4d539f0e0db23b8afd4bdf2ba4954d"
+          }
+        ],
+        "trace": {}
+      },
+      {
+        "case": "v02",
+        "question": "How do I get access to the analytics warehouse?",
+        "retriever": "bm25",
+        "hit": 0.0,
+        "rr": 0.0,
+        "ms": 0.11,
+        "results": [
+          {
+            "rank": 1,
+            "chunk": 56,
+            "page": "transcripts/t02.md",
+            "source_text_sha256": "f2923f47eb175cdb632148630600613cac71839d06a4e5e22bddd708199fe79f"
+          },
+          {
+            "rank": 2,
+            "chunk": 57,
+            "page": "transcripts/t02.md",
+            "source_text_sha256": "68cb470848c92491f4529237e86bf692dbb8d0017c4e30923bcfec100dfa37fa"
+          },
+          {
+            "rank": 3,
+            "chunk": 62,
+            "page": "transcripts/t06.md",
+            "source_text_sha256": "8c666c1c2c45267387641860d81f88c53d000178dd00000efcde7c89df510b9d"
+          },
+          {
+            "rank": 4,
+            "chunk": 55,
+            "page": "transcripts/t01.md",
+            "source_text_sha256": "7095176ae3e34124f7f8162b5e758adce444359de9b800b164aa9e0ad4023735"
+          }
+        ],
+        "trace": {}
+      },
+      {
+        "case": "v03",
+        "question": "uv sync removed a package I installed.",
+        "retriever": "bm25",
+        "hit": 0.0,
+        "rr": 0.0,
+        "ms": 0.07,
+        "results": [
+          {
+            "rank": 1,
+            "chunk": 55,
+            "page": "transcripts/t01.md",
+            "source_text_sha256": "7095176ae3e34124f7f8162b5e758adce444359de9b800b164aa9e0ad4023735"
+          },
+          {
+            "rank": 2,
+            "chunk": 57,
+            "page": "transcripts/t02.md",
+            "source_text_sha256": "68cb470848c92491f4529237e86bf692dbb8d0017c4e30923bcfec100dfa37fa"
+          },
+          {
+            "rank": 3,
+            "chunk": 61,
+            "page": "transcripts/t05.md",
+            "source_text_sha256": "a3fa5cda2dbb573a8bbeab700afb03907abbc1aabd0bad2bfaf97e996e665360"
+          },
+          {
+            "rank": 4,
+            "chunk": 1,
+            "page": "charter.md",
+            "source_text_sha256": "20acd8cb1080c639203334021b0781cceb4d539f0e0db23b8afd4bdf2ba4954d"
+          }
+        ],
+        "trace": {}
+      },
+      {
+        "case": "v04",
+        "question": "Can you reset my colleague's MFA for me?",
+        "retriever": "bm25",
+        "hit": 1.0,
+        "rr": 0.3333333333333333,
+        "ms": 0.79,
+        "results": [
+          {
+            "rank": 1,
+            "chunk": 58,
+            "page": "transcripts/t03.md",
+            "source_text_sha256": "e258a6792cfe7d45138e9f798932c26f4e3cd56b89e874dd162693f34b3869b1"
+          },
+          {
+            "rank": 2,
+            "chunk": 14,
+            "page": "prompts/few-shot-two-examples.md",
+            "source_text_sha256": "8bde7263683a515c52e104745f8d02a7b4be345a78a9f44647e64ae26b424565"
+          },
+          {
+            "rank": 3,
+            "chunk": 6,
+            "page": "kb/password-and-mfa.md",
+            "source_text_sha256": "fd35528965fffc5d161186901c1d8d7aeffb65809aa816c9b981478ab1cc0159"
+          },
+          {
+            "rank": 4,
+            "chunk": 15,
+            "page": "prompts/few-shot-zero.md",
+            "source_text_sha256": "66856461d4c3d5c5060fdc4e5d1db83b5bbe9b7ba2754ed34db2e7c814921a55"
+          }
+        ],
+        "trace": {}
+      },
+      {
+        "case": "v05",
+        "question": "What is the capital of Peru?",
+        "retriever": "bm25",
+        "hit": 0.0,
+        "rr": 0.0,
+        "ms": 0.07,
+        "results": [
+          {
+            "rank": 1,
+            "chunk": 13,
+            "page": "prompts/context-none.md",
+            "source_text_sha256": "90db2def7bd2dcbc9be1e1780a0765a027d656a9e793e26f3029d739baa52139"
+          },
+          {
+            "rank": 2,
+            "chunk": 11,
+            "page": "kb/vpn.md",
+            "source_text_sha256": "74523d17099bb452f7ec5383e275b03073d248bbda51507aed7d8270dac53296"
+          },
+          {
+            "rank": 3,
+            "chunk": 12,
+            "page": "prompts/context-charter.md",
+            "source_text_sha256": "60230bcac24c121702c5b67e35ed205d91ebd151d1ef7e31ab609cd92dab14a1"
+          },
+          {
+            "rank": 4,
+            "chunk": 15,
+            "page": "prompts/few-shot-zero.md",
+            "source_text_sha256": "66856461d4c3d5c5060fdc4e5d1db83b5bbe9b7ba2754ed34db2e7c814921a55"
+          }
+        ],
+        "trace": {}
+      },
+      {
+        "case": "v01",
+        "question": "My VPN connects but I cannot reach staging.",
+        "retriever": "hybrid_rrf",
+        "hit": 0.0,
+        "rr": 0.0,
+        "ms": 123.62,
+        "results": [
+          {
+            "rank": 1,
+            "chunk": 55,
+            "page": "transcripts/t01.md",
+            "source_text_sha256": "7095176ae3e34124f7f8162b5e758adce444359de9b800b164aa9e0ad4023735"
+          },
+          {
+            "rank": 2,
+            "chunk": 16,
+            "page": "prompts/meta-prompt-applied.md",
+            "source_text_sha256": "226303248fe97e6e30d341527d6cb9fd4a1a80b74c5073833d510d77b177ec3f"
+          },
+          {
+            "rank": 3,
+            "chunk": 26,
+            "page": "prompts/persona-patient.md",
+            "source_text_sha256": "ad85b0e73e1303b51c2240cd7087cfe3fa22c8cfc927a029853eb9be8c3bd302"
+          },
+          {
+            "rank": 4,
+            "chunk": 30,
+            "page": "prompts/persona-terse.md",
+            "source_text_sha256": "c017cd40635d16c453bca70d050b65770e75ae578db14e28c5bd6351af950984"
+          }
+        ],
+        "trace": {
+          "dense_candidates": [
+            {
+              "rank": 1,
+              "chunk": 17,
+              "page": "prompts/meta-prompt-applied.md",
+              "source_text_sha256": "047d2e2799e24a6bdfbff0ca98f1e280085795ba395bc25b6d41a730f2232277"
+            },
+            {
+              "rank": 2,
+              "chunk": 54,
+              "page": "transcripts/t01.md",
+              "source_text_sha256": "6a4cdb409b8cfd6f8e74cf3a7790dddb53faf3153f73aee4f86505280a3907c5"
+            },
+            {
+              "rank": 3,
+              "chunk": 10,
+              "page": "kb/vpn.md",
+              "source_text_sha256": "622badd68cb38587a2ad374eb636948fb27f687c70e87a344d8fde78e7cdb9fe"
+            },
+            {
+              "rank": 4,
+              "chunk": 52,
+              "page": "transcripts/t01.md",
+              "source_text_sha256": "0fd4267a2140ff54e520a621f74ca1dc1f610948c3f60282fb38b7778e473995"
+            },
+            {
+              "rank": 5,
+              "chunk": 16,
+              "page": "prompts/meta-prompt-applied.md",
+              "source_text_sha256": "226303248fe97e6e30d341527d6cb9fd4a1a80b74c5073833d510d77b177ec3f"
+            },
+            {
+              "rank": 6,
+              "chunk": 26,
+              "page": "prompts/persona-patient.md",
+              "source_text_sha256": "ad85b0e73e1303b51c2240cd7087cfe3fa22c8cfc927a029853eb9be8c3bd302"
+            },
+            {
+              "rank": 7,
+              "chunk": 60,
+              "page": "transcripts/t05.md",
+              "source_text_sha256": "9be6ce7ca5c8b56e370467c71af3688acd66eac6424140b5ccf1d0da77d93746"
+            },
+            {
+              "rank": 8,
+              "chunk": 29,
+              "page": "prompts/persona-patient.md",
+              "source_text_sha256": "6f8776e475b15c4719e00daadeb51c79fda8c21b27e34a0b46e74711ec8828df"
+            },
+            {
+              "rank": 9,
+              "chunk": 23,
+              "page": "prompts/persona-none.md",
+              "source_text_sha256": "2cf34d5a485e1688270fe902864d4b450a1cd514200f523563f885a19067213f"
+            },
+            {
+              "rank": 10,
+              "chunk": 30,
+              "page": "prompts/persona-terse.md",
+              "source_text_sha256": "c017cd40635d16c453bca70d050b65770e75ae578db14e28c5bd6351af950984"
+            },
+            {
+              "rank": 11,
+              "chunk": 55,
+              "page": "transcripts/t01.md",
+              "source_text_sha256": "7095176ae3e34124f7f8162b5e758adce444359de9b800b164aa9e0ad4023735"
+            },
+            {
+              "rank": 12,
+              "chunk": 28,
+              "page": "prompts/persona-patient.md",
+              "source_text_sha256": "967998aeed5de7683f763314b87c8fd601ecb10d7e4c87c75a64c1d2e117e57f"
+            }
+          ],
+          "bm25_candidates": [
+            {
+              "rank": 1,
+              "chunk": 55,
+              "page": "transcripts/t01.md",
+              "source_text_sha256": "7095176ae3e34124f7f8162b5e758adce444359de9b800b164aa9e0ad4023735"
+            },
+            {
+              "rank": 2,
+              "chunk": 57,
+              "page": "transcripts/t02.md",
+              "source_text_sha256": "68cb470848c92491f4529237e86bf692dbb8d0017c4e30923bcfec100dfa37fa"
+            },
+            {
+              "rank": 3,
+              "chunk": 61,
+              "page": "transcripts/t05.md",
+              "source_text_sha256": "a3fa5cda2dbb573a8bbeab700afb03907abbc1aabd0bad2bfaf97e996e665360"
+            },
+            {
+              "rank": 4,
+              "chunk": 1,
+              "page": "charter.md",
+              "source_text_sha256": "20acd8cb1080c639203334021b0781cceb4d539f0e0db23b8afd4bdf2ba4954d"
+            },
+            {
+              "rank": 5,
+              "chunk": 20,
+              "page": "prompts/meta-prompt-generate.md",
+              "source_text_sha256": "20acd8cb1080c639203334021b0781cceb4d539f0e0db23b8afd4bdf2ba4954d"
+            },
+            {
+              "rank": 6,
+              "chunk": 46,
+              "page": "prompts/structured-output.md",
+              "source_text_sha256": "20acd8cb1080c639203334021b0781cceb4d539f0e0db23b8afd4bdf2ba4954d"
+            },
+            {
+              "rank": 7,
+              "chunk": 16,
+              "page": "prompts/meta-prompt-applied.md",
+              "source_text_sha256": "226303248fe97e6e30d341527d6cb9fd4a1a80b74c5073833d510d77b177ec3f"
+            },
+            {
+              "rank": 8,
+              "chunk": 30,
+              "page": "prompts/persona-terse.md",
+              "source_text_sha256": "c017cd40635d16c453bca70d050b65770e75ae578db14e28c5bd6351af950984"
+            },
+            {
+              "rank": 9,
+              "chunk": 62,
+              "page": "transcripts/t06.md",
+              "source_text_sha256": "8c666c1c2c45267387641860d81f88c53d000178dd00000efcde7c89df510b9d"
+            },
+            {
+              "rank": 10,
+              "chunk": 26,
+              "page": "prompts/persona-patient.md",
+              "source_text_sha256": "ad85b0e73e1303b51c2240cd7087cfe3fa22c8cfc927a029853eb9be8c3bd302"
+            },
+            {
+              "rank": 11,
+              "chunk": 23,
+              "page": "prompts/persona-none.md",
+              "source_text_sha256": "2cf34d5a485e1688270fe902864d4b450a1cd514200f523563f885a19067213f"
+            },
+            {
+              "rank": 12,
+              "chunk": 58,
+              "page": "transcripts/t03.md",
+              "source_text_sha256": "e258a6792cfe7d45138e9f798932c26f4e3cd56b89e874dd162693f34b3869b1"
+            }
+          ]
+        }
+      },
+      {
+        "case": "v02",
+        "question": "How do I get access to the analytics warehouse?",
+        "retriever": "hybrid_rrf",
+        "hit": 0.0,
+        "rr": 0.0,
+        "ms": 163.66,
+        "results": [
+          {
+            "rank": 1,
+            "chunk": 56,
+            "page": "transcripts/t02.md",
+            "source_text_sha256": "f2923f47eb175cdb632148630600613cac71839d06a4e5e22bddd708199fe79f"
+          },
+          {
+            "rank": 2,
+            "chunk": 62,
+            "page": "transcripts/t06.md",
+            "source_text_sha256": "8c666c1c2c45267387641860d81f88c53d000178dd00000efcde7c89df510b9d"
+          },
+          {
+            "rank": 3,
+            "chunk": 57,
+            "page": "transcripts/t02.md",
+            "source_text_sha256": "68cb470848c92491f4529237e86bf692dbb8d0017c4e30923bcfec100dfa37fa"
+          },
+          {
+            "rank": 4,
+            "chunk": 55,
+            "page": "transcripts/t01.md",
+            "source_text_sha256": "7095176ae3e34124f7f8162b5e758adce444359de9b800b164aa9e0ad4023735"
+          }
+        ],
+        "trace": {
+          "dense_candidates": [
+            {
+              "rank": 1,
+              "chunk": 56,
+              "page": "transcripts/t02.md",
+              "source_text_sha256": "f2923f47eb175cdb632148630600613cac71839d06a4e5e22bddd708199fe79f"
+            },
+            {
+              "rank": 2,
+              "chunk": 62,
+              "page": "transcripts/t06.md",
+              "source_text_sha256": "8c666c1c2c45267387641860d81f88c53d000178dd00000efcde7c89df510b9d"
+            },
+            {
+              "rank": 3,
+              "chunk": 3,
+              "page": "kb/access-requests.md",
+              "source_text_sha256": "8ce06c8361f54403ac02285e2249801417271a0c29febdca067f927a69250bcc"
+            },
+            {
+              "rank": 4,
+              "chunk": 63,
+              "page": "transcripts/t06.md",
+              "source_text_sha256": "db9ed8ceadfc0a07b30322f599b19cb12e2dc9c459b6a3ab5f1902fd5fde699e"
+            },
+            {
+              "rank": 5,
+              "chunk": 57,
+              "page": "transcripts/t02.md",
+              "source_text_sha256": "68cb470848c92491f4529237e86bf692dbb8d0017c4e30923bcfec100dfa37fa"
+            },
+            {
+              "rank": 6,
+              "chunk": 55,
+              "page": "transcripts/t01.md",
+              "source_text_sha256": "7095176ae3e34124f7f8162b5e758adce444359de9b800b164aa9e0ad4023735"
+            },
+            {
+              "rank": 7,
+              "chunk": 4,
+              "page": "kb/access-requests.md",
+              "source_text_sha256": "eadeb7aa9c2fd493bbea003bf0c75a8af1d2cac994231a8c955f3637691f9cec"
+            },
+            {
+              "rank": 8,
+              "chunk": 61,
+              "page": "transcripts/t05.md",
+              "source_text_sha256": "a3fa5cda2dbb573a8bbeab700afb03907abbc1aabd0bad2bfaf97e996e665360"
+            },
+            {
+              "rank": 9,
+              "chunk": 17,
+              "page": "prompts/meta-prompt-applied.md",
+              "source_text_sha256": "047d2e2799e24a6bdfbff0ca98f1e280085795ba395bc25b6d41a730f2232277"
+            },
+            {
+              "rank": 10,
+              "chunk": 20,
+              "page": "prompts/meta-prompt-generate.md",
+              "source_text_sha256": "20acd8cb1080c639203334021b0781cceb4d539f0e0db23b8afd4bdf2ba4954d"
+            },
+            {
+              "rank": 11,
+              "chunk": 1,
+              "page": "charter.md",
+              "source_text_sha256": "20acd8cb1080c639203334021b0781cceb4d539f0e0db23b8afd4bdf2ba4954d"
+            },
+            {
+              "rank": 12,
+              "chunk": 46,
+              "page": "prompts/structured-output.md",
+              "source_text_sha256": "20acd8cb1080c639203334021b0781cceb4d539f0e0db23b8afd4bdf2ba4954d"
+            }
+          ],
+          "bm25_candidates": [
+            {
+              "rank": 1,
+              "chunk": 56,
+              "page": "transcripts/t02.md",
+              "source_text_sha256": "f2923f47eb175cdb632148630600613cac71839d06a4e5e22bddd708199fe79f"
+            },
+            {
+              "rank": 2,
+              "chunk": 57,
+              "page": "transcripts/t02.md",
+              "source_text_sha256": "68cb470848c92491f4529237e86bf692dbb8d0017c4e30923bcfec100dfa37fa"
+            },
+            {
+              "rank": 3,
+              "chunk": 62,
+              "page": "transcripts/t06.md",
+              "source_text_sha256": "8c666c1c2c45267387641860d81f88c53d000178dd00000efcde7c89df510b9d"
+            },
+            {
+              "rank": 4,
+              "chunk": 55,
+              "page": "transcripts/t01.md",
+              "source_text_sha256": "7095176ae3e34124f7f8162b5e758adce444359de9b800b164aa9e0ad4023735"
+            },
+            {
+              "rank": 5,
+              "chunk": 61,
+              "page": "transcripts/t05.md",
+              "source_text_sha256": "a3fa5cda2dbb573a8bbeab700afb03907abbc1aabd0bad2bfaf97e996e665360"
+            },
+            {
+              "rank": 6,
+              "chunk": 1,
+              "page": "charter.md",
+              "source_text_sha256": "20acd8cb1080c639203334021b0781cceb4d539f0e0db23b8afd4bdf2ba4954d"
+            },
+            {
+              "rank": 7,
+              "chunk": 20,
+              "page": "prompts/meta-prompt-generate.md",
+              "source_text_sha256": "20acd8cb1080c639203334021b0781cceb4d539f0e0db23b8afd4bdf2ba4954d"
+            },
+            {
+              "rank": 8,
+              "chunk": 46,
+              "page": "prompts/structured-output.md",
+              "source_text_sha256": "20acd8cb1080c639203334021b0781cceb4d539f0e0db23b8afd4bdf2ba4954d"
+            },
+            {
+              "rank": 9,
+              "chunk": 3,
+              "page": "kb/access-requests.md",
+              "source_text_sha256": "8ce06c8361f54403ac02285e2249801417271a0c29febdca067f927a69250bcc"
+            },
+            {
+              "rank": 10,
+              "chunk": 63,
+              "page": "transcripts/t06.md",
+              "source_text_sha256": "db9ed8ceadfc0a07b30322f599b19cb12e2dc9c459b6a3ab5f1902fd5fde699e"
+            },
+            {
+              "rank": 11,
+              "chunk": 58,
+              "page": "transcripts/t03.md",
+              "source_text_sha256": "e258a6792cfe7d45138e9f798932c26f4e3cd56b89e874dd162693f34b3869b1"
+            },
+            {
+              "rank": 12,
+              "chunk": 31,
+              "page": "prompts/reasoning-high.md",
+              "source_text_sha256": "b2ed945e783451e826a072b3b9b3ad2d97efc7d3e410a0fbd2136b7fbc6db151"
+            }
+          ]
+        }
+      },
+      {
+        "case": "v03",
+        "question": "uv sync removed a package I installed.",
+        "retriever": "hybrid_rrf",
+        "hit": 1.0,
+        "rr": 0.25,
+        "ms": 315.36,
+        "results": [
+          {
+            "rank": 1,
+            "chunk": 55,
+            "page": "transcripts/t01.md",
+            "source_text_sha256": "7095176ae3e34124f7f8162b5e758adce444359de9b800b164aa9e0ad4023735"
+          },
+          {
+            "rank": 2,
+            "chunk": 57,
+            "page": "transcripts/t02.md",
+            "source_text_sha256": "68cb470848c92491f4529237e86bf692dbb8d0017c4e30923bcfec100dfa37fa"
+          },
+          {
+            "rank": 3,
+            "chunk": 61,
+            "page": "transcripts/t05.md",
+            "source_text_sha256": "a3fa5cda2dbb573a8bbeab700afb03907abbc1aabd0bad2bfaf97e996e665360"
+          },
+          {
+            "rank": 4,
+            "chunk": 7,
+            "page": "kb/python-environments.md",
+            "source_text_sha256": "88d948c53d05652039ebe71bb5f554f940ff3aa90027764a455548f66a7a7298"
+          }
+        ],
+        "trace": {
+          "dense_candidates": [
+            {
+              "rank": 1,
+              "chunk": 7,
+              "page": "kb/python-environments.md",
+              "source_text_sha256": "88d948c53d05652039ebe71bb5f554f940ff3aa90027764a455548f66a7a7298"
+            },
+            {
+              "rank": 2,
+              "chunk": 55,
+              "page": "transcripts/t01.md",
+              "source_text_sha256": "7095176ae3e34124f7f8162b5e758adce444359de9b800b164aa9e0ad4023735"
+            },
+            {
+              "rank": 3,
+              "chunk": 61,
+              "page": "transcripts/t05.md",
+              "source_text_sha256": "a3fa5cda2dbb573a8bbeab700afb03907abbc1aabd0bad2bfaf97e996e665360"
+            },
+            {
+              "rank": 4,
+              "chunk": 57,
+              "page": "transcripts/t02.md",
+              "source_text_sha256": "68cb470848c92491f4529237e86bf692dbb8d0017c4e30923bcfec100dfa37fa"
+            },
+            {
+              "rank": 5,
+              "chunk": 1,
+              "page": "charter.md",
+              "source_text_sha256": "20acd8cb1080c639203334021b0781cceb4d539f0e0db23b8afd4bdf2ba4954d"
+            },
+            {
+              "rank": 6,
+              "chunk": 20,
+              "page": "prompts/meta-prompt-generate.md",
+              "source_text_sha256": "20acd8cb1080c639203334021b0781cceb4d539f0e0db23b8afd4bdf2ba4954d"
+            },
+            {
+              "rank": 7,
+              "chunk": 46,
+              "page": "prompts/structured-output.md",
+              "source_text_sha256": "20acd8cb1080c639203334021b0781cceb4d539f0e0db23b8afd4bdf2ba4954d"
+            },
+            {
+              "rank": 8,
+              "chunk": 36,
+              "page": "prompts/self-refine-draft.md",
+              "source_text_sha256": "5b751576a81b37876b6ec9e17fed3a10b645c50fdc13fecbe1a732fc79976c9b"
+            },
+            {
+              "rank": 9,
+              "chunk": 51,
+              "page": "prompts/structured-output.md",
+              "source_text_sha256": "5b751576a81b37876b6ec9e17fed3a10b645c50fdc13fecbe1a732fc79976c9b"
+            },
+            {
+              "rank": 10,
+              "chunk": 44,
+              "page": "prompts/stacked.md",
+              "source_text_sha256": "5b751576a81b37876b6ec9e17fed3a10b645c50fdc13fecbe1a732fc79976c9b"
+            },
+            {
+              "rank": 11,
+              "chunk": 42,
+              "page": "prompts/self-refine-revised.md",
+              "source_text_sha256": "e8c3c33ae41d7b7b5e021b97c03a86054b5f04e05dda5ab300009bd79c9573fa"
+            },
+            {
+              "rank": 12,
+              "chunk": 13,
+              "page": "prompts/context-none.md",
+              "source_text_sha256": "90db2def7bd2dcbc9be1e1780a0765a027d656a9e793e26f3029d739baa52139"
+            }
+          ],
+          "bm25_candidates": [
+            {
+              "rank": 1,
+              "chunk": 55,
+              "page": "transcripts/t01.md",
+              "source_text_sha256": "7095176ae3e34124f7f8162b5e758adce444359de9b800b164aa9e0ad4023735"
+            },
+            {
+              "rank": 2,
+              "chunk": 57,
+              "page": "transcripts/t02.md",
+              "source_text_sha256": "68cb470848c92491f4529237e86bf692dbb8d0017c4e30923bcfec100dfa37fa"
+            },
+            {
+              "rank": 3,
+              "chunk": 61,
+              "page": "transcripts/t05.md",
+              "source_text_sha256": "a3fa5cda2dbb573a8bbeab700afb03907abbc1aabd0bad2bfaf97e996e665360"
+            },
+            {
+              "rank": 4,
+              "chunk": 1,
+              "page": "charter.md",
+              "source_text_sha256": "20acd8cb1080c639203334021b0781cceb4d539f0e0db23b8afd4bdf2ba4954d"
+            },
+            {
+              "rank": 5,
+              "chunk": 20,
+              "page": "prompts/meta-prompt-generate.md",
+              "source_text_sha256": "20acd8cb1080c639203334021b0781cceb4d539f0e0db23b8afd4bdf2ba4954d"
+            },
+            {
+              "rank": 6,
+              "chunk": 46,
+              "page": "prompts/structured-output.md",
+              "source_text_sha256": "20acd8cb1080c639203334021b0781cceb4d539f0e0db23b8afd4bdf2ba4954d"
+            },
+            {
+              "rank": 7,
+              "chunk": 7,
+              "page": "kb/python-environments.md",
+              "source_text_sha256": "88d948c53d05652039ebe71bb5f554f940ff3aa90027764a455548f66a7a7298"
+            },
+            {
+              "rank": 8,
+              "chunk": 52,
+              "page": "transcripts/t01.md",
+              "source_text_sha256": "0fd4267a2140ff54e520a621f74ca1dc1f610948c3f60282fb38b7778e473995"
+            },
+            {
+              "rank": 9,
+              "chunk": 64,
+              "page": "transcripts/t06.md",
+              "source_text_sha256": "6fd7cf78d6bac642a019ebaed3f3c60bdc647a20e7f6bbbd738c5ffe6717940a"
+            },
+            {
+              "rank": 10,
+              "chunk": 48,
+              "page": "prompts/structured-output.md",
+              "source_text_sha256": "3d9ea56e3ade524062a95786dc36d833cc1db4c8122816952ad886527cf103fb"
+            },
+            {
+              "rank": 11,
+              "chunk": 60,
+              "page": "transcripts/t05.md",
+              "source_text_sha256": "9be6ce7ca5c8b56e370467c71af3688acd66eac6424140b5ccf1d0da77d93746"
+            },
+            {
+              "rank": 12,
+              "chunk": 0,
+              "page": "charter.md",
+              "source_text_sha256": "c0db555dc4f91fb530ac0199ccbdbfa79a13222622568e59793d4b41fd3f786d"
+            }
+          ]
+        }
+      },
+      {
+        "case": "v04",
+        "question": "Can you reset my colleague's MFA for me?",
+        "retriever": "hybrid_rrf",
+        "hit": 1.0,
+        "rr": 0.5,
+        "ms": 202.25,
+        "results": [
+          {
+            "rank": 1,
+            "chunk": 58,
+            "page": "transcripts/t03.md",
+            "source_text_sha256": "e258a6792cfe7d45138e9f798932c26f4e3cd56b89e874dd162693f34b3869b1"
+          },
+          {
+            "rank": 2,
+            "chunk": 6,
+            "page": "kb/password-and-mfa.md",
+            "source_text_sha256": "fd35528965fffc5d161186901c1d8d7aeffb65809aa816c9b981478ab1cc0159"
+          },
+          {
+            "rank": 3,
+            "chunk": 22,
+            "page": "prompts/meta-prompt-generate.md",
+            "source_text_sha256": "4c115b0e2890427b7914bc133f482f7bec9c20bf181b8fc539578f191d04325f"
+          },
+          {
+            "rank": 4,
+            "chunk": 16,
+            "page": "prompts/meta-prompt-applied.md",
+            "source_text_sha256": "226303248fe97e6e30d341527d6cb9fd4a1a80b74c5073833d510d77b177ec3f"
+          }
+        ],
+        "trace": {
+          "dense_candidates": [
+            {
+              "rank": 1,
+              "chunk": 6,
+              "page": "kb/password-and-mfa.md",
+              "source_text_sha256": "fd35528965fffc5d161186901c1d8d7aeffb65809aa816c9b981478ab1cc0159"
+            },
+            {
+              "rank": 2,
+              "chunk": 58,
+              "page": "transcripts/t03.md",
+              "source_text_sha256": "e258a6792cfe7d45138e9f798932c26f4e3cd56b89e874dd162693f34b3869b1"
+            },
+            {
+              "rank": 3,
+              "chunk": 22,
+              "page": "prompts/meta-prompt-generate.md",
+              "source_text_sha256": "4c115b0e2890427b7914bc133f482f7bec9c20bf181b8fc539578f191d04325f"
+            },
+            {
+              "rank": 4,
+              "chunk": 18,
+              "page": "prompts/meta-prompt-applied.md",
+              "source_text_sha256": "951b2ac5ea89a817c3d5c5943c1951b4fd5b6b2bc2db3be8367536c98ccca30c"
+            },
+            {
+              "rank": 5,
+              "chunk": 16,
+              "page": "prompts/meta-prompt-applied.md",
+              "source_text_sha256": "226303248fe97e6e30d341527d6cb9fd4a1a80b74c5073833d510d77b177ec3f"
+            },
+            {
+              "rank": 6,
+              "chunk": 42,
+              "page": "prompts/self-refine-revised.md",
+              "source_text_sha256": "e8c3c33ae41d7b7b5e021b97c03a86054b5f04e05dda5ab300009bd79c9573fa"
+            },
+            {
+              "rank": 7,
+              "chunk": 5,
+              "page": "kb/laptops.md",
+              "source_text_sha256": "b7d4e536b94452241d8a7bd4c409dac7f0a9342072cc3c689aa89d0a7af1e73e"
+            },
+            {
+              "rank": 8,
+              "chunk": 59,
+              "page": "transcripts/t04.md",
+              "source_text_sha256": "dfe7c5d794a8df53d155785d839ef2bd9ae2fe4e2a0c3185d4fea57cb875eb1a"
+            },
+            {
+              "rank": 9,
+              "chunk": 35,
+              "page": "prompts/self-refine-draft.md",
+              "source_text_sha256": "6b2359de1652e50b21ef1daff6893671ad349bbaa1c3899e443013408288af13"
+            },
+            {
+              "rank": 10,
+              "chunk": 40,
+              "page": "prompts/self-refine-revised.md",
+              "source_text_sha256": "6b2359de1652e50b21ef1daff6893671ad349bbaa1c3899e443013408288af13"
+            },
+            {
+              "rank": 11,
+              "chunk": 30,
+              "page": "prompts/persona-terse.md",
+              "source_text_sha256": "c017cd40635d16c453bca70d050b65770e75ae578db14e28c5bd6351af950984"
+            },
+            {
+              "rank": 12,
+              "chunk": 62,
+              "page": "transcripts/t06.md",
+              "source_text_sha256": "8c666c1c2c45267387641860d81f88c53d000178dd00000efcde7c89df510b9d"
+            }
+          ],
+          "bm25_candidates": [
+            {
+              "rank": 1,
+              "chunk": 58,
+              "page": "transcripts/t03.md",
+              "source_text_sha256": "e258a6792cfe7d45138e9f798932c26f4e3cd56b89e874dd162693f34b3869b1"
+            },
+            {
+              "rank": 2,
+              "chunk": 14,
+              "page": "prompts/few-shot-two-examples.md",
+              "source_text_sha256": "8bde7263683a515c52e104745f8d02a7b4be345a78a9f44647e64ae26b424565"
+            },
+            {
+              "rank": 3,
+              "chunk": 6,
+              "page": "kb/password-and-mfa.md",
+              "source_text_sha256": "fd35528965fffc5d161186901c1d8d7aeffb65809aa816c9b981478ab1cc0159"
+            },
+            {
+              "rank": 4,
+              "chunk": 15,
+              "page": "prompts/few-shot-zero.md",
+              "source_text_sha256": "66856461d4c3d5c5060fdc4e5d1db83b5bbe9b7ba2754ed34db2e7c814921a55"
+            },
+            {
+              "rank": 5,
+              "chunk": 52,
+              "page": "transcripts/t01.md",
+              "source_text_sha256": "0fd4267a2140ff54e520a621f74ca1dc1f610948c3f60282fb38b7778e473995"
+            },
+            {
+              "rank": 6,
+              "chunk": 26,
+              "page": "prompts/persona-patient.md",
+              "source_text_sha256": "ad85b0e73e1303b51c2240cd7087cfe3fa22c8cfc927a029853eb9be8c3bd302"
+            },
+            {
+              "rank": 7,
+              "chunk": 60,
+              "page": "transcripts/t05.md",
+              "source_text_sha256": "9be6ce7ca5c8b56e370467c71af3688acd66eac6424140b5ccf1d0da77d93746"
+            },
+            {
+              "rank": 8,
+              "chunk": 49,
+              "page": "prompts/structured-output.md",
+              "source_text_sha256": "f734b3e4b7e289a36bcb8a5e990a0f938e90b5a2d6098afda97438342e2bed68"
+            },
+            {
+              "rank": 9,
+              "chunk": 16,
+              "page": "prompts/meta-prompt-applied.md",
+              "source_text_sha256": "226303248fe97e6e30d341527d6cb9fd4a1a80b74c5073833d510d77b177ec3f"
+            },
+            {
+              "rank": 10,
+              "chunk": 22,
+              "page": "prompts/meta-prompt-generate.md",
+              "source_text_sha256": "4c115b0e2890427b7914bc133f482f7bec9c20bf181b8fc539578f191d04325f"
+            },
+            {
+              "rank": 11,
+              "chunk": 34,
+              "page": "prompts/self-refine-draft.md",
+              "source_text_sha256": "a7159200dae8ce11bfb242814b67171c09b5b6001823490636492a7f1c01c03f"
+            },
+            {
+              "rank": 12,
+              "chunk": 39,
+              "page": "prompts/self-refine-revised.md",
+              "source_text_sha256": "a7159200dae8ce11bfb242814b67171c09b5b6001823490636492a7f1c01c03f"
+            }
+          ]
+        }
+      },
+      {
+        "case": "v05",
+        "question": "What is the capital of Peru?",
+        "retriever": "hybrid_rrf",
+        "hit": 0.0,
+        "rr": 0.0,
+        "ms": 201.37,
+        "results": [
+          {
+            "rank": 1,
+            "chunk": 12,
+            "page": "prompts/context-charter.md",
+            "source_text_sha256": "60230bcac24c121702c5b67e35ed205d91ebd151d1ef7e31ab609cd92dab14a1"
+          },
+          {
+            "rank": 2,
+            "chunk": 15,
+            "page": "prompts/few-shot-zero.md",
+            "source_text_sha256": "66856461d4c3d5c5060fdc4e5d1db83b5bbe9b7ba2754ed34db2e7c814921a55"
+          },
+          {
+            "rank": 3,
+            "chunk": 26,
+            "page": "prompts/persona-patient.md",
+            "source_text_sha256": "ad85b0e73e1303b51c2240cd7087cfe3fa22c8cfc927a029853eb9be8c3bd302"
+          },
+          {
+            "rank": 4,
+            "chunk": 23,
+            "page": "prompts/persona-none.md",
+            "source_text_sha256": "2cf34d5a485e1688270fe902864d4b450a1cd514200f523563f885a19067213f"
+          }
+        ],
+        "trace": {
+          "dense_candidates": [
+            {
+              "rank": 1,
+              "chunk": 63,
+              "page": "transcripts/t06.md",
+              "source_text_sha256": "db9ed8ceadfc0a07b30322f599b19cb12e2dc9c459b6a3ab5f1902fd5fde699e"
+            },
+            {
+              "rank": 2,
+              "chunk": 5,
+              "page": "kb/laptops.md",
+              "source_text_sha256": "b7d4e536b94452241d8a7bd4c409dac7f0a9342072cc3c689aa89d0a7af1e73e"
+            },
+            {
+              "rank": 3,
+              "chunk": 12,
+              "page": "prompts/context-charter.md",
+              "source_text_sha256": "60230bcac24c121702c5b67e35ed205d91ebd151d1ef7e31ab609cd92dab14a1"
+            },
+            {
+              "rank": 4,
+              "chunk": 42,
+              "page": "prompts/self-refine-revised.md",
+              "source_text_sha256": "e8c3c33ae41d7b7b5e021b97c03a86054b5f04e05dda5ab300009bd79c9573fa"
+            },
+            {
+              "rank": 5,
+              "chunk": 41,
+              "page": "prompts/self-refine-revised.md",
+              "source_text_sha256": "397963e392b74d95f6fbb0638d58578698c1569dde7c8c33f4ae48e11f02dd81"
+            },
+            {
+              "rank": 6,
+              "chunk": 53,
+              "page": "transcripts/t01.md",
+              "source_text_sha256": "8a10cc5d0b929d5241920463c690449c8841081b0184b0c6134e091aeac2f38b"
+            },
+            {
+              "rank": 7,
+              "chunk": 15,
+              "page": "prompts/few-shot-zero.md",
+              "source_text_sha256": "66856461d4c3d5c5060fdc4e5d1db83b5bbe9b7ba2754ed34db2e7c814921a55"
+            },
+            {
+              "rank": 8,
+              "chunk": 45,
+              "page": "prompts/structured-output.md",
+              "source_text_sha256": "e1c7da1a41567443551370bde7e6260f89e5fdb59233efa06f58926e3ba8e0b4"
+            },
+            {
+              "rank": 9,
+              "chunk": 58,
+              "page": "transcripts/t03.md",
+              "source_text_sha256": "e258a6792cfe7d45138e9f798932c26f4e3cd56b89e874dd162693f34b3869b1"
+            },
+            {
+              "rank": 10,
+              "chunk": 23,
+              "page": "prompts/persona-none.md",
+              "source_text_sha256": "2cf34d5a485e1688270fe902864d4b450a1cd514200f523563f885a19067213f"
+            },
+            {
+              "rank": 11,
+              "chunk": 19,
+              "page": "prompts/meta-prompt-generate.md",
+              "source_text_sha256": "6489827978cb59d5814721ffd906cd8daff9c2919a9fa69afaec2606ae8ed8ff"
+            },
+            {
+              "rank": 12,
+              "chunk": 26,
+              "page": "prompts/persona-patient.md",
+              "source_text_sha256": "ad85b0e73e1303b51c2240cd7087cfe3fa22c8cfc927a029853eb9be8c3bd302"
+            }
+          ],
+          "bm25_candidates": [
+            {
+              "rank": 1,
+              "chunk": 13,
+              "page": "prompts/context-none.md",
+              "source_text_sha256": "90db2def7bd2dcbc9be1e1780a0765a027d656a9e793e26f3029d739baa52139"
+            },
+            {
+              "rank": 2,
+              "chunk": 11,
+              "page": "kb/vpn.md",
+              "source_text_sha256": "74523d17099bb452f7ec5383e275b03073d248bbda51507aed7d8270dac53296"
+            },
+            {
+              "rank": 3,
+              "chunk": 12,
+              "page": "prompts/context-charter.md",
+              "source_text_sha256": "60230bcac24c121702c5b67e35ed205d91ebd151d1ef7e31ab609cd92dab14a1"
+            },
+            {
+              "rank": 4,
+              "chunk": 15,
+              "page": "prompts/few-shot-zero.md",
+              "source_text_sha256": "66856461d4c3d5c5060fdc4e5d1db83b5bbe9b7ba2754ed34db2e7c814921a55"
+            },
+            {
+              "rank": 5,
+              "chunk": 64,
+              "page": "transcripts/t06.md",
+              "source_text_sha256": "6fd7cf78d6bac642a019ebaed3f3c60bdc647a20e7f6bbbd738c5ffe6717940a"
+            },
+            {
+              "rank": 6,
+              "chunk": 48,
+              "page": "prompts/structured-output.md",
+              "source_text_sha256": "3d9ea56e3ade524062a95786dc36d833cc1db4c8122816952ad886527cf103fb"
+            },
+            {
+              "rank": 7,
+              "chunk": 26,
+              "page": "prompts/persona-patient.md",
+              "source_text_sha256": "ad85b0e73e1303b51c2240cd7087cfe3fa22c8cfc927a029853eb9be8c3bd302"
+            },
+            {
+              "rank": 8,
+              "chunk": 28,
+              "page": "prompts/persona-patient.md",
+              "source_text_sha256": "967998aeed5de7683f763314b87c8fd601ecb10d7e4c87c75a64c1d2e117e57f"
+            },
+            {
+              "rank": 9,
+              "chunk": 23,
+              "page": "prompts/persona-none.md",
+              "source_text_sha256": "2cf34d5a485e1688270fe902864d4b450a1cd514200f523563f885a19067213f"
+            },
+            {
+              "rank": 10,
+              "chunk": 0,
+              "page": "charter.md",
+              "source_text_sha256": "c0db555dc4f91fb530ac0199ccbdbfa79a13222622568e59793d4b41fd3f786d"
+            },
+            {
+              "rank": 11,
+              "chunk": 60,
+              "page": "transcripts/t05.md",
+              "source_text_sha256": "9be6ce7ca5c8b56e370467c71af3688acd66eac6424140b5ccf1d0da77d93746"
+            },
+            {
+              "rank": 12,
+              "chunk": 45,
+              "page": "prompts/structured-output.md",
+              "source_text_sha256": "e1c7da1a41567443551370bde7e6260f89e5fdb59233efa06f58926e3ba8e0b4"
+            }
+          ]
+        }
+      },
+      {
+        "case": "v01",
+        "question": "My VPN connects but I cannot reach staging.",
+        "retriever": "cross_encoder",
+        "hit": 0.0,
+        "rr": 0.0,
+        "ms": 343.4,
+        "results": [
+          {
+            "rank": 1,
+            "chunk": 17,
+            "page": "prompts/meta-prompt-applied.md",
+            "source_text_sha256": "047d2e2799e24a6bdfbff0ca98f1e280085795ba395bc25b6d41a730f2232277"
+          },
+          {
+            "rank": 2,
+            "chunk": 30,
+            "page": "prompts/persona-terse.md",
+            "source_text_sha256": "c017cd40635d16c453bca70d050b65770e75ae578db14e28c5bd6351af950984"
+          },
+          {
+            "rank": 3,
+            "chunk": 23,
+            "page": "prompts/persona-none.md",
+            "source_text_sha256": "2cf34d5a485e1688270fe902864d4b450a1cd514200f523563f885a19067213f"
+          },
+          {
+            "rank": 4,
+            "chunk": 26,
+            "page": "prompts/persona-patient.md",
+            "source_text_sha256": "ad85b0e73e1303b51c2240cd7087cfe3fa22c8cfc927a029853eb9be8c3bd302"
+          }
+        ],
+        "trace": {
+          "rerank_candidates": [
+            {
+              "rank": 1,
+              "chunk": 55,
+              "page": "transcripts/t01.md",
+              "source_text_sha256": "7095176ae3e34124f7f8162b5e758adce444359de9b800b164aa9e0ad4023735"
+            },
+            {
+              "rank": 2,
+              "chunk": 16,
+              "page": "prompts/meta-prompt-applied.md",
+              "source_text_sha256": "226303248fe97e6e30d341527d6cb9fd4a1a80b74c5073833d510d77b177ec3f"
+            },
+            {
+              "rank": 3,
+              "chunk": 26,
+              "page": "prompts/persona-patient.md",
+              "source_text_sha256": "ad85b0e73e1303b51c2240cd7087cfe3fa22c8cfc927a029853eb9be8c3bd302"
+            },
+            {
+              "rank": 4,
+              "chunk": 30,
+              "page": "prompts/persona-terse.md",
+              "source_text_sha256": "c017cd40635d16c453bca70d050b65770e75ae578db14e28c5bd6351af950984"
+            },
+            {
+              "rank": 5,
+              "chunk": 23,
+              "page": "prompts/persona-none.md",
+              "source_text_sha256": "2cf34d5a485e1688270fe902864d4b450a1cd514200f523563f885a19067213f"
+            },
+            {
+              "rank": 6,
+              "chunk": 17,
+              "page": "prompts/meta-prompt-applied.md",
+              "source_text_sha256": "047d2e2799e24a6bdfbff0ca98f1e280085795ba395bc25b6d41a730f2232277"
+            },
+            {
+              "rank": 7,
+              "chunk": 54,
+              "page": "transcripts/t01.md",
+              "source_text_sha256": "6a4cdb409b8cfd6f8e74cf3a7790dddb53faf3153f73aee4f86505280a3907c5"
+            },
+            {
+              "rank": 8,
+              "chunk": 57,
+              "page": "transcripts/t02.md",
+              "source_text_sha256": "68cb470848c92491f4529237e86bf692dbb8d0017c4e30923bcfec100dfa37fa"
+            },
+            {
+              "rank": 9,
+              "chunk": 10,
+              "page": "kb/vpn.md",
+              "source_text_sha256": "622badd68cb38587a2ad374eb636948fb27f687c70e87a344d8fde78e7cdb9fe"
+            },
+            {
+              "rank": 10,
+              "chunk": 61,
+              "page": "transcripts/t05.md",
+              "source_text_sha256": "a3fa5cda2dbb573a8bbeab700afb03907abbc1aabd0bad2bfaf97e996e665360"
+            },
+            {
+              "rank": 11,
+              "chunk": 52,
+              "page": "transcripts/t01.md",
+              "source_text_sha256": "0fd4267a2140ff54e520a621f74ca1dc1f610948c3f60282fb38b7778e473995"
+            },
+            {
+              "rank": 12,
+              "chunk": 1,
+              "page": "charter.md",
+              "source_text_sha256": "20acd8cb1080c639203334021b0781cceb4d539f0e0db23b8afd4bdf2ba4954d"
+            }
+          ]
+        }
+      },
+      {
+        "case": "v02",
+        "question": "How do I get access to the analytics warehouse?",
+        "retriever": "cross_encoder",
+        "hit": 0.0,
+        "rr": 0.0,
+        "ms": 260.62,
+        "results": [
+          {
+            "rank": 1,
+            "chunk": 56,
+            "page": "transcripts/t02.md",
+            "source_text_sha256": "f2923f47eb175cdb632148630600613cac71839d06a4e5e22bddd708199fe79f"
+          },
+          {
+            "rank": 2,
+            "chunk": 57,
+            "page": "transcripts/t02.md",
+            "source_text_sha256": "68cb470848c92491f4529237e86bf692dbb8d0017c4e30923bcfec100dfa37fa"
+          },
+          {
+            "rank": 3,
+            "chunk": 62,
+            "page": "transcripts/t06.md",
+            "source_text_sha256": "8c666c1c2c45267387641860d81f88c53d000178dd00000efcde7c89df510b9d"
+          },
+          {
+            "rank": 4,
+            "chunk": 55,
+            "page": "transcripts/t01.md",
+            "source_text_sha256": "7095176ae3e34124f7f8162b5e758adce444359de9b800b164aa9e0ad4023735"
+          }
+        ],
+        "trace": {
+          "rerank_candidates": [
+            {
+              "rank": 1,
+              "chunk": 56,
+              "page": "transcripts/t02.md",
+              "source_text_sha256": "f2923f47eb175cdb632148630600613cac71839d06a4e5e22bddd708199fe79f"
+            },
+            {
+              "rank": 2,
+              "chunk": 62,
+              "page": "transcripts/t06.md",
+              "source_text_sha256": "8c666c1c2c45267387641860d81f88c53d000178dd00000efcde7c89df510b9d"
+            },
+            {
+              "rank": 3,
+              "chunk": 57,
+              "page": "transcripts/t02.md",
+              "source_text_sha256": "68cb470848c92491f4529237e86bf692dbb8d0017c4e30923bcfec100dfa37fa"
+            },
+            {
+              "rank": 4,
+              "chunk": 55,
+              "page": "transcripts/t01.md",
+              "source_text_sha256": "7095176ae3e34124f7f8162b5e758adce444359de9b800b164aa9e0ad4023735"
+            },
+            {
+              "rank": 5,
+              "chunk": 3,
+              "page": "kb/access-requests.md",
+              "source_text_sha256": "8ce06c8361f54403ac02285e2249801417271a0c29febdca067f927a69250bcc"
+            },
+            {
+              "rank": 6,
+              "chunk": 61,
+              "page": "transcripts/t05.md",
+              "source_text_sha256": "a3fa5cda2dbb573a8bbeab700afb03907abbc1aabd0bad2bfaf97e996e665360"
+            },
+            {
+              "rank": 7,
+              "chunk": 63,
+              "page": "transcripts/t06.md",
+              "source_text_sha256": "db9ed8ceadfc0a07b30322f599b19cb12e2dc9c459b6a3ab5f1902fd5fde699e"
+            },
+            {
+              "rank": 8,
+              "chunk": 1,
+              "page": "charter.md",
+              "source_text_sha256": "20acd8cb1080c639203334021b0781cceb4d539f0e0db23b8afd4bdf2ba4954d"
+            },
+            {
+              "rank": 9,
+              "chunk": 20,
+              "page": "prompts/meta-prompt-generate.md",
+              "source_text_sha256": "20acd8cb1080c639203334021b0781cceb4d539f0e0db23b8afd4bdf2ba4954d"
+            },
+            {
+              "rank": 10,
+              "chunk": 46,
+              "page": "prompts/structured-output.md",
+              "source_text_sha256": "20acd8cb1080c639203334021b0781cceb4d539f0e0db23b8afd4bdf2ba4954d"
+            },
+            {
+              "rank": 11,
+              "chunk": 4,
+              "page": "kb/access-requests.md",
+              "source_text_sha256": "eadeb7aa9c2fd493bbea003bf0c75a8af1d2cac994231a8c955f3637691f9cec"
+            },
+            {
+              "rank": 12,
+              "chunk": 17,
+              "page": "prompts/meta-prompt-applied.md",
+              "source_text_sha256": "047d2e2799e24a6bdfbff0ca98f1e280085795ba395bc25b6d41a730f2232277"
+            }
+          ]
+        }
+      },
+      {
+        "case": "v03",
+        "question": "uv sync removed a package I installed.",
+        "retriever": "cross_encoder",
+        "hit": 0.0,
+        "rr": 0.0,
+        "ms": 298.08,
+        "results": [
+          {
+            "rank": 1,
+            "chunk": 55,
+            "page": "transcripts/t01.md",
+            "source_text_sha256": "7095176ae3e34124f7f8162b5e758adce444359de9b800b164aa9e0ad4023735"
+          },
+          {
+            "rank": 2,
+            "chunk": 57,
+            "page": "transcripts/t02.md",
+            "source_text_sha256": "68cb470848c92491f4529237e86bf692dbb8d0017c4e30923bcfec100dfa37fa"
+          },
+          {
+            "rank": 3,
+            "chunk": 61,
+            "page": "transcripts/t05.md",
+            "source_text_sha256": "a3fa5cda2dbb573a8bbeab700afb03907abbc1aabd0bad2bfaf97e996e665360"
+          },
+          {
+            "rank": 4,
+            "chunk": 1,
+            "page": "charter.md",
+            "source_text_sha256": "20acd8cb1080c639203334021b0781cceb4d539f0e0db23b8afd4bdf2ba4954d"
+          }
+        ],
+        "trace": {
+          "rerank_candidates": [
+            {
+              "rank": 1,
+              "chunk": 55,
+              "page": "transcripts/t01.md",
+              "source_text_sha256": "7095176ae3e34124f7f8162b5e758adce444359de9b800b164aa9e0ad4023735"
+            },
+            {
+              "rank": 2,
+              "chunk": 57,
+              "page": "transcripts/t02.md",
+              "source_text_sha256": "68cb470848c92491f4529237e86bf692dbb8d0017c4e30923bcfec100dfa37fa"
+            },
+            {
+              "rank": 3,
+              "chunk": 61,
+              "page": "transcripts/t05.md",
+              "source_text_sha256": "a3fa5cda2dbb573a8bbeab700afb03907abbc1aabd0bad2bfaf97e996e665360"
+            },
+            {
+              "rank": 4,
+              "chunk": 7,
+              "page": "kb/python-environments.md",
+              "source_text_sha256": "88d948c53d05652039ebe71bb5f554f940ff3aa90027764a455548f66a7a7298"
+            },
+            {
+              "rank": 5,
+              "chunk": 1,
+              "page": "charter.md",
+              "source_text_sha256": "20acd8cb1080c639203334021b0781cceb4d539f0e0db23b8afd4bdf2ba4954d"
+            },
+            {
+              "rank": 6,
+              "chunk": 20,
+              "page": "prompts/meta-prompt-generate.md",
+              "source_text_sha256": "20acd8cb1080c639203334021b0781cceb4d539f0e0db23b8afd4bdf2ba4954d"
+            },
+            {
+              "rank": 7,
+              "chunk": 46,
+              "page": "prompts/structured-output.md",
+              "source_text_sha256": "20acd8cb1080c639203334021b0781cceb4d539f0e0db23b8afd4bdf2ba4954d"
+            },
+            {
+              "rank": 8,
+              "chunk": 36,
+              "page": "prompts/self-refine-draft.md",
+              "source_text_sha256": "5b751576a81b37876b6ec9e17fed3a10b645c50fdc13fecbe1a732fc79976c9b"
+            },
+            {
+              "rank": 9,
+              "chunk": 52,
+              "page": "transcripts/t01.md",
+              "source_text_sha256": "0fd4267a2140ff54e520a621f74ca1dc1f610948c3f60282fb38b7778e473995"
+            },
+            {
+              "rank": 10,
+              "chunk": 51,
+              "page": "prompts/structured-output.md",
+              "source_text_sha256": "5b751576a81b37876b6ec9e17fed3a10b645c50fdc13fecbe1a732fc79976c9b"
+            },
+            {
+              "rank": 11,
+              "chunk": 64,
+              "page": "transcripts/t06.md",
+              "source_text_sha256": "6fd7cf78d6bac642a019ebaed3f3c60bdc647a20e7f6bbbd738c5ffe6717940a"
+            },
+            {
+              "rank": 12,
+              "chunk": 44,
+              "page": "prompts/stacked.md",
+              "source_text_sha256": "5b751576a81b37876b6ec9e17fed3a10b645c50fdc13fecbe1a732fc79976c9b"
+            }
+          ]
+        }
+      },
+      {
+        "case": "v04",
+        "question": "Can you reset my colleague's MFA for me?",
+        "retriever": "cross_encoder",
+        "hit": 1.0,
+        "rr": 1.0,
+        "ms": 324.03,
+        "results": [
+          {
+            "rank": 1,
+            "chunk": 6,
+            "page": "kb/password-and-mfa.md",
+            "source_text_sha256": "fd35528965fffc5d161186901c1d8d7aeffb65809aa816c9b981478ab1cc0159"
+          },
+          {
+            "rank": 2,
+            "chunk": 58,
+            "page": "transcripts/t03.md",
+            "source_text_sha256": "e258a6792cfe7d45138e9f798932c26f4e3cd56b89e874dd162693f34b3869b1"
+          },
+          {
+            "rank": 3,
+            "chunk": 26,
+            "page": "prompts/persona-patient.md",
+            "source_text_sha256": "ad85b0e73e1303b51c2240cd7087cfe3fa22c8cfc927a029853eb9be8c3bd302"
+          },
+          {
+            "rank": 4,
+            "chunk": 16,
+            "page": "prompts/meta-prompt-applied.md",
+            "source_text_sha256": "226303248fe97e6e30d341527d6cb9fd4a1a80b74c5073833d510d77b177ec3f"
+          }
+        ],
+        "trace": {
+          "rerank_candidates": [
+            {
+              "rank": 1,
+              "chunk": 58,
+              "page": "transcripts/t03.md",
+              "source_text_sha256": "e258a6792cfe7d45138e9f798932c26f4e3cd56b89e874dd162693f34b3869b1"
+            },
+            {
+              "rank": 2,
+              "chunk": 6,
+              "page": "kb/password-and-mfa.md",
+              "source_text_sha256": "fd35528965fffc5d161186901c1d8d7aeffb65809aa816c9b981478ab1cc0159"
+            },
+            {
+              "rank": 3,
+              "chunk": 22,
+              "page": "prompts/meta-prompt-generate.md",
+              "source_text_sha256": "4c115b0e2890427b7914bc133f482f7bec9c20bf181b8fc539578f191d04325f"
+            },
+            {
+              "rank": 4,
+              "chunk": 16,
+              "page": "prompts/meta-prompt-applied.md",
+              "source_text_sha256": "226303248fe97e6e30d341527d6cb9fd4a1a80b74c5073833d510d77b177ec3f"
+            },
+            {
+              "rank": 5,
+              "chunk": 14,
+              "page": "prompts/few-shot-two-examples.md",
+              "source_text_sha256": "8bde7263683a515c52e104745f8d02a7b4be345a78a9f44647e64ae26b424565"
+            },
+            {
+              "rank": 6,
+              "chunk": 18,
+              "page": "prompts/meta-prompt-applied.md",
+              "source_text_sha256": "951b2ac5ea89a817c3d5c5943c1951b4fd5b6b2bc2db3be8367536c98ccca30c"
+            },
+            {
+              "rank": 7,
+              "chunk": 15,
+              "page": "prompts/few-shot-zero.md",
+              "source_text_sha256": "66856461d4c3d5c5060fdc4e5d1db83b5bbe9b7ba2754ed34db2e7c814921a55"
+            },
+            {
+              "rank": 8,
+              "chunk": 52,
+              "page": "transcripts/t01.md",
+              "source_text_sha256": "0fd4267a2140ff54e520a621f74ca1dc1f610948c3f60282fb38b7778e473995"
+            },
+            {
+              "rank": 9,
+              "chunk": 42,
+              "page": "prompts/self-refine-revised.md",
+              "source_text_sha256": "e8c3c33ae41d7b7b5e021b97c03a86054b5f04e05dda5ab300009bd79c9573fa"
+            },
+            {
+              "rank": 10,
+              "chunk": 26,
+              "page": "prompts/persona-patient.md",
+              "source_text_sha256": "ad85b0e73e1303b51c2240cd7087cfe3fa22c8cfc927a029853eb9be8c3bd302"
+            },
+            {
+              "rank": 11,
+              "chunk": 5,
+              "page": "kb/laptops.md",
+              "source_text_sha256": "b7d4e536b94452241d8a7bd4c409dac7f0a9342072cc3c689aa89d0a7af1e73e"
+            },
+            {
+              "rank": 12,
+              "chunk": 60,
+              "page": "transcripts/t05.md",
+              "source_text_sha256": "9be6ce7ca5c8b56e370467c71af3688acd66eac6424140b5ccf1d0da77d93746"
+            }
+          ]
+        }
+      },
+      {
+        "case": "v05",
+        "question": "What is the capital of Peru?",
+        "retriever": "cross_encoder",
+        "hit": 0.0,
+        "rr": 0.0,
+        "ms": 327.24,
+        "results": [
+          {
+            "rank": 1,
+            "chunk": 41,
+            "page": "prompts/self-refine-revised.md",
+            "source_text_sha256": "397963e392b74d95f6fbb0638d58578698c1569dde7c8c33f4ae48e11f02dd81"
+          },
+          {
+            "rank": 2,
+            "chunk": 64,
+            "page": "transcripts/t06.md",
+            "source_text_sha256": "6fd7cf78d6bac642a019ebaed3f3c60bdc647a20e7f6bbbd738c5ffe6717940a"
+          },
+          {
+            "rank": 3,
+            "chunk": 42,
+            "page": "prompts/self-refine-revised.md",
+            "source_text_sha256": "e8c3c33ae41d7b7b5e021b97c03a86054b5f04e05dda5ab300009bd79c9573fa"
+          },
+          {
+            "rank": 4,
+            "chunk": 5,
+            "page": "kb/laptops.md",
+            "source_text_sha256": "b7d4e536b94452241d8a7bd4c409dac7f0a9342072cc3c689aa89d0a7af1e73e"
+          }
+        ],
+        "trace": {
+          "rerank_candidates": [
+            {
+              "rank": 1,
+              "chunk": 12,
+              "page": "prompts/context-charter.md",
+              "source_text_sha256": "60230bcac24c121702c5b67e35ed205d91ebd151d1ef7e31ab609cd92dab14a1"
+            },
+            {
+              "rank": 2,
+              "chunk": 15,
+              "page": "prompts/few-shot-zero.md",
+              "source_text_sha256": "66856461d4c3d5c5060fdc4e5d1db83b5bbe9b7ba2754ed34db2e7c814921a55"
+            },
+            {
+              "rank": 3,
+              "chunk": 26,
+              "page": "prompts/persona-patient.md",
+              "source_text_sha256": "ad85b0e73e1303b51c2240cd7087cfe3fa22c8cfc927a029853eb9be8c3bd302"
+            },
+            {
+              "rank": 4,
+              "chunk": 23,
+              "page": "prompts/persona-none.md",
+              "source_text_sha256": "2cf34d5a485e1688270fe902864d4b450a1cd514200f523563f885a19067213f"
+            },
+            {
+              "rank": 5,
+              "chunk": 45,
+              "page": "prompts/structured-output.md",
+              "source_text_sha256": "e1c7da1a41567443551370bde7e6260f89e5fdb59233efa06f58926e3ba8e0b4"
+            },
+            {
+              "rank": 6,
+              "chunk": 63,
+              "page": "transcripts/t06.md",
+              "source_text_sha256": "db9ed8ceadfc0a07b30322f599b19cb12e2dc9c459b6a3ab5f1902fd5fde699e"
+            },
+            {
+              "rank": 7,
+              "chunk": 13,
+              "page": "prompts/context-none.md",
+              "source_text_sha256": "90db2def7bd2dcbc9be1e1780a0765a027d656a9e793e26f3029d739baa52139"
+            },
+            {
+              "rank": 8,
+              "chunk": 5,
+              "page": "kb/laptops.md",
+              "source_text_sha256": "b7d4e536b94452241d8a7bd4c409dac7f0a9342072cc3c689aa89d0a7af1e73e"
+            },
+            {
+              "rank": 9,
+              "chunk": 11,
+              "page": "kb/vpn.md",
+              "source_text_sha256": "74523d17099bb452f7ec5383e275b03073d248bbda51507aed7d8270dac53296"
+            },
+            {
+              "rank": 10,
+              "chunk": 42,
+              "page": "prompts/self-refine-revised.md",
+              "source_text_sha256": "e8c3c33ae41d7b7b5e021b97c03a86054b5f04e05dda5ab300009bd79c9573fa"
+            },
+            {
+              "rank": 11,
+              "chunk": 41,
+              "page": "prompts/self-refine-revised.md",
+              "source_text_sha256": "397963e392b74d95f6fbb0638d58578698c1569dde7c8c33f4ae48e11f02dd81"
+            },
+            {
+              "rank": 12,
+              "chunk": 64,
+              "page": "transcripts/t06.md",
+              "source_text_sha256": "6fd7cf78d6bac642a019ebaed3f3c60bdc647a20e7f6bbbd738c5ffe6717940a"
+            }
+          ]
+        }
+      },
+      {
+        "case": "v01",
+        "question": "My VPN connects but I cannot reach staging.",
+        "retriever": "multi_query",
+        "hit": 0.0,
+        "rr": 0.0,
+        "ms": 1585.53,
+        "results": [
+          {
+            "rank": 1,
+            "chunk": 17,
+            "page": "prompts/meta-prompt-applied.md",
+            "source_text_sha256": "047d2e2799e24a6bdfbff0ca98f1e280085795ba395bc25b6d41a730f2232277"
+          },
+          {
+            "rank": 2,
+            "chunk": 30,
+            "page": "prompts/persona-terse.md",
+            "source_text_sha256": "c017cd40635d16c453bca70d050b65770e75ae578db14e28c5bd6351af950984"
+          },
+          {
+            "rank": 3,
+            "chunk": 23,
+            "page": "prompts/persona-none.md",
+            "source_text_sha256": "2cf34d5a485e1688270fe902864d4b450a1cd514200f523563f885a19067213f"
+          },
+          {
+            "rank": 4,
+            "chunk": 26,
+            "page": "prompts/persona-patient.md",
+            "source_text_sha256": "ad85b0e73e1303b51c2240cd7087cfe3fa22c8cfc927a029853eb9be8c3bd302"
+          }
+        ],
+        "trace": {
+          "queries": [
+            "My VPN connects but I cannot reach staging.",
+            "VPN connects but cannot access staging environment",
+            "staging server unreachable when connected to VPN",
+            "VPN connection successful but no access to staging site"
+          ],
+          "rerank_candidates": [
+            {
+              "rank": 1,
+              "chunk": 17,
+              "page": "prompts/meta-prompt-applied.md",
+              "source_text_sha256": "047d2e2799e24a6bdfbff0ca98f1e280085795ba395bc25b6d41a730f2232277"
+            },
+            {
+              "rank": 2,
+              "chunk": 54,
+              "page": "transcripts/t01.md",
+              "source_text_sha256": "6a4cdb409b8cfd6f8e74cf3a7790dddb53faf3153f73aee4f86505280a3907c5"
+            },
+            {
+              "rank": 3,
+              "chunk": 10,
+              "page": "kb/vpn.md",
+              "source_text_sha256": "622badd68cb38587a2ad374eb636948fb27f687c70e87a344d8fde78e7cdb9fe"
+            },
+            {
+              "rank": 4,
+              "chunk": 23,
+              "page": "prompts/persona-none.md",
+              "source_text_sha256": "2cf34d5a485e1688270fe902864d4b450a1cd514200f523563f885a19067213f"
+            },
+            {
+              "rank": 5,
+              "chunk": 26,
+              "page": "prompts/persona-patient.md",
+              "source_text_sha256": "ad85b0e73e1303b51c2240cd7087cfe3fa22c8cfc927a029853eb9be8c3bd302"
+            },
+            {
+              "rank": 6,
+              "chunk": 30,
+              "page": "prompts/persona-terse.md",
+              "source_text_sha256": "c017cd40635d16c453bca70d050b65770e75ae578db14e28c5bd6351af950984"
+            },
+            {
+              "rank": 7,
+              "chunk": 52,
+              "page": "transcripts/t01.md",
+              "source_text_sha256": "0fd4267a2140ff54e520a621f74ca1dc1f610948c3f60282fb38b7778e473995"
+            },
+            {
+              "rank": 8,
+              "chunk": 60,
+              "page": "transcripts/t05.md",
+              "source_text_sha256": "9be6ce7ca5c8b56e370467c71af3688acd66eac6424140b5ccf1d0da77d93746"
+            },
+            {
+              "rank": 9,
+              "chunk": 16,
+              "page": "prompts/meta-prompt-applied.md",
+              "source_text_sha256": "226303248fe97e6e30d341527d6cb9fd4a1a80b74c5073833d510d77b177ec3f"
+            },
+            {
+              "rank": 10,
+              "chunk": 55,
+              "page": "transcripts/t01.md",
+              "source_text_sha256": "7095176ae3e34124f7f8162b5e758adce444359de9b800b164aa9e0ad4023735"
+            },
+            {
+              "rank": 11,
+              "chunk": 28,
+              "page": "prompts/persona-patient.md",
+              "source_text_sha256": "967998aeed5de7683f763314b87c8fd601ecb10d7e4c87c75a64c1d2e117e57f"
+            },
+            {
+              "rank": 12,
+              "chunk": 29,
+              "page": "prompts/persona-patient.md",
+              "source_text_sha256": "6f8776e475b15c4719e00daadeb51c79fda8c21b27e34a0b46e74711ec8828df"
+            }
+          ]
+        }
+      },
+      {
+        "case": "v02",
+        "question": "How do I get access to the analytics warehouse?",
+        "retriever": "multi_query",
+        "hit": 0.0,
+        "rr": 0.0,
+        "ms": 2024.23,
+        "results": [
+          {
+            "rank": 1,
+            "chunk": 56,
+            "page": "transcripts/t02.md",
+            "source_text_sha256": "f2923f47eb175cdb632148630600613cac71839d06a4e5e22bddd708199fe79f"
+          },
+          {
+            "rank": 2,
+            "chunk": 57,
+            "page": "transcripts/t02.md",
+            "source_text_sha256": "68cb470848c92491f4529237e86bf692dbb8d0017c4e30923bcfec100dfa37fa"
+          },
+          {
+            "rank": 3,
+            "chunk": 62,
+            "page": "transcripts/t06.md",
+            "source_text_sha256": "8c666c1c2c45267387641860d81f88c53d000178dd00000efcde7c89df510b9d"
+          },
+          {
+            "rank": 4,
+            "chunk": 55,
+            "page": "transcripts/t01.md",
+            "source_text_sha256": "7095176ae3e34124f7f8162b5e758adce444359de9b800b164aa9e0ad4023735"
+          }
+        ],
+        "trace": {
+          "queries": [
+            "How do I get access to the analytics warehouse?",
+            "accessing analytics warehouse permissions",
+            "how to connect to analytics data warehouse",
+            "steps to gain access to analytics warehouse system"
+          ],
+          "rerank_candidates": [
+            {
+              "rank": 1,
+              "chunk": 56,
+              "page": "transcripts/t02.md",
+              "source_text_sha256": "f2923f47eb175cdb632148630600613cac71839d06a4e5e22bddd708199fe79f"
+            },
+            {
+              "rank": 2,
+              "chunk": 62,
+              "page": "transcripts/t06.md",
+              "source_text_sha256": "8c666c1c2c45267387641860d81f88c53d000178dd00000efcde7c89df510b9d"
+            },
+            {
+              "rank": 3,
+              "chunk": 3,
+              "page": "kb/access-requests.md",
+              "source_text_sha256": "8ce06c8361f54403ac02285e2249801417271a0c29febdca067f927a69250bcc"
+            },
+            {
+              "rank": 4,
+              "chunk": 63,
+              "page": "transcripts/t06.md",
+              "source_text_sha256": "db9ed8ceadfc0a07b30322f599b19cb12e2dc9c459b6a3ab5f1902fd5fde699e"
+            },
+            {
+              "rank": 5,
+              "chunk": 57,
+              "page": "transcripts/t02.md",
+              "source_text_sha256": "68cb470848c92491f4529237e86bf692dbb8d0017c4e30923bcfec100dfa37fa"
+            },
+            {
+              "rank": 6,
+              "chunk": 55,
+              "page": "transcripts/t01.md",
+              "source_text_sha256": "7095176ae3e34124f7f8162b5e758adce444359de9b800b164aa9e0ad4023735"
+            },
+            {
+              "rank": 7,
+              "chunk": 61,
+              "page": "transcripts/t05.md",
+              "source_text_sha256": "a3fa5cda2dbb573a8bbeab700afb03907abbc1aabd0bad2bfaf97e996e665360"
+            },
+            {
+              "rank": 8,
+              "chunk": 20,
+              "page": "prompts/meta-prompt-generate.md",
+              "source_text_sha256": "20acd8cb1080c639203334021b0781cceb4d539f0e0db23b8afd4bdf2ba4954d"
+            },
+            {
+              "rank": 9,
+              "chunk": 4,
+              "page": "kb/access-requests.md",
+              "source_text_sha256": "eadeb7aa9c2fd493bbea003bf0c75a8af1d2cac994231a8c955f3637691f9cec"
+            },
+            {
+              "rank": 10,
+              "chunk": 17,
+              "page": "prompts/meta-prompt-applied.md",
+              "source_text_sha256": "047d2e2799e24a6bdfbff0ca98f1e280085795ba395bc25b6d41a730f2232277"
+            },
+            {
+              "rank": 11,
+              "chunk": 1,
+              "page": "charter.md",
+              "source_text_sha256": "20acd8cb1080c639203334021b0781cceb4d539f0e0db23b8afd4bdf2ba4954d"
+            },
+            {
+              "rank": 12,
+              "chunk": 49,
+              "page": "prompts/structured-output.md",
+              "source_text_sha256": "f734b3e4b7e289a36bcb8a5e990a0f938e90b5a2d6098afda97438342e2bed68"
+            }
+          ]
+        }
+      },
+      {
+        "case": "v03",
+        "question": "uv sync removed a package I installed.",
+        "retriever": "multi_query",
+        "hit": 0.0,
+        "rr": 0.0,
+        "ms": 1642.45,
+        "results": [
+          {
+            "rank": 1,
+            "chunk": 55,
+            "page": "transcripts/t01.md",
+            "source_text_sha256": "7095176ae3e34124f7f8162b5e758adce444359de9b800b164aa9e0ad4023735"
+          },
+          {
+            "rank": 2,
+            "chunk": 57,
+            "page": "transcripts/t02.md",
+            "source_text_sha256": "68cb470848c92491f4529237e86bf692dbb8d0017c4e30923bcfec100dfa37fa"
+          },
+          {
+            "rank": 3,
+            "chunk": 61,
+            "page": "transcripts/t05.md",
+            "source_text_sha256": "a3fa5cda2dbb573a8bbeab700afb03907abbc1aabd0bad2bfaf97e996e665360"
+          },
+          {
+            "rank": 4,
+            "chunk": 1,
+            "page": "charter.md",
+            "source_text_sha256": "20acd8cb1080c639203334021b0781cceb4d539f0e0db23b8afd4bdf2ba4954d"
+          }
+        ],
+        "trace": {
+          "queries": [
+            "uv sync removed a package I installed.",
+            "uv sync removed installed package issue",
+            "uv sync uninstalling packages unexpectedly",
+            "uv sync package removal troubleshooting"
+          ],
+          "rerank_candidates": [
+            {
+              "rank": 1,
+              "chunk": 55,
+              "page": "transcripts/t01.md",
+              "source_text_sha256": "7095176ae3e34124f7f8162b5e758adce444359de9b800b164aa9e0ad4023735"
+            },
+            {
+              "rank": 2,
+              "chunk": 7,
+              "page": "kb/python-environments.md",
+              "source_text_sha256": "88d948c53d05652039ebe71bb5f554f940ff3aa90027764a455548f66a7a7298"
+            },
+            {
+              "rank": 3,
+              "chunk": 57,
+              "page": "transcripts/t02.md",
+              "source_text_sha256": "68cb470848c92491f4529237e86bf692dbb8d0017c4e30923bcfec100dfa37fa"
+            },
+            {
+              "rank": 4,
+              "chunk": 61,
+              "page": "transcripts/t05.md",
+              "source_text_sha256": "a3fa5cda2dbb573a8bbeab700afb03907abbc1aabd0bad2bfaf97e996e665360"
+            },
+            {
+              "rank": 5,
+              "chunk": 1,
+              "page": "charter.md",
+              "source_text_sha256": "20acd8cb1080c639203334021b0781cceb4d539f0e0db23b8afd4bdf2ba4954d"
+            },
+            {
+              "rank": 6,
+              "chunk": 20,
+              "page": "prompts/meta-prompt-generate.md",
+              "source_text_sha256": "20acd8cb1080c639203334021b0781cceb4d539f0e0db23b8afd4bdf2ba4954d"
+            },
+            {
+              "rank": 7,
+              "chunk": 46,
+              "page": "prompts/structured-output.md",
+              "source_text_sha256": "20acd8cb1080c639203334021b0781cceb4d539f0e0db23b8afd4bdf2ba4954d"
+            },
+            {
+              "rank": 8,
+              "chunk": 51,
+              "page": "prompts/structured-output.md",
+              "source_text_sha256": "5b751576a81b37876b6ec9e17fed3a10b645c50fdc13fecbe1a732fc79976c9b"
+            },
+            {
+              "rank": 9,
+              "chunk": 36,
+              "page": "prompts/self-refine-draft.md",
+              "source_text_sha256": "5b751576a81b37876b6ec9e17fed3a10b645c50fdc13fecbe1a732fc79976c9b"
+            },
+            {
+              "rank": 10,
+              "chunk": 44,
+              "page": "prompts/stacked.md",
+              "source_text_sha256": "5b751576a81b37876b6ec9e17fed3a10b645c50fdc13fecbe1a732fc79976c9b"
+            },
+            {
+              "rank": 11,
+              "chunk": 64,
+              "page": "transcripts/t06.md",
+              "source_text_sha256": "6fd7cf78d6bac642a019ebaed3f3c60bdc647a20e7f6bbbd738c5ffe6717940a"
+            },
+            {
+              "rank": 12,
+              "chunk": 52,
+              "page": "transcripts/t01.md",
+              "source_text_sha256": "0fd4267a2140ff54e520a621f74ca1dc1f610948c3f60282fb38b7778e473995"
+            }
+          ]
+        }
+      },
+      {
+        "case": "v04",
+        "question": "Can you reset my colleague's MFA for me?",
+        "retriever": "multi_query",
+        "hit": 1.0,
+        "rr": 1.0,
+        "ms": 2115.19,
+        "results": [
+          {
+            "rank": 1,
+            "chunk": 6,
+            "page": "kb/password-and-mfa.md",
+            "source_text_sha256": "fd35528965fffc5d161186901c1d8d7aeffb65809aa816c9b981478ab1cc0159"
+          },
+          {
+            "rank": 2,
+            "chunk": 58,
+            "page": "transcripts/t03.md",
+            "source_text_sha256": "e258a6792cfe7d45138e9f798932c26f4e3cd56b89e874dd162693f34b3869b1"
+          },
+          {
+            "rank": 3,
+            "chunk": 26,
+            "page": "prompts/persona-patient.md",
+            "source_text_sha256": "ad85b0e73e1303b51c2240cd7087cfe3fa22c8cfc927a029853eb9be8c3bd302"
+          },
+          {
+            "rank": 4,
+            "chunk": 49,
+            "page": "prompts/structured-output.md",
+            "source_text_sha256": "f734b3e4b7e289a36bcb8a5e990a0f938e90b5a2d6098afda97438342e2bed68"
+          }
+        ],
+        "trace": {
+          "queries": [
+            "Can you reset my colleague's MFA for me?",
+            "reset colleague's MFA permissions",
+            "who can reset another user's MFA",
+            "MFA reset delegation policies in workplace"
+          ],
+          "rerank_candidates": [
+            {
+              "rank": 1,
+              "chunk": 6,
+              "page": "kb/password-and-mfa.md",
+              "source_text_sha256": "fd35528965fffc5d161186901c1d8d7aeffb65809aa816c9b981478ab1cc0159"
+            },
+            {
+              "rank": 2,
+              "chunk": 58,
+              "page": "transcripts/t03.md",
+              "source_text_sha256": "e258a6792cfe7d45138e9f798932c26f4e3cd56b89e874dd162693f34b3869b1"
+            },
+            {
+              "rank": 3,
+              "chunk": 22,
+              "page": "prompts/meta-prompt-generate.md",
+              "source_text_sha256": "4c115b0e2890427b7914bc133f482f7bec9c20bf181b8fc539578f191d04325f"
+            },
+            {
+              "rank": 4,
+              "chunk": 49,
+              "page": "prompts/structured-output.md",
+              "source_text_sha256": "f734b3e4b7e289a36bcb8a5e990a0f938e90b5a2d6098afda97438342e2bed68"
+            },
+            {
+              "rank": 5,
+              "chunk": 18,
+              "page": "prompts/meta-prompt-applied.md",
+              "source_text_sha256": "951b2ac5ea89a817c3d5c5943c1951b4fd5b6b2bc2db3be8367536c98ccca30c"
+            },
+            {
+              "rank": 6,
+              "chunk": 42,
+              "page": "prompts/self-refine-revised.md",
+              "source_text_sha256": "e8c3c33ae41d7b7b5e021b97c03a86054b5f04e05dda5ab300009bd79c9573fa"
+            },
+            {
+              "rank": 7,
+              "chunk": 16,
+              "page": "prompts/meta-prompt-applied.md",
+              "source_text_sha256": "226303248fe97e6e30d341527d6cb9fd4a1a80b74c5073833d510d77b177ec3f"
+            },
+            {
+              "rank": 8,
+              "chunk": 34,
+              "page": "prompts/self-refine-draft.md",
+              "source_text_sha256": "a7159200dae8ce11bfb242814b67171c09b5b6001823490636492a7f1c01c03f"
+            },
+            {
+              "rank": 9,
+              "chunk": 26,
+              "page": "prompts/persona-patient.md",
+              "source_text_sha256": "ad85b0e73e1303b51c2240cd7087cfe3fa22c8cfc927a029853eb9be8c3bd302"
+            },
+            {
+              "rank": 10,
+              "chunk": 35,
+              "page": "prompts/self-refine-draft.md",
+              "source_text_sha256": "6b2359de1652e50b21ef1daff6893671ad349bbaa1c3899e443013408288af13"
+            },
+            {
+              "rank": 11,
+              "chunk": 12,
+              "page": "prompts/context-charter.md",
+              "source_text_sha256": "60230bcac24c121702c5b67e35ed205d91ebd151d1ef7e31ab609cd92dab14a1"
+            },
+            {
+              "rank": 12,
+              "chunk": 14,
+              "page": "prompts/few-shot-two-examples.md",
+              "source_text_sha256": "8bde7263683a515c52e104745f8d02a7b4be345a78a9f44647e64ae26b424565"
+            }
+          ]
+        }
+      },
+      {
+        "case": "v05",
+        "question": "What is the capital of Peru?",
+        "retriever": "multi_query",
+        "hit": 0.0,
+        "rr": 0.0,
+        "ms": 1626.21,
+        "results": [
+          {
+            "rank": 1,
+            "chunk": 38,
+            "page": "prompts/self-refine-revised.md",
+            "source_text_sha256": "dfa0e37d7d4d73a0567c85f42fb7b11bb1529aa12dc667c7050020e2cca9315a"
+          },
+          {
+            "rank": 2,
+            "chunk": 41,
+            "page": "prompts/self-refine-revised.md",
+            "source_text_sha256": "397963e392b74d95f6fbb0638d58578698c1569dde7c8c33f4ae48e11f02dd81"
+          },
+          {
+            "rank": 3,
+            "chunk": 64,
+            "page": "transcripts/t06.md",
+            "source_text_sha256": "6fd7cf78d6bac642a019ebaed3f3c60bdc647a20e7f6bbbd738c5ffe6717940a"
+          },
+          {
+            "rank": 4,
+            "chunk": 42,
+            "page": "prompts/self-refine-revised.md",
+            "source_text_sha256": "e8c3c33ae41d7b7b5e021b97c03a86054b5f04e05dda5ab300009bd79c9573fa"
+          }
+        ],
+        "trace": {
+          "queries": [
+            "What is the capital of Peru?",
+            "capital of Peru",
+            "Peru capital city",
+            "What city is the capital of Peru"
+          ],
+          "rerank_candidates": [
+            {
+              "rank": 1,
+              "chunk": 15,
+              "page": "prompts/few-shot-zero.md",
+              "source_text_sha256": "66856461d4c3d5c5060fdc4e5d1db83b5bbe9b7ba2754ed34db2e7c814921a55"
+            },
+            {
+              "rank": 2,
+              "chunk": 42,
+              "page": "prompts/self-refine-revised.md",
+              "source_text_sha256": "e8c3c33ae41d7b7b5e021b97c03a86054b5f04e05dda5ab300009bd79c9573fa"
+            },
+            {
+              "rank": 3,
+              "chunk": 63,
+              "page": "transcripts/t06.md",
+              "source_text_sha256": "db9ed8ceadfc0a07b30322f599b19cb12e2dc9c459b6a3ab5f1902fd5fde699e"
+            },
+            {
+              "rank": 4,
+              "chunk": 41,
+              "page": "prompts/self-refine-revised.md",
+              "source_text_sha256": "397963e392b74d95f6fbb0638d58578698c1569dde7c8c33f4ae48e11f02dd81"
+            },
+            {
+              "rank": 5,
+              "chunk": 12,
+              "page": "prompts/context-charter.md",
+              "source_text_sha256": "60230bcac24c121702c5b67e35ed205d91ebd151d1ef7e31ab609cd92dab14a1"
+            },
+            {
+              "rank": 6,
+              "chunk": 13,
+              "page": "prompts/context-none.md",
+              "source_text_sha256": "90db2def7bd2dcbc9be1e1780a0765a027d656a9e793e26f3029d739baa52139"
+            },
+            {
+              "rank": 7,
+              "chunk": 11,
+              "page": "kb/vpn.md",
+              "source_text_sha256": "74523d17099bb452f7ec5383e275b03073d248bbda51507aed7d8270dac53296"
+            },
+            {
+              "rank": 8,
+              "chunk": 45,
+              "page": "prompts/structured-output.md",
+              "source_text_sha256": "e1c7da1a41567443551370bde7e6260f89e5fdb59233efa06f58926e3ba8e0b4"
+            },
+            {
+              "rank": 9,
+              "chunk": 5,
+              "page": "kb/laptops.md",
+              "source_text_sha256": "b7d4e536b94452241d8a7bd4c409dac7f0a9342072cc3c689aa89d0a7af1e73e"
+            },
+            {
+              "rank": 10,
+              "chunk": 38,
+              "page": "prompts/self-refine-revised.md",
+              "source_text_sha256": "dfa0e37d7d4d73a0567c85f42fb7b11bb1529aa12dc667c7050020e2cca9315a"
+            },
+            {
+              "rank": 11,
+              "chunk": 64,
+              "page": "transcripts/t06.md",
+              "source_text_sha256": "6fd7cf78d6bac642a019ebaed3f3c60bdc647a20e7f6bbbd738c5ffe6717940a"
+            },
+            {
+              "rank": 12,
+              "chunk": 53,
+              "page": "transcripts/t01.md",
+              "source_text_sha256": "8a10cc5d0b929d5241920463c690449c8841081b0184b0c6134e091aeac2f38b"
+            }
+          ]
+        }
+      }
+    ],
+    "saved": false
+  }
+}
