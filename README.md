@@ -41,7 +41,7 @@ mirror of it. Every notebook is three acts: **Learn** the idea from scratch,
 | 09 | [Agent evals](09_Agent_Evals/) | 35 min |
 | 10 | [Agent memory](10_Agent_Memory/) | 30 min |
 | 11 | [Agent architecture](11_Agent_Architecture/) | 35 min |
-| 12 | Multi-agent | 30 min |
+| 12 | [Multi-agent](12_Multi_Agent/) | 30 min |
 | 13 | [Guardrails 101](13_Guardrails_101/) | 30 min |
 | 14 | [Voice agents](14_Voice_Agents/) | 40 min |
 | 15 | [Prompt optimisation](15_Prompt_Optimization/) | 35 min |
