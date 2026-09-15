@@ -255,7 +255,7 @@ def _(mo):
 def _(mo):
     mo.md(r"""
     ### ❓ Question
-    Write down one rule in your project description that the model could not guess from language alone. That is your first few-shot example.
+    Write down one convention in your project description that the model could not guess from language alone. That is your first few-shot example.
 
     Answer:
     """)
