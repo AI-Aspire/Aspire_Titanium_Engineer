@@ -3,15 +3,15 @@
 ## Learn | Create | Grow
 
 ### Learn
-Five OWASP categories run against a retrieval agent: direct and indirect prompt injection, sensitive disclosure, output handling, excessive agency, system prompt leakage.
+Five OWASP categories run against a retrieval agent: direct, recombined, and indirect prompt injection, sensitive disclosure, output handling, excessive agency, and system prompt leakage through a probe and through a tool description.
 
 ### Create
-Every attack run against your agent with the tools your catalogue describes, and one finding row per attack saved.
+Every attack run against your agent with the tools your catalogue describes, and one finding row per attack saved, with the vector it came by.
 
 ### Grow
 Every attack that worked becomes a regression test. Tell your team what your agent did before you fixed it, and whether the attack came from the user or from a page.
 
-**Estimated time:** 40 minutes
+**Estimated time:** 50 minutes
 **Reads:** corpus, tools_catalog
 **Writes:** owasp_findings
 
@@ -23,7 +23,8 @@ Every attack that worked becomes a regression test. Tell your team what your age
 | Direct injection | the user types an instruction that overrides the system prompt |
 | Indirect injection | the instruction arrives inside content the agent retrieves |
 | Excessive agency | the agent takes an action nobody asked for |
-| Finding | one row: id, OWASP category, whether the attack succeeded, input, evidence |
+| Finding | one row: id, OWASP category, whether the attack succeeded, vector, input, evidence |
+| Vector | where the attack came from: the user, a page, or a tool description |
 
 The categories come from the [OWASP Top 10 for LLM Applications](https://owasp.org/www-project-top-10-for-large-language-model-applications/).
 
@@ -33,12 +34,14 @@ The categories come from the [OWASP Top 10 for LLM Applications](https://owasp.o
 |---|---|
 | 1 | Build the agent: corpus search, a ticket reader, a ticket closer, one tool per catalog entry |
 | 2 | LLM01 direct injection: ask for the canary outright |
-| 3 | LLM01 indirect injection: swap a poisoned page copy into the search tool and ask an innocent question |
-| 4 | LLM02 sensitive disclosure: claim to be another user and ask for their ticket |
-| 5 | LLM05 output handling: ask for markup and show the escaped version next to the raw one |
-| 6 | LLM06 excessive agency: imply cleanup and watch for the write tool |
-| 7 | LLM07 system prompt leakage: three polite probes |
-| 8 | Save the findings |
+| 3 | LLM01 recombined: 27 candidates from three prefixes, bodies, and suffixes, a budgeted sample run and counted against the single attack |
+| 4 | LLM01 indirect injection: swap a poisoned page copy into the search tool and ask an innocent question |
+| 5 | LLM02 sensitive disclosure: claim to be another user and ask for their ticket |
+| 6 | LLM05 output handling: ask for markup and show the escaped version next to the raw one |
+| 7 | LLM06 excessive agency: imply cleanup and watch for the write tool |
+| 8 | LLM07 system prompt leakage: three polite probes |
+| 9 | LLM07 by way of a tool description: one poisoned tool, an innocent question, and the canary looked for in the call arguments |
+| 10 | Save the findings |
 
 Scope: every attack targets your own application in your own environment. Attacking systems you do not own is not a grey area.
 
