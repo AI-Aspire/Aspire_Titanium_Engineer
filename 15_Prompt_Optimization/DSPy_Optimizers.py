@@ -76,6 +76,7 @@ def _():
     from pathlib import Path
 
     import dspy
+    import httpx
     import litellm
     import pandas as pd
 
@@ -87,9 +88,46 @@ def _():
     litellm.suppress_debug_info = True
     litellm.drop_params = True     # a self-hosted server may reject a parameter DSPy sends; drop it rather than fail
 
+    # ── APIM auth shim (safe no-op off-APIM) ────────────────────────────────
+    # DSPy → LiteLLM → OpenAI SDK → httpx. The SDK strips query params from
+    # base_url, and LiteLLM sends Authorization: Bearer that APIM ignores.
+    # The only reliable hook is the transport layer: patch httpx.send and
+    # inject ?subscription-key= on every request to *.azure-api.net.
+    _IS_APIM = bool(LLM_BASE and "azure-api.net" in LLM_BASE)
+    if _IS_APIM:
+        _MARKER = "_apim_patched"
+        if getattr(httpx.Client.send, _MARKER, None) != KEY:
+            _orig_sync = httpx.Client.send
+            _orig_async = httpx.AsyncClient.send
+
+            def _inject(request):
+                if "azure-api.net" in str(request.url.host):
+                    params = dict(request.url.params)
+                    params.setdefault("subscription-key", KEY)
+                    request.url = request.url.copy_with(params=params)
+
+            def _sync_send(self, request, **kw):
+                _inject(request)
+                return _orig_sync(self, request, **kw)
+
+            def _async_send(self, request, **kw):
+                _inject(request)
+                return _orig_async(self, request, **kw)
+
+            _sync_send.__dict__[_MARKER] = KEY
+            _async_send.__dict__[_MARKER] = KEY
+            httpx.Client.send = _sync_send
+            httpx.AsyncClient.send = _async_send
+
+        # APIM's chat endpoint is /deployments/{model}/chat/completions.
+        # LiteLLM/OpenAI SDK appends /chat/completions, so include the deployment prefix.
+        _api_base = f"{LLM_BASE.rstrip('/')}/deployments/{LLM_MODEL}"
+    else:
+        _api_base = LLM_BASE
+
     # temperature 1.0 satisfies both plain and reasoning models. DSPy needs a
     # numeric token ceiling, so a blank LLM_MAX_TOKENS in .env becomes a high one.
-    lm = dspy.LM(litellm_model(), api_base=LLM_BASE, api_key=KEY, temperature=1.0,
+    lm = dspy.LM(litellm_model(), api_base=_api_base, api_key=KEY, temperature=1.0,
                  max_tokens=LLM_MAX_TOKENS or 16000, timeout=LLM_TIMEOUT, num_retries=1)
     try:
         adapter = dspy.ChatAdapter(use_json_adapter_fallback=False)   # keep every call in plain chat format
