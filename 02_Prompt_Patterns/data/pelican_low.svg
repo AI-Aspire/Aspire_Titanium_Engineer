@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 520" width="700" height="520">
+  <title>A pelican riding a bicycle</title>
+  <desc>A cheerful pelican pedals a red bicycle.</desc>
+
+  <rect width="700" height="520" fill="#dff4ff"/>
+  <path d="M0 410 Q170 385 340 410 T700 405 V520 H0Z" fill="#b9df9b"/>
+  <path d="M0 438 Q180 420 350 438 T700 430" fill="none" stroke="#8fc477" stroke-width="5"/>
+
+  <!-- Bicycle -->
+  <g fill="none" stroke="#273746" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="190" cy="390" r="72" fill="#f8fbff"/>
+    <circle cx="535" cy="390" r="72" fill="#f8fbff"/>
+
+    <path d="M190 390 L285 275 L365 390 L190 390 L535 390 L365 390 L430 285 L535 390"/>
+    <path d="M285 275 L270 245"/>
+    <path d="M255 245 H292"/>
+    <path d="M430 285 L458 238"/>
+    <path d="M448 238 H485"/>
+    <path d="M458 238 Q475 220 493 230"/>
+    <circle cx="365" cy="390" r="13" fill="#f39c35"/>
+    <path d="M365 390 L330 350 M365 390 L403 425"/>
+    <path d="M330 350 H310 M403 425 H423"/>
+  </g>
+
+  <!-- Bicycle frame accents -->
+  <path d="M190 390 L285 275 L365 390" fill="none" stroke="#e85d4a" stroke-width="10" stroke-linecap="round"/>
+  <path d="M365 390 L535 390" fill="none" stroke="#e85d4a" stroke-width="10"/>
+
+  <!-- Pelican body -->
+  <g stroke="#263746" stroke-width="5" stroke-linejoin="round">
+    <path d="M302 245
+             Q285 215 299 173
+             Q315 128 365 122
+             Q421 116 449 160
+             Q469 192 448 235
+             Q431 270 384 279
+             Q331 287 302 245Z"
+          fill="#f4f6f2"/>
+
+    <!-- Wing -->
+    <path d="M335 190 Q382 170 426 201 Q405 242 359 249 Q329 246 317 225Z"
+          fill="#d7e1df"/>
+    <path d="M347 209 Q380 222 409 214" fill="none" stroke="#a7b9b8" stroke-width="4"/>
+
+    <!-- Neck -->
+    <path d="M367 153 Q349 117 368 88 Q386 62 418 75
+             Q441 85 441 112 Q441 140 420 160Z"
+          fill="#f4f6f2"/>
+
+    <!-- Head -->
+    <ellipse cx="413" cy="78" rx="43" ry="39" fill="#f4f6f2"/>
+    <circle cx="430" cy="68" r="5" fill="#263746" stroke="none"/>
+
+    <!-- Pelican beak/pouch -->
+    <path d="M390 89 Q345 82 292 98 Q278 103 290 114
+             Q337 146 389 123 Q414 112 420 95Z"
+          fill="#f2a33b"/>
+    <path d="M292 98 Q326 105 388 108" fill="none" stroke="#c87827" stroke-width="3"/>
+    <path d="M290 114 Q331 130 379 119" fill="none" stroke="#d37f2d" stroke-width="3"/>
+
+    <!-- Tail -->
+    <path d="M306 228 Q270 225 244 245 Q274 254 315 251Z" fill="#d7e1df"/>
+
+    <!-- Pelican legs -->
+    <path d="M344 265 L335 326 L314 357" fill="none" stroke="#e39a35" stroke-width="8"/>
+    <path d="M404 267 L395 326 L420 357" fill="none" stroke="#e39a35" stroke-width="8"/>
+    <path d="M314 357 Q326 363 338 357" fill="none" stroke="#e39a35" stroke-width="6"/>
+    <path d="M420 357 Q432 363 444 357" fill="none" stroke="#e39a35" stroke-width="6"/>
+  </g>
+
+  <!-- Pedaling motion hints -->
+  <path d="M255 458 Q365 475 475 458" fill="none" stroke="#79ae68" stroke-width="4" opacity=".7"/>
+  <path d="M105 470 q12-18 24 0 M570 470 q12-18 24 0" fill="none" stroke="#79ae68" stroke-width="4"/>
+
+  <!-- Small decorative clouds -->
+  <g fill="#ffffff" opacity=".8">
+    <path d="M90 92 q8-23 31-10 q17-25 39 2 q27-7 31 17 H85 q-5-5 5-9Z"/>
+    <path d="M540 125 q7-20 27-9 q16-22 35 3 q24-6 28 15 H535 q-4-5 5-9Z"/>
+  </g>
+</svg>

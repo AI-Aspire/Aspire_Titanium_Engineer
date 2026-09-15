@@ -16,7 +16,7 @@ def _(mo):
     mo.md(r"""
     # Retrieval ladder
 
-    Ask Claude Code to run real retrieval experiments, then inspect what each method found. Compare dense search, BM25, fusion, reranking, and query expansion on the same questions.
+    Ask your coding assistant to run real retrieval experiments, then inspect what each method found. Compare dense search, BM25, fusion, reranking, and query expansion on the same questions.
     """)
     return
 
@@ -55,11 +55,13 @@ def _(mo):
     mo.md(r"""
     ## Setup
 
-    Open Claude Code alongside this guide. Let it read files and run the repository tools. The README beside this notebook tells it how.
+    Open the repository in your coding assistant (Codex, Claude Code, Copilot, or another tool-enabled assistant). Let it read files and run the repository tools. The README beside this guide tells it how.
 
     The experiments use the existing code in `retrieval_tools.py`, extracted from the notebook. Open that file whenever you want to inspect an algorithm. `Retrieval_Ladder.py` is the generated mirror of this conversation guide.
 
-    Dense search needs configured embeddings; labelling and query expansion need the configured chat model. The reranker downloads on first use. These experiment models can differ from the model running Claude Code.
+    Dense search needs configured embeddings; labelling and query expansion need the configured chat model. The reranker downloads on first use. These experiment models can differ from the model running your coding assistant.
+
+    [Agent setup and controls](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/eli/interactive-prompt-patterns/docs/CODING_AGENTS.md).
     """)
     return
 
@@ -67,7 +69,7 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ### Ask Claude
+    ### Ask your assistant
 
     > Read the README beside the Retrieval ladder notebook and inspect its retrieval_tools.py interface. Use the inspect command to show which corpus is active, how many pages it has, and which pages are excluded. Check the existing evidence cases too. Do not run a model experiment yet.
     """)
@@ -79,7 +81,7 @@ def _(mo):
     mo.md(r"""
     Every rung uses the same chunks. The tools exclude the wiki index and the vibe-check answer-key page from retrieval. Their results say whether inputs came from your workspace or the seed example.
 
-    Claude should execute the repo tool, not substitute its own file search for dense search or BM25. Ask it to show the tool result if the explanation is unclear.
+    Your assistant should execute the repo tool, not substitute its own file search for dense search or BM25. Ask it to show the tool result if the explanation is unclear.
     """)
     return
 
@@ -123,7 +125,7 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ### Ask Claude
+    ### Ask your assistant
 
     > Use the retrieval tools to propose evidence-page labels for the current vibe checks. Compare them with the existing eval cases. Show one question, its proposed pages, and the relevant source text. Wait for me to review the labels before treating new proposals as the answer key. Do not save anything yet.
     """)
@@ -153,7 +155,7 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ### Ask Claude
+    ### Ask your assistant
 
     > Use retrieval_tools.py to compare dense and BM25 for: My VPN connects but I cannot reach staging.
     >
@@ -226,7 +228,7 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ### Ask Claude
+    ### Ask your assistant
 
     > Run the same question through all five retrieval rungs with the default settings. Show the dense and BM25 candidate lists used by RRF, the shortlist before reranking, and the generated query rewrites. Compare the final top four results. Identify a page that moved up or disappeared and trace what happened using the tool output.
     """)
@@ -264,7 +266,7 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ### Ask Claude
+    ### Ask your assistant
 
     > Use retrieval_tools.py to score all five rungs on the same evidence cases and top-four setting. Use my reviewed labels if I provided them; otherwise use the existing cases and state their source. Show hit rate, MRR, search time, and the per-case reciprocal-rank matrix. List any skipped cases. Do not change labels to improve a score or save workspace artifacts.
     """)
@@ -351,7 +353,7 @@ def _(mo):
     mo.md(r"""
     ### Try your own question
 
-    Tell Claude your question and the pages you identified as evidence. Ask it to use the same tool and settings for each retriever. The source accepts reviewed cases and different chunk sizes or candidate counts, so you can change one variable and rerun without rewriting the algorithms.
+    Tell your assistant your question and the pages you identified as evidence. Ask it to use the same tool and settings for each retriever. The source accepts reviewed cases and different chunk sizes or candidate counts, so you can change one variable and rerun without rewriting the algorithms.
 
     A finding applies to the cases you tested. Failing to find a separating question does not establish that dense retrieval is sufficient for every future question.
     """)
@@ -423,7 +425,7 @@ def _(mo):
     <details>
     <summary>About the recorded experiments</summary>
     <span class="markdown prose dark:prose-invert contents"><span class="paragraph">The recordings were produced by <code>retrieval_tools.py</code> on the seed corpus. Proposed labels are included as proposals, not treated as reviewed truth. Scoring used the existing seed eval cases. No live workspace artifacts were changed for these recordings.</span>
-    <span class="paragraph">If you want to keep an experiment for later workflows, ask Claude to run the score tool with its save option. That writes only the actual cases and measured ladder through the workspace helper. No conversation export is involved.</span></span>
+    <span class="paragraph">If you want to keep an experiment for later workflows, ask your assistant to run the score tool with its save option. That writes only the actual cases and measured ladder through the workspace helper. No conversation export is involved.</span></span>
     </details>
     """)
     return

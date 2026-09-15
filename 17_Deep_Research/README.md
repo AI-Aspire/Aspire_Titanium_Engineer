@@ -6,13 +6,15 @@ Estimated time: 35 minutes. Reads: capability_report, corpus. Writes, when reque
 
 ## Use the guide
 
-Open `Unroll_Deep_Research.ipynb` as a reading guide and open interactive Claude Code in the repository. Send the messages one at a time, inspect the evidence, and answer the questions yourself. Students do not need to type shell commands or run notebook cells.
+Open `Unroll_Deep_Research.ipynb` as a reading guide and open an interactive coding assistant in the repository. Send the messages one at a time, inspect the evidence, and answer the questions yourself. Students do not need to type shell commands or run notebook cells.
 
 `research_tools.py` contains the experiment algorithms students may inspect. `Unroll_Deep_Research.py` is the generated marimo mirror of the guide, not the tool implementation.
 
-Use the shared repository environment and configured `.env`. Claude Code's chat model and authentication are separate from the model/API key used by these experiments. The tool prints model and workspace/seed provenance; never print credentials. Commands return JSON on stdout and progress on stderr. No workspace writes happen without `--save`.
+Use the shared repository environment and configured `.env`. Your coding assistant's chat model and authentication are separate from the model/API key used by these experiments. The tool prints model and workspace/seed provenance; never print credentials. Commands return JSON on stdout and progress on stderr. No workspace writes happen without `--save`.
 
-## Tool reference for Claude
+For Codex, Claude Code, Copilot, or another coding assistant, see [agent setup and controls](../docs/CODING_AGENTS.md). Use file and terminal tools in the environment where the repository dependencies are installed.
+
+## Tool reference for your assistant
 
 From this directory, run `uv run --no-sync python research_tools.py COMMAND`.
 
@@ -38,6 +40,6 @@ Traces include search-source identities as well as extracted sources. The citati
 
 ## Recorded example
 
-`data/recorded_experiments.json` contains real tool results on the labeled seed fallback. These are experiment outputs, not captures of the interactive Claude UI. Use them to illustrate what to inspect, not as expected scores for a new run.
+`data/recorded_experiments.json` contains real tool results on the labeled seed fallback. These are experiment outputs, not captures of a coding assistant UI. Use them to illustrate what to inspect, not as expected scores for a new run.
 
 Saving is optional. `--save` runs the experiment and stores the newly measured outputs; it does not save an earlier preview by copying its text. Downstream readers use labeled seed artifacts until you choose to produce workspace results.

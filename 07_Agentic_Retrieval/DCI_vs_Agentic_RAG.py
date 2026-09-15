@@ -16,7 +16,7 @@ def _(mo):
     mo.md(r"""
     # DCI vs agentic RAG
 
-    Compare two ways an agent reaches your corpus: ranked sections or tools that list, search, and read pages. Use interactive Claude Code to run the same experiment loop with each interface and inspect the evidence.
+    Compare two ways an agent reaches your corpus: ranked sections or tools that list, search, and read pages. Use an interactive coding assistant to run the same experiment loop with each interface and inspect the evidence.
     """)
     return
 
@@ -65,7 +65,9 @@ def _(mo):
     mo.md(r"""
     ## Setup
 
-    Open interactive Claude Code in the repository. Use this guide as a sequence of messages. Claude runs the existing experiment tools; you inspect results and make the decisions. The experiment model comes from `.env`, independently of the model chatting with you.
+    Open the repository in your coding assistant (Codex, Claude Code, Copilot, or another tool-enabled assistant). Use this guide as a sequence of messages. Your coding assistant runs the existing experiment tools; you inspect results and make the decisions. The experiment model comes from `.env`, independently of the model chatting with you.
+
+    [Agent setup and controls](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/eli/interactive-prompt-patterns/docs/CODING_AGENTS.md).
     """)
     return
 
@@ -73,7 +75,7 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ### Message to Claude
+    ### Message to your assistant
 
     > Read the README beside this guide and inspect agentic_tools.py. Run inspect. Tell me which model and corpus are active, whether the cases come from workspace or seed, and the page and section counts. Do not save results yet.
     """)
@@ -93,9 +95,9 @@ def _(mo):
     mo.md(r"""
     ### Read the implementation
 
-    The README beside this guide documents the commands Claude can run. `agentic_tools.py` contains the original experiment algorithms, extracted from the code cells. The other Python file is a generated marimo view of this guide. Reading source is optional; interpreting the results is your work.
+    The README beside this guide documents the commands your coding assistant can run. `agentic_tools.py` contains the original experiment algorithms, extracted from the code cells. The other Python file is a generated marimo view of this guide. Reading source is optional; interpreting the results is your work.
 
-    Keep the current experiment results in the session. Ask Claude to run a new experiment only when the instructions call for one.
+    Keep the current experiment results in the session. Ask your assistant to run a new experiment only when the instructions call for one.
     """)
     return
 
@@ -121,7 +123,7 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ### Message to Claude
+    ### Message to your assistant
 
     > Run wiki and show me the proposed purpose lines beside the page headings. Explain how outline builds the skeleton before the model adds descriptions. Let me check the descriptions against the source pages before we use a reviewed wiki for comparison.
     """)
@@ -149,7 +151,7 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ### Message to Claude
+    ### Message to your assistant
 
     > Run interfaces for the first eval question. Show the ranked sections, matching lines, and a whole-page result. Walk me through search_chunks, list_pages, grep_wiki, and read_page in the source. Which evidence and limits does each expose?
     """)
@@ -188,7 +190,7 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ### Message to Claude
+    ### Message to your assistant
 
     > Run compare on the first eval question, using the reviewed wiki if available. Show both answers and their full tool traces, evidence characters, elapsed time, and stop reason. Explain the message loop in run_agent. Keep the comparison inside that loop so both modes use the same model and settings.
     """)
@@ -276,7 +278,7 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ### Message to Claude
+    ### Message to your assistant
 
     > Run score over the current eval cases with both modes, using the same reviewed wiki. Show scores and rationales per case, whether each answer names an expected page, tool calls, evidence characters, latency, and stop reason. Keep failed or missing judge scores visible. Do not save yet.
     """)
@@ -315,7 +317,7 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ### Message to Claude
+    ### Message to your assistant
 
     > Using the results already produced, show mean score, calls, evidence characters, and latency by mode. Open the evidence for the largest score gap. Separate retrieval mistakes from answer mistakes. Do not choose an interface for my product; I will make that decision.
     """)
@@ -343,7 +345,7 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    Describe your two cases and expected pages to Claude. Ask it to run those cases only after you have supplied your reasoning. You can inspect or modify the existing tools once you have chosen your approach.
+    Describe your two cases and expected pages to your assistant. Ask it to run those cases only after you have supplied your reasoning. You can inspect or modify the existing tools once you have chosen your approach.
     """)
     return
 
@@ -352,7 +354,7 @@ def _(mo):
 def _(mo):
     mo.md(r"""
     <details><summary>Keep measured artifacts for later use</summary>
-    <span class="markdown prose dark:prose-invert contents"><span class="paragraph">The tool can save its real outputs through <code>helpers.workspace</code> when you ask Claude to use <code>--save</code>. This runs an experiment and saves its results; it does not export your Claude conversation. Review inputs first. If you leave the workspace empty, readers use the labeled seed fallback.</span></span>
+    <span class="markdown prose dark:prose-invert contents"><span class="paragraph">The tool can save its real outputs through <code>helpers.workspace</code> when you ask your assistant to use <code>--save</code>. This runs an experiment and saves its results; it does not export your assistant conversation. Review inputs first. If you leave the workspace empty, readers use the labeled seed fallback.</span></span>
     </details>
     """)
     return

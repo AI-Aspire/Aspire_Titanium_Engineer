@@ -16,7 +16,7 @@ def _(mo):
     mo.md(r"""
     # Trajectory evals
 
-    A final answer cannot show every agent failure. Use interactive Claude Code to run a simulated user, inspect tool calls and conversation turns, and compare repeatability with a deliberately broken retriever.
+    A final answer cannot show every agent failure. Use an interactive coding assistant to run a simulated user, inspect tool calls and conversation turns, and compare repeatability with a deliberately broken retriever.
     """)
     return
 
@@ -65,7 +65,9 @@ def _(mo):
     mo.md(r"""
     ## Setup
 
-    Open interactive Claude Code in the repository and work through the messages below. Claude operates the experiment tools. The configured experiment model plays agent, simulated user, and judge; your interactive Claude session is the controller. The judge runs at temperature zero.
+    Open the repository in your coding assistant (Codex, Claude Code, Copilot, or another tool-enabled assistant). Work through the messages below. Your coding assistant operates the experiment tools. The configured experiment model plays agent, simulated user, and judge; your interactive coding-assistant session is the controller. The judge runs at temperature zero.
+
+    [Agent setup and controls](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/eli/interactive-prompt-patterns/docs/CODING_AGENTS.md).
     """)
     return
 
@@ -73,7 +75,7 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ### Message to Claude
+    ### Message to your assistant
 
     > Read the README beside this guide and eval_tools.py. Run inspect and show the configured model, corpus and case sources, and section count. Explain which artifacts are seed fallbacks. Do not save anything yet.
     """)
@@ -93,9 +95,9 @@ def _(mo):
     mo.md(r"""
     ### Read the implementation
 
-    The README beside this guide documents the commands Claude can run. `eval_tools.py` contains the original experiment algorithms, extracted from the code cells. The other Python file is a generated marimo view of this guide. Reading source is optional; interpreting the results is your work.
+    The README beside this guide documents the commands your coding assistant can run. `eval_tools.py` contains the original experiment algorithms, extracted from the code cells. The other Python file is a generated marimo view of this guide. Reading source is optional; interpreting the results is your work.
 
-    Keep the current experiment results in the session. Ask Claude to run a new experiment only when the instructions call for one.
+    Keep the current experiment results in the session. Ask your assistant to run a new experiment only when the instructions call for one.
     """)
     return
 
@@ -121,7 +123,7 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ### Message to Claude
+    ### Message to your assistant
 
     > Read terms, sections, search_kb, and agent_reply in eval_tools.py. Explain how term overlap selects three sections and how the agent records tool calls. Compare a relevant query with an unrelated one by calling the existing search tool after initialization. Show actual returned evidence.
     """)
@@ -149,7 +151,7 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ### Message to Claude
+    ### Message to your assistant
 
     > Run compose. Show the proposed persona, opening, private details, and hidden success condition for each task, including the two planted tasks. Explain facts_from. Let me review one success condition before changing it. Keep this task set for the next experiments so the comparison uses identical tasks.
     """)
@@ -188,7 +190,7 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ### Message to Claude
+    ### Message to your assistant
 
     > Run demo with the task set we just inspected. Show every simulated user turn, tool call and result, and agent reply. Explain what the agent sees versus what the simulator and scorer see. Show the termination reason; distinguish DONE, GIVE UP, and the turn limit.
     """)
@@ -216,7 +218,7 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ### Message to Claude
+    ### Message to your assistant
 
     > Using that same demo trajectory, show its deterministic verdict and judge score with the rationale. Explain the checks in verify and score. Identify disagreements for me to inspect without revising the task or rubric on my behalf.
     """)
@@ -320,7 +322,7 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ### Message to Claude
+    ### Message to your assistant
 
     > Run the inspected task set with three baseline repeats and the planted regression. Show the baseline pass rate and pass^3 per task first. Explain pass_k using the actual counts. Keep all trajectories and the unchanged task set available for inspection; do not save to the workspace yet.
     """)
@@ -348,7 +350,7 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ### Message to Claude
+    ### Message to your assistant
 
     > From the run already completed, show the misrouted retriever output for two queries and the pass-rate change by category. Open a baseline and broken trajectory for the same task. Did evidence, behavior, or only wording change? Report honestly if the harness did not catch the regression.
     """)
@@ -387,7 +389,7 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ### Message to Claude
+    ### Message to your assistant
 
     > Show the generated capability report from this run. Check its numbers against the trajectories and open any reported failure. Explain which findings are measured and which interpretations still need my judgment. Keep the report in the experiment result until I choose to save it.
     """)
@@ -415,7 +417,7 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    Describe your repeated-question check to Claude before asking it to implement or run it. Use the trajectories from your experiment; no conversation export is needed. The existing judge sees the transcript too, so consider why an explicit rule might catch something its current rubric overlooks.
+    Describe your repeated-question check to your assistant before asking it to implement or run it. Use the trajectories from your experiment; no conversation export is needed. The existing judge sees the transcript too, so consider why an explicit rule might catch something its current rubric overlooks.
     """)
     return
 
@@ -424,7 +426,7 @@ def _(mo):
 def _(mo):
     mo.md(r"""
     <details><summary>Keep measured artifacts for later use</summary>
-    <span class="markdown prose dark:prose-invert contents"><span class="paragraph">The tool can save its real outputs through <code>helpers.workspace</code> when you ask Claude to use <code>--save</code>. This runs an experiment and saves its results; it does not export your Claude conversation. Review inputs first. If you leave the workspace empty, readers use the labeled seed fallback.</span></span>
+    <span class="markdown prose dark:prose-invert contents"><span class="paragraph">The tool can save its real outputs through <code>helpers.workspace</code> when you ask your assistant to use <code>--save</code>. This runs an experiment and saves its results; it does not export your assistant conversation. Review inputs first. If you leave the workspace empty, readers use the labeled seed fallback.</span></span>
     </details>
     """)
     return

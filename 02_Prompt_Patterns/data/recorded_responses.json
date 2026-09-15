@@ -2,1250 +2,534 @@
   {
     "key": "persona-a",
     "title": "A: baseline",
-    "recorded_at_utc": "2026-09-14T23:30:35.517233+00:00",
-    "cli_version": "2.1.270",
-    "model_alias": "sonnet",
-    "models": [
-      "claude-haiku-4-5-20251001",
-      "claude-sonnet-5"
-    ],
-    "effort": "medium",
+    "recorded_at_utc": "2026-09-15T20:42:45.514967+00:00",
+    "provider": "OpenAI Responses API",
+    "model": "gpt-5.6-luna",
+    "returned_model": "gpt-5.6-luna",
+    "effort": "low",
     "tools_enabled": false,
-    "repository_instructions_loaded": true,
-    "session_id": "5f33eb01-6933-473a-8cda-d606f88a4645",
+    "repository_instructions_loaded": false,
     "resume_from": null,
-    "preamble": null,
-    "sent_message": "A colleague says the VPN connects but they cannot reach the staging database. What should they do first?",
-    "response": "This isn't related to this repo or its coursework — it's a general IT/networking troubleshooting question, not something I can see specifics of (VPN config, staging DB network rules, credentials, etc.). A few generic first steps your colleague could try:\n\n1. Confirm what \"connects\" means — is the VPN client showing \"connected\" with an assigned IP, and can they reach *other* internal resources (not just the DB)?\n2. Check they're pointed at the right host/port for staging (not accidentally prod or a stale config) and that DNS resolves it while on VPN (`nslookup`/`dig`).\n3. Test raw connectivity to the DB port, e.g. `nc -zv <host> <port>` or `telnet <host> <port>`, to isolate network reachability from auth/app-level issues.\n4. Check if split-tunnel VPN config is excluding the DB's subnet.\n\nThey should loop in whoever manages the staging infra/VPN (or check internal docs/Slack) since I don't have visibility into your network setup. Want me to help with something else in the repo instead?",
-    "elapsed_seconds": 5.84,
-    "usage": {
-      "input_tokens": 2,
-      "cache_creation_input_tokens": 2745,
-      "cache_read_input_tokens": 8415,
-      "output_tokens": 347,
-      "output_tokens_details": {
-        "thinking_tokens": 0
-      },
-      "server_tool_use": {
-        "web_search_requests": 0,
-        "web_fetch_requests": 0
-      },
-      "service_tier": "standard",
-      "cache_creation": {
-        "ephemeral_1h_input_tokens": 2745,
-        "ephemeral_5m_input_tokens": 0
-      },
-      "inference_geo": "not_available",
-      "iterations": [
-        {
-          "input_tokens": 2,
-          "output_tokens": 347,
-          "cache_read_input_tokens": 8415,
-          "cache_creation_input_tokens": 2745,
-          "cache_creation": {
-            "ephemeral_5m_input_tokens": 0,
-            "ephemeral_1h_input_tokens": 2745
-          },
-          "type": "message"
-        }
-      ],
-      "speed": "standard"
-    },
-    "model_usage": {
-      "claude-haiku-4-5-20251001": {
-        "inputTokens": 913,
-        "outputTokens": 13,
-        "cacheReadInputTokens": 0,
-        "cacheCreationInputTokens": 0,
-        "webSearchRequests": 0,
-        "costUSD": 0.000978,
-        "contextWindow": 200000,
-        "maxOutputTokens": 32000,
-        "thinkingTokens": 0,
-        "canonicalModel": "claude-haiku-4-5",
-        "provider": "firstParty",
-        "costBasis": "list"
-      },
-      "claude-sonnet-5": {
-        "inputTokens": 2,
-        "outputTokens": 347,
-        "cacheReadInputTokens": 8415,
-        "cacheCreationInputTokens": 2745,
-        "webSearchRequests": 0,
-        "costUSD": 0.016137,
-        "contextWindow": 1000000,
-        "maxOutputTokens": 64000,
-        "thinkingTokens": 0,
-        "canonicalModel": "claude-sonnet-5",
-        "provider": "firstParty",
-        "costBasis": "list"
+    "messages": [
+      {
+        "role": "user",
+        "content": "A colleague says the VPN connects but they cannot reach the staging database. What should they do first?"
       }
+    ],
+    "sent_message": "A colleague says the VPN connects but they cannot reach the staging database. What should they do first?",
+    "response": "First, verify that the VPN is providing a route to the staging network—not just showing “connected.”\n\nHave them:\n\n1. Confirm they’re using the correct staging VPN/profile.\n2. Resolve the database hostname (`nslookup`/`dig`).\n3. Test the database port, typically with `nc -vz <db-host> <port>` or the equivalent—not just ping.\n\nIf DNS or the port check fails, it’s likely a VPN route, firewall/security-group, or IP allowlist issue rather than a database-credential problem.",
+    "elapsed_seconds": 5.76,
+    "response_id": "resp_0cd24d89dcf2db5f016aa9adc6ea7487d097c970dea2a04387",
+    "usage": {
+      "input_tokens": 26,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 195,
+      "output_tokens_details": {
+        "reasoning_tokens": 80
+      },
+      "total_tokens": 221
     },
-    "cost_usd": 0.017115
+    "recording_mode": "model-only reference conversation; no coding-agent harness or repository context"
   },
   {
     "key": "persona-b",
     "title": "B: persona and constraints",
-    "recorded_at_utc": "2026-09-14T23:30:41.356595+00:00",
-    "cli_version": "2.1.270",
-    "model_alias": "sonnet",
-    "models": [
-      "claude-haiku-4-5-20251001",
-      "claude-sonnet-5"
-    ],
-    "effort": "medium",
+    "recorded_at_utc": "2026-09-15T20:42:51.278115+00:00",
+    "provider": "OpenAI Responses API",
+    "model": "gpt-5.6-luna",
+    "returned_model": "gpt-5.6-luna",
+    "effort": "low",
     "tools_enabled": false,
-    "repository_instructions_loaded": true,
-    "session_id": "55aa9e60-6ebe-4aa0-932f-bca36812b620",
+    "repository_instructions_loaded": false,
     "resume_from": null,
-    "preamble": null,
-    "sent_message": "You are a terse lead engineer. Answer in three sentences or fewer. Give the first diagnostic step and explain why.\n\nA colleague says the VPN connects but they cannot reach the staging database. What should they do first?",
-    "response": "Have them run `nc -zv <staging-db-host> <port>` (or `telnet`) from their machine — this isolates whether it's a routing/firewall issue on the VPN split-tunnel vs. a DB-level problem (auth, wrong credentials, DB down). VPN \"connected\" only proves the tunnel is up, not that the specific subnet/port is routed through it.",
-    "elapsed_seconds": 3.52,
-    "usage": {
-      "input_tokens": 2,
-      "cache_creation_input_tokens": 2785,
-      "cache_read_input_tokens": 8415,
-      "output_tokens": 124,
-      "output_tokens_details": {
-        "thinking_tokens": 0
-      },
-      "server_tool_use": {
-        "web_search_requests": 0,
-        "web_fetch_requests": 0
-      },
-      "service_tier": "standard",
-      "cache_creation": {
-        "ephemeral_1h_input_tokens": 2785,
-        "ephemeral_5m_input_tokens": 0
-      },
-      "inference_geo": "not_available",
-      "iterations": [
-        {
-          "input_tokens": 2,
-          "output_tokens": 124,
-          "cache_read_input_tokens": 8415,
-          "cache_creation_input_tokens": 2785,
-          "cache_creation": {
-            "ephemeral_5m_input_tokens": 0,
-            "ephemeral_1h_input_tokens": 2785
-          },
-          "type": "message"
-        }
-      ],
-      "speed": "standard"
-    },
-    "model_usage": {
-      "claude-haiku-4-5-20251001": {
-        "inputTokens": 938,
-        "outputTokens": 13,
-        "cacheReadInputTokens": 0,
-        "cacheCreationInputTokens": 0,
-        "webSearchRequests": 0,
-        "costUSD": 0.001003,
-        "contextWindow": 200000,
-        "maxOutputTokens": 32000,
-        "thinkingTokens": 0,
-        "canonicalModel": "claude-haiku-4-5",
-        "provider": "firstParty",
-        "costBasis": "list"
-      },
-      "claude-sonnet-5": {
-        "inputTokens": 2,
-        "outputTokens": 124,
-        "cacheReadInputTokens": 8415,
-        "cacheCreationInputTokens": 2785,
-        "webSearchRequests": 0,
-        "costUSD": 0.014067000000000001,
-        "contextWindow": 1000000,
-        "maxOutputTokens": 64000,
-        "thinkingTokens": 0,
-        "canonicalModel": "claude-sonnet-5",
-        "provider": "firstParty",
-        "costBasis": "list"
+    "messages": [
+      {
+        "role": "user",
+        "content": "You are a terse lead engineer. Answer in three sentences or fewer. Give the first diagnostic step and explain why.\n\nA colleague says the VPN connects but they cannot reach the staging database. What should they do first?"
       }
+    ],
+    "sent_message": "You are a terse lead engineer. Answer in three sentences or fewer. Give the first diagnostic step and explain why.\n\nA colleague says the VPN connects but they cannot reach the staging database. What should they do first?",
+    "response": "First, verify basic network reachability to the database host and port from the VPN client (for example, `nc -vz <db-host> <db-port>`). This distinguishes a VPN/routing/firewall problem from database authentication or configuration issues before deeper investigation.",
+    "elapsed_seconds": 1.97,
+    "response_id": "resp_0a86a77b570f00a0016aa9adcb66d087d0873883c9c4bfb6ae",
+    "usage": {
+      "input_tokens": 49,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 57,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 106
     },
-    "cost_usd": 0.015070000000000002
+    "recording_mode": "model-only reference conversation; no coding-agent harness or repository context"
   },
   {
     "key": "few-a",
     "title": "A: no examples",
-    "recorded_at_utc": "2026-09-14T23:30:44.878019+00:00",
-    "cli_version": "2.1.270",
-    "model_alias": "sonnet",
-    "models": [
-      "claude-haiku-4-5-20251001",
-      "claude-sonnet-5"
-    ],
-    "effort": "medium",
+    "recorded_at_utc": "2026-09-15T20:42:53.251315+00:00",
+    "provider": "OpenAI Responses API",
+    "model": "gpt-5.6-luna",
+    "returned_model": "gpt-5.6-luna",
+    "effort": "low",
     "tools_enabled": false,
-    "repository_instructions_loaded": true,
-    "session_id": "989e18f4-0499-4c89-8477-be38d1343132",
+    "repository_instructions_loaded": false,
     "resume_from": null,
-    "preamble": null,
-    "sent_message": "Classify the request for this example support desk as IN_SCOPE or OUT_OF_SCOPE. Give the label and one sentence explaining it.\n\nRequest: Can you reserve a meeting room for Thursday?",
-    "response": "**OUT_OF_SCOPE** — this is a facilities/scheduling request, not something a support desk (presumably handling product/account issues) would resolve.",
-    "elapsed_seconds": 4.32,
-    "usage": {
-      "input_tokens": 2,
-      "cache_creation_input_tokens": 2785,
-      "cache_read_input_tokens": 8415,
-      "output_tokens": 53,
-      "output_tokens_details": {
-        "thinking_tokens": 0
-      },
-      "server_tool_use": {
-        "web_search_requests": 0,
-        "web_fetch_requests": 0
-      },
-      "service_tier": "standard",
-      "cache_creation": {
-        "ephemeral_1h_input_tokens": 2785,
-        "ephemeral_5m_input_tokens": 0
-      },
-      "inference_geo": "not_available",
-      "iterations": [
-        {
-          "input_tokens": 2,
-          "output_tokens": 53,
-          "cache_read_input_tokens": 8415,
-          "cache_creation_input_tokens": 2785,
-          "cache_creation": {
-            "ephemeral_5m_input_tokens": 0,
-            "ephemeral_1h_input_tokens": 2785
-          },
-          "type": "message"
-        }
-      ],
-      "speed": "standard"
-    },
-    "model_usage": {
-      "claude-haiku-4-5-20251001": {
-        "inputTokens": 935,
-        "outputTokens": 12,
-        "cacheReadInputTokens": 0,
-        "cacheCreationInputTokens": 0,
-        "webSearchRequests": 0,
-        "costUSD": 0.000995,
-        "contextWindow": 200000,
-        "maxOutputTokens": 32000,
-        "thinkingTokens": 0,
-        "canonicalModel": "claude-haiku-4-5",
-        "provider": "firstParty",
-        "costBasis": "list"
-      },
-      "claude-sonnet-5": {
-        "inputTokens": 2,
-        "outputTokens": 53,
-        "cacheReadInputTokens": 8415,
-        "cacheCreationInputTokens": 2785,
-        "webSearchRequests": 0,
-        "costUSD": 0.013357,
-        "contextWindow": 1000000,
-        "maxOutputTokens": 64000,
-        "thinkingTokens": 0,
-        "canonicalModel": "claude-sonnet-5",
-        "provider": "firstParty",
-        "costBasis": "list"
+    "messages": [
+      {
+        "role": "user",
+        "content": "Classify the request for this example support desk as IN_SCOPE or OUT_OF_SCOPE. Give the label and one sentence explaining it.\n\nRequest: Can you reserve a meeting room for Thursday?"
       }
+    ],
+    "sent_message": "Classify the request for this example support desk as IN_SCOPE or OUT_OF_SCOPE. Give the label and one sentence explaining it.\n\nRequest: Can you reserve a meeting room for Thursday?",
+    "response": "OUT_OF_SCOPE — Reserving a meeting room is a facilities or administrative request, not a technical support issue.",
+    "elapsed_seconds": 2.35,
+    "response_id": "resp_0c527f4d6ef37356016aa9adcd5fd887d0ad421d5e640e7fb0",
+    "usage": {
+      "input_tokens": 43,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 131,
+      "output_tokens_details": {
+        "reasoning_tokens": 103
+      },
+      "total_tokens": 174
     },
-    "cost_usd": 0.014352
+    "recording_mode": "model-only reference conversation; no coding-agent harness or repository context"
   },
   {
     "key": "few-b",
     "title": "B: a local convention",
-    "recorded_at_utc": "2026-09-14T23:30:49.199620+00:00",
-    "cli_version": "2.1.270",
-    "model_alias": "sonnet",
-    "models": [
-      "claude-haiku-4-5-20251001",
-      "claude-sonnet-5"
-    ],
-    "effort": "medium",
+    "recorded_at_utc": "2026-09-15T20:42:55.607381+00:00",
+    "provider": "OpenAI Responses API",
+    "model": "gpt-5.6-luna",
+    "returned_model": "gpt-5.6-luna",
+    "effort": "low",
     "tools_enabled": false,
-    "repository_instructions_loaded": true,
-    "session_id": "62c18e77-cae1-4e8c-9d66-761b07afc487",
+    "repository_instructions_loaded": false,
     "resume_from": null,
-    "preamble": null,
-    "sent_message": "Classify the request for this example support desk as IN_SCOPE or OUT_OF_SCOPE. Give the label and one sentence explaining it.\n\nExample: Can you book a desk for my office visit?\nLabel: IN_SCOPE. This desk handles workspace reservations.\n\nExample: My monitor will not turn on.\nLabel: OUT_OF_SCOPE. This desk routes equipment faults to a separate hardware team.\n\nRequest: Can you reserve a meeting room for Thursday?",
-    "response": "Label: IN_SCOPE. This is a workspace/room reservation request, same category as the desk-booking example.",
-    "elapsed_seconds": 3.16,
-    "usage": {
-      "input_tokens": 2,
-      "cache_creation_input_tokens": 2877,
-      "cache_read_input_tokens": 8415,
-      "output_tokens": 38,
-      "output_tokens_details": {
-        "thinking_tokens": 0
-      },
-      "server_tool_use": {
-        "web_search_requests": 0,
-        "web_fetch_requests": 0
-      },
-      "service_tier": "standard",
-      "cache_creation": {
-        "ephemeral_1h_input_tokens": 2877,
-        "ephemeral_5m_input_tokens": 0
-      },
-      "inference_geo": "not_available",
-      "iterations": [
-        {
-          "input_tokens": 2,
-          "output_tokens": 38,
-          "cache_read_input_tokens": 8415,
-          "cache_creation_input_tokens": 2877,
-          "cache_creation": {
-            "ephemeral_5m_input_tokens": 0,
-            "ephemeral_1h_input_tokens": 2877
-          },
-          "type": "message"
-        }
-      ],
-      "speed": "standard"
-    },
-    "model_usage": {
-      "claude-haiku-4-5-20251001": {
-        "inputTokens": 995,
-        "outputTokens": 12,
-        "cacheReadInputTokens": 0,
-        "cacheCreationInputTokens": 0,
-        "webSearchRequests": 0,
-        "costUSD": 0.001055,
-        "contextWindow": 200000,
-        "maxOutputTokens": 32000,
-        "thinkingTokens": 0,
-        "canonicalModel": "claude-haiku-4-5",
-        "provider": "firstParty",
-        "costBasis": "list"
-      },
-      "claude-sonnet-5": {
-        "inputTokens": 2,
-        "outputTokens": 38,
-        "cacheReadInputTokens": 8415,
-        "cacheCreationInputTokens": 2877,
-        "webSearchRequests": 0,
-        "costUSD": 0.013575,
-        "contextWindow": 1000000,
-        "maxOutputTokens": 64000,
-        "thinkingTokens": 0,
-        "canonicalModel": "claude-sonnet-5",
-        "provider": "firstParty",
-        "costBasis": "list"
+    "messages": [
+      {
+        "role": "user",
+        "content": "Classify the request for this example support desk as IN_SCOPE or OUT_OF_SCOPE. Give the label and one sentence explaining it.\n\nExample: Can you book a desk for my office visit?\nLabel: IN_SCOPE. This desk handles workspace reservations.\n\nExample: My monitor will not turn on.\nLabel: OUT_OF_SCOPE. This desk routes equipment faults to a separate hardware team.\n\nRequest: Can you reserve a meeting room for Thursday?"
       }
+    ],
+    "sent_message": "Classify the request for this example support desk as IN_SCOPE or OUT_OF_SCOPE. Give the label and one sentence explaining it.\n\nExample: Can you book a desk for my office visit?\nLabel: IN_SCOPE. This desk handles workspace reservations.\n\nExample: My monitor will not turn on.\nLabel: OUT_OF_SCOPE. This desk routes equipment faults to a separate hardware team.\n\nRequest: Can you reserve a meeting room for Thursday?",
+    "response": "Label: IN_SCOPE. This desk handles meeting room reservations.",
+    "elapsed_seconds": 1.03,
+    "response_id": "resp_07977b7032295765016aa9adcfb68487d09419b7d463c09c48",
+    "usage": {
+      "input_tokens": 92,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 16,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 108
     },
-    "cost_usd": 0.01463
+    "recording_mode": "model-only reference conversation; no coding-agent harness or repository context"
   },
   {
     "key": "effort-low",
     "title": "A: low effort",
-    "recorded_at_utc": "2026-09-14T23:38:42.879644+00:00",
-    "cli_version": "2.1.270",
-    "model_alias": "sonnet",
-    "models": [
-      "claude-haiku-4-5-20251001",
-      "claude-sonnet-5"
-    ],
+    "provider": "OpenAI Responses API",
+    "model": "gpt-5.6-luna",
+    "returned_model": "gpt-5.6-luna",
     "effort": "low",
     "tools_enabled": false,
-    "repository_instructions_loaded": true,
-    "session_id": "40ba7326-6a09-4982-a227-7dfa58417075",
+    "repository_instructions_loaded": false,
     "resume_from": null,
-    "preamble": null,
-    "sent_message": "I need my car cleaned. The car wash is fifty metres away. Should I walk or drive? Give a recommendation and a one-sentence reason.",
-    "response": "Drive — you need the car at the car wash, not yourself, so walking there doesn't accomplish anything.",
-    "elapsed_seconds": 3.98,
-    "api_duration_ms": 2037,
-    "usage": {
-      "input_tokens": 2,
-      "cache_creation_input_tokens": 7889,
-      "cache_read_input_tokens": 3289,
-      "output_tokens": 36,
-      "output_tokens_details": {
-        "thinking_tokens": 0
-      },
-      "server_tool_use": {
-        "web_search_requests": 0,
-        "web_fetch_requests": 0
-      },
-      "service_tier": "standard",
-      "cache_creation": {
-        "ephemeral_1h_input_tokens": 7889,
-        "ephemeral_5m_input_tokens": 0
-      },
-      "inference_geo": "not_available",
-      "iterations": [
-        {
-          "input_tokens": 2,
-          "output_tokens": 36,
-          "cache_read_input_tokens": 3289,
-          "cache_creation_input_tokens": 7889,
-          "cache_creation": {
-            "ephemeral_5m_input_tokens": 0,
-            "ephemeral_1h_input_tokens": 7889
-          },
-          "type": "message"
-        }
-      ],
-      "speed": "standard"
-    },
-    "model_usage": {
-      "claude-haiku-4-5-20251001": {
-        "inputTokens": 922,
-        "outputTokens": 12,
-        "cacheReadInputTokens": 0,
-        "cacheCreationInputTokens": 0,
-        "webSearchRequests": 0,
-        "costUSD": 0.000982,
-        "contextWindow": 200000,
-        "maxOutputTokens": 32000,
-        "thinkingTokens": 0,
-        "canonicalModel": "claude-haiku-4-5",
-        "provider": "firstParty",
-        "costBasis": "list"
-      },
-      "claude-sonnet-5": {
-        "inputTokens": 2,
-        "outputTokens": 36,
-        "cacheReadInputTokens": 3289,
-        "cacheCreationInputTokens": 7889,
-        "webSearchRequests": 0,
-        "costUSD": 0.032577800000000004,
-        "contextWindow": 1000000,
-        "maxOutputTokens": 64000,
-        "thinkingTokens": 0,
-        "canonicalModel": "claude-sonnet-5",
-        "provider": "firstParty",
-        "costBasis": "list"
+    "messages": [
+      {
+        "role": "user",
+        "content": "Generate an SVG of a pelican riding a bicycle."
       }
+    ],
+    "sent_message": "Generate an SVG of a pelican riding a bicycle.",
+    "response": "```svg\n<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 700 520\" width=\"700\" height=\"520\">\n  <title>A pelican riding a bicycle</title>\n  <desc>A cheerful pelican pedals a red bicycle.</desc>\n\n  <rect width=\"700\" height=\"520\" fill=\"#dff4ff\"/>\n  <path d=\"M0 410 Q170 385 340 410 T700 405 V520 H0Z\" fill=\"#b9df9b\"/>\n  <path d=\"M0 438 Q180 420 350 438 T700 430\" fill=\"none\" stroke=\"#8fc477\" stroke-width=\"5\"/>\n\n  <!-- Bicycle -->\n  <g fill=\"none\" stroke=\"#273746\" stroke-width=\"8\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n    <circle cx=\"190\" cy=\"390\" r=\"72\" fill=\"#f8fbff\"/>\n    <circle cx=\"535\" cy=\"390\" r=\"72\" fill=\"#f8fbff\"/>\n\n    <path d=\"M190 390 L285 275 L365 390 L190 390 L535 390 L365 390 L430 285 L535 390\"/>\n    <path d=\"M285 275 L270 245\"/>\n    <path d=\"M255 245 H292\"/>\n    <path d=\"M430 285 L458 238\"/>\n    <path d=\"M448 238 H485\"/>\n    <path d=\"M458 238 Q475 220 493 230\"/>\n    <circle cx=\"365\" cy=\"390\" r=\"13\" fill=\"#f39c35\"/>\n    <path d=\"M365 390 L330 350 M365 390 L403 425\"/>\n    <path d=\"M330 350 H310 M403 425 H423\"/>\n  </g>\n\n  <!-- Bicycle frame accents -->\n  <path d=\"M190 390 L285 275 L365 390\" fill=\"none\" stroke=\"#e85d4a\" stroke-width=\"10\" stroke-linecap=\"round\"/>\n  <path d=\"M365 390 L535 390\" fill=\"none\" stroke=\"#e85d4a\" stroke-width=\"10\"/>\n\n  <!-- Pelican body -->\n  <g stroke=\"#263746\" stroke-width=\"5\" stroke-linejoin=\"round\">\n    <path d=\"M302 245\n             Q285 215 299 173\n             Q315 128 365 122\n             Q421 116 449 160\n             Q469 192 448 235\n             Q431 270 384 279\n             Q331 287 302 245Z\"\n          fill=\"#f4f6f2\"/>\n\n    <!-- Wing -->\n    <path d=\"M335 190 Q382 170 426 201 Q405 242 359 249 Q329 246 317 225Z\"\n          fill=\"#d7e1df\"/>\n    <path d=\"M347 209 Q380 222 409 214\" fill=\"none\" stroke=\"#a7b9b8\" stroke-width=\"4\"/>\n\n    <!-- Neck -->\n    <path d=\"M367 153 Q349 117 368 88 Q386 62 418 75\n             Q441 85 441 112 Q441 140 420 160Z\"\n          fill=\"#f4f6f2\"/>\n\n    <!-- Head -->\n    <ellipse cx=\"413\" cy=\"78\" rx=\"43\" ry=\"39\" fill=\"#f4f6f2\"/>\n    <circle cx=\"430\" cy=\"68\" r=\"5\" fill=\"#263746\" stroke=\"none\"/>\n\n    <!-- Pelican beak/pouch -->\n    <path d=\"M390 89 Q345 82 292 98 Q278 103 290 114\n             Q337 146 389 123 Q414 112 420 95Z\"\n          fill=\"#f2a33b\"/>\n    <path d=\"M292 98 Q326 105 388 108\" fill=\"none\" stroke=\"#c87827\" stroke-width=\"3\"/>\n    <path d=\"M290 114 Q331 130 379 119\" fill=\"none\" stroke=\"#d37f2d\" stroke-width=\"3\"/>\n\n    <!-- Tail -->\n    <path d=\"M306 228 Q270 225 244 245 Q274 254 315 251Z\" fill=\"#d7e1df\"/>\n\n    <!-- Pelican legs -->\n    <path d=\"M344 265 L335 326 L314 357\" fill=\"none\" stroke=\"#e39a35\" stroke-width=\"8\"/>\n    <path d=\"M404 267 L395 326 L420 357\" fill=\"none\" stroke=\"#e39a35\" stroke-width=\"8\"/>\n    <path d=\"M314 357 Q326 363 338 357\" fill=\"none\" stroke=\"#e39a35\" stroke-width=\"6\"/>\n    <path d=\"M420 357 Q432 363 444 357\" fill=\"none\" stroke=\"#e39a35\" stroke-width=\"6\"/>\n  </g>\n\n  <!-- Pedaling motion hints -->\n  <path d=\"M255 458 Q365 475 475 458\" fill=\"none\" stroke=\"#79ae68\" stroke-width=\"4\" opacity=\".7\"/>\n  <path d=\"M105 470 q12-18 24 0 M570 470 q12-18 24 0\" fill=\"none\" stroke=\"#79ae68\" stroke-width=\"4\"/>\n\n  <!-- Small decorative clouds -->\n  <g fill=\"#ffffff\" opacity=\".8\">\n    <path d=\"M90 92 q8-23 31-10 q17-25 39 2 q27-7 31 17 H85 q-5-5 5-9Z\"/>\n    <path d=\"M540 125 q7-20 27-9 q16-22 35 3 q24-6 28 15 H535 q-4-5 5-9Z\"/>\n  </g>\n</svg>\n```",
+    "elapsed_seconds": 17.75,
+    "response_id": "resp_08d8c2d5dbc305ca016aa9b086b8a087d08c97768ceee8c016",
+    "usage": {
+      "input_tokens": 17,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 1414,
+      "output_tokens_details": {
+        "reasoning_tokens": 89
+      },
+      "total_tokens": 1431
     },
-    "cost_usd": 0.0335598,
-    "recording_mode": "non-interactive fixture; interactive exercise uses /effort"
+    "recording_mode": "model-only reference conversation; no coding-agent harness or repository context",
+    "status": "completed"
   },
   {
     "key": "effort-high",
     "title": "B: high effort",
-    "recorded_at_utc": "2026-09-14T23:38:46.864748+00:00",
-    "cli_version": "2.1.270",
-    "model_alias": "sonnet",
-    "models": [
-      "claude-haiku-4-5-20251001",
-      "claude-sonnet-5"
-    ],
+    "provider": "OpenAI Responses API",
+    "model": "gpt-5.6-luna",
+    "returned_model": "gpt-5.6-luna",
     "effort": "high",
     "tools_enabled": false,
-    "repository_instructions_loaded": true,
-    "session_id": "cd013382-6695-464f-afa7-b9c324786216",
+    "repository_instructions_loaded": false,
     "resume_from": null,
-    "preamble": null,
-    "sent_message": "I need my car cleaned. The car wash is fifty metres away. Should I walk or drive? Give a recommendation and a one-sentence reason.",
-    "response": "Drive — you need the car at the car wash to have it cleaned, so walking there wouldn't accomplish the task.",
-    "elapsed_seconds": 3.16,
-    "api_duration_ms": 2731,
-    "usage": {
-      "input_tokens": 2,
-      "cache_creation_input_tokens": 7889,
-      "cache_read_input_tokens": 3289,
-      "output_tokens": 39,
-      "output_tokens_details": {
-        "thinking_tokens": 0
-      },
-      "server_tool_use": {
-        "web_search_requests": 0,
-        "web_fetch_requests": 0
-      },
-      "service_tier": "standard",
-      "cache_creation": {
-        "ephemeral_1h_input_tokens": 7889,
-        "ephemeral_5m_input_tokens": 0
-      },
-      "inference_geo": "not_available",
-      "iterations": [
-        {
-          "input_tokens": 2,
-          "output_tokens": 39,
-          "cache_read_input_tokens": 3289,
-          "cache_creation_input_tokens": 7889,
-          "cache_creation": {
-            "ephemeral_5m_input_tokens": 0,
-            "ephemeral_1h_input_tokens": 7889
-          },
-          "type": "message"
-        }
-      ],
-      "speed": "standard"
-    },
-    "model_usage": {
-      "claude-haiku-4-5-20251001": {
-        "inputTokens": 922,
-        "outputTokens": 12,
-        "cacheReadInputTokens": 0,
-        "cacheCreationInputTokens": 0,
-        "webSearchRequests": 0,
-        "costUSD": 0.000982,
-        "contextWindow": 200000,
-        "maxOutputTokens": 32000,
-        "thinkingTokens": 0,
-        "canonicalModel": "claude-haiku-4-5",
-        "provider": "firstParty",
-        "costBasis": "list"
-      },
-      "claude-sonnet-5": {
-        "inputTokens": 2,
-        "outputTokens": 39,
-        "cacheReadInputTokens": 3289,
-        "cacheCreationInputTokens": 7889,
-        "webSearchRequests": 0,
-        "costUSD": 0.0326078,
-        "contextWindow": 1000000,
-        "maxOutputTokens": 64000,
-        "thinkingTokens": 0,
-        "canonicalModel": "claude-sonnet-5",
-        "provider": "firstParty",
-        "costBasis": "list"
+    "messages": [
+      {
+        "role": "user",
+        "content": "Generate an SVG of a pelican riding a bicycle."
       }
+    ],
+    "sent_message": "Generate an SVG of a pelican riding a bicycle.",
+    "response": "```svg\n<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 800 600\" width=\"800\" height=\"600\">\n  <title>Pelican Riding a Bicycle</title>\n  <desc>A cheerful pelican rides a blue bicycle beneath a sunny sky.</desc>\n\n  <defs>\n    <linearGradient id=\"sky\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\">\n      <stop offset=\"0\" stop-color=\"#b9e8ff\"/>\n      <stop offset=\"1\" stop-color=\"#f4fcff\"/>\n    </linearGradient>\n    <linearGradient id=\"feather\" x1=\"0\" y1=\"0\" x2=\"1\" y2=\"1\">\n      <stop offset=\"0\" stop-color=\"#ffffff\"/>\n      <stop offset=\"1\" stop-color=\"#dce7ec\"/>\n    </linearGradient>\n    <linearGradient id=\"wing\" x1=\"0\" y1=\"0\" x2=\"1\" y2=\"1\">\n      <stop offset=\"0\" stop-color=\"#7898aa\"/>\n      <stop offset=\"1\" stop-color=\"#456979\"/>\n    </linearGradient>\n    <linearGradient id=\"frame\" x1=\"0\" y1=\"0\" x2=\"1\" y2=\"1\">\n      <stop offset=\"0\" stop-color=\"#ef5b63\"/>\n      <stop offset=\"1\" stop-color=\"#b72f48\"/>\n    </linearGradient>\n  </defs>\n\n  <!-- Sky -->\n  <rect width=\"800\" height=\"600\" fill=\"url(#sky)\"/>\n  <circle cx=\" ninety\" cy=\" ninety\" r=\"42\" fill=\"#ffd85a\"/>\n  <g fill=\"#ffffff\" opacity=\".8\">\n    <path d=\"M100 180c12-25 48-28 65-5 8-8 20-13 33-13 25 0 44 17 47 39H85c1-10 6-16 15-21z\"/>\n    <path d=\"M610 120c10-21 40-25 55-5 7-7 17-11 28-11 21 0 37 15 39 33H598c1-7 5-13 12-17z\"/>\n  </g>\n\n  <!-- Ground -->\n  <path d=\"M70 550H730\" stroke=\"#8abf80\" stroke-width=\"8\" stroke-linecap=\"round\"/>\n  <path d=\"M120 550c20-18 40-18 60 0M640 550c20-18 40-18 60 0\"\n        fill=\"none\" stroke=\"#72ad6e\" stroke-width=\"5\"/>\n\n  <!-- Bicycle -->\n  <g stroke=\"#263f52\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n    <!-- Wheels -->\n    <g fill=\"none\" stroke-width=\"7\">\n      <circle cx=\"235\" cy=\"450\" r=\"98\" fill=\"#f8fcff\"/>\n      <circle cx=\"570\" cy=\"450\" r=\"98\" fill=\"#f8fcff\"/>\n    </g>\n\n    <!-- Spokes -->\n    <g stroke=\"#9ab0ba\" stroke-width=\"3\">\n      <path d=\"M235 352V548M137 450H333M166 381l138 138M166 519l138-138\"/>\n      <path d=\"M570 352V548M472 450H668M501 381l138 138M501 519l138-138\"/>\n    </g>\n\n    <!-- Frame -->\n    <g fill=\"none\" stroke=\"url(#frame)\" stroke-width=\"10\">\n      <path d=\"M235 450L344 326L430 450L235 450Z\"/>\n      <path d=\"M344 326L570 450\"/>\n      <path d=\"M430 450L570 450\"/>\n      <path d=\"M570 450L541 300\"/>\n    </g>\n\n    <!-- Fork and handlebar -->\n    <path d=\"M541 300l-13-18\" fill=\"none\" stroke=\"#263f52\" stroke-width=\"8\"/>\n    <path d=\"M527 282c13-13 32-15 48-5l15 9\" fill=\"none\" stroke=\"#263f52\" stroke-width=\"8\"/>\n    <path d=\"M590 286l-3 12\" fill=\"none\" stroke=\"#263f52\" stroke-width=\"8\"/>\n\n    <!-- Seat -->\n    <path d=\"M327 313h45\" stroke=\"#263f52\" stroke-width=\"9\"/>\n    <path d=\"M337 313l7 20\" fill=\"none\" stroke=\"#263f52\" stroke-width=\"6\"/>\n    <path d=\"M319 306c4-10 13-14 25-14h28c7 0 11 5 9 10l-4 8h-58z\"\n          fill=\"#4d7080\" stroke=\"#263f52\" stroke-width=\"5\"/>\n\n    <!-- Crank and pedals -->\n    <circle cx=\"430\" cy=\"450\" r=\"17\" fill=\"#ffd55c\" stroke=\"#263f52\" stroke-width=\"5\"/>\n    <path d=\"M430 450l42-25M430 450l-38 24\" fill=\"none\" stroke=\"#263f52\" stroke-width=\"6\"/>\n    <path d=\"M466 422h22M381 474h22\" fill=\"none\" stroke=\"#263f52\" stroke-width=\"6\"/>\n  </g>\n\n  <!-- Pelican -->\n  <g stroke=\"#3d5661\" stroke-width=\"5\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n    <!-- Tail -->\n    <path d=\"M318 287l-72 30 57 27 47-38z\" fill=\"#b8cbd2\"/>\n\n    <!-- Body -->\n    <ellipse cx=\"390\" cy=\"247\" rx=\"105\" ry=\"130\" fill=\"url(#feather)\"/>\n    <path d=\"M330 300c27 32 79 46 126 13\" fill=\"none\" stroke=\"#c1d1d6\" stroke-width=\"8\"/>\n\n    <!-- Legs -->\n    <g fill=\"none\" stroke=\"#e59435\" stroke-width=\"12\">\n      <path d=\"M370 335c4 28 5 51 16 69l44 46\"/>\n      <path d=\"M429 337c-3 27 8 48 25 67l-25 47\"/>\n    </g>\n    <g fill=\"#e59435\" stroke=\"#a9612e\" stroke-width=\"4\">\n      <path d=\"M427 447c9-2 19 1 28 8l18 3c5 1 6 8 0 10l-29 1c-10-3-17-10-17-22z\"/>\n      <path d=\"M429 449c-10 1-20 6-26 15l-17 8c-5 2-4 9 2 10l29-7c9-5 14-14 12-26z\"/>\n    </g>\n\n    <!-- Folded wing -->\n    <path d=\"M395 196c47 3 91 27 94 70 3 39-26 71-73 76-27 3-49-10-57-31 34-10 54-31 61-58-17-16-27-35-25-57z\"\n          fill=\"url(#wing)\"/>\n    <path d=\"M387 278c23 13 52 14 82 3M379 298c26 13 52 14 76 7\"\n          fill=\"none\" stroke=\"#9db4bf\" stroke-width=\"5\"/>\n\n    <!-- Neck and head -->\n    <path d=\"M366 180c-9-33 5-83 47-91 42-8 72 21 73 62 1 36-23 59-57 66z\"\n          fill=\"url(#feather)\"/>\n    <circle cx=\"420\" cy=\"119\" r=\"59\" fill=\"url(#feather)\"/>\n\n    <!-- Small crest -->\n    <path d=\"M378 70l-9-27 25 16 8-28 15 25 19-21 2 30\"\n          fill=\"#dce7ec\"/>\n\n    <!-- Beak -->\n    <path d=\"M461 113c48-12 105-3 150 18-35 17-88 27-145 16z\"\n          fill=\"#f6b83f\"/>\n    <path d=\"M465 146c47 8 94 4 137-15-18 39-66 62-112 48-18-6-30-17-35-33z\"\n          fill=\"#ed8840\"/>\n    <path d=\"M477 145c35 4 71 1 105-9\" fill=\"none\" stroke=\"#c76535\" stroke-width=\"4\"/>\n\n    <!-- Eye -->\n    <circle cx=\"438\" cy=\"106\" r=\"12\" fill=\"#ffffff\"/>\n    <circle cx=\"441\" cy=\"108\" r=\"6\" fill=\"#26343d\" stroke=\"none\"/>\n    <circle cx=\"444\" cy=\"105\" r=\"2.5\" fill=\"#ffffff\" stroke=\"none\"/>\n\n    <!-- Wing reaching toward handlebar -->\n    <path d=\"M458 202c29 8 54 27 66 52l21 43c4 9-2 17-11 13-24-11-44-36-56-61-11-22-24-34-38-39z\"\n          fill=\"url(#wing)\"/>\n    <path d=\"M533 302c5 5 9 8 15 8\" fill=\"none\" stroke=\"#7898aa\" stroke-width=\"8\"/>\n  </g>\n\n  <!-- Motion marks -->\n  <g fill=\"none\" stroke=\"#6aa6bd\" stroke-width=\"6\" stroke-linecap=\"round\" opacity=\".7\">\n    <path d=\"M104 382h52\"/>\n    <path d=\"M83 405h38\"/>\n    <path d=\"M663 350h43\"/>\n  </g>\n</svg>\n```",
+    "elapsed_seconds": 34.99,
+    "response_id": "resp_0d338ac1b2ae4a58016aa9b085373c87d08c70043b332d382a",
+    "usage": {
+      "input_tokens": 17,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 3519,
+      "output_tokens_details": {
+        "reasoning_tokens": 1253
+      },
+      "total_tokens": 3536
     },
-    "cost_usd": 0.033589799999999996,
-    "recording_mode": "non-interactive fixture; interactive exercise uses /effort"
+    "recording_mode": "model-only reference conversation; no coding-agent harness or repository context",
+    "status": "completed"
   },
   {
     "key": "format-a",
     "title": "A: loose format",
-    "recorded_at_utc": "2026-09-14T23:30:57.085254+00:00",
-    "cli_version": "2.1.270",
-    "model_alias": "sonnet",
-    "models": [
-      "claude-haiku-4-5-20251001",
-      "claude-sonnet-5"
-    ],
-    "effort": "medium",
+    "recorded_at_utc": "2026-09-15T20:42:58.995273+00:00",
+    "provider": "OpenAI Responses API",
+    "model": "gpt-5.6-luna",
+    "returned_model": "gpt-5.6-luna",
+    "effort": "low",
     "tools_enabled": false,
-    "repository_instructions_loaded": true,
-    "session_id": "2ae1b067-f6cb-40d7-b648-fcbc85413eb4",
+    "repository_instructions_loaded": false,
     "resume_from": null,
-    "preamble": null,
-    "sent_message": "Summarise the product described below as a product brief.\n\nDeskmate answers internal IT questions using the knowledge base and the requester’s own ticket history. Priya is a backend engineer who needs help reaching staging through the VPN. Marcus is the helpdesk lead who wants fewer repeat questions and an auditable log. Deskmate opens a ticket when it cannot answer. It never resets anything without confirmation, touches unverified entitlements, or repeats another user’s ticket text.",
-    "response": "**Product Brief: Deskmate**\n\n**One-liner:** An internal IT support assistant that answers employee questions using the knowledge base plus the requester's own ticket history, escalating to a human ticket when it can't help.\n\n**Personas:**\n- **Priya (backend engineer)** — needs quick, accurate answers to technical questions, e.g., VPN access to staging.\n- **Marcus (helpdesk lead)** — wants fewer repeat/duplicate questions reaching the team and a fully auditable log of what Deskmate said and did.\n\n**Core behavior:**\n- Answers questions by combining the knowledge base with the requester's own ticket history (personalized, context-aware support).\n- Opens a ticket automatically when it cannot answer a question, ensuring nothing falls through the cracks.\n\n**Guardrails (things it explicitly will not do):**\n- Never resets anything (accounts, passwords, access, etc.) without explicit user confirmation.\n- Never touches entitlements that haven't been verified.\n- Never repeats or exposes another user's ticket text — keeps requester data siloed.\n\n**Why it matters:** Reduces repeat tickets and support load (Marcus's goal) while giving engineers like Priya fast self-service answers, without compromising on safety (no silent destructive actions) or privacy (no cross-user data leakage) — and leaves an audit trail for accountability.",
-    "elapsed_seconds": 13.22,
-    "usage": {
-      "input_tokens": 2,
-      "cache_creation_input_tokens": 2873,
-      "cache_read_input_tokens": 8415,
-      "output_tokens": 900,
-      "output_tokens_details": {
-        "thinking_tokens": 441
-      },
-      "server_tool_use": {
-        "web_search_requests": 0,
-        "web_fetch_requests": 0
-      },
-      "service_tier": "standard",
-      "cache_creation": {
-        "ephemeral_1h_input_tokens": 2873,
-        "ephemeral_5m_input_tokens": 0
-      },
-      "inference_geo": "not_available",
-      "iterations": [
-        {
-          "input_tokens": 2,
-          "output_tokens": 900,
-          "cache_read_input_tokens": 8415,
-          "cache_creation_input_tokens": 2873,
-          "cache_creation": {
-            "ephemeral_5m_input_tokens": 0,
-            "ephemeral_1h_input_tokens": 2873
-          },
-          "type": "message"
-        }
-      ],
-      "speed": "standard"
-    },
-    "model_usage": {
-      "claude-haiku-4-5-20251001": {
-        "inputTokens": 998,
-        "outputTokens": 14,
-        "cacheReadInputTokens": 0,
-        "cacheCreationInputTokens": 0,
-        "webSearchRequests": 0,
-        "costUSD": 0.001068,
-        "contextWindow": 200000,
-        "maxOutputTokens": 32000,
-        "thinkingTokens": 0,
-        "canonicalModel": "claude-haiku-4-5",
-        "provider": "firstParty",
-        "costBasis": "list"
-      },
-      "claude-sonnet-5": {
-        "inputTokens": 2,
-        "outputTokens": 900,
-        "cacheReadInputTokens": 8415,
-        "cacheCreationInputTokens": 2873,
-        "webSearchRequests": 0,
-        "costUSD": 0.022179,
-        "contextWindow": 1000000,
-        "maxOutputTokens": 64000,
-        "thinkingTokens": 441,
-        "canonicalModel": "claude-sonnet-5",
-        "provider": "firstParty",
-        "costBasis": "list"
+    "messages": [
+      {
+        "role": "user",
+        "content": "Summarise the product described below as a product brief.\n\nDeskmate answers internal IT questions using the knowledge base and the requester’s own ticket history. Priya is a backend engineer who needs help reaching staging through the VPN. Marcus is the helpdesk lead who wants fewer repeat questions and an auditable log. Deskmate opens a ticket when it cannot answer. It never resets anything without confirmation, touches unverified entitlements, or repeats another user’s ticket text."
       }
+    ],
+    "sent_message": "Summarise the product described below as a product brief.\n\nDeskmate answers internal IT questions using the knowledge base and the requester’s own ticket history. Priya is a backend engineer who needs help reaching staging through the VPN. Marcus is the helpdesk lead who wants fewer repeat questions and an auditable log. Deskmate opens a ticket when it cannot answer. It never resets anything without confirmation, touches unverified entitlements, or repeats another user’s ticket text.",
+    "response": "# Deskmate — Product Brief\n\n## Overview\nDeskmate is an internal IT support assistant that answers employee questions using the company knowledge base and the requester’s own ticket history. When it cannot provide a reliable answer, it opens a support ticket for human follow-up.\n\n## Target Users\n- **Employees:** Get fast, personalized answers to common IT questions.\n- **Helpdesk leads:** Reduce repeat questions while maintaining an auditable record of support interactions.\n\n## Example Use Case\nPriya, a backend engineer, asks how to reach the staging environment through the VPN. Deskmate uses approved knowledge-base content and Priya’s relevant ticket history to provide contextual guidance.\n\n## Core Capabilities\n- Answers internal IT questions from the knowledge base.\n- Personalizes responses using the requester’s own historical tickets.\n- Creates a ticket when it cannot confidently answer.\n- Maintains an auditable support trail for helpdesk oversight.\n- Reduces repetitive questions and improves self-service resolution.\n\n## Safety and Privacy Guardrails\nDeskmate:\n- Never resets accounts, credentials, or settings without explicit confirmation.\n- Never acts on unverified access rights or entitlements.\n- Never exposes or repeats another user’s ticket content.\n- Escalates uncertain cases rather than guessing or taking unauthorized action.\n\n## Value Proposition\nDeskmate provides faster, safer IT self-service for employees while helping helpdesk teams reduce workload, preserve accountability, and route unresolved issues efficiently.",
+    "elapsed_seconds": 3.61,
+    "response_id": "resp_0741943d2ebbdd18016aa9add316f887d084d74630a8d8dd6c",
+    "usage": {
+      "input_tokens": 101,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 327,
+      "output_tokens_details": {
+        "reasoning_tokens": 31
+      },
+      "total_tokens": 428
     },
-    "cost_usd": 0.023247
+    "recording_mode": "model-only reference conversation; no coding-agent harness or repository context"
   },
   {
     "key": "format-b",
     "title": "B: explicit fields",
-    "recorded_at_utc": "2026-09-14T23:31:10.302818+00:00",
-    "cli_version": "2.1.270",
-    "model_alias": "sonnet",
-    "models": [
-      "claude-haiku-4-5-20251001",
-      "claude-sonnet-5"
-    ],
-    "effort": "medium",
+    "recorded_at_utc": "2026-09-15T20:43:02.608205+00:00",
+    "provider": "OpenAI Responses API",
+    "model": "gpt-5.6-luna",
+    "returned_model": "gpt-5.6-luna",
+    "effort": "low",
     "tools_enabled": false,
-    "repository_instructions_loaded": true,
-    "session_id": "36587bca-055a-4ad7-b026-68ccc643cd69",
+    "repository_instructions_loaded": false,
     "resume_from": null,
-    "preamble": null,
-    "sent_message": "Extract a product brief from the text below. Return only one JSON object with exactly these fields, without Markdown fences or introductory prose:\nproduct_name: a string\nusers: a list of names in the text\nmust_do: a list of stated responsibilities\nmust_not_do: a list of stated restrictions\n\nDo not invent details. Use an empty list for missing list information.\n\nDeskmate answers internal IT questions using the knowledge base and the requester’s own ticket history. Priya is a backend engineer who needs help reaching staging through the VPN. Marcus is the helpdesk lead who wants fewer repeat questions and an auditable log. Deskmate opens a ticket when it cannot answer. It never resets anything without confirmation, touches unverified entitlements, or repeats another user’s ticket text.",
-    "response": "```json\n{\n  \"product_name\": \"Deskmate\",\n  \"users\": [\"Priya\", \"Marcus\"],\n  \"must_do\": [\n    \"Answer internal IT questions using the knowledge base and the requester's own ticket history\",\n    \"Open a ticket when it cannot answer\"\n  ],\n  \"must_not_do\": [\n    \"Reset anything without confirmation\",\n    \"Touch unverified entitlements\",\n    \"Repeat another user's ticket text\"\n  ]\n}\n```",
-    "elapsed_seconds": 3.41,
-    "usage": {
-      "input_tokens": 2,
-      "cache_creation_input_tokens": 2969,
-      "cache_read_input_tokens": 8415,
-      "output_tokens": 158,
-      "output_tokens_details": {
-        "thinking_tokens": 0
-      },
-      "server_tool_use": {
-        "web_search_requests": 0,
-        "web_fetch_requests": 0
-      },
-      "service_tier": "standard",
-      "cache_creation": {
-        "ephemeral_1h_input_tokens": 2969,
-        "ephemeral_5m_input_tokens": 0
-      },
-      "inference_geo": "not_available",
-      "iterations": [
-        {
-          "input_tokens": 2,
-          "output_tokens": 158,
-          "cache_read_input_tokens": 8415,
-          "cache_creation_input_tokens": 2969,
-          "cache_creation": {
-            "ephemeral_5m_input_tokens": 0,
-            "ephemeral_1h_input_tokens": 2969
-          },
-          "type": "message"
-        }
-      ],
-      "speed": "standard"
-    },
-    "model_usage": {
-      "claude-haiku-4-5-20251001": {
-        "inputTokens": 1071,
-        "outputTokens": 14,
-        "cacheReadInputTokens": 0,
-        "cacheCreationInputTokens": 0,
-        "webSearchRequests": 0,
-        "costUSD": 0.0011409999999999999,
-        "contextWindow": 200000,
-        "maxOutputTokens": 32000,
-        "thinkingTokens": 0,
-        "canonicalModel": "claude-haiku-4-5",
-        "provider": "firstParty",
-        "costBasis": "list"
-      },
-      "claude-sonnet-5": {
-        "inputTokens": 2,
-        "outputTokens": 158,
-        "cacheReadInputTokens": 8415,
-        "cacheCreationInputTokens": 2969,
-        "webSearchRequests": 0,
-        "costUSD": 0.015143,
-        "contextWindow": 1000000,
-        "maxOutputTokens": 64000,
-        "thinkingTokens": 0,
-        "canonicalModel": "claude-sonnet-5",
-        "provider": "firstParty",
-        "costBasis": "list"
+    "messages": [
+      {
+        "role": "user",
+        "content": "Extract a product brief from the text below. Return only one JSON object with exactly these fields, without Markdown fences or introductory prose:\nproduct_name: a string\nusers: a list of names in the text\nmust_do: a list of stated responsibilities\nmust_not_do: a list of stated restrictions\n\nDo not invent details. Use an empty list for missing list information.\n\nDeskmate answers internal IT questions using the knowledge base and the requester’s own ticket history. Priya is a backend engineer who needs help reaching staging through the VPN. Marcus is the helpdesk lead who wants fewer repeat questions and an auditable log. Deskmate opens a ticket when it cannot answer. It never resets anything without confirmation, touches unverified entitlements, or repeats another user’s ticket text."
       }
+    ],
+    "sent_message": "Extract a product brief from the text below. Return only one JSON object with exactly these fields, without Markdown fences or introductory prose:\nproduct_name: a string\nusers: a list of names in the text\nmust_do: a list of stated responsibilities\nmust_not_do: a list of stated restrictions\n\nDo not invent details. Use an empty list for missing list information.\n\nDeskmate answers internal IT questions using the knowledge base and the requester’s own ticket history. Priya is a backend engineer who needs help reaching staging through the VPN. Marcus is the helpdesk lead who wants fewer repeat questions and an auditable log. Deskmate opens a ticket when it cannot answer. It never resets anything without confirmation, touches unverified entitlements, or repeats another user’s ticket text.",
+    "response": "{\"product_name\":\"Deskmate\",\"users\":[\"Priya\",\"Marcus\"],\"must_do\":[\"Answer internal IT questions using the knowledge base and the requester’s own ticket history\",\"Open a ticket when it cannot answer\"],\"must_not_do\":[\"Reset anything without confirmation\",\"Touch unverified entitlements\",\"Repeat another user’s ticket text\"]}",
+    "elapsed_seconds": 2.33,
+    "response_id": "resp_08ea4bf6b644d57d016aa9add6b44087d0ba4c030310c99092",
+    "usage": {
+      "input_tokens": 164,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 182,
+      "output_tokens_details": {
+        "reasoning_tokens": 109
+      },
+      "total_tokens": 346
     },
-    "cost_usd": 0.016284
+    "recording_mode": "model-only reference conversation; no coding-agent harness or repository context"
   },
   {
     "key": "context-a",
     "title": "A: missing context",
-    "recorded_at_utc": "2026-09-14T23:31:13.713608+00:00",
-    "cli_version": "2.1.270",
-    "model_alias": "sonnet",
-    "models": [
-      "claude-haiku-4-5-20251001",
-      "claude-sonnet-5"
-    ],
-    "effort": "medium",
+    "recorded_at_utc": "2026-09-15T20:43:04.945458+00:00",
+    "provider": "OpenAI Responses API",
+    "model": "gpt-5.6-luna",
+    "returned_model": "gpt-5.6-luna",
+    "effort": "low",
     "tools_enabled": false,
-    "repository_instructions_loaded": true,
-    "session_id": "5a2f366c-07e9-4558-a570-b3f8153be6a1",
+    "repository_instructions_loaded": false,
     "resume_from": null,
-    "preamble": null,
-    "sent_message": "Who are the two named users of Deskmate, and what does the product refuse to do? Answer only from information supplied in this conversation. If it is missing, say so.",
-    "response": "That information isn't present in this conversation—no mention of \"Deskmate\" appears anywhere in the context I've been given.",
-    "elapsed_seconds": 3.31,
-    "usage": {
-      "input_tokens": 2,
-      "cache_creation_input_tokens": 2765,
-      "cache_read_input_tokens": 8415,
-      "output_tokens": 39,
-      "output_tokens_details": {
-        "thinking_tokens": 0
-      },
-      "server_tool_use": {
-        "web_search_requests": 0,
-        "web_fetch_requests": 0
-      },
-      "service_tier": "standard",
-      "cache_creation": {
-        "ephemeral_1h_input_tokens": 2765,
-        "ephemeral_5m_input_tokens": 0
-      },
-      "inference_geo": "not_available",
-      "iterations": [
-        {
-          "input_tokens": 2,
-          "output_tokens": 39,
-          "cache_read_input_tokens": 8415,
-          "cache_creation_input_tokens": 2765,
-          "cache_creation": {
-            "ephemeral_5m_input_tokens": 0,
-            "ephemeral_1h_input_tokens": 2765
-          },
-          "type": "message"
-        }
-      ],
-      "speed": "standard"
-    },
-    "model_usage": {
-      "claude-haiku-4-5-20251001": {
-        "inputTokens": 930,
-        "outputTokens": 15,
-        "cacheReadInputTokens": 0,
-        "cacheCreationInputTokens": 0,
-        "webSearchRequests": 0,
-        "costUSD": 0.001005,
-        "contextWindow": 200000,
-        "maxOutputTokens": 32000,
-        "thinkingTokens": 0,
-        "canonicalModel": "claude-haiku-4-5",
-        "provider": "firstParty",
-        "costBasis": "list"
-      },
-      "claude-sonnet-5": {
-        "inputTokens": 2,
-        "outputTokens": 39,
-        "cacheReadInputTokens": 8415,
-        "cacheCreationInputTokens": 2765,
-        "webSearchRequests": 0,
-        "costUSD": 0.013137000000000001,
-        "contextWindow": 1000000,
-        "maxOutputTokens": 64000,
-        "thinkingTokens": 0,
-        "canonicalModel": "claude-sonnet-5",
-        "provider": "firstParty",
-        "costBasis": "list"
+    "messages": [
+      {
+        "role": "user",
+        "content": "Who are the two named users of Deskmate, and what does the product refuse to do? Answer only from information supplied in this conversation. If it is missing, say so."
       }
+    ],
+    "sent_message": "Who are the two named users of Deskmate, and what does the product refuse to do? Answer only from information supplied in this conversation. If it is missing, say so.",
+    "response": "The conversation does not supply the names of Deskmate’s two users or state what the product refuses to do.",
+    "elapsed_seconds": 2.18,
+    "response_id": "resp_0b7de6e223781e65016aa9add9205887d096d71d75625e43fb",
+    "usage": {
+      "input_tokens": 43,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 27,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 70
     },
-    "cost_usd": 0.014142000000000002
+    "recording_mode": "model-only reference conversation; no coding-agent harness or repository context"
   },
   {
     "key": "context-b",
     "title": "B: supplied context",
-    "recorded_at_utc": "2026-09-14T23:31:17.019557+00:00",
-    "cli_version": "2.1.270",
-    "model_alias": "sonnet",
-    "models": [
-      "claude-haiku-4-5-20251001",
-      "claude-sonnet-5"
-    ],
-    "effort": "medium",
+    "recorded_at_utc": "2026-09-15T20:43:07.130294+00:00",
+    "provider": "OpenAI Responses API",
+    "model": "gpt-5.6-luna",
+    "returned_model": "gpt-5.6-luna",
+    "effort": "low",
     "tools_enabled": false,
-    "repository_instructions_loaded": true,
-    "session_id": "f4a15fa3-0683-4cd4-be4e-7b46f60e1390",
+    "repository_instructions_loaded": false,
     "resume_from": null,
-    "preamble": null,
-    "sent_message": "Who are the two named users of Deskmate, and what does the product refuse to do? Answer only from the text below. If it is missing, say so.\n\nDeskmate answers internal IT questions using the knowledge base and the requester’s own ticket history. Priya is a backend engineer who needs help reaching staging through the VPN. Marcus is the helpdesk lead who wants fewer repeat questions and an auditable log. Deskmate opens a ticket when it cannot answer. It never resets anything without confirmation, touches unverified entitlements, or repeats another user’s ticket text.",
-    "response": "The two named users are Priya (backend engineer needing VPN access to staging) and Marcus (helpdesk lead wanting fewer repeat questions and an auditable log).\n\nDeskmate refuses to: reset anything without confirmation, touch unverified entitlements, or repeat another user's ticket text.",
-    "elapsed_seconds": 2.91,
-    "usage": {
-      "input_tokens": 2,
-      "cache_creation_input_tokens": 2902,
-      "cache_read_input_tokens": 8415,
-      "output_tokens": 100,
-      "output_tokens_details": {
-        "thinking_tokens": 0
-      },
-      "server_tool_use": {
-        "web_search_requests": 0,
-        "web_fetch_requests": 0
-      },
-      "service_tier": "standard",
-      "cache_creation": {
-        "ephemeral_1h_input_tokens": 2902,
-        "ephemeral_5m_input_tokens": 0
-      },
-      "inference_geo": "not_available",
-      "iterations": [
-        {
-          "input_tokens": 2,
-          "output_tokens": 100,
-          "cache_read_input_tokens": 8415,
-          "cache_creation_input_tokens": 2902,
-          "cache_creation": {
-            "ephemeral_5m_input_tokens": 0,
-            "ephemeral_1h_input_tokens": 2902
-          },
-          "type": "message"
-        }
-      ],
-      "speed": "standard"
-    },
-    "model_usage": {
-      "claude-haiku-4-5-20251001": {
-        "inputTokens": 1022,
-        "outputTokens": 14,
-        "cacheReadInputTokens": 0,
-        "cacheCreationInputTokens": 0,
-        "webSearchRequests": 0,
-        "costUSD": 0.0010919999999999999,
-        "contextWindow": 200000,
-        "maxOutputTokens": 32000,
-        "thinkingTokens": 0,
-        "canonicalModel": "claude-haiku-4-5",
-        "provider": "firstParty",
-        "costBasis": "list"
-      },
-      "claude-sonnet-5": {
-        "inputTokens": 2,
-        "outputTokens": 100,
-        "cacheReadInputTokens": 8415,
-        "cacheCreationInputTokens": 2902,
-        "webSearchRequests": 0,
-        "costUSD": 0.014295,
-        "contextWindow": 1000000,
-        "maxOutputTokens": 64000,
-        "thinkingTokens": 0,
-        "canonicalModel": "claude-sonnet-5",
-        "provider": "firstParty",
-        "costBasis": "list"
+    "messages": [
+      {
+        "role": "user",
+        "content": "Who are the two named users of Deskmate, and what does the product refuse to do? Answer only from the text below. If it is missing, say so.\n\nDeskmate answers internal IT questions using the knowledge base and the requester’s own ticket history. Priya is a backend engineer who needs help reaching staging through the VPN. Marcus is the helpdesk lead who wants fewer repeat questions and an auditable log. Deskmate opens a ticket when it cannot answer. It never resets anything without confirmation, touches unverified entitlements, or repeats another user’s ticket text."
       }
+    ],
+    "sent_message": "Who are the two named users of Deskmate, and what does the product refuse to do? Answer only from the text below. If it is missing, say so.\n\nDeskmate answers internal IT questions using the knowledge base and the requester’s own ticket history. Priya is a backend engineer who needs help reaching staging through the VPN. Marcus is the helpdesk lead who wants fewer repeat questions and an auditable log. Deskmate opens a ticket when it cannot answer. It never resets anything without confirmation, touches unverified entitlements, or repeats another user’s ticket text.",
+    "response": "The two named users are Priya and Marcus. Deskmate refuses to reset anything without confirmation, touch unverified entitlements, or repeat another user’s ticket text.",
+    "elapsed_seconds": 2.08,
+    "response_id": "resp_02df35ddca9e48c8016aa9addb8cb887d09580c4c65f305317",
+    "usage": {
+      "input_tokens": 124,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 38,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 162
     },
-    "cost_usd": 0.015387
+    "recording_mode": "model-only reference conversation; no coding-agent harness or repository context"
   },
   {
     "key": "refine-a",
     "title": "Turn 1: draft",
-    "recorded_at_utc": "2026-09-14T23:31:19.926933+00:00",
-    "cli_version": "2.1.270",
-    "model_alias": "sonnet",
-    "models": [
-      "claude-haiku-4-5-20251001",
-      "claude-sonnet-5"
-    ],
-    "effort": "medium",
+    "recorded_at_utc": "2026-09-15T20:43:09.214026+00:00",
+    "provider": "OpenAI Responses API",
+    "model": "gpt-5.6-luna",
+    "returned_model": "gpt-5.6-luna",
+    "effort": "low",
     "tools_enabled": false,
-    "repository_instructions_loaded": true,
-    "session_id": "e258bd88-5167-4942-88ea-68495b155ade",
+    "repository_instructions_loaded": false,
     "resume_from": null,
-    "preamble": null,
-    "sent_message": "Write a short introduction that tells Priya what Deskmate can help with. Use only the text below.\n\nDeskmate answers internal IT questions using the knowledge base and the requester’s own ticket history. Priya is a backend engineer who needs help reaching staging through the VPN. Marcus is the helpdesk lead who wants fewer repeat questions and an auditable log. Deskmate opens a ticket when it cannot answer. It never resets anything without confirmation, touches unverified entitlements, or repeats another user’s ticket text.",
-    "response": "Hi Priya,\n\nDeskmate answers internal IT questions using the knowledge base and your own ticket history — for example, help reaching staging through the VPN. If it can't answer, it opens a ticket for you rather than guessing. It won't reset anything without your confirmation, won't touch entitlements it can't verify, and won't reuse another user's ticket text. For Marcus and the helpdesk team, this also means fewer repeat questions and an auditable log of what was asked and answered.",
-    "elapsed_seconds": 7.53,
-    "usage": {
-      "input_tokens": 2,
-      "cache_creation_input_tokens": 2889,
-      "cache_read_input_tokens": 8415,
-      "output_tokens": 158,
-      "output_tokens_details": {
-        "thinking_tokens": 0
-      },
-      "server_tool_use": {
-        "web_search_requests": 0,
-        "web_fetch_requests": 0
-      },
-      "service_tier": "standard",
-      "cache_creation": {
-        "ephemeral_1h_input_tokens": 2889,
-        "ephemeral_5m_input_tokens": 0
-      },
-      "inference_geo": "not_available",
-      "iterations": [
-        {
-          "input_tokens": 2,
-          "output_tokens": 158,
-          "cache_read_input_tokens": 8415,
-          "cache_creation_input_tokens": 2889,
-          "cache_creation": {
-            "ephemeral_5m_input_tokens": 0,
-            "ephemeral_1h_input_tokens": 2889
-          },
-          "type": "message"
-        }
-      ],
-      "speed": "standard"
-    },
-    "model_usage": {
-      "claude-haiku-4-5-20251001": {
-        "inputTokens": 1010,
-        "outputTokens": 17,
-        "cacheReadInputTokens": 0,
-        "cacheCreationInputTokens": 0,
-        "webSearchRequests": 0,
-        "costUSD": 0.001095,
-        "contextWindow": 200000,
-        "maxOutputTokens": 32000,
-        "thinkingTokens": 0,
-        "canonicalModel": "claude-haiku-4-5",
-        "provider": "firstParty",
-        "costBasis": "list"
-      },
-      "claude-sonnet-5": {
-        "inputTokens": 2,
-        "outputTokens": 158,
-        "cacheReadInputTokens": 8415,
-        "cacheCreationInputTokens": 2889,
-        "webSearchRequests": 0,
-        "costUSD": 0.014823,
-        "contextWindow": 1000000,
-        "maxOutputTokens": 64000,
-        "thinkingTokens": 0,
-        "canonicalModel": "claude-sonnet-5",
-        "provider": "firstParty",
-        "costBasis": "list"
+    "messages": [
+      {
+        "role": "user",
+        "content": "Write a short introduction that tells Priya what Deskmate can help with. Use only the text below.\n\nDeskmate answers internal IT questions using the knowledge base and the requester’s own ticket history. Priya is a backend engineer who needs help reaching staging through the VPN. Marcus is the helpdesk lead who wants fewer repeat questions and an auditable log. Deskmate opens a ticket when it cannot answer. It never resets anything without confirmation, touches unverified entitlements, or repeats another user’s ticket text."
       }
+    ],
+    "sent_message": "Write a short introduction that tells Priya what Deskmate can help with. Use only the text below.\n\nDeskmate answers internal IT questions using the knowledge base and the requester’s own ticket history. Priya is a backend engineer who needs help reaching staging through the VPN. Marcus is the helpdesk lead who wants fewer repeat questions and an auditable log. Deskmate opens a ticket when it cannot answer. It never resets anything without confirmation, touches unverified entitlements, or repeats another user’s ticket text.",
+    "response": "Priya, Deskmate can help answer your internal IT questions using the knowledge base and your own ticket history, including help reaching staging through the VPN. If it cannot answer, it opens a ticket. It never resets anything without confirmation, touches unverified entitlements, or repeats another user’s ticket text.",
+    "elapsed_seconds": 1.71,
+    "response_id": "resp_02bdb98c94d6ae71016aa9addd53bc87d0b8aa8af18d28fb9c",
+    "usage": {
+      "input_tokens": 111,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 66,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 177
     },
-    "cost_usd": 0.015917999999999998
+    "recording_mode": "model-only reference conversation; no coding-agent harness or repository context"
   },
   {
     "key": "refine-b",
     "title": "Turn 2: add criteria and revise",
-    "recorded_at_utc": "2026-09-14T23:31:27.454623+00:00",
-    "cli_version": "2.1.270",
-    "model_alias": "sonnet",
-    "models": [
-      "claude-sonnet-5"
-    ],
-    "effort": "medium",
+    "recorded_at_utc": "2026-09-15T20:43:10.924598+00:00",
+    "provider": "OpenAI Responses API",
+    "model": "gpt-5.6-luna",
+    "returned_model": "gpt-5.6-luna",
+    "effort": "low",
     "tools_enabled": false,
-    "repository_instructions_loaded": true,
-    "session_id": "e258bd88-5167-4942-88ea-68495b155ade",
+    "repository_instructions_loaded": false,
     "resume_from": "refine-a",
-    "preamble": null,
-    "sent_message": "Review your introduction against these criteria:\n1. Under 60 words.\n2. Names Priya.\n3. States at least one supported capability and at least one restriction.\n4. Ends by asking what IT issue she needs help with.\n5. Adds no claims absent from the supplied text.\n\nGive a short critique identifying which criteria pass or fail, then a revised introduction under REVISED. If the draft already meets the criteria, say so; do not invent a flaw.",
-    "response": "**Critique:**\n1. **Fail** — draft is ~79 words, over the 60-word limit.\n2. **Pass** — names Priya.\n3. **Pass** — states a capability (answers IT questions via knowledge base/ticket history) and a restriction (won't reset anything without confirmation).\n4. **Fail** — ends with a statement about Marcus/helpdesk, not a question asking what she needs help with.\n5. **Pass** — no claims beyond the supplied text.\n\n**REVISED:**\n\nHi Priya, Deskmate answers internal IT questions using the knowledge base and your own ticket history — helpful for things like reaching staging through the VPN. If it can't answer, it opens a ticket instead of guessing, and it never resets anything without your confirmation. What IT issue can I help you with today?",
-    "elapsed_seconds": 9.99,
-    "usage": {
-      "input_tokens": 2,
-      "cache_creation_input_tokens": 345,
-      "cache_read_input_tokens": 11304,
-      "output_tokens": 1056,
-      "output_tokens_details": {
-        "thinking_tokens": 788
+    "messages": [
+      {
+        "role": "user",
+        "content": "Write a short introduction that tells Priya what Deskmate can help with. Use only the text below.\n\nDeskmate answers internal IT questions using the knowledge base and the requester’s own ticket history. Priya is a backend engineer who needs help reaching staging through the VPN. Marcus is the helpdesk lead who wants fewer repeat questions and an auditable log. Deskmate opens a ticket when it cannot answer. It never resets anything without confirmation, touches unverified entitlements, or repeats another user’s ticket text."
       },
-      "server_tool_use": {
-        "web_search_requests": 0,
-        "web_fetch_requests": 0
+      {
+        "role": "assistant",
+        "content": "Priya, Deskmate can help answer your internal IT questions using the knowledge base and your own ticket history, including help reaching staging through the VPN. If it cannot answer, it opens a ticket. It never resets anything without confirmation, touches unverified entitlements, or repeats another user’s ticket text."
       },
-      "service_tier": "standard",
-      "cache_creation": {
-        "ephemeral_1h_input_tokens": 345,
-        "ephemeral_5m_input_tokens": 0
-      },
-      "inference_geo": "not_available",
-      "iterations": [
-        {
-          "input_tokens": 2,
-          "output_tokens": 1056,
-          "cache_read_input_tokens": 11304,
-          "cache_creation_input_tokens": 345,
-          "cache_creation": {
-            "ephemeral_5m_input_tokens": 0,
-            "ephemeral_1h_input_tokens": 345
-          },
-          "type": "message"
-        }
-      ],
-      "speed": "standard"
-    },
-    "model_usage": {
-      "claude-sonnet-5": {
-        "inputTokens": 2,
-        "outputTokens": 1056,
-        "cacheReadInputTokens": 11304,
-        "cacheCreationInputTokens": 345,
-        "webSearchRequests": 0,
-        "costUSD": 0.0142048,
-        "contextWindow": 1000000,
-        "maxOutputTokens": 64000,
-        "thinkingTokens": 788,
-        "canonicalModel": "claude-sonnet-5",
-        "provider": "firstParty",
-        "costBasis": "list"
+      {
+        "role": "user",
+        "content": "Review your introduction against these criteria:\n1. Under 60 words.\n2. Names Priya.\n3. States at least one supported capability and at least one restriction.\n4. Ends by asking what IT issue she needs help with.\n5. Adds no claims absent from the supplied text.\n\nGive a short critique identifying which criteria pass or fail, then a revised introduction under REVISED. If the draft already meets the criteria, say so; do not invent a flaw."
       }
+    ],
+    "sent_message": "Review your introduction against these criteria:\n1. Under 60 words.\n2. Names Priya.\n3. States at least one supported capability and at least one restriction.\n4. Ends by asking what IT issue she needs help with.\n5. Adds no claims absent from the supplied text.\n\nGive a short critique identifying which criteria pass or fail, then a revised introduction under REVISED. If the draft already meets the criteria, say so; do not invent a flaw.",
+    "response": "**Critique**\n1. Pass — under 60 words.\n2. Pass — names Priya.\n3. Pass — states capabilities and restrictions.\n4. Fail — does not ask what IT issue she needs help with.\n5. Pass — adds no unsupported claims.\n\n**REVISED**\n\nPriya, Deskmate can answer internal IT questions using the knowledge base and your ticket history, including help reaching staging through the VPN. If it cannot answer, it opens a ticket. It never resets anything without confirmation, touches unverified entitlements, or repeats another user’s ticket text. What IT issue do you need help with?",
+    "elapsed_seconds": 3.85,
+    "response_id": "resp_04bcc3a7b8606122016aa9addf0b1087d0947c5651eb2b3e9b",
+    "usage": {
+      "input_tokens": 277,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 201,
+      "output_tokens_details": {
+        "reasoning_tokens": 69
+      },
+      "total_tokens": 478
     },
-    "cost_usd": 0.0142048
+    "recording_mode": "model-only reference conversation; no coding-agent harness or repository context"
   },
   {
     "key": "meta-generate",
     "title": "Generate an instruction",
-    "recorded_at_utc": "2026-09-14T23:31:37.445758+00:00",
-    "cli_version": "2.1.270",
-    "model_alias": "sonnet",
-    "models": [
-      "claude-haiku-4-5-20251001",
-      "claude-sonnet-5"
-    ],
-    "effort": "medium",
+    "recorded_at_utc": "2026-09-15T20:43:14.778262+00:00",
+    "provider": "OpenAI Responses API",
+    "model": "gpt-5.6-luna",
+    "returned_model": "gpt-5.6-luna",
+    "effort": "low",
     "tools_enabled": false,
-    "repository_instructions_loaded": true,
-    "session_id": "78a706bd-61e5-4820-8fea-4be34bcc484d",
+    "repository_instructions_loaded": false,
     "resume_from": null,
-    "preamble": null,
-    "sent_message": "Write a reusable instruction of at most 120 words for an assistant answering Deskmate questions. It will receive product context and a user question separately.\n\nIt should answer only from supplied facts, acknowledge missing information, respect product restrictions, and offer a supported next action. Prevent invented policies, menu paths, and claims that actions were performed.\n\nReturn only the instruction. Do not answer a support question yet.",
-    "response": "Answer the user's question using only the supplied product context. If the needed information isn't present, say so plainly rather than guessing. Never invent policies, menu paths, settings, prices, or steps not explicitly stated in the context. Never claim to have performed an action (e.g., issued a refund, changed a setting, submitted a ticket) — you can only provide information and guidance. Respect any stated product restrictions or limitations exactly as given. If the context doesn't fully resolve the question, acknowledge the gap and suggest a concrete, supported next step (e.g., contacting a specific support channel mentioned in the context, checking a stated resource). Keep responses concise, factual, and free of speculation.",
-    "elapsed_seconds": 4.11,
-    "usage": {
-      "input_tokens": 2,
-      "cache_creation_input_tokens": 2843,
-      "cache_read_input_tokens": 8415,
-      "output_tokens": 224,
-      "output_tokens_details": {
-        "thinking_tokens": 0
-      },
-      "server_tool_use": {
-        "web_search_requests": 0,
-        "web_fetch_requests": 0
-      },
-      "service_tier": "standard",
-      "cache_creation": {
-        "ephemeral_1h_input_tokens": 2843,
-        "ephemeral_5m_input_tokens": 0
-      },
-      "inference_geo": "not_available",
-      "iterations": [
-        {
-          "input_tokens": 2,
-          "output_tokens": 224,
-          "cache_read_input_tokens": 8415,
-          "cache_creation_input_tokens": 2843,
-          "cache_creation": {
-            "ephemeral_5m_input_tokens": 0,
-            "ephemeral_1h_input_tokens": 2843
-          },
-          "type": "message"
-        }
-      ],
-      "speed": "standard"
-    },
-    "model_usage": {
-      "claude-haiku-4-5-20251001": {
-        "inputTokens": 980,
-        "outputTokens": 14,
-        "cacheReadInputTokens": 0,
-        "cacheCreationInputTokens": 0,
-        "webSearchRequests": 0,
-        "costUSD": 0.00105,
-        "contextWindow": 200000,
-        "maxOutputTokens": 32000,
-        "thinkingTokens": 0,
-        "canonicalModel": "claude-haiku-4-5",
-        "provider": "firstParty",
-        "costBasis": "list"
-      },
-      "claude-sonnet-5": {
-        "inputTokens": 2,
-        "outputTokens": 224,
-        "cacheReadInputTokens": 8415,
-        "cacheCreationInputTokens": 2843,
-        "webSearchRequests": 0,
-        "costUSD": 0.015299,
-        "contextWindow": 1000000,
-        "maxOutputTokens": 64000,
-        "thinkingTokens": 0,
-        "canonicalModel": "claude-sonnet-5",
-        "provider": "firstParty",
-        "costBasis": "list"
+    "messages": [
+      {
+        "role": "user",
+        "content": "Write a reusable instruction of at most 120 words for an assistant answering Deskmate questions. It will receive product context and a user question separately.\n\nIt should answer only from supplied facts, acknowledge missing information, respect product restrictions, and offer a supported next action. Prevent invented policies, menu paths, and claims that actions were performed.\n\nReturn only the instruction. Do not answer a support question yet."
       }
+    ],
+    "sent_message": "Write a reusable instruction of at most 120 words for an assistant answering Deskmate questions. It will receive product context and a user question separately.\n\nIt should answer only from supplied facts, acknowledge missing information, respect product restrictions, and offer a supported next action. Prevent invented policies, menu paths, and claims that actions were performed.\n\nReturn only the instruction. Do not answer a support question yet.",
+    "response": "You are a Deskmate support assistant. Use only the supplied product context and the user’s question. Do not infer, invent, or rely on outside knowledge for features, policies, permissions, menu paths, troubleshooting steps, or outcomes. If the context does not establish an answer, say what is missing and ask a focused clarifying question or recommend a supported next action. Respect all stated product restrictions and eligibility requirements. Never claim an action was performed, a setting was changed, or an issue was resolved unless the supplied facts explicitly confirm it. Answer clearly and concisely, separating confirmed facts from uncertainty.",
+    "elapsed_seconds": 3.38,
+    "response_id": "resp_021caac11bf35bd7016aa9ade2e11c87d0b3df0c8ae8248db1",
+    "usage": {
+      "input_tokens": 86,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 186,
+      "output_tokens_details": {
+        "reasoning_tokens": 58
+      },
+      "total_tokens": 272
     },
-    "cost_usd": 0.016349
+    "recording_mode": "model-only reference conversation; no coding-agent harness or repository context"
   },
   {
     "key": "meta-a",
     "title": "A: baseline test",
-    "recorded_at_utc": "2026-09-14T23:31:41.560951+00:00",
-    "cli_version": "2.1.270",
-    "model_alias": "sonnet",
-    "models": [
-      "claude-haiku-4-5-20251001",
-      "claude-sonnet-5"
-    ],
-    "effort": "medium",
+    "recorded_at_utc": "2026-09-15T20:43:18.154891+00:00",
+    "provider": "OpenAI Responses API",
+    "model": "gpt-5.6-luna",
+    "returned_model": "gpt-5.6-luna",
+    "effort": "low",
     "tools_enabled": false,
-    "repository_instructions_loaded": true,
-    "session_id": "ae7e8c31-12d9-4876-96ac-b4d5ee8f2655",
+    "repository_instructions_loaded": false,
     "resume_from": null,
-    "preamble": null,
-    "sent_message": "Answer the support question using only the context supplied.\n\nContext:\nDeskmate answers internal IT questions using the knowledge base and the requester’s own ticket history. Priya is a backend engineer who needs help reaching staging through the VPN. Marcus is the helpdesk lead who wants fewer repeat questions and an auditable log. Deskmate opens a ticket when it cannot answer. It never resets anything without confirmation, touches unverified entitlements, or repeats another user’s ticket text.\n\nQuestion: My VPN connects but I cannot reach staging. What exact menu path should I use to fix it?",
-    "response": "I don't have any knowledge base content in the supplied context — only a description of Deskmate's policies (it uses the KB and ticket history, opens a ticket when it can't answer, and never touches unverified entitlements or reuses another user's ticket text). No actual VPN/staging KB article or steps were provided to me.\n\nSince I have no article giving an exact menu path, I can't answer that specifically — and per the stated behavior, this is exactly the case where Deskmate would open a ticket rather than guess or fabricate steps. If you can share the relevant KB article text, I can walk through the exact menu path from it.",
-    "elapsed_seconds": 8.34,
-    "usage": {
-      "input_tokens": 2,
-      "cache_creation_input_tokens": 2911,
-      "cache_read_input_tokens": 8415,
-      "output_tokens": 367,
-      "output_tokens_details": {
-        "thinking_tokens": 170
-      },
-      "server_tool_use": {
-        "web_search_requests": 0,
-        "web_fetch_requests": 0
-      },
-      "service_tier": "standard",
-      "cache_creation": {
-        "ephemeral_1h_input_tokens": 2911,
-        "ephemeral_5m_input_tokens": 0
-      },
-      "inference_geo": "not_available",
-      "iterations": [
-        {
-          "input_tokens": 2,
-          "output_tokens": 367,
-          "cache_read_input_tokens": 8415,
-          "cache_creation_input_tokens": 2911,
-          "cache_creation": {
-            "ephemeral_5m_input_tokens": 0,
-            "ephemeral_1h_input_tokens": 2911
-          },
-          "type": "message"
-        }
-      ],
-      "speed": "standard"
-    },
-    "model_usage": {
-      "claude-haiku-4-5-20251001": {
-        "inputTokens": 1023,
-        "outputTokens": 13,
-        "cacheReadInputTokens": 0,
-        "cacheCreationInputTokens": 0,
-        "webSearchRequests": 0,
-        "costUSD": 0.001088,
-        "contextWindow": 200000,
-        "maxOutputTokens": 32000,
-        "thinkingTokens": 0,
-        "canonicalModel": "claude-haiku-4-5",
-        "provider": "firstParty",
-        "costBasis": "list"
-      },
-      "claude-sonnet-5": {
-        "inputTokens": 2,
-        "outputTokens": 367,
-        "cacheReadInputTokens": 8415,
-        "cacheCreationInputTokens": 2911,
-        "webSearchRequests": 0,
-        "costUSD": 0.017001,
-        "contextWindow": 1000000,
-        "maxOutputTokens": 64000,
-        "thinkingTokens": 170,
-        "canonicalModel": "claude-sonnet-5",
-        "provider": "firstParty",
-        "costBasis": "list"
+    "messages": [
+      {
+        "role": "user",
+        "content": "Answer the support question using only the context supplied.\n\nContext:\nDeskmate answers internal IT questions using the knowledge base and the requester’s own ticket history. Priya is a backend engineer who needs help reaching staging through the VPN. Marcus is the helpdesk lead who wants fewer repeat questions and an auditable log. Deskmate opens a ticket when it cannot answer. It never resets anything without confirmation, touches unverified entitlements, or repeats another user’s ticket text.\n\nQuestion: My VPN connects but I cannot reach staging. What exact menu path should I use to fix it?"
       }
+    ],
+    "sent_message": "Answer the support question using only the context supplied.\n\nContext:\nDeskmate answers internal IT questions using the knowledge base and the requester’s own ticket history. Priya is a backend engineer who needs help reaching staging through the VPN. Marcus is the helpdesk lead who wants fewer repeat questions and an auditable log. Deskmate opens a ticket when it cannot answer. It never resets anything without confirmation, touches unverified entitlements, or repeats another user’s ticket text.\n\nQuestion: My VPN connects but I cannot reach staging. What exact menu path should I use to fix it?",
+    "response": "I don’t have an exact menu path for fixing staging access in the supplied knowledge base. Deskmate should open a support ticket for this issue rather than guess or change VPN settings without confirmation.",
+    "elapsed_seconds": 2.35,
+    "response_id": "resp_045725168bc54e59016aa9ade6752087d09c843003556c9293",
+    "usage": {
+      "input_tokens": 123,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 80,
+      "output_tokens_details": {
+        "reasoning_tokens": 35
+      },
+      "total_tokens": 203
     },
-    "cost_usd": 0.018088999999999997
+    "recording_mode": "model-only reference conversation; no coding-agent harness or repository context"
   },
   {
     "key": "meta-b",
     "title": "B: generated instruction test",
-    "recorded_at_utc": "2026-09-14T23:31:49.902248+00:00",
-    "cli_version": "2.1.270",
-    "model_alias": "sonnet",
-    "models": [
-      "claude-haiku-4-5-20251001",
-      "claude-sonnet-5"
-    ],
-    "effort": "medium",
+    "recorded_at_utc": "2026-09-15T20:43:20.509983+00:00",
+    "provider": "OpenAI Responses API",
+    "model": "gpt-5.6-luna",
+    "returned_model": "gpt-5.6-luna",
+    "effort": "low",
     "tools_enabled": false,
-    "repository_instructions_loaded": true,
-    "session_id": "f9baadb4-4b0d-491d-9b39-5583fc5b9028",
+    "repository_instructions_loaded": false,
     "resume_from": null,
-    "preamble": null,
-    "sent_message": "Answer the user's question using only the supplied product context. If the needed information isn't present, say so plainly rather than guessing. Never invent policies, menu paths, settings, prices, or steps not explicitly stated in the context. Never claim to have performed an action (e.g., issued a refund, changed a setting, submitted a ticket) — you can only provide information and guidance. Respect any stated product restrictions or limitations exactly as given. If the context doesn't fully resolve the question, acknowledge the gap and suggest a concrete, supported next step (e.g., contacting a specific support channel mentioned in the context, checking a stated resource). Keep responses concise, factual, and free of speculation.\n\nAnswer the support question using only the context supplied.\n\nContext:\nDeskmate answers internal IT questions using the knowledge base and the requester’s own ticket history. Priya is a backend engineer who needs help reaching staging through the VPN. Marcus is the helpdesk lead who wants fewer repeat questions and an auditable log. Deskmate opens a ticket when it cannot answer. It never resets anything without confirmation, touches unverified entitlements, or repeats another user’s ticket text.\n\nQuestion: My VPN connects but I cannot reach staging. What exact menu path should I use to fix it?",
-    "response": "The context provided doesn't include a knowledge base article or menu path for fixing VPN-to-staging connectivity — only a general description of Deskmate's behavior and the roles of Priya and Marcus. I can't give you exact steps without inventing them.\n\nSince Deskmate opens a ticket when it cannot answer a question, the concrete next step here would be for a ticket to be opened so someone with access to the actual VPN/staging configuration can provide the correct menu path.",
-    "elapsed_seconds": 4.06,
-    "usage": {
-      "input_tokens": 2,
-      "cache_creation_input_tokens": 3134,
-      "cache_read_input_tokens": 8415,
-      "output_tokens": 152,
-      "output_tokens_details": {
-        "thinking_tokens": 0
-      },
-      "server_tool_use": {
-        "web_search_requests": 0,
-        "web_fetch_requests": 0
-      },
-      "service_tier": "standard",
-      "cache_creation": {
-        "ephemeral_1h_input_tokens": 3134,
-        "ephemeral_5m_input_tokens": 0
-      },
-      "inference_geo": "not_available",
-      "iterations": [
-        {
-          "input_tokens": 2,
-          "output_tokens": 152,
-          "cache_read_input_tokens": 8415,
-          "cache_creation_input_tokens": 3134,
-          "cache_creation": {
-            "ephemeral_5m_input_tokens": 0,
-            "ephemeral_1h_input_tokens": 3134
-          },
-          "type": "message"
-        }
-      ],
-      "speed": "standard"
-    },
-    "model_usage": {
-      "claude-haiku-4-5-20251001": {
-        "inputTokens": 1175,
-        "outputTokens": 13,
-        "cacheReadInputTokens": 0,
-        "cacheCreationInputTokens": 0,
-        "webSearchRequests": 0,
-        "costUSD": 0.00124,
-        "contextWindow": 200000,
-        "maxOutputTokens": 32000,
-        "thinkingTokens": 0,
-        "canonicalModel": "claude-haiku-4-5",
-        "provider": "firstParty",
-        "costBasis": "list"
-      },
-      "claude-sonnet-5": {
-        "inputTokens": 2,
-        "outputTokens": 152,
-        "cacheReadInputTokens": 8415,
-        "cacheCreationInputTokens": 3134,
-        "webSearchRequests": 0,
-        "costUSD": 0.015743,
-        "contextWindow": 1000000,
-        "maxOutputTokens": 64000,
-        "thinkingTokens": 0,
-        "canonicalModel": "claude-sonnet-5",
-        "provider": "firstParty",
-        "costBasis": "list"
+    "messages": [
+      {
+        "role": "user",
+        "content": "You are a Deskmate support assistant. Use only the supplied product context and the user’s question. Do not infer, invent, or rely on outside knowledge for features, policies, permissions, menu paths, troubleshooting steps, or outcomes. If the context does not establish an answer, say what is missing and ask a focused clarifying question or recommend a supported next action. Respect all stated product restrictions and eligibility requirements. Never claim an action was performed, a setting was changed, or an issue was resolved unless the supplied facts explicitly confirm it. Answer clearly and concisely, separating confirmed facts from uncertainty.\n\nAnswer the support question using only the context supplied.\n\nContext:\nDeskmate answers internal IT questions using the knowledge base and the requester’s own ticket history. Priya is a backend engineer who needs help reaching staging through the VPN. Marcus is the helpdesk lead who wants fewer repeat questions and an auditable log. Deskmate opens a ticket when it cannot answer. It never resets anything without confirmation, touches unverified entitlements, or repeats another user’s ticket text.\n\nQuestion: My VPN connects but I cannot reach staging. What exact menu path should I use to fix it?"
       }
+    ],
+    "sent_message": "You are a Deskmate support assistant. Use only the supplied product context and the user’s question. Do not infer, invent, or rely on outside knowledge for features, policies, permissions, menu paths, troubleshooting steps, or outcomes. If the context does not establish an answer, say what is missing and ask a focused clarifying question or recommend a supported next action. Respect all stated product restrictions and eligibility requirements. Never claim an action was performed, a setting was changed, or an issue was resolved unless the supplied facts explicitly confirm it. Answer clearly and concisely, separating confirmed facts from uncertainty.\n\nAnswer the support question using only the context supplied.\n\nContext:\nDeskmate answers internal IT questions using the knowledge base and the requester’s own ticket history. Priya is a backend engineer who needs help reaching staging through the VPN. Marcus is the helpdesk lead who wants fewer repeat questions and an auditable log. Deskmate opens a ticket when it cannot answer. It never resets anything without confirmation, touches unverified entitlements, or repeats another user’s ticket text.\n\nQuestion: My VPN connects but I cannot reach staging. What exact menu path should I use to fix it?",
+    "response": "The supplied information does not include a menu path for fixing VPN access to staging.\n\nPlease provide the VPN client name or the relevant knowledge-base article so Deskmate can identify the supported steps.",
+    "elapsed_seconds": 1.52,
+    "response_id": "resp_0cf295fc99d626a5016aa9ade89b6c87d08d6173823bc41cd6",
+    "usage": {
+      "input_tokens": 245,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 72,
+      "output_tokens_details": {
+        "reasoning_tokens": 28
+      },
+      "total_tokens": 317
     },
-    "cost_usd": 0.016983
+    "recording_mode": "model-only reference conversation; no coding-agent harness or repository context"
   }
 ]

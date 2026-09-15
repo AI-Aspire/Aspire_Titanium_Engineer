@@ -1,6 +1,6 @@
 """Trajectory evaluation experiments extracted from the teaching notebook.
 
-Claude runs this interface; students inspect the algorithms and judge the evidence.
+Your coding assistant runs this interface; students inspect the algorithms and judge the evidence.
 Importing the module does not call a model or write artifacts.
 """
 import json, re, textwrap

@@ -1,6 +1,6 @@
 """The retrieval experiments extracted from Retrieval_Ladder.ipynb.
 
-Read this file to inspect the algorithms. Claude can call its CLI; students
+Read this file to inspect the algorithms. The coding assistant can call its CLI; students
 can request experiments in ordinary conversation. Nothing runs on import.
 """
 from __future__ import annotations

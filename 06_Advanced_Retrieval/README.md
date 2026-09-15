@@ -15,13 +15,15 @@ Choose retrieval settings using evidence about quality and latency.
 
 ## Interactive lesson
 
-Open `Retrieval_Ladder.ipynb` alongside Claude Code. Ask it to run the repository tools and explain the actual results. Tools are enabled for this lesson. You do not need to type Python or shell commands yourself.
+Open `Retrieval_Ladder.ipynb` alongside your coding assistant. Ask it to run the repository tools and explain the actual results. Tools are enabled for this lesson. You do not need to type Python or shell commands yourself.
 
 `retrieval_tools.py` contains the experiment code extracted from the original notebook. Read it to inspect BM25, RRF, reranking, query expansion, and scoring. `Retrieval_Ladder.py` is the generated marimo mirror of the conversation guide, not the experiment implementation.
 
-Use `make setup` for the shared environment. BM25 works without a model key; dense retrieval needs configured embeddings, labelling and query expansion need the chat model, and the local cross-encoder downloads on first use. These tools read `.env`; the model serving Claude Code is separate from the experiment models. Optional Cohere reranking needs `COHERE_API_KEY`.
+Use `make setup` for the shared environment. BM25 works without a model key; dense retrieval needs configured embeddings, labelling and query expansion need the chat model, and the local cross-encoder downloads on first use. These tools read `.env`; the model serving your coding assistant is separate from the experiment models. Optional Cohere reranking needs `COHERE_API_KEY`.
 
-## Tool reference for Claude
+For Codex, Claude Code, Copilot, or another coding assistant, see [agent setup and controls](../docs/CODING_AGENTS.md). Use file and terminal tools in the environment where the repository dependencies are installed.
+
+## Tool reference for your assistant
 
 Run from this directory with the shared environment: `uv run --no-sync python retrieval_tools.py COMMAND`. Use `--help` for arguments. Each invocation returns one JSON result on stdout; progress and workspace notices go to stderr.
 

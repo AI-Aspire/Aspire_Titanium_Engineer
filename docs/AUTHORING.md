@@ -74,10 +74,10 @@ endpoints, home paths, oversized cells). CI fails on an unscrubbed notebook.
 
 ### Interactive guides
 
-Some notebooks are reading guides for interactive Claude Code. Their tasks use
+Some notebooks are reading guides for an interactive coding assistant. Their tasks use
 conversation messages in place of code cells. Keep Learn, Create, Grow, the
 original lessons, and student-owned questions. The student interprets evidence;
-Claude may run the experiments described in the module README.
+the coding assistant may run the experiments described in the module README.
 
 Put extracted algorithms in a separate `*_tools.py`. The Python file with the
 notebook's name remains a generated marimo mirror. Keep real recorded results

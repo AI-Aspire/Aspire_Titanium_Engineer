@@ -16,7 +16,7 @@ def _(mo):
     mo.md(r"""
     # Unroll deep research
 
-    Use interactive Claude Code to inspect and run a research workflow: clarify, brief, plan, research, compress, write. The existing tools research a failure from your capability report using the corpus and optional web search, then produce a report and trace.
+    Use an interactive coding assistant to inspect and run a research workflow: clarify, brief, plan, research, compress, write. The existing tools research a failure from your capability report using the corpus and optional web search, then produce a report and trace.
     """)
     return
 
@@ -65,7 +65,9 @@ def _(mo):
     mo.md(r"""
     ## Setup
 
-    Open interactive Claude Code in the repository. Claude runs the experiment tools and helps you inspect their outputs. The experiment model comes from `.env`. Tavily web search is optional; without its key, research uses the corpus. The guide does not require a conversation export.
+    Open the repository in your coding assistant (Codex, Claude Code, Copilot, or another tool-enabled assistant). Your coding assistant runs the experiment tools and helps you inspect their outputs. The experiment model comes from `.env`. Tavily web search is optional; without its key, research uses the corpus. The guide does not require a conversation export.
+
+    [Agent setup and controls](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/eli/interactive-prompt-patterns/docs/CODING_AGENTS.md).
     """)
     return
 
@@ -73,7 +75,7 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ### Message to Claude
+    ### Message to your assistant
 
     > Read the README beside this guide and research_tools.py. Run inspect. Show the configured model, corpus and capability-report sources, web availability, selected question, and budgets. Do not save anything yet.
     """)
@@ -93,9 +95,9 @@ def _(mo):
     mo.md(r"""
     ### Read the implementation
 
-    The README beside this guide documents the commands Claude can run. `research_tools.py` contains the original experiment algorithms, extracted from the code cells. The other Python file is a generated marimo view of this guide. Reading source is optional; interpreting the results is your work.
+    The README beside this guide documents the commands your coding assistant can run. `research_tools.py` contains the original experiment algorithms, extracted from the code cells. The other Python file is a generated marimo view of this guide. Reading source is optional; interpreting the results is your work.
 
-    Keep the current experiment results in the session. Ask Claude to run a new experiment only when the instructions call for one.
+    Keep the current experiment results in the session. Ask your assistant to run a new experiment only when the instructions call for one.
     """)
     return
 
@@ -121,7 +123,7 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ### Message to Claude
+    ### Message to your assistant
 
     > Explain how failure_modes chooses the research question from the report. Show the selected row or the no-failure fallback. Walk through ResearchConfig and the typed handoffs: clarification, brief, plan, finding, dossier, and final report. Which fields carry evidence and which carry decisions?
     """)
@@ -149,7 +151,7 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ### Message to Claude
+    ### Message to your assistant
 
     > Run tools with the selected question. Show search candidates separately from extracted text and name the actual sources. Explain corpus_search and corpus_extract, then the optional Tavily wrappers. State clearly if web search is off.
     """)
@@ -188,7 +190,7 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ### Message to Claude
+    ### Message to your assistant
 
     > Run plan for the selected question. Show the clarification decision, brief, and independent search queries. If clarification is needed, show its question and let me resolve it before continuing. Explain that the current graph records this decision but does not automatically pause.
     """)
@@ -216,7 +218,7 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ### Message to Claude
+    ### Message to your assistant
 
     > Run research on the agreed question. Show one task’s queries, search results, extracted source names, reflections, and finding. Then compare the findings with the compressed dossier. Explain how separate researcher contexts and the loop limit constrain the work. Keep gaps visible.
     """)
@@ -316,7 +318,7 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ### Message to Claude
+    ### Message to your assistant
 
     > Run the complete graph on the same agreed question with the default budgets. Show the node updates in order and the research trace. This is a fresh measured run, so its plan may differ from the earlier demonstration. Explain exactly what the writer receives.
     """)
@@ -344,7 +346,7 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ### Message to Claude
+    ### Message to your assistant
 
     > Show the report, open gaps, trace summary, and citation audit from the completed run. Check each important claim against the cited passage. Distinguish observed sources from extracted sources and unsupported claims. Keep the report in the result until I choose to save it.
     """)
@@ -383,7 +385,7 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    Tell Claude which deeper budgets you want to test and ask it to run the same question again. Compare the actual traces and reports, then write your own explanation. The extract-URL budget affects web extraction; corpus extraction keeps its two-hit cap.
+    Tell your assistant which deeper budgets you want to test and ask it to run the same question again. Compare the actual traces and reports, then write your own explanation. The extract-URL budget affects web extraction; corpus extraction keeps its two-hit cap.
     """)
     return
 
@@ -392,7 +394,7 @@ def _(mo):
 def _(mo):
     mo.md(r"""
     <details><summary>Keep measured artifacts for later use</summary>
-    <span class="markdown prose dark:prose-invert contents"><span class="paragraph">The tool can save its real outputs through <code>helpers.workspace</code> when you ask Claude to use <code>--save</code>. This runs an experiment and saves its results; it does not export your Claude conversation. Review inputs first. If you leave the workspace empty, readers use the labeled seed fallback.</span></span>
+    <span class="markdown prose dark:prose-invert contents"><span class="paragraph">The tool can save its real outputs through <code>helpers.workspace</code> when you ask your assistant to use <code>--save</code>. This runs an experiment and saves its results; it does not export your assistant conversation. Review inputs first. If you leave the workspace empty, readers use the labeled seed fallback.</span></span>
     </details>
     """)
     return
