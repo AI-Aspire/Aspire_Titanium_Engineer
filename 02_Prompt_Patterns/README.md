@@ -35,6 +35,6 @@ This lesson does not write workspace artifacts. Readers of `prompts` use existin
 
 Task 4 compares requested JSON with API-enforced output structure. From this directory, run `uv run --no-sync python prompt_tools.py compare`. Students ask for the experiment in an interactive coding assistant; they do not type this command.
 
-`prompt_tools.py` defines the `ProductBrief` fields and `client.chat.completions.parse` call. It compares a plain JSON request with schema enforcement on the same active charter and requested fields. `--text` accepts an explicit input instead. This uses the repository's configured model/API key, independently of coding-assistant authentication. It writes no workspace artifacts.
+`prompt_tools.py` defines the `ProductBrief` fields and `client.chat.completions.parse` call. It compares a plain JSON request with schema enforcement on the same input and requested fields. Use `--text` for the supplied Deskmate paragraph; omitting it loads the active charter. This uses the repository's configured model/API key, independently of coding-assistant authentication. It writes no workspace artifacts.
 
-Inspect actual validation, refusal, and finish status. A supported endpoint can enforce shape; it cannot establish factual accuracy. Both calls may succeed, and unsupported endpoints may fail. The real seed recording is `data/recorded_schema_experiment.json`.
+Inspect actual validation, refusal, and finish status. A supported endpoint can enforce shape; it cannot establish factual accuracy. Both calls may succeed, and unsupported endpoints may fail. The recorded Deskmate run is `data/recorded_schema_experiment.json`.

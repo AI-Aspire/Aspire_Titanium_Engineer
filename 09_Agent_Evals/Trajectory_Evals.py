@@ -77,7 +77,7 @@ def _(mo):
     mo.md(r"""
     ### Message to your assistant
 
-    > Read the README beside this guide and eval_tools.py. Run inspect and show the configured model, corpus and case sources, and section count. Explain which artifacts are seed fallbacks. Do not save anything yet.
+    > Read `09_Agent_Evals/README.md` and `09_Agent_Evals/eval_tools.py`. Run inspect and show the configured model, corpus and case sources, and section count. Explain which artifacts are seed fallbacks. Do not save anything yet.
     """)
     return
 
@@ -123,7 +123,7 @@ def _(mo):
     mo.md(r"""
     ### Message to your assistant
 
-    > Read terms, sections, search_kb, and agent_reply in eval_tools.py. Explain how term overlap selects three sections and how the agent records tool calls. Compare a relevant query with an unrelated one by calling the existing search tool after initialization. Show actual returned evidence.
+    > Read terms, sections, search_kb, and agent_reply in `09_Agent_Evals/eval_tools.py`. Explain how term overlap selects three sections and how the agent records tool calls. Compare a relevant query with an unrelated one by calling the existing search tool after initialization. Show actual returned evidence.
     """)
     return
 
@@ -151,7 +151,7 @@ def _(mo):
     mo.md(r"""
     ### Message to your assistant
 
-    > Run compose. Show the proposed persona, opening, private details, and hidden success condition for each task, including the two planted tasks. Explain facts_from. Let me review one success condition before changing it. Keep this task set for the next experiments so the comparison uses identical tasks.
+    > Use `09_Agent_Evals/eval_tools.py` to run compose. Show the proposed persona, opening, private details, and hidden success condition for each task, including the two planted tasks. Explain facts_from. Let me review one success condition before changing it. Keep this task set for the next experiments so the comparison uses identical tasks.
     """)
     return
 
@@ -190,7 +190,7 @@ def _(mo):
     mo.md(r"""
     ### Message to your assistant
 
-    > Run demo with the task set we just inspected. Show every simulated user turn, tool call and result, and agent reply. Explain what the agent sees versus what the simulator and scorer see. Show the termination reason; distinguish DONE, GIVE UP, and the turn limit.
+    > Use `09_Agent_Evals/eval_tools.py` to run demo with the reviewed task set from this conversation. If it is missing, ask me for it first. Show every simulated user turn, tool call and result, and agent reply. Explain what the agent sees versus what the simulator and scorer see. Show the termination reason; distinguish DONE, GIVE UP, and the turn limit.
     """)
     return
 
@@ -220,7 +220,7 @@ def _(mo):
     mo.md(r"""
     ### Message to your assistant
 
-    > Using that same demo trajectory, show its deterministic verdict and judge score with the rationale. Explain the checks in verify and score. Identify disagreements for me to inspect without revising the task or rubric on my behalf.
+    > Using the `eval_tools.py demo` trajectory from this conversation, show its deterministic verdict and judge score with the rationale. Explain the checks in verify and score. Identify disagreements for me to inspect without revising the task or rubric on my behalf. If those results are missing, ask me for them rather than rerunning the experiment.
     """)
     return
 
@@ -324,7 +324,7 @@ def _(mo):
     mo.md(r"""
     ### Message to your assistant
 
-    > Run the inspected task set with three baseline repeats and the planted regression. Show the baseline pass rate and pass^3 per task first. Explain pass_k using the actual counts. Keep all trajectories and the unchanged task set available for inspection; do not save to the workspace yet.
+    > Use `09_Agent_Evals/eval_tools.py` to run the reviewed task set from this conversation with three baseline repeats and the planted regression. If the task set is missing, ask me for it first. Show the baseline pass rate and pass^3 per task first. Explain pass_k using the actual counts. Keep all trajectories and the unchanged task set available for inspection; do not save to the workspace yet.
     """)
     return
 
@@ -352,7 +352,7 @@ def _(mo):
     mo.md(r"""
     ### Message to your assistant
 
-    > From the run already completed, show the misrouted retriever output for two queries and the pass-rate change by category. Open a baseline and broken trajectory for the same task. Did evidence, behavior, or only wording change? Report honestly if the harness did not catch the regression.
+    > From the `eval_tools.py run` results in this conversation, show the misrouted retriever output for two queries and the pass-rate change by category. Open a baseline and broken trajectory for the same task. Did evidence, behavior, or only wording change? Report honestly if the harness did not catch the regression. If those results are missing, ask me for them rather than rerunning the experiment.
     """)
     return
 
@@ -391,7 +391,7 @@ def _(mo):
     mo.md(r"""
     ### Message to your assistant
 
-    > Show the generated capability report from this run. Check its numbers against the trajectories and open any reported failure. Explain which findings are measured and which interpretations still need my judgment. Keep the report in the experiment result until I choose to save it.
+    > Show the capability report from the `eval_tools.py run` results in this conversation. Check its numbers against the trajectories and open any reported failure. Explain which findings are measured and which interpretations still need my judgment. Keep the report in the experiment result until I choose to save it. If those results are missing, ask me for them rather than rerunning the experiment.
     """)
     return
 

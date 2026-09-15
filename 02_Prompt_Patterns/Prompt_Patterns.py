@@ -806,9 +806,13 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
+    <!-- lint: ignore L002 -->
+    <!-- Keep the complete input visible and copyable. -->
     ### Try schema enforcement
 
-    > Run the JSON-versus-schema experiment in `prompt_tools.py` on our project description. Show both results and explain what each method guarantees.
+    > Run the JSON-versus-schema experiment in `02_Prompt_Patterns/prompt_tools.py` using the text below as its input. Show both results and explain what each method guarantees.
+    >
+    > Deskmate answers internal IT questions using the knowledge base and the requester’s own ticket history. Priya is a backend engineer who needs help reaching staging through the VPN. Marcus is the helpdesk lead who wants fewer repeat questions and an auditable log. Deskmate opens a ticket when it cannot answer. It never resets anything without confirmation, touches unverified entitlements, or repeats another user’s ticket text.
     """)
     return
 
@@ -816,7 +820,7 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    You should see two real API results using the configured experiment model. Both may validate on this run. The enforced call supplies the schema to the API; the plain request relies on following instructions. Stop here if the enforced result is absent or the fields misrepresent the charter. Correct structure does not guarantee correct content.
+    You should see two API results for the supplied Deskmate text. The tool uses a fuller `ProductBrief` schema, including `problem` and `risk_level`, for both calls. One requests that shape; the other enforces it through the API. Check the values against the input even when validation passes.
     """)
     return
 
@@ -825,9 +829,9 @@ def _(mo):
 def _(mo):
     mo.md(r"""
     <details><summary>Recorded experiment: schema enforcement</summary>
-    <span class="markdown prose dark:prose-invert contents"><span class="paragraph">Real seed-charter run with <code>gpt-4.1-mini</code>. Both calls returned valid product briefs in this run. The enforced call completed with <code>stop</code> and no refusal.</span>
-    <span class="paragraph">The plain call passed an independent Pydantic validation check; the enforced call supplied <code>ProductBrief</code> as the API response format and returned a parsed object. Check the contents against the charter even when validation succeeds.</span>
-    <span class="paragraph">Exact inputs, schema, response IDs, and both outputs: <code>data/recorded_schema_experiment.json</code>.</span></span>
+    <span class="markdown prose dark:prose-invert contents"><span class="paragraph">Real run on the Deskmate text above with <code>gpt-4.1-mini</code>. Both responses passed <code>ProductBrief</code> validation. The enforced call completed with <code>stop</code> and no refusal.</span>
+    <span class="paragraph">Both outputs assigned <code>risk_level: medium</code>, although the text supplies no risk rating. The enforced output also described “untracked issues,” which the input does not establish. Schema validation checks structure, not whether these claims are supported.</span>
+    <span class="paragraph">Exact inputs, schema, response IDs, and outputs: <code>data/recorded_schema_experiment.json</code>.</span></span>
     </details>
     """)
     return

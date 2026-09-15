@@ -77,7 +77,7 @@ def _(mo):
     mo.md(r"""
     ### Message to your assistant
 
-    > Read the README beside this guide and research_tools.py. Run inspect. Show the configured model, corpus and capability-report sources, web availability, selected question, and budgets. Do not save anything yet.
+    > Read `17_Deep_Research/README.md` and `17_Deep_Research/research_tools.py`. Run inspect. Show the configured model, corpus and capability-report sources, web availability, selected question, and budgets. Do not save anything yet.
     """)
     return
 
@@ -123,7 +123,7 @@ def _(mo):
     mo.md(r"""
     ### Message to your assistant
 
-    > Explain how failure_modes chooses the research question from the report. Show the selected row or the no-failure fallback. Walk through ResearchConfig and the typed handoffs: clarification, brief, plan, finding, dossier, and final report. Which fields carry evidence and which carry decisions?
+    > Inspect `17_Deep_Research/research_tools.py` and explain how failure_modes chooses the research question from the report. Show the selected row or the no-failure fallback. Walk through ResearchConfig and the typed handoffs: clarification, brief, plan, finding, dossier, and final report. Which fields carry evidence and which carry decisions?
     """)
     return
 
@@ -151,7 +151,7 @@ def _(mo):
     mo.md(r"""
     ### Message to your assistant
 
-    > Run tools with the selected question. Show search candidates separately from extracted text and name the actual sources. Explain corpus_search and corpus_extract, then the optional Tavily wrappers. State clearly if web search is off.
+    > Use `17_Deep_Research/research_tools.py` to run tools on the question selected by inspect. Show that question alongside the results. Show search candidates separately from extracted text and name the actual sources. Explain corpus_search and corpus_extract, then the optional Tavily wrappers. State clearly if web search is off.
     """)
     return
 
@@ -190,7 +190,7 @@ def _(mo):
     mo.md(r"""
     ### Message to your assistant
 
-    > Run plan for the selected question. Show the clarification decision, brief, and independent search queries. If clarification is needed, show its question and let me resolve it before continuing. Explain that the current graph records this decision but does not automatically pause.
+    > Use `17_Deep_Research/research_tools.py` to run plan for the question selected by inspect. Show the question. Show the clarification decision, brief, and independent search queries. If clarification is needed, show its question and let me resolve it before continuing. Explain that the current graph records this decision but does not automatically pause.
     """)
     return
 
@@ -218,7 +218,7 @@ def _(mo):
     mo.md(r"""
     ### Message to your assistant
 
-    > Run research on the agreed question. Show one task’s queries, search results, extracted source names, reflections, and finding. Then compare the findings with the compressed dossier. Explain how separate researcher contexts and the loop limit constrain the work. Keep gaps visible.
+    > Use `17_Deep_Research/research_tools.py` to run research on the question agreed in this conversation. If it is missing, ask me for it first. Show one task’s queries, search results, extracted source names, reflections, and finding. Then compare the findings with the compressed dossier. Explain how separate researcher contexts and the loop limit constrain the work. Keep gaps visible.
     """)
     return
 
@@ -318,7 +318,7 @@ def _(mo):
     mo.md(r"""
     ### Message to your assistant
 
-    > Run the complete graph on the same agreed question with the default budgets. Show the node updates in order and the research trace. This is a fresh measured run, so its plan may differ from the earlier demonstration. Explain exactly what the writer receives.
+    > Use `17_Deep_Research/research_tools.py` to run the complete graph on the question agreed in this conversation with the default budgets. If the question is missing, ask me for it first. Show the node updates in order and the research trace. This is a fresh measured run, so its plan may differ from the earlier demonstration. Explain exactly what the writer receives.
     """)
     return
 
@@ -346,7 +346,7 @@ def _(mo):
     mo.md(r"""
     ### Message to your assistant
 
-    > Show the report, open gaps, trace summary, and citation audit from the completed run. Check each important claim against the cited passage. Distinguish observed sources from extracted sources and unsupported claims. Keep the report in the result until I choose to save it.
+    > Show the report, open gaps, trace summary, and citation audit from the `research_tools.py run` results in this conversation. Check each important claim against the cited passage. Distinguish observed sources from extracted sources and unsupported claims. Keep the report in the result until I choose to save it. If those results are missing, ask me for them rather than rerunning the experiment.
     """)
     return
 

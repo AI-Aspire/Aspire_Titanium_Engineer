@@ -77,7 +77,7 @@ def _(mo):
     mo.md(r"""
     ### Message to your assistant
 
-    > Read the README beside this guide and inspect agentic_tools.py. Run inspect. Tell me which model and corpus are active, whether the cases come from workspace or seed, and the page and section counts. Do not save results yet.
+    > Read `07_Agentic_Retrieval/README.md` and inspect `07_Agentic_Retrieval/agentic_tools.py`. Run inspect. Tell me which model and corpus are active, whether the cases come from workspace or seed, and the page and section counts. Do not save results yet.
     """)
     return
 
@@ -123,7 +123,7 @@ def _(mo):
     mo.md(r"""
     ### Message to your assistant
 
-    > Run wiki and show me the proposed purpose lines beside the page headings. Explain how outline builds the skeleton before the model adds descriptions. Let me check the descriptions against the source pages before we use a reviewed wiki for comparison.
+    > Use `07_Agentic_Retrieval/agentic_tools.py` to run wiki and show me the proposed purpose lines beside the page headings. Explain how outline builds the skeleton before the model adds descriptions. Let me check the descriptions against the source pages before we use a reviewed wiki for comparison.
     """)
     return
 
@@ -151,7 +151,7 @@ def _(mo):
     mo.md(r"""
     ### Message to your assistant
 
-    > Run interfaces for the first eval question. Show the ranked sections, matching lines, and a whole-page result. Walk me through search_chunks, list_pages, grep_wiki, and read_page in the source. Which evidence and limits does each expose?
+    > Use `07_Agentic_Retrieval/agentic_tools.py` to run interfaces for the first eval question. Show the ranked sections, matching lines, and a whole-page result. Walk me through search_chunks, list_pages, grep_wiki, and read_page in the source. Which evidence and limits does each expose?
     """)
     return
 
@@ -190,7 +190,7 @@ def _(mo):
     mo.md(r"""
     ### Message to your assistant
 
-    > Run compare on the first eval question, using the reviewed wiki if available. Show both answers and their full tool traces, evidence characters, elapsed time, and stop reason. Explain the message loop in run_agent. Keep the comparison inside that loop so both modes use the same model and settings.
+    > Use `07_Agentic_Retrieval/agentic_tools.py` to run compare on the first eval question, using the reviewed wiki if available. Show both answers and their full tool traces, evidence characters, elapsed time, and stop reason. Explain the message loop in run_agent. Keep the comparison inside that loop so both modes use the same model and settings.
     """)
     return
 
@@ -278,7 +278,7 @@ def _(mo):
     mo.md(r"""
     ### Message to your assistant
 
-    > Run score over the current eval cases with both modes, using the same reviewed wiki. Show scores and rationales per case, whether each answer names an expected page, tool calls, evidence characters, latency, and stop reason. Keep failed or missing judge scores visible. Do not save yet.
+    > Use `07_Agentic_Retrieval/agentic_tools.py` to run score over the current eval cases with both modes, using the reviewed wiki from this conversation. If it is missing, ask me for it before running. Show scores and rationales per case, whether each answer names an expected page, tool calls, evidence characters, latency, and stop reason. Keep failed or missing judge scores visible. Do not save yet.
     """)
     return
 
@@ -317,7 +317,7 @@ def _(mo):
     mo.md(r"""
     ### Message to your assistant
 
-    > Using the results already produced, show mean score, calls, evidence characters, and latency by mode. Open the evidence for the largest score gap. Separate retrieval mistakes from answer mistakes. Do not choose an interface for my product; I will make that decision.
+    > Using the `agentic_tools.py score` results from this conversation, show mean score, calls, evidence characters, and latency by mode. Open the evidence for the largest score gap. Separate retrieval mistakes from answer mistakes. Do not choose an interface for my product; I will make that decision. If those results are missing, ask me for them rather than rerunning the experiment.
     """)
     return
 
