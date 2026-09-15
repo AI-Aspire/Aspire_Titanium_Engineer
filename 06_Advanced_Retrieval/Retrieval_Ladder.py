@@ -131,7 +131,7 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    Check the proposed labels against the full pages. The labeling tool sends its model only the first 240 characters of each page, so it may miss relevant evidence later in the text. A missing label can make a useful result score as a miss. An empty page list means the case is excluded from retrieval scoring, not that the system passed it.
+    Open each suggested page and check whether it contains evidence for answering the question. The labeling tool sends its model only the first 240 characters of each page, so it may miss relevant evidence later in the text. A missing label can make a useful result score as a miss. An empty page list means the case is excluded from retrieval scoring, not that the system passed it.
 
     An out-of-scope question may still have a relevant policy page explaining the refusal. Review that distinction rather than automatically deleting its labels.
     """)
