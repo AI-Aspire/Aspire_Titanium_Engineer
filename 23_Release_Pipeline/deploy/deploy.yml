@@ -1,0 +1,48 @@
+# A deployment pipeline in four steps: test, gate, build, deploy.
+# A template for the group's own repository: copy it to
+# .github/workflows/deploy.yml, add a Dockerfile at the repository root, and
+# set REGISTRY plus the cluster credentials as repository variables and secrets.
+name: deploy
+
+on:
+  push:
+    tags:
+      - "v*"                         # deploy on a tag, never on every commit
+
+env:
+  APP: demo-app
+  REGISTRY: ${{ vars.REGISTRY }}     # for example registry.example.internal
+
+jobs:
+  ship:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Test
+        run: |
+          pip install uv
+          uv sync --frozen
+          uv run python -m pytest tests -q
+
+      - name: Gate                     # the step that makes this an AI pipeline
+        run: |
+          # the eval run that writes deepeval_results happens before this step
+          uv run python scripts/release_gate.py --min-score 0.8
+          uv run python scripts/check_manifests.py deploy/k8s.yaml
+
+      - name: Build and push
+        run: |
+          TAG=${GITHUB_REF#refs/tags/v}
+          docker build -t $REGISTRY/$APP:$TAG .
+          docker push $REGISTRY/$APP:$TAG
+
+      - name: Deploy
+        run: |
+          TAG=${GITHUB_REF#refs/tags/v}
+          kubectl apply -f deploy/k8s.yaml
+          kubectl set image deployment/$APP app=$REGISTRY/$APP:$TAG
+          kubectl rollout status deployment/$APP --timeout=120s || {
+            kubectl rollout undo deployment/$APP    # the rollback: the previous tag
+            exit 1
+          }

@@ -397,6 +397,24 @@
       "module": "22",
       "count": 38,
       "at": "2026-09-15T09:21:35+00:00"
+    },
+    {
+      "artifact": "eval_gate",
+      "module": "23",
+      "count": 9,
+      "at": "2026-09-15T09:21:54+00:00"
+    },
+    {
+      "artifact": "canary_verdict",
+      "module": "23",
+      "count": 10,
+      "at": "2026-09-15T09:21:55+00:00"
+    },
+    {
+      "artifact": "deploy_checklist",
+      "module": "23",
+      "count": 78,
+      "at": "2026-09-15T09:21:55+00:00"
     }
   ]
 }

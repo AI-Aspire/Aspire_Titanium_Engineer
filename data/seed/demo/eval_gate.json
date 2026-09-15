@@ -1,0 +1,21 @@
+{
+  "passed": false,
+  "failed": [
+    "correctness"
+  ],
+  "minimum": {
+    "answer_relevancy": 0.8,
+    "faithfulness": 0.8,
+    "correctness": 0.8
+  },
+  "version": "v2",
+  "rates": {
+    "answer_relevancy": 1.0,
+    "faithfulness": 1.0,
+    "correctness": 0.0
+  },
+  "cases_measured": 2,
+  "cases_written": 5,
+  "fingerprint": "6c8177c751fd",
+  "fingerprint_all_cases": "05f8542ce58b"
+}

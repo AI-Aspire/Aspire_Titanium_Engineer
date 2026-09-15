@@ -52,7 +52,7 @@ mirror of it. Every notebook is three acts: **Learn** the idea from scratch,
 | 20 | [OWASP LLM top 10](20_OWASP_LLM_Top10/) | 35 min |
 | 21 | [DeepEval](21_DeepEval/) | 35 min |
 | 22 | [Observability and incidents](22_Observability/) | 40 min |
-| 23 | Release pipeline | 40 min |
+| 23 | [Release pipeline](23_Release_Pipeline/) | 40 min |
 
 A module without a link is still being verified against a live model. It lands, with its seed artifacts, as soon as its notebook runs green.
 

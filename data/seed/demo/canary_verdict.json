@@ -1,0 +1,20 @@
+{
+  "verdict": "hold",
+  "why": "p95 latency not measured; 2 samples, need 200",
+  "delta": -0.5,
+  "low": -1.193,
+  "high": 0.193,
+  "baseline": {
+    "version": "v1",
+    "pass_rate": 0.5,
+    "n": 2
+  },
+  "candidate": {
+    "version": "v2",
+    "pass_rate": 0.0,
+    "n": 2
+  },
+  "min_samples": 200,
+  "p95_ms": null,
+  "p95_limit_ms": 1200
+}

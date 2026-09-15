@@ -1,0 +1,108 @@
+# The group's demo app on a cluster: a Deployment, a Service, and a
+# PodDisruptionBudget. Block style throughout, so scripts/check_manifests.py
+# can parse it with no YAML library. Every line a platform review reads first
+# carries a comment saying why it is there.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo-app
+  labels:
+    app: demo-app
+spec:
+  replicas: 2                        # one replica makes every deploy an outage
+  selector:
+    matchLabels:
+      app: demo-app
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0              # add the new pod before removing the old one
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app: demo-app
+    spec:
+      automountServiceAccountToken: false   # the app never talks to the cluster API
+      securityContext:                 # the pod runs as a person, not root
+        runAsNonRoot: true
+        runAsUser: 10001
+        runAsGroup: 10001
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: app
+          image: registry.example.internal/demo-app:0.1.0   # a tag, never latest
+          args:                        # the same command as project/app/README.md
+            - streamlit
+            - run
+            - project/app/app.py
+            - --server.port=8501
+            - --server.address=0.0.0.0
+            - --server.headless=true
+          ports:
+            - name: http
+              containerPort: 8501
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true   # needs the writable /tmp mounted below
+            capabilities:
+              drop:
+                - ALL
+          env:
+            - name: HOME               # Streamlit writes its own config under HOME
+              value: /tmp
+            - name: STREAMLIT_BROWSER_GATHER_USAGE_STATS
+              value: "false"
+            - name: LLM_MODEL
+              value: your-model-name
+          envFrom:
+            - secretRef:
+                name: demo-app-secrets   # OPENAI_API_KEY and OPENAI_BASE_URL, never in the image
+          resources:
+            requests:                  # what the scheduler reserves
+              cpu: 250m
+              memory: 512Mi
+            limits:                    # what gets the pod killed
+              cpu: "1"
+              memory: 1Gi
+          volumeMounts:
+            - name: tmp
+              mountPath: /tmp
+          readinessProbe:              # ready for traffic
+            httpGet:
+              path: /_stcore/health    # Streamlit's own health route
+              port: http
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:               # still alive
+            httpGet:
+              path: /_stcore/health
+              port: http
+            initialDelaySeconds: 20
+            periodSeconds: 20
+      volumes:
+        - name: tmp
+          emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: demo-app
+spec:
+  selector:
+    app: demo-app
+  ports:
+    - name: http
+      port: 80
+      targetPort: http
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: demo-app
+spec:
+  minAvailable: 1                    # two replicas alone do not survive a node drain
+  selector:
+    matchLabels:
+      app: demo-app
