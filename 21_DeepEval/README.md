@@ -23,7 +23,7 @@ Rerun before the demo and read the decision aloud. Bring your team one pass and 
 | Answer relevancy | did the answer address the question without drifting |
 | Faithfulness | did the answer stay inside the retrieved pages |
 | G-Eval | a judge prompt with your own steps, here scoring correctness against the reference |
-| Release decision | ship or hold, with the pass rates and the failing tests named |
+| Release decision | ship or hold, with the case set fingerprinted and the failing metric named |
 
 ## What you will do
 
@@ -35,7 +35,7 @@ Rerun before the demo and read the decision aloud. Bring your team one pass and 
 | 4 | Answer every case with both versions, keeping the retrieval context |
 | 5 | A DeepEval judge over your endpoint and three metrics |
 | 6 | Score every run and save the result rows |
-| 7 | Write and save the release decision |
+| 7 | Fingerprint the case set, gate v2 per metric, and save the release decision |
 
 ## Setup
 

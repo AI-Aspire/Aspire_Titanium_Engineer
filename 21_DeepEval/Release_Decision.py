@@ -491,34 +491,58 @@ def _(mo):
     mo.md(r"""
     ## Task 7 of 7 — Write the release decision
 
-    A test passes only when every metric passes. Compare the two versions on pass rate and on the failing tests. Ship v2 if its pass rate clears the bar, it beats v1, and no judge errored; otherwise hold, and say which tests to fix first. Save the decision as markdown a judge can read in a minute.
+    Turn the result rows into a decision a script could check. The case set is fingerprinted first, so a decision made over different cases cannot be read against this one. Each version gets a mean score per metric, with an errored row counting as zero. `compare` gives the delta from v1 to v2 and refuses when the fingerprints differ. `gate` holds v2 against the minimum per metric in `MINIMUM` and names every metric under its bar. Ship v2 when the gate passes, no metric drops against v1 by more than `TOLERANCE`, and no judge errored. Otherwise hold, naming the failing metric. Save the decision as markdown a judge can read in a minute.
     """)
     return
 
 
 @app.cell
-def _(CASES, LLM_MODEL, RESULTS: list[dict], ws):
+def _(CASES, LLM_MODEL, RESULTS: list[dict], THRESHOLDS, ws):
     from collections import defaultdict
     from IPython.display import Markdown, display
+    from helpers.evals import compare, fingerprint, gate
+    MINIMUM = {'answer_relevancy': 0.7, 'faithfulness': 0.8, 'correctness': 0.7}
+    # The lowest mean score per metric v2 must clear, and the drop against v1 that
+    # counts as noise rather than a regression. Revisit both in "Your turn".
+    TOLERANCE = 0.05
+    CASE_SET = fingerprint(CASES)
+    METRICS = list(THRESHOLDS)
+
+    def mean_scores(version: str) -> dict[str, float]:
+        out = {}
+        for name in METRICS:
+            rows = [r for r in RESULTS if r['version'] == version and r['metric'] == name]
+            out[name] = round(sum((r['score'] or 0.0 for r in rows)) / max(len(rows), 1), 3)
+        return out
+    SCORES = {v: mean_scores(v) for v in ('v1', 'v2')}
+    RUN = {v: {'fingerprint': CASE_SET, 'scores': SCORES[v]} for v in SCORES}
+    COMPARISON = compare(RUN['v1'], RUN['v2'])
+    GATE = gate(SCORES['v2'], MINIMUM)
+    regressed = [m for m, d in COMPARISON['delta'].items() if d < -TOLERANCE]
+    errors = sum((1 for row in RESULTS if row['error']))
     by_case = defaultdict(list)
     for _row in RESULTS:
         by_case[_row['version'], _row['test']].append(_row)
     case_pass = {k: all((x['passed'] for x in v)) for k, v in by_case.items()}
-    errors = sum((1 for row in RESULTS if row['error']))
     rate = {v: sum((case_pass[v, c['id']] for c in CASES)) / len(CASES) for v in ('v1', 'v2')}
     failing = {v: [c['id'] for c in CASES if not case_pass[v, c['id']]] for v in ('v1', 'v2')}
-    BAR = 0.8
-    ship = rate['v2'] >= BAR and rate['v2'] >= rate['v1'] and (errors == 0)
+    ship = GATE['passed'] and COMPARISON['comparable'] and (not regressed) and (errors == 0)
     decision = 'SHIP v2' if ship else 'HOLD'
-    lines = [f'# Release decision: {decision}', '', f'Model `{LLM_MODEL}`, {len(CASES)} eval cases, three DeepEval metrics per case, bar {BAR:.0%} of cases passing every metric.', '', '| version | pass rate | failing tests |', '|---|---|---|']
+    lines = [f'# Release decision: {decision}', '', f'Model `{LLM_MODEL}`, {len(CASES)} eval cases, case set `{CASE_SET}`, three DeepEval metrics per case.', '', '| version | pass rate | failing tests |', '|---|---|---|']
     for v in ('v1', 'v2'):
         lines.append(f"| {v} | {rate[v]:.0%} | {', '.join(failing[v]) or 'none'} |")
-    lines += ['', f'Judge errors: {errors}', '', '## Why', '']
+    lines += ['', '## Gate on v2, mean score per metric', '', '| metric | minimum | v1 | v2 | delta | gate |', '|---|---|---|---|---|---|']
+    for m in METRICS:
+        delta = COMPARISON['delta'].get(m)
+        lines.append(f"| {m} | {MINIMUM.get(m, 0):.2f} | {SCORES['v1'][m]:.2f} | {SCORES['v2'][m]:.2f} | {delta:+.2f} | {('FAIL' if m in GATE['failed'] else 'pass')} |" if delta is not None else f"| {m} | {MINIMUM.get(m, 0):.2f} | {SCORES['v1'][m]:.2f} | {SCORES['v2'][m]:.2f} | not comparable | {('FAIL' if m in GATE['failed'] else 'pass')} |")
+    comparable = 'same case set' if COMPARISON['comparable'] else f"not comparable: {COMPARISON['reason']}"
+    lines += ['', f"Gate: {('passed' if GATE['passed'] else 'failed on ' + ', '.join(GATE['failed']))}. Comparison v1 to v2: {comparable}. Judge errors: {errors}.", '', '## Why', '']
     if ship:
-        lines.append(f"v2 passes {rate['v2']:.0%} of cases against a bar of {BAR:.0%} and does not regress on v1.")
+        lines.append(f'v2 clears every minimum, drops no metric against v1 by more than {TOLERANCE:.2f}, and no judge errored.')
     else:
-        reasons = [f"v2 pass rate {rate['v2']:.0%} is under the bar of {BAR:.0%}"] if rate['v2'] < BAR else []
-        reasons += ['v2 scores below v1'] if rate['v2'] < rate['v1'] else []
+        reasons = [f"the gate failed on {', '.join(GATE['failed'])}"] if GATE['failed'] else []
+        reasons += [f"the versions are not comparable ({COMPARISON['reason']})"] if not COMPARISON['comparable'] else []
+        reasons += [f"v2 regressed on {', '.join(regressed)} by more than {TOLERANCE:.2f}"] if regressed else []
         reasons += [f'{errors} judge error(s) must be resolved'] if errors else []
         lines.append('Hold because ' + '; '.join(reasons) + '.')
     lines += ['', '## Failing metrics on v2', '']
@@ -529,6 +553,7 @@ def _(CASES, LLM_MODEL, RESULTS: list[dict], ws):
         lines.append('- none')
     DECISION_MD = '\n'.join(lines)
     display(Markdown(DECISION_MD))
+    print(f"{decision}: gate {('passed' if GATE['passed'] else 'failed on ' + ', '.join(GATE['failed']))}; case set {CASE_SET}")
     ws.save('release_decision', DECISION_MD)
     return (case_pass,)
 
@@ -536,7 +561,7 @@ def _(CASES, LLM_MODEL, RESULTS: list[dict], ws):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    You should see the rendered decision with a two-row table, a reason, and the failing v2 metrics, then a ✅ line. Stop here if v1 outscores v2: read the v2 failures before you touch the prompt, because retrieval is the usual culprit.
+    You should see the rendered decision with the case set fingerprint, a gate table with a FAIL on every metric under its minimum, a printed verdict line, and a ✅ line. Stop here if the gate fails on a metric whose per-case rows all passed: the mean is below the bar because a judge error scored zero.
     """)
     return
 
@@ -546,7 +571,7 @@ def _(mo):
     mo.md(r"""
     ## Your turn
 
-    Add a deterministic check as a fourth verdict. Pick two or three words from each reference that any correct answer must contain, test the answers for them with whole-word matching, and count how often the string check and the judge disagree. Explain to a teammate which one you would trust in a release gate and why.
+    Add a deterministic check as a fourth verdict. Pick two or three words from each reference that any correct answer must contain, test the answers for them with whole-word matching, and count how often the string check and the judge disagree. Then change one entry in `MINIMUM` or the `TOLERANCE`, rerun the decision, and say which metric the gate names now. Explain to a teammate which check you would trust in a release gate and why that bar is the right one.
     """)
     return
 

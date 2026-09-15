@@ -349,6 +349,18 @@
       "module": "09",
       "count": 31,
       "at": "2026-09-15T08:31:29+00:00"
+    },
+    {
+      "artifact": "deepeval_results",
+      "module": "21",
+      "count": 12,
+      "at": "2026-09-15T09:05:46+00:00"
+    },
+    {
+      "artifact": "release_decision",
+      "module": "21",
+      "count": 27,
+      "at": "2026-09-15T09:05:46+00:00"
     }
   ]
 }
