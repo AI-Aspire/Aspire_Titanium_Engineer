@@ -185,3 +185,17 @@ def test_chat_model_drops_message_names_for_a_self_hosted_server(monkeypatch):
     monkeypatch.setattr(config, "LLM_BASE", None)
     payload = llm.chat_model(model="m")._get_request_payload(msgs)
     assert "name" in payload["messages"][1]
+
+
+def test_local_paths_follow_the_caller_not_the_working_directory(tmp_path, monkeypatch):
+    """A notebook opening `data/x` worked in Jupyter and not in marimo, whose
+    working directory is wherever it was launched."""
+    from pathlib import Path
+    from helpers.paths import local, module_dir
+
+    assert module_dir() == Path(__file__).resolve().parent          # a script: beside itself
+    assert local("fixtures", "x") == Path(__file__).resolve().parent / "fixtures" / "x"
+    monkeypatch.chdir(tmp_path)
+    ns = {}
+    exec("from helpers.paths import module_dir\nd = module_dir()", ns)   # a kernel: no __file__
+    assert ns["d"] == tmp_path.resolve()

@@ -80,6 +80,7 @@ def _():
     from openai import OpenAI
 
     from helpers.config import KEY, LLM_BASE, LLM_MODEL, require, budget
+    from helpers.paths import local
     from helpers import workspace as ws, ui
     from helpers.llm import client
 
@@ -87,8 +88,8 @@ def _():
     client = client()
     TRANSCRIPTS = ws.load("transcripts")
 
-    _trace = np.load(Path("data") / "logits_small.npz")
-    _meta = json.loads((Path("data") / "logits_small_meta.json").read_text(encoding="utf-8"))
+    _trace = np.load(local("data", "logits_small.npz"))   # beside the notebook, in Jupyter and in marimo alike
+    _meta = json.loads(local("data", "logits_small_meta.json").read_text(encoding="utf-8"))
     LOGITS, TOKEN_IDS, VOCAB = _trace["logits"], _trace["token_ids"], _meta["vocab"]
     print(f"✅ judge model {LLM_MODEL}; {len(TRANSCRIPTS)} transcripts; {LOGITS.shape[0]} recorded positions from {_meta['model']}")
     return (

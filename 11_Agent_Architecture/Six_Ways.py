@@ -80,6 +80,7 @@ def _():
     from helpers.config import KEY, LLM_BASE, LLM_MODEL, require
     from helpers import workspace as ws
     from helpers.llm import client
+    from helpers.paths import local
 
     require("OPENAI_API_KEY")
     client = client()
@@ -106,6 +107,7 @@ def _():
         asyncio,
         chat,
         json,
+        local,
         os,
         re,
         shlex,
@@ -215,8 +217,8 @@ def _(mo):
 
 
 @app.cell
-def _(Path):
-    SKILL_DIR = Path("skills/case_lookup")
+def _(local):
+    SKILL_DIR = local("skills", "case_lookup")   # beside the notebook, in Jupyter and in marimo alike
     print(SKILL_DIR.joinpath("SKILL.md").read_text(encoding="utf-8"))
     return (SKILL_DIR,)
 
@@ -279,12 +281,12 @@ def _(mo):
 
 @app.cell
 def _(
-    Path,
     QUESTION,
     SYSTEM,
     asyncio,
     chat,
     json,
+    local,
     os,
     sys,
     textwrap,
@@ -292,7 +294,7 @@ def _(
 ):
     from mcp import ClientSession, StdioServerParameters
     from mcp.client.stdio import stdio_client
-    SERVER = str(Path('mcp_server.py').resolve())
+    SERVER = str(local('mcp_server.py'))
 
     async def run_mcp_agent(question: str, max_turns: int=6):
         params = StdioServerParameters(command=sys.executable, args=[SERVER], env=dict(os.environ))
