@@ -3,7 +3,7 @@
 ## Learn | Create | Grow
 
 ### Learn
-The retrieval gap, then retrieval as three moves: embed, find the nearest chunks, paste them into the prompt. Built from scratch in thirty lines, then rebuilt with a splitter, an embeddings endpoint, and a vector store.
+The retrieval gap, what pasting the whole corpus costs per call, then retrieval as three moves: embed, find the nearest chunks, paste them in. From scratch in thirty lines, rebuilt with a splitter, an embeddings endpoint, and a vector store.
 
 ### Create
 A corpus rendered from your charter, prompts, transcripts, and vibe checks, indexed locally, and a baseline answer saved for every vibe check.
@@ -11,7 +11,7 @@ A corpus rendered from your charter, prompts, transcripts, and vibe checks, inde
 ### Grow
 Production retrieval means structure-aware chunking, incremental re-indexing, hybrid search, and faithfulness checks in CI. Show your team the vibe check that retrieval fixed.
 
-**Estimated time:** 30 minutes
+**Estimated time:** 35 minutes
 **Reads:** charter, prompts, transcripts, vibe_checks
 **Writes:** corpus, baseline_runs
 
@@ -30,11 +30,12 @@ Production retrieval means structure-aware chunking, incremental re-indexing, hy
 | Task | What happens |
 |---|---|
 | 1 | Ask one vibe check with no source text and see the gap |
-| 2 | RAG from scratch: chunk, embed, rank by cosine, paste into the prompt |
-| 3 | The same pipeline in LangChain with a splitter, embeddings, and local Qdrant |
-| 4 | Wire it into a chain and answer the same question from the corpus |
-| 5 | Change `k` and compare two answers to one question |
-| 6 | Answer every vibe check and save the baseline runs with their contexts |
+| 2 | Paste the whole corpus into the prompt, time the first token, and see what ordering does to a prefix cache |
+| 3 | RAG from scratch: chunk, embed, rank by cosine, paste into the prompt |
+| 4 | The same pipeline in LangChain with a splitter, embeddings, and local Qdrant |
+| 5 | Wire it into a chain and answer the same question from the corpus |
+| 6 | Change `k` and compare two answers to one question |
+| 7 | Answer every vibe check and save the baseline runs with their contexts |
 
 ## Setup
 

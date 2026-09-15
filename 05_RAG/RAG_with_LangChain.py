@@ -27,7 +27,7 @@ def _(mo):
     ## Learn | Create | Grow
 
     ### Learn
-    The retrieval gap, then retrieval as three moves: embed, find the nearest chunks, paste them into the prompt. Built from scratch in thirty lines, then rebuilt with a splitter, an embeddings endpoint, and a vector store.
+    The retrieval gap, what pasting the whole corpus costs per call, then retrieval as three moves: embed, find the nearest chunks, paste them in. From scratch in thirty lines, rebuilt with a splitter, an embeddings endpoint, and a vector store.
     """)
     return
 
@@ -53,7 +53,7 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    **Estimated time:** 30 minutes
+    **Estimated time:** 35 minutes
     **Reads:** charter, prompts, transcripts, vibe_checks
     **Writes:** corpus, baseline_runs
     """)
@@ -136,7 +136,7 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ## Task 1 of 6 — See the gap
+    ## Task 1 of 7 — See the gap
 
     Ask the model one vibe check with no source text attached. It answers fluently. Compare the answer with what the vibe check says a good answer must include. A confident answer that misses the exact setting, path, or approver is the gap retrieval closes.
     """)
@@ -158,7 +158,7 @@ def _(LLM_MODEL, QUESTIONS, VIBES, client, show):
     print("Q:", QUESTION)
     print("A good answer includes:", VIBES[0]["expected"], "\n")
     show(ask_plain(QUESTION))
-    return QUESTION, ask_plain
+    return QUESTION, ask_plain, chat
 
 
 @app.cell(hide_code=True)
@@ -172,7 +172,116 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ## Task 2 of 6 — RAG from scratch
+    ## Task 2 of 7 — What it costs to paste everything
+
+    Before building retrieval, measure the alternative: paste every page into the prompt and ask. Streaming shows when the first token arrives, and that wait is mostly the server reading the prompt. Two orderings, two calls each. With the corpus first and the question last, a server with a prefix cache reuses the corpus on the second call. With the question first, every byte after it shifts, so the cache is useless. Four calls, and the only thing that changes between them is where the question sits.
+    """)
+    return
+
+
+@app.cell
+def _(CORPUS, LLM_MODEL, QUESTION, QUESTIONS, budget, chat, time, ui):
+    N_PAGES = budget(len(CORPUS), 6)  # the first pages of the corpus, as many as fit the window
+    PASTED = '\n\n'.join((f'# {name}\n{text}' for name, text in list(CORPUS.items())[:N_PAGES]))
+    Q1, Q2 = (QUESTION, QUESTIONS[1] if len(QUESTIONS) > 1 else QUESTION)
+    STYLE = 'Answer in one sentence.'
+
+    def corpus_first(question: str) -> list:
+        """The stable text first, the varying question last: a prefix a cache can reuse."""
+        return [{'role': 'system', 'content': f'Knowledge base:\n\n{PASTED}\n\n{STYLE}'}, {'role': 'user', 'content': question}]
+
+    def question_first(question: str) -> list:
+        """The varying question first: everything after it shifts, so nothing is reusable."""
+        return [{'role': 'user', 'content': f'{question}\n\n{STYLE}\n\nKnowledge base:\n\n{PASTED}'}]
+
+    def first_token(messages: list, usage: bool=True) -> tuple:
+        """Milliseconds to the first streamed token, plus prompt and cached tokens if the server reports usage."""
+        t0 = time.perf_counter()
+        ms = prompt_tokens = cached = None
+        extra = {'stream_options': {'include_usage': True}} if usage else {}
+        try:
+            stream = chat.chat.completions.create(model=LLM_MODEL, messages=messages, stream=True, **extra)
+        except Exception as e:
+            if usage and 'stream_options' in str(e):
+                return first_token(messages, usage=False)
+            raise
+        for chunk in stream:  # noqa: BLE001  a server that does not know stream_options rejects the whole call
+            delta = chunk.choices[0].delta if chunk.choices else None
+            if ms is None and delta and (delta.content or getattr(delta, 'reasoning_content', None) or getattr(delta, 'reasoning', None)):
+                ms = round(1000 * (time.perf_counter() - t0))
+            if chunk.usage:
+                prompt_tokens = chunk.usage.prompt_tokens
+                details = chunk.usage.prompt_tokens_details
+                cached = details.cached_tokens if details else None
+        return (ms, prompt_tokens, cached)
+    ROWS = []
+    for ordering, build in (('corpus first', corpus_first), ('question first', question_first)):
+        for call, q in ((1, Q1), (2, Q2)):
+            with ui.spinner(f'{ordering}, call {call}'):
+                ms, ptok, cached = first_token(build(q))
+            ROWS.append({'ordering': ordering, 'call': call, 'first_token_ms': ms, 'prompt_tokens': ptok, 'cached_tokens': cached})
+
+    def cell(v, missing: str) -> str:
+        return missing if v is None else f'{v:,}'
+    print(f'{N_PAGES} pages pasted, {len(PASTED):,} chars; two questions, each ordering asked Q1 then Q2\n')
+    print(f"{'ordering':<16}{'call':>5}{'first token ms':>16}{'prompt tokens':>15}{'cached tokens':>15}")
+    for _r in ROWS:
+        print(f"{_r['ordering']:<16}{_r['call']:>5}{cell(_r['first_token_ms'], 'no token'):>16}{cell(_r['prompt_tokens'], 'not reported'):>15}{cell(_r['cached_tokens'], 'not reported'):>15}")
+
+    def ms_of(ordering: str, call: int):
+        return next((r['first_token_ms'] for r in ROWS if r['ordering'] == ordering and r['call'] == call))
+    a1, a2, b1, b2 = (ms_of('corpus first', 1), ms_of('corpus first', 2), ms_of('question first', 1), ms_of('question first', 2))
+    cached_second = next((r['cached_tokens'] for r in ROWS if r['ordering'] == 'corpus first' and r['call'] == 2))
+    if cached_second:
+        print(f'\nThe server reports {cached_second:,} cached prompt tokens on the second corpus-first call: that is the prefix cache.')
+    elif all((v for v in (a1, a2, b1, b2))) and a2 * 1.5 < a1 and (not b2 * 1.5 < b1):
+        print(f'\nThe second corpus-first call reached its first token {a1 / a2:.1f}x faster than the first, and question-first did not: that is the prefix cache.')
+    else:
+        print('\nNo cache signal from this server: the first-token times are alike and usage reports no cached tokens, so the corpus is read in full on every call.')
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    You should see a four-row table with a first-token time per call and, where the server reports usage, prompt and cached tokens, then one sentence saying whether a cache showed. Stop here if a call raises a context length error: lower `N_PAGES` so the pasted corpus fits the model's window.
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ### What the table says
+
+    Every call reads the corpus before it writes a word. A prefix cache changes the price of that reading:
+
+    | | Roughly |
+    |---|---|
+    | Writing a prefix into the cache | more than an ordinary input token |
+    | Reading it back | an order of magnitude less |
+    | Break-even | about one re-read |
+
+    Ordering decides whether you get it. Anything that varies before the stable text, a timestamp, a user id, the question, invalidates every token after it: same tokens, same answer, full price. Retrieval is the other way to keep the prefix small: send only the passages that matter and the prompt stays short with or without a cache.
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ### ❓ Question
+    Which of the four calls was cheapest, and what in the table tells you? If your corpus grew tenfold, which cost grows with it under each ordering, and at what point does retrieval win even on a server with a cache?
+
+    Answer:
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ## Task 3 of 7 — RAG from scratch
 
     Retrieval is three moves. Embed the chunks and the question into vectors. Find the chunks whose vectors sit closest to the question. Paste those chunks into the prompt. Here it is by hand over every corpus page, so nothing is hidden. The chunker is a slice with an overlap; the ranking is one line of cosine similarity.
     """)
@@ -221,18 +330,7 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ### ❓ Question
-    Which chunk carried the answer, and what in the question made its vector land close? Would a different phrasing of the question have missed it?
-
-    Answer:
-    """)
-    return
-
-
-@app.cell(hide_code=True)
-def _(mo):
-    mo.md(r"""
-    ## Task 3 of 6 — The same pipeline in LangChain
+    ## Task 4 of 7 — The same pipeline in LangChain
 
     The library replaces three pieces. The splitter respects paragraph and sentence boundaries instead of cutting mid-word. The embeddings wrapper batches calls. The vectors go into Qdrant, an on-disk database built for nearest-neighbour search, instead of a NumPy array. It runs embedded in this process, so there is no server to start. Rerunning the cell reuses the index.
     """)
@@ -281,7 +379,18 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ## Task 4 of 6 — Wire it into a chain
+    ### ❓ Question
+    What did the library add over the from-scratch version, in one sentence each for the splitter, the embeddings wrapper, and the vector store?
+
+    Answer:
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ## Task 5 of 7 — Wire it into a chain
 
     LangChain composes the steps with `|`, the way a shell pipes commands. The chain takes a question, runs the retriever, fills the prompt, calls the model, and returns text in one `invoke`. Read it top to bottom: the question goes to the retriever, `format_docs` joins the chunks, and the prompt, model, and parser turn that into an answer.
     """)
@@ -326,17 +435,6 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ### ❓ Question
-    What did the library add over the from-scratch version, in one sentence each for the splitter, the embeddings wrapper, and the vector store?
-
-    Answer:
-    """)
-    return
-
-
-@app.cell(hide_code=True)
-def _(mo):
-    mo.md(r"""
     # Create
     """)
     return
@@ -345,7 +443,7 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ## Task 5 of 6 — Retrieval quality is a dial
+    ## Task 6 of 7 — Retrieval quality is a dial
 
     The chain is only as good as what the retriever feeds it. `k`, the number of chunks fetched, is the simplest dial. Too few and the passage never reaches the model. More chunks give a better chance the answer is supported, at the cost of a longer prompt. Run the same question at two settings and compare.
     """)
@@ -379,7 +477,18 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ## Task 6 of 6 — Answer every vibe check and save
+    ### ❓ Question
+    At `k = 1`, which chunk carried the answer, and what in the question made its vector land close? Would a different phrasing of the question have missed it?
+
+    Answer:
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ## Task 7 of 7 — Answer every vibe check and save
 
     Run the chain over every vibe check and keep the record flat: question, answer, and the chunks the model saw. That file is the baseline the retrieval ladder and the RAGAS scores are measured against. Keep the contexts. Without them nobody can tell whether a wrong answer was a retrieval miss or a model miss.
     """)
@@ -394,8 +503,8 @@ def _(LLM_MODEL, VIBES, answer_with_k, budget, ui, ws):
         _answer, _contexts = answer_with_k(v['input'], K)
         RUNS.append({'question': v['input'], 'answer': _answer, 'contexts': _contexts, 'expected': v['expected'], 'k': K, 'model': LLM_MODEL})
     ws.save('baseline_runs', RUNS)
-    for r in RUNS:
-        print(f"Q: {r['question']}\n   expects: {r['expected']}\n   got: {r['answer'][:200]}\n")
+    for _r in RUNS:
+        print(f"Q: {_r['question']}\n   expects: {_r['expected']}\n   got: {_r['answer'][:200]}\n")
     return
 
 
@@ -412,7 +521,7 @@ def _(mo):
     mo.md(r"""
     ## Your turn
 
-    Reading two answers side by side is the trap Task 5 named. Let your judge decide instead. Score the `k = 1` and `k = 8` answers with a judge that sees what the vibe check expects. Then change one thing, the chunk size or `k`, and score again. Tell a teammate which change moved the score and which one only changed the wording.
+    Reading two answers side by side is the trap Task 6 named. Let your judge decide instead. Score the `k = 1` and `k = 8` answers with a judge that sees what the vibe check expects. Then change one thing, the chunk size or `k`, and score again. Tell a teammate which change moved the score and which one only changed the wording.
     """)
     return
 
@@ -450,6 +559,7 @@ def _(mo):
     | Reindex when the chunk count changes | Incremental pipelines that reindex as documents change |
     | One embedded Qdrant collection on disk | A replicated vector database with access control |
     | Reading the answer | Faithfulness and context checks in CI |
+    | Four timed calls | Cache hit rate tracked per request |
     """)
     return
 
