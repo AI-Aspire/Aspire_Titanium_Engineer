@@ -84,6 +84,8 @@ SDG_MODEL = _str("SDG_MODEL", RAGAS_MODEL)
 
 TAVILY_KEY = _str("TAVILY_API_KEY")
 COHERE_KEY = _str("COHERE_API_KEY")
+COHERE_BASE = _str("COHERE_BASE_URL")
+COHERE_MODEL = _str("COHERE_MODEL", "Cohere-rerank-v4.0-pro")
 
 # ── tuning ───────────────────────────────────────────────────────────────────
 # These are the numbers that used to be scattered through the notebooks.

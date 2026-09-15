@@ -200,25 +200,24 @@ def judge_model(**kw):
 
 
 def embeddings_model(*, model: str | None = None, base_url: str | None = None, **kw):
-    """A configured `langchain_openai.OpenAIEmbeddings`.
+    """A LangChain `Embeddings` implementation.
 
-    APIM-aware: when base_url is the Accenture APIM gateway, injects
-    `subscription-key` via default_query (the SDK strips query params from base_url).
+    - On APIM (base URL contains azure-api.net): returns `APIMEmbeddings`, which
+      POSTs directly to `/openai` root with `?subscription-key=` — the SDK
+      appends `/embeddings` to base_url and APIM returns 404 for that path.
+    - Otherwise: a configured `langchain_openai.OpenAIEmbeddings`.
     """
-    from langchain_openai import OpenAIEmbeddings
-
     url = base_url or C.EMBED_BASE
-    extra: dict = {}
     if _is_apim(url):
-        # APIM's OpenAI-compatible embeddings live at the /openai root, not any /embeddings suffix.
-        if url.rstrip("/").endswith("/embeddings"):
-            url = url.rstrip("/")[: -len("/embeddings")]
-        extra["default_query"] = {"subscription-key": C.KEY}
+        from helpers.config import APIMEmbeddings
+        return APIMEmbeddings(model=model or C.EMBED_MODEL, base_url=url)
+
+    from langchain_openai import OpenAIEmbeddings
     return OpenAIEmbeddings(
         model=model or C.EMBED_MODEL, api_key=C.KEY, base_url=url,
         timeout=C.EMBED_TIMEOUT, max_retries=C.LLM_MAX_RETRIES,
         check_embedding_ctx_length=False,   # a self-hosted model is not tiktoken-sized
-        **extra, **kw,
+        **kw,
     )
 
 
