@@ -122,6 +122,13 @@ def run_one(nb: Path, *, save: bool, timeout: int) -> tuple[bool, str]:
             for line in _stderr_of(cell).splitlines():
                 if line.strip() and not any(n in line for n in _NOISE):
                     _say(f"    stderr: {line[:160]}")
+            # A notebook that skips an optional step says so on stdout with a
+            # marker; without this, a skipped optimiser left no trace in the log.
+            for o in cell.get("outputs", []):
+                if o.get("output_type") == "stream" and o.get("name") == "stdout":
+                    for line in o.get("text", "").splitlines():
+                        if line.lstrip().startswith(("⚠", "ℹ")):
+                            _say(f"    stdout: {line.strip()[:160]}")
 
     def on_error(cell, cell_index, execute_reply):
         for o in cell.get("outputs", []):
