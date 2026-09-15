@@ -38,3 +38,6 @@ workspace/*
 .idea/
 .zed/
 .DS_Store
+
+# Screenshots dropped into the root for review; never part of the repository
+/Screenshot*.png
