@@ -49,7 +49,7 @@ def _child_error(blob: str) -> str:
     return "failed with no message"
 
 
-def run_marimo(nb: Path, *, timeout: int) -> tuple[bool, str]:
+def run_marimo(nb: Path, *, timeout: int, project: Path | None = None) -> tuple[bool, str]:
     """Execute the marimo mirror by exporting it, which runs every cell.
 
     Runs from the repository root, the way a student who typed
@@ -59,10 +59,13 @@ def run_marimo(nb: Path, *, timeout: int) -> tuple[bool, str]:
     py = nb.with_suffix(".py")
     if not py.exists():
         return False, "no marimo mirror; run: make marimo"
+    # A module with its own environment runs its mirror there, the way a
+    # student who typed `uv run marimo edit` inside that folder would.
+    python = ["uv", "run", "--project", str(project), "python"] if project else [sys.executable]
     with tempfile.TemporaryDirectory() as td:
         out = Path(td) / "out.html"
         r = subprocess.run(
-            [sys.executable, "-m", "marimo", "export", "html", str(py), "-o", str(out), "--no-sandbox", "-f"],
+            python + ["-m", "marimo", "export", "html", str(py), "-o", str(out), "--no-sandbox", "-f"],
             cwd=ROOT, text=True, capture_output=True, timeout=timeout,
         )
     blob = (r.stdout or "") + (r.stderr or "")
@@ -158,7 +161,7 @@ def main(argv: list[str]) -> int:
         t0 = time.time()
         mdir = ROOT / module
         if args.marimo:
-            ok, err = run_marimo(nb, timeout=args.timeout)
+            ok, err = run_marimo(nb, timeout=args.timeout, project=mdir if own_env(mdir) else None)
         elif own_env(mdir):
             cmd = ["uv", "run", "--project", str(mdir), "python", str(ROOT / "scripts/check_execute.py"),
                    "--single", str(nb), "--timeout", str(args.timeout)] + (["--save"] if args.save else [])

@@ -38,10 +38,8 @@ jobs:
         run: uv run python scripts/make_marimo.py --check
       - name: No secrets or internal endpoints in outputs
         run: uv run python scripts/strip_outputs.py --check
-      # The seed grows one module at a time as each notebook is verified against
-      # a model: every module in the checkout must have its artifacts here.
-      # Drop the flag once all modules are in and the seed covers five days.
+      # Every module has landed, so the committed seed must cover all five days.
       - name: Seed validates
-        run: uv run python scripts/check_workspace.py --seed --landed
+        run: uv run python scripts/check_workspace.py --seed
       - name: Tests
         run: uv run python -m pytest tests/ -q
