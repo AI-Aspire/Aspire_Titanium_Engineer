@@ -20,6 +20,7 @@ version = "0.1.0"
 description = "Voice agents: a research panel you can talk to, over your own workspace"
 requires-python = ">=3.11,<3.13"
 dependencies = [
+    "marimo==0.24.2",         # the mirror beside the notebook runs in this environment
     "aspire-titanium-engineer",   # the shared helpers, from the repository root
     "ipython>=8.30",
     # LLM + agent orchestration (OpenAI-compatible)
