@@ -806,7 +806,7 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ### Message to your assistant
+    ### Try schema enforcement
 
     > Run the JSON-versus-schema experiment in `prompt_tools.py` on our project description. Show both results and explain what each method guarantees.
     """)
