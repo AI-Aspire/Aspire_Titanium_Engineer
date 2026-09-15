@@ -265,6 +265,18 @@
       "module": "11",
       "count": 2,
       "at": "2026-09-15T06:02:17+00:00"
+    },
+    {
+      "artifact": "guardrail_cases",
+      "module": "13",
+      "count": 8,
+      "at": "2026-09-15T06:03:28+00:00"
+    },
+    {
+      "artifact": "ladder_results",
+      "module": "13",
+      "count": 32,
+      "at": "2026-09-15T06:04:48+00:00"
     }
   ]
 }
