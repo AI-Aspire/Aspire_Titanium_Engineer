@@ -53,18 +53,38 @@ def _sampling(temperature: float | None, max_tokens: int | None,
 
 # ── raw OpenAI client ────────────────────────────────────────────────────────
 
+def _is_apim(base: str | None) -> bool:
+    """The APIM gateway needs ?subscription-key= on every call and deployment-scoped URLs."""
+    return bool(base and "azure-api.net" in base)
+
+
+def _apim_chat_base(base: str, model: str) -> str:
+    """APIM's chat endpoint lives at /deployments/{model}, not the plain root."""
+    return f"{base.rstrip('/')}/deployments/{model}"
+
+
 @functools.lru_cache(maxsize=8)
-def client(*, base_url: str | None = None, timeout: float | None = None,
-           max_retries: int | None = None):
-    """A configured `openai.OpenAI`. Cached, so repeat calls reuse the connection."""
+def client(*, base_url: str | None = None, model: str | None = None,
+           timeout: float | None = None, max_retries: int | None = None):
+    """A configured `openai.OpenAI`. Cached, so repeat calls reuse the connection.
+
+    When `base_url` points at the Accenture APIM gateway, adds the deployment-scoped
+    path and injects `?subscription-key=` as a default query param on every request
+    (the SDK strips query params from `base_url`, so this is the only reliable hook).
+    """
     from openai import OpenAI
 
-    return OpenAI(
+    url = base_url or C.LLM_BASE
+    kwargs = dict(
         api_key=C.KEY,
-        base_url=base_url or C.LLM_BASE,
+        base_url=url,
         timeout=C.LLM_TIMEOUT if timeout is None else timeout,
         max_retries=C.LLM_MAX_RETRIES if max_retries is None else max_retries,
     )
+    if _is_apim(url):
+        kwargs["base_url"] = _apim_chat_base(url, model or C.LLM_MODEL)
+        kwargs["default_query"] = {"subscription-key": C.KEY}
+    return OpenAI(**kwargs)
 
 
 def complete(messages, *, model: str | None = None, temperature=..., max_tokens=...,
@@ -76,7 +96,7 @@ def complete(messages, *, model: str | None = None, temperature=..., max_tokens=
     without.
     """
     model = model or C.LLM_MODEL
-    c = client()
+    c = client(model=model)
     params = {**_sampling(temperature, max_tokens, reasoning), **kw}
     if not _REASONING_OK.get(model, True):
         params.pop("reasoning_effort", None)
@@ -147,15 +167,23 @@ def chat_model(*, model: str | None = None, base_url: str | None = None,
 
     This replaces the line every notebook used to repeat:
         ChatOpenAI(model=..., api_key=..., base_url=..., timeout=120, max_retries=1)
+
+    APIM-aware: when base_url is the Accenture APIM gateway, uses the
+    deployment-scoped path and injects `subscription-key` via default_query.
     """
     name = model or C.LLM_MODEL
+    url = base_url or C.LLM_BASE
     params = _sampling(temperature, max_tokens, reasoning)
     if not _REASONING_OK.get(name, True):
         params.pop("reasoning_effort", None)
+    extra: dict = {}
+    if _is_apim(url):
+        url = _apim_chat_base(url, name)
+        extra["default_query"] = {"subscription-key": C.KEY}
     return _chat_class()(
-        model=name, api_key=C.KEY, base_url=base_url or C.LLM_BASE,
+        model=name, api_key=C.KEY, base_url=url,
         timeout=C.LLM_TIMEOUT, max_retries=C.LLM_MAX_RETRIES,
-        **params, **kw,
+        **params, **extra, **kw,
     )
 
 
@@ -167,14 +195,25 @@ def judge_model(**kw):
 
 
 def embeddings_model(*, model: str | None = None, base_url: str | None = None, **kw):
-    """A configured `langchain_openai.OpenAIEmbeddings`."""
+    """A configured `langchain_openai.OpenAIEmbeddings`.
+
+    APIM-aware: when base_url is the Accenture APIM gateway, injects
+    `subscription-key` via default_query (the SDK strips query params from base_url).
+    """
     from langchain_openai import OpenAIEmbeddings
 
+    url = base_url or C.EMBED_BASE
+    extra: dict = {}
+    if _is_apim(url):
+        # APIM's OpenAI-compatible embeddings live at the /openai root, not any /embeddings suffix.
+        if url.rstrip("/").endswith("/embeddings"):
+            url = url.rstrip("/")[: -len("/embeddings")]
+        extra["default_query"] = {"subscription-key": C.KEY}
     return OpenAIEmbeddings(
-        model=model or C.EMBED_MODEL, api_key=C.KEY, base_url=base_url or C.EMBED_BASE,
+        model=model or C.EMBED_MODEL, api_key=C.KEY, base_url=url,
         timeout=C.EMBED_TIMEOUT, max_retries=C.LLM_MAX_RETRIES,
         check_embedding_ctx_length=False,   # a self-hosted model is not tiktoken-sized
-        **kw,
+        **extra, **kw,
     )
 
 
@@ -182,15 +221,35 @@ def embeddings_model(*, model: str | None = None, base_url: str | None = None, *
 
 def embed(texts, *, batch: int | None = None, normalise: bool = True):
     """Embed a list of strings. Returns `(n, d)` float32, L2-normalised by
-    default so a dot product is cosine similarity. Held in memory only."""
+    default so a dot product is cosine similarity. Held in memory only.
+
+    APIM-aware: the SDK strips `?subscription-key=` from `base_url`, so on APIM
+    we bypass the SDK and POST directly with httpx.
+    """
     import numpy as np
 
     size = batch or C.EMBED_BATCH
-    c = client(base_url=C.EMBED_BASE, timeout=C.EMBED_TIMEOUT)
     out: list[list[float]] = []
-    for i in range(0, len(texts), size):
-        resp = c.embeddings.create(model=C.EMBED_MODEL, input=list(texts[i:i + size]))
-        out.extend(d.embedding for d in resp.data)
+    if _is_apim(C.EMBED_BASE):
+        import httpx
+        root = C.EMBED_BASE.rstrip("/")
+        if root.endswith("/embeddings"):
+            root = root[: -len("/embeddings")]
+        for i in range(0, len(texts), size):
+            r = httpx.post(
+                root,
+                params={"subscription-key": C.KEY},
+                json={"model": C.EMBED_MODEL, "input": list(texts[i:i + size])},
+                timeout=C.EMBED_TIMEOUT,
+            )
+            r.raise_for_status()
+            data = sorted(r.json()["data"], key=lambda d: d["index"])
+            out.extend(d["embedding"] for d in data)
+    else:
+        c = client(base_url=C.EMBED_BASE, timeout=C.EMBED_TIMEOUT)
+        for i in range(0, len(texts), size):
+            resp = c.embeddings.create(model=C.EMBED_MODEL, input=list(texts[i:i + size]))
+            out.extend(d.embedding for d in resp.data)
     arr = np.asarray(out, dtype="float32")
     if normalise and len(arr):
         arr /= (np.linalg.norm(arr, axis=1, keepdims=True) + 1e-12)

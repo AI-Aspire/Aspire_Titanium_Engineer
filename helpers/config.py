@@ -148,3 +148,78 @@ def summary() -> str:
     cap = LLM_MAX_TOKENS or "no cap"
     return (f"{LLM_MODEL} at {where} · timeout {LLM_TIMEOUT:.0f}s · "
             f"retries {LLM_MAX_RETRIES} · reasoning {effort} · tokens {cap}")
+
+
+# ── APIM shortcuts (Accenture Titanium gateway) ─────────────────────────────
+# When OPENAI_BASE_URL points at *.azure-api.net the SDK strips query params from
+# base_url and returns 401; these helpers hide that and expose the pattern every
+# notebook that constructs its own client needs.
+
+def _is_apim(base: str | None) -> bool:
+    return bool(base and "azure-api.net" in base)
+
+
+def apim_chat_client(model: str | None = None, *, base_url: str | None = None,
+                     timeout: float | None = None, max_retries: int | None = None):
+    """OpenAI SDK client wired for APIM (deployment-scoped URL + subscription-key)."""
+    from openai import OpenAI
+
+    m = (model or LLM_MODEL or "").removeprefix("openai/")
+    base = (base_url or LLM_BASE or "").rstrip("/")
+    kwargs: dict = {"api_key": KEY, "timeout": timeout or LLM_TIMEOUT,
+                    "max_retries": max_retries or LLM_MAX_RETRIES}
+    if _is_apim(base):
+        kwargs["base_url"] = f"{base}/deployments/{m}"
+        kwargs["default_query"] = {"subscription-key": KEY}
+    else:
+        kwargs["base_url"] = base or None
+    return OpenAI(**kwargs)
+
+
+def apim_embed(texts, *, base_url: str | None = None, model: str | None = None,
+               timeout: float | None = None):
+    """List[str] -> List[List[float]]. Uses httpx on APIM (SDK strips query params)."""
+    m = model or EMBED_MODEL or "text-embedding-3-large"
+    base = (base_url or EMBED_BASE or "").rstrip("/")
+    if base.endswith("/embeddings"):
+        base = base[: -len("/embeddings")]
+    if not _is_apim(base):
+        from openai import OpenAI
+        c = OpenAI(api_key=KEY, base_url=base or None, timeout=timeout or EMBED_TIMEOUT)
+        out: list = []
+        for i in range(0, len(texts), EMBED_BATCH):
+            r = c.embeddings.create(model=m, input=list(texts[i:i + EMBED_BATCH]))
+            out.extend(d.embedding for d in r.data)
+        return out
+    import httpx
+    out = []
+    for i in range(0, len(texts), EMBED_BATCH):
+        r = httpx.post(base, params={"subscription-key": KEY},
+                       json={"model": m, "input": list(texts[i:i + EMBED_BATCH])},
+                       timeout=timeout or EMBED_TIMEOUT)
+        r.raise_for_status()
+        data = sorted(r.json()["data"], key=lambda d: d["index"])
+        out.extend(d["embedding"] for d in data)
+    return out
+
+
+# LangChain-compatible embeddings; falls back to `object` when LangChain isn't installed,
+# so importing this module works in venvs without LangChain (Module 14 voice venv etc.).
+try:
+    from langchain_core.embeddings import Embeddings as _LCEmbeddings  # noqa: F401
+except ImportError:
+    _LCEmbeddings = object  # type: ignore[assignment,misc]
+
+
+class APIMEmbeddings(_LCEmbeddings):
+    """`langchain_core.embeddings.Embeddings` backed by `apim_embed`."""
+
+    def __init__(self, model: str | None = None, base_url: str | None = None):
+        self.model = model or EMBED_MODEL
+        self.base_url = base_url or EMBED_BASE
+
+    def embed_documents(self, texts):
+        return apim_embed(texts, base_url=self.base_url, model=self.model)
+
+    def embed_query(self, text: str):
+        return apim_embed([text], base_url=self.base_url, model=self.model)[0]
