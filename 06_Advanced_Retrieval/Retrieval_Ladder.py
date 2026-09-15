@@ -421,7 +421,7 @@ def _(mo):
     <details>
     <summary>About the recorded experiments</summary>
     <span class="markdown prose dark:prose-invert contents"><span class="paragraph">The recordings were produced by <code>retrieval_tools.py</code> on the seed corpus. Proposed labels are included as proposals, not treated as reviewed truth. Scoring used the existing seed eval cases. No live workspace artifacts were changed for these recordings.</span>
-    <span class="paragraph">If you want to keep an experiment for later workflows, ask your assistant to run the score tool with its save option. That writes only the actual cases and measured ladder through the workspace helper. No conversation export is involved.</span></span>
+    <span class="paragraph">If you want to keep an experiment for later workflows, ask your assistant to run the score tool with its save option. That writes only the actual cases and measured ladder through the workspace helper.</span></span>
     </details>
     """)
     return

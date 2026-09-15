@@ -15,9 +15,9 @@ Choose retrieval settings using evidence about quality and latency.
 
 ## Interactive lesson
 
-Open `Retrieval_Ladder.ipynb` alongside your coding assistant. Ask it to run the repository tools and explain the actual results. Tools are enabled for this lesson. You do not need to type Python or shell commands yourself.
+Open `Retrieval_Ladder.ipynb` alongside your coding assistant. Ask it to run the repository tools and explain the actual results.
 
-`retrieval_tools.py` contains the experiment code extracted from the original notebook. Read it to inspect BM25, RRF, reranking, query expansion, and scoring. `Retrieval_Ladder.py` is the generated marimo mirror of the conversation guide, not the experiment implementation.
+`retrieval_tools.py` contains the experiment code. Read it to inspect BM25, RRF, reranking, query expansion, and scoring. `Retrieval_Ladder.py` is the generated marimo mirror.
 
 Use `make setup` for the shared environment. BM25 works without a model key; dense retrieval needs configured embeddings, labelling and query expansion need the chat model, and the local cross-encoder downloads on first use. These tools read `.env`; the model serving your coding assistant is separate from the experiment models. Optional Cohere reranking needs `COHERE_API_KEY`.
 
@@ -40,7 +40,7 @@ Select rungs with `--rungs bm25 dense`, or all five by default. Optional `cohere
 
 `--cases FILE` reads a JSON list with `id`, `question`, `reference`, and `pages` per case. Use it for labels the student reviewed or a question the student wrote. Keep temporary case files outside `workspace/`; do not invent labels or change them to make a retriever win.
 
-For `score`, `--save` writes the cases actually used and measured ladder through `helpers.workspace`. No conversation export is required. Save only when the user asks to persist the experiment. Without this flag, experiments do not change workspace artifacts.
+For `score`, `--save` writes the cases actually used and measured ladder through `helpers.workspace`. Save only when the user asks to persist the experiment. Without this flag, experiments do not change workspace artifacts.
 
 ## Measurement boundaries
 

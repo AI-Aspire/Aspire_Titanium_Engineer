@@ -32,7 +32,7 @@ Each command is a fresh experiment. Keep a result to inspect later nodes without
 
 ## What the experiment measures
 
-The original typed contracts, term-overlap search, optional Tavily wrappers, isolated researcher functions, thread pool, reflection loop, compression, writer, and LangGraph are preserved. Clarification receives the actual corpus page list and capability report so it can identify available inputs. The graph remains linear: clarification records a decision but does not stop execution. In the interactive guide, pause after the planning command if clarification is needed.
+The tool file contains the typed contracts, search tools, isolated researchers, reflection loop, compression, writer, and LangGraph workflow. Clarification receives the actual corpus page list and capability report so it can identify available inputs. The graph remains linear: clarification records a decision but does not stop execution. In the interactive guide, pause after the planning command if clarification is needed.
 
 No Tavily key is required for corpus research. When web search is off, the extract-URL setting has no effect. Corpus extraction reads up to two hits per loop, capped at 3,000 characters each. Search and extraction budgets limit evidence, not total tokens or billing. Trace counts are not latency or dollar-cost measurements.
 

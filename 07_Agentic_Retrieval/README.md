@@ -31,7 +31,7 @@ Keep the proposed wiki in a scratch file outside the workspace after showing it 
 
 ## What the experiment measures
 
-The original BM25 section index, three file tools, six-turn message loop, and reference judge are preserved. Tool results are now included in traces so students can distinguish retrieval failures from answer failures. Both modes share model, prompt, question, and loop. DCI reads are capped at 12,000 characters; chunk results at 1,000 characters each. Evidence characters and elapsed seconds do not measure billed tokens. Wiki generation and judging are outside agent latency.
+The experiment uses a BM25 section index, three file tools, a six-turn message loop, and a reference judge. Traces include tool results to help distinguish retrieval failures from answer failures. Both modes share model, prompt, question, and loop. DCI reads are capped at 12,000 characters; chunk results at 1,000 characters each. Evidence characters and elapsed seconds do not measure billed tokens. Wiki generation and judging are outside agent latency.
 
 Scores are judge estimates. Naming an expected page is a string check. Neither establishes citation support. Missing scores and turn-limit failures remain visible. The model-written wiki is a proposal, not a human-verified description.
 

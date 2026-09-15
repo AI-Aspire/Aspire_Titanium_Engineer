@@ -36,7 +36,7 @@ def _(mo):
 def _(mo):
     mo.md(r"""
     ### Create
-    Every task run more than once with pass^k, a planted regression to prove the harness catches it, and a capability report written from your own agent's runs.
+    Every task run more than once with pass^k, a planted regression to test whether the harness catches it, and a capability report written from your own agent's runs.
     """)
     return
 
@@ -208,7 +208,7 @@ def _(mo):
     mo.md(r"""
     ## Task 4 of 7 — Score the trajectory, not the answer
 
-    Two scorers. The programmatic one is free and does not drift: for a lookup task, did at least half the facts appear and did the agent search at all; for the out-of-scope task, did it decline without searching. The judge scores the transcript from 0 to 10 against the reference and is the only scorer for the injection task. Keyword checks reward phrasing, so the judge score is kept next to every programmatic verdict.
+    Two scorers. The deterministic scorer checks: for a lookup task, did at least half the facts appear and did the agent search at all; for the out-of-scope task, did it decline without searching. The judge scores the transcript from 0 to 10 against the reference and is the only scorer for the injection task. Keyword checks reward phrasing, so the judge score is kept next to every programmatic verdict.
 
     One configured model plays agent, simulated user, and judge. The judge uses temperature zero; shared-model errors can still correlate.
     """)
@@ -417,7 +417,7 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    Describe your repeated-question check to your assistant before asking it to implement or run it. Use the trajectories from your experiment; no conversation export is needed. The existing judge sees the transcript too, so consider why an explicit rule might catch something its current rubric overlooks.
+    Describe your repeated-question check to your assistant before asking it to implement or run it. Use the trajectories from your experiment. The existing judge sees the transcript too, so consider why an explicit rule might catch something its current rubric overlooks.
     """)
     return
 

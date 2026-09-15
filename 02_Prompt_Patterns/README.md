@@ -25,16 +25,16 @@ Product documentation: [Codex](https://developers.openai.com/codex/), [Claude Co
 
 Recorded examples use `gpt-5.6-luna` through the OpenAI Responses API, with no tools or repository instructions. Effort is low except for the xhigh pelican comparison. Exact conversation history and results are in [recording data](data/recorded_responses.json).
 
-The pelican images show measured generation times, excluding rendering. Earlier recordings remain in `data/`.
+The pelican images show measured generation times, excluding rendering.
 
 ## Course integration
 
-This version does not save a `prompts` workspace artifact. Later notebooks use existing or seed prompts instead of these conversations. Conversation export is not required for this lesson.
+This lesson does not write workspace artifacts. Readers of `prompts` use existing workspace data or the seed example.
 
 ## Tool reference for your assistant
 
-Task 4 also demonstrates the original application-side schema contract. From this directory, run `uv run --no-sync python prompt_tools.py compare`. Students ask for the experiment in an interactive coding assistant; they do not type this command.
+Task 4 compares requested JSON with API-enforced output structure. From this directory, run `uv run --no-sync python prompt_tools.py compare`. Students ask for the experiment in an interactive coding assistant; they do not type this command.
 
-`prompt_tools.py` contains the original `ProductBrief` fields and `client.chat.completions.parse` call. It compares a plain JSON request with schema enforcement on the same active charter and requested fields. `--text` accepts an explicit input instead. This uses the repository's configured model/API key, independently of coding-assistant authentication. It writes no workspace artifacts.
+`prompt_tools.py` defines the `ProductBrief` fields and `client.chat.completions.parse` call. It compares a plain JSON request with schema enforcement on the same active charter and requested fields. `--text` accepts an explicit input instead. This uses the repository's configured model/API key, independently of coding-assistant authentication. It writes no workspace artifacts.
 
-Inspect actual validation, refusal, and finish status. A supported endpoint can enforce shape; it cannot establish factual accuracy. Both calls may succeed, and unsupported endpoints may fail. The real seed recording is `data/recorded_schema_experiment.json`. The other Python file remains the generated marimo guide.
+Inspect actual validation, refusal, and finish status. A supported endpoint can enforce shape; it cannot establish factual accuracy. Both calls may succeed, and unsupported endpoints may fail. The real seed recording is `data/recorded_schema_experiment.json`.

@@ -16,7 +16,7 @@ def _(mo):
     mo.md(r"""
     # Unroll deep research
 
-    Use an interactive coding assistant to inspect and run a research workflow: clarify, brief, plan, research, compress, write. The existing tools research a failure from your capability report using the corpus and optional web search, then produce a report and trace.
+    Use an interactive coding assistant to inspect and run a research workflow: clarify, brief, plan, research, compress, write. The tools research a failure from your capability report using the corpus and optional web search, then produce a report and trace.
     """)
     return
 
@@ -180,7 +180,7 @@ def _(mo):
     mo.md(r"""
     ## Task 3 of 6 — Clarify, brief, plan
 
-    Three nodes, three decisions. Clarify decides whether the question can be scoped at all. Brief turns it into a target with success criteria. Plan splits the brief into independent research tasks, each with a search-ready query. Every node appends one trace event, which is the whole observability story of this notebook.
+    Three nodes, three decisions. Clarify decides whether the question can be scoped at all. Brief turns it into a target with success criteria. Plan splits the brief into independent research tasks, each with a search-ready query. Each node records a trace event so you can follow the handoffs.
     """)
     return
 
@@ -289,7 +289,7 @@ def _(mo):
     </tr>
     </tbody>
     </table>
-    <span class="paragraph">The report passed the save checks in a temporary workspace. Still check the cited passages: source membership does not verify claims.</span></span>
+    <span class="paragraph">No citations were outside the observed sources, but one cited source was only found in search. Check the cited passages before trusting the claims.</span></span>
     </details>
     """)
     return

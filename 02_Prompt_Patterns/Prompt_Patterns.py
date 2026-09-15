@@ -174,7 +174,7 @@ def _(mo):
     mo.md(r"""
     ## Task 2 of 7 — Few-shot
 
-    Examples teach a local convention. This example support desk handles reservations but routes equipment faults elsewhere. Its scope is different from Deskmate’s.
+    Examples teach a local convention. This example support desk handles reservations but routes equipment faults elsewhere.
     """)
     return
 
@@ -830,7 +830,7 @@ def _(mo):
     <details><summary>Recorded experiment: schema enforcement</summary>
     <span class="markdown prose dark:prose-invert contents"><span class="paragraph">Real seed-charter run with <code>gpt-4.1-mini</code>. Both calls returned valid product briefs in this run. The enforced call completed with <code>stop</code> and no refusal.</span>
     <span class="paragraph">The plain call passed an independent Pydantic validation check; the enforced call supplied <code>ProductBrief</code> as the API response format and returned a parsed object. Check the contents against the charter even when validation succeeds.</span>
-    <span class="paragraph">Exact inputs, schema, response IDs, and both outputs: <code>data/recorded_schema_experiment.json</code>. This is an API experiment run by a repo tool, not a coding-assistant UI response.</span></span>
+    <span class="paragraph">Exact inputs, schema, response IDs, and both outputs: <code>data/recorded_schema_experiment.json</code>.</span></span>
     </details>
     """)
     return

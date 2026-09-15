@@ -16,7 +16,7 @@ def _(mo):
     mo.md(r"""
     # DCI vs agentic RAG
 
-    Compare two ways an agent reaches your corpus: ranked sections or tools that list, search, and read pages. Use an interactive coding assistant to run the same experiment loop with each interface and inspect the evidence.
+    Compare two ways an agent reaches your corpus: ranked sections (agentic RAG) or direct corpus interaction (DCI) through tools that list, search, and read pages. Use an interactive coding assistant to run the same experiment loop with each interface and inspect the evidence.
     """)
     return
 
@@ -113,7 +113,7 @@ def _(mo):
     mo.md(r"""
     ## Task 1 of 5 — Build the wiki
 
-    An agent with file tools needs a map, or it reads pages at random. The wiki is one markdown index: every page name, what a reader should use it for, and its section headings. The skeleton is built from the headings by hand. The model writes the one-line purpose for each page, from a digest, and you correct it.
+    An agent with file tools needs a map, or it reads pages at random. The wiki is one markdown index: every page name, what a reader should use it for, and its section headings. The tool builds the skeleton from page headings. The model writes the one-line purpose for each page, from a digest, and you correct it.
     """)
     return
 
@@ -141,7 +141,7 @@ def _(mo):
     mo.md(r"""
     ## Task 2 of 5 — Two corpus interfaces
 
-    Agentic RAG gets one tool. `search_chunks` returns the top sections by BM25 and can be called again with a new query, but it cannot list pages or ask for a whole one. DCI gets three: `list_pages` returns the wiki, `grep_wiki` returns matching lines with the page and line number, `read_page` returns a whole page. In DCI the agent, not a retriever, decides what to read next.
+    Agentic RAG gets one tool. `search_chunks` returns the top sections by BM25 and can be called again with a new query, but it cannot list pages or ask for a whole one. DCI gets three: `list_pages` returns the wiki, `grep_wiki` returns matching lines with the page and line number, `read_page` returns a whole page. With direct corpus interaction (DCI), the agent chooses which pages to read.
     """)
     return
 
@@ -207,7 +207,7 @@ def _(mo):
 def _(mo):
     mo.md(r"""
     <details><summary>Recorded experiment: inspect calls beside scores</summary>
-    <span class="markdown prose dark:prose-invert contents"><span class="paragraph">Real seed run with <code>gpt-4.1-mini</code>. These are tool outputs, not an interactive UI capture. Full runs and evidence: <code>data/recorded_experiments.json</code>.</span>
+    <span class="markdown prose dark:prose-invert contents"><span class="paragraph">Real seed run with <code>gpt-4.1-mini</code>. Full runs and evidence: <code>data/recorded_experiments.json</code>.</span>
     <table>
     <thead>
     <tr>
