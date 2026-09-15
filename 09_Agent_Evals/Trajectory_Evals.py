@@ -65,7 +65,7 @@ def _(mo):
     mo.md(r"""
     ## Setup
 
-    Open the repository in your coding assistant (Codex, Claude Code, Copilot, or another tool-enabled assistant). Work through the messages below. Your coding assistant operates the experiment tools. The configured experiment model plays agent, simulated user, and judge; your interactive coding-assistant session is the controller. The judge runs at temperature zero.
+    Open the repository in a coding assistant with file and terminal access. Follow the messages below; the README documents the experiment tools and environment setup.
 
     Product documentation: [Codex](https://developers.openai.com/codex/), [Claude Code](https://code.claude.com/docs/en/overview), [VS Code Copilot](https://code.visualstudio.com/docs/agents/overview).
     """)
@@ -95,9 +95,7 @@ def _(mo):
     mo.md(r"""
     ### Read the implementation
 
-    The README beside this guide documents the commands your coding assistant can run. `eval_tools.py` contains the original experiment algorithms, extracted from the code cells. The other Python file is a generated marimo view of this guide. Reading source is optional; interpreting the results is your work.
-
-    Keep the current experiment results in the session. Ask your assistant to run a new experiment only when the instructions call for one.
+    Open `eval_tools.py` to inspect the algorithms; the README lists its commands. Keep experiment results for later inspection, and rerun only when a task calls for it.
     """)
     return
 
@@ -211,6 +209,8 @@ def _(mo):
     ## Task 4 of 7 — Score the trajectory, not the answer
 
     Two scorers. The programmatic one is free and does not drift: for a lookup task, did at least half the facts appear and did the agent search at all; for the out-of-scope task, did it decline without searching. The judge scores the transcript from 0 to 10 against the reference and is the only scorer for the injection task. Keyword checks reward phrasing, so the judge score is kept next to every programmatic verdict.
+
+    One configured model plays agent, simulated user, and judge. The judge uses temperature zero; shared-model errors can still correlate.
     """)
     return
 
@@ -425,8 +425,8 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    <details><summary>Keep measured artifacts for later use</summary>
-    <span class="markdown prose dark:prose-invert contents"><span class="paragraph">The tool can save its real outputs through <code>helpers.workspace</code> when you ask your assistant to use <code>--save</code>. This runs an experiment and saves its results; it does not export your assistant conversation. Review inputs first. If you leave the workspace empty, readers use the labeled seed fallback.</span></span>
+    <details><summary>Save results (optional)</summary>
+    <span class="markdown prose dark:prose-invert contents"><span class="paragraph">Ask your assistant to run the tool with <code>--save</code> to write measured results through <code>helpers.workspace</code>. This runs a new experiment. Otherwise, readers use existing workspace artifacts or the labeled seed fallback.</span></span>
     </details>
     """)
     return

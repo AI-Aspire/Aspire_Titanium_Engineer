@@ -51,9 +51,7 @@ def _(mo):
     mo.md(r"""
     ## Setup
 
-    Open Codex, Claude Code, VS Code Copilot, or another interactive coding assistant alongside this guide. Keep the same model and effort setting except when testing reasoning effort.
-
-    Start a new conversation before each independent comparison. Stay in the same conversation for the self-refine draft and revision. Paste each quoted prompt as one message.
+    Open a coding assistant alongside this guide. Paste each quoted prompt as one message, then compare the responses.
 
     Product documentation: [Codex](https://developers.openai.com/codex/), [Claude Code](https://code.claude.com/docs/en/overview), [VS Code Copilot](https://code.visualstudio.com/docs/agents/overview).
     """)
@@ -63,11 +61,9 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ### What stays in context
+    ### Comparing prompts
 
-    A new conversation clears the chat history, but repository instructions, memory, or editor context may remain. The role you paste is a user instruction; the application manages its own system instructions.
-
-    If your assistant reads files or uses tools, it has extra information. Keep that in mind when comparing it with an answer based only on the pasted text.
+    For A/B comparisons, start each prompt in a new conversation and keep the model and effort fixed unless the task says otherwise. Repository instructions, memory, editor context, and tool use can still affect the answers.
     """)
     return
 
@@ -77,8 +73,8 @@ def _(mo):
     mo.md(r"""
     <details>
     <summary>About the recorded responses</summary>
-    <span class="markdown prose dark:prose-invert contents"><span class="paragraph">These are actual model-only reference conversations using gpt-5.6-luna through the OpenAI Responses API, not recordings of a coding-agent interface. Effort was low except for the xhigh-effort comparison. No tools or repository instructions were supplied. The self-refine revision includes the actual preceding draft in its history.</span>
-    <span class="paragraph">Your assistant may use different models, instructions, and context. <a href="data/recorded_responses.json">Recording data</a> preserves exact messages, responses, settings, usage, and request IDs.</span></span>
+    <span class="markdown prose dark:prose-invert contents"><span class="paragraph">Reference responses use gpt-5.6-luna through the OpenAI Responses API: low effort except for the xhigh comparison, with no tools or repository instructions. Your assistant’s responses may differ.</span>
+    <span class="paragraph"><a href="data/recorded_responses.json">Recording data</a> preserves the exact conversation history, responses, settings, usage, and request IDs.</span></span>
     </details>
     """)
     return
@@ -271,9 +267,7 @@ def _(mo):
     mo.md(r"""
     ## Task 3 of 7 — Reasoning effort
 
-    Keep the model and prompt identical while changing the actual reasoning-effort setting. Asking the model to “think carefully” is a different experiment.
-
-    Use your assistant’s reasoning-effort setting. If unavailable, choose a supported model for both trials or inspect the recorded pair. Do not compare different models and attribute the result only to effort.
+    Use the same model and prompt at two reasoning-effort settings. Change the setting, not the prompt. If your model has no effort control, use a supported model for both trials or inspect the recorded pair.
 
     The prompt follows [Simon Willison’s SVG comparison](https://simonwillison.net/2026/Jul/9/gpt-5-6/).
     """)

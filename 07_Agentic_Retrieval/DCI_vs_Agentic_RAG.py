@@ -65,7 +65,7 @@ def _(mo):
     mo.md(r"""
     ## Setup
 
-    Open the repository in your coding assistant (Codex, Claude Code, Copilot, or another tool-enabled assistant). Use this guide as a sequence of messages. Your coding assistant runs the existing experiment tools; you inspect results and make the decisions. The experiment model comes from `.env`, independently of the model chatting with you.
+    Open the repository in a coding assistant with file and terminal access. Follow the messages below; the README documents the experiment tools and environment setup.
 
     Product documentation: [Codex](https://developers.openai.com/codex/), [Claude Code](https://code.claude.com/docs/en/overview), [VS Code Copilot](https://code.visualstudio.com/docs/agents/overview).
     """)
@@ -95,9 +95,7 @@ def _(mo):
     mo.md(r"""
     ### Read the implementation
 
-    The README beside this guide documents the commands your coding assistant can run. `agentic_tools.py` contains the original experiment algorithms, extracted from the code cells. The other Python file is a generated marimo view of this guide. Reading source is optional; interpreting the results is your work.
-
-    Keep the current experiment results in the session. Ask your assistant to run a new experiment only when the instructions call for one.
+    Open `agentic_tools.py` to inspect the algorithms; the README lists its commands. Keep experiment results for later inspection, and rerun only when a task calls for it.
     """)
     return
 
@@ -353,8 +351,8 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    <details><summary>Keep measured artifacts for later use</summary>
-    <span class="markdown prose dark:prose-invert contents"><span class="paragraph">The tool can save its real outputs through <code>helpers.workspace</code> when you ask your assistant to use <code>--save</code>. This runs an experiment and saves its results; it does not export your assistant conversation. Review inputs first. If you leave the workspace empty, readers use the labeled seed fallback.</span></span>
+    <details><summary>Save results (optional)</summary>
+    <span class="markdown prose dark:prose-invert contents"><span class="paragraph">Ask your assistant to run the tool with <code>--save</code> to write measured results through <code>helpers.workspace</code>. This runs a new experiment. Otherwise, readers use existing workspace artifacts or the labeled seed fallback.</span></span>
     </details>
     """)
     return

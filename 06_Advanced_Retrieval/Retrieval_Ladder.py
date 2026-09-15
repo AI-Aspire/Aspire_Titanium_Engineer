@@ -55,11 +55,7 @@ def _(mo):
     mo.md(r"""
     ## Setup
 
-    Open the repository in your coding assistant (Codex, Claude Code, Copilot, or another tool-enabled assistant). Let it read files and run the repository tools. The README beside this guide tells it how.
-
-    The experiments use the existing code in `retrieval_tools.py`, extracted from the notebook. Open that file whenever you want to inspect an algorithm. `Retrieval_Ladder.py` is the generated mirror of this conversation guide.
-
-    Dense search needs configured embeddings; labelling and query expansion need the configured chat model. The reranker downloads on first use. These experiment models can differ from the model running your coding assistant.
+    Open the repository in a coding assistant with file and terminal access. Follow the messages below; the README documents the experiment tools and environment setup.
 
     Product documentation: [Codex](https://developers.openai.com/codex/), [Claude Code](https://code.claude.com/docs/en/overview), [VS Code Copilot](https://code.visualstudio.com/docs/agents/overview).
     """)

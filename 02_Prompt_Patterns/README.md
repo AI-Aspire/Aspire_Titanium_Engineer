@@ -15,7 +15,7 @@ Test prompts across representative inputs and check both format and facts.
 
 ## Setup
 
-Open `Prompt_Patterns.ipynb` alongside Codex, Claude Code, VS Code Copilot, or another tool-enabled coding assistant. Paste the prompts and compare the responses. Start a new conversation before each independent example; keep the same conversation for self-refine. The reasoning exercise changes the actual reasoning-effort setting, then restores the previous setting.
+Open `Prompt_Patterns.ipynb` alongside your coding assistant. Follow the prompts and compare the responses.
 
 The notebook is a reading guide with no executable cells. `Prompt_Patterns.py` is its generated marimo mirror.
 
@@ -23,9 +23,9 @@ Product documentation: [Codex](https://developers.openai.com/codex/), [Claude Co
 
 ## Examples
 
-Each prompt has a collapsed recorded response. These are actual model-only OpenAI Responses API runs with `gpt-5.6-luna` (low effort, except the xhigh-effort comparison), preserved in [recording data](data/recorded_responses.json). No tools or repository instructions were supplied; self-refine retains the preceding draft. These are reference conversations, not captures of a coding-agent interface. Your interactive responses may differ. Earlier Claude recordings remain in the versioned recording files.
+Recorded examples use `gpt-5.6-luna` through the OpenAI Responses API, with no tools or repository instructions. Effort is low except for the xhigh pelican comparison. Exact conversation history and results are in [recording data](data/recorded_responses.json).
 
-The effort example shows low versus xhigh pelicans with measured generation times above the images (17.8 and 90.7 seconds). Times cover API request completion, excluding rendering. The earlier high-effort trial is retained in `data/recorded_pelican_high.json`.
+The pelican images show measured generation times, excluding rendering. Earlier recordings remain in `data/`.
 
 ## Course integration
 

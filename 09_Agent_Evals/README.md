@@ -6,11 +6,11 @@ Estimated time: 45 minutes. Reads: corpus, eval_cases. Writes, when requested: t
 
 ## Use the guide
 
-Open `Trajectory_Evals.ipynb` as a reading guide and open an interactive coding assistant in the repository. Send the messages one at a time, inspect the evidence, and answer the questions yourself. Students do not need to type shell commands or run notebook cells.
+Open `Trajectory_Evals.ipynb` as a reading guide and open an interactive coding assistant in the repository. Follow the messages and inspect the results.
 
-`eval_tools.py` contains the experiment algorithms students may inspect. `Trajectory_Evals.py` is the generated marimo mirror of the guide, not the tool implementation.
+`eval_tools.py` contains the experiment code. `Trajectory_Evals.py` is the generated marimo mirror.
 
-Use the shared repository environment and configured `.env`. Your coding assistant's chat model and authentication are separate from the model/API key used by these experiments. The tool prints model and workspace/seed provenance; never print credentials. Commands return JSON on stdout and progress on stderr. No workspace writes happen without `--save`.
+Use the shared repository environment and configured `.env`. Your coding assistant's chat model and authentication are separate from the model/API key used by these experiments. Tools report their input sources. Saving requires `--save`.
 
 Product documentation: [Codex](https://developers.openai.com/codex/), [Claude Code](https://code.claude.com/docs/en/overview), [VS Code Copilot](https://code.visualstudio.com/docs/agents/overview).
 
@@ -43,6 +43,6 @@ The report's first agent turn is only an excerpt. It does not identify the causa
 
 ## Recorded example
 
-`data/recorded_experiments.json` contains real tool results on the labeled seed fallback. Repeated tool evidence is stored as character counts and SHA-256 hashes; live runs return full evidence. These are experiment outputs, not captures of a coding assistant UI. Use them to illustrate what to inspect, not as expected scores for a new run.
+`data/recorded_experiments.json` contains real tool results on the labeled seed fallback. Repeated tool evidence is stored as character counts and SHA-256 hashes; live runs return full evidence. New runs may differ.
 
-Saving is optional. `--save` runs the experiment and stores the newly measured outputs; it does not save an earlier preview by copying its text. Downstream readers use labeled seed artifacts until you choose to produce workspace results.
+`--save` runs a new experiment and saves its measured outputs. Otherwise, readers use existing workspace artifacts or the labeled seed fallback.
