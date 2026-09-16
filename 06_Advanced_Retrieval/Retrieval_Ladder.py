@@ -27,7 +27,7 @@ def _(mo):
     ## Learn | Create | Grow
 
     ### Learn
-    Inspect the evidence labels and compare the retrieval methods on identical chunks.
+    Review suggested evidence pages and compare the retrieval methods on identical chunks.
 
     ### Create
     Measure hit rate, MRR, and search time. Use the per-case results to decide where extra retrieval work helps.
@@ -43,7 +43,7 @@ def _(mo):
     mo.md(r"""
     **Estimated time:** 40 minutes
 
-    Reads: corpus, vibe checks, and existing eval cases when available.
+    Reads: corpus and vibe checks.
 
     Writes: eval cases and measured ladder only when you ask the tool to save them.
     """)
@@ -67,7 +67,7 @@ def _(mo):
     mo.md(r"""
     ### Ask your assistant
 
-    > Read `06_Advanced_Retrieval/README.md` and inspect `06_Advanced_Retrieval/retrieval_tools.py`. Use the inspect command to show which corpus is active, how many pages it has, and which pages are excluded. Check the existing evidence cases too. Do not run a model experiment yet.
+    > Read `06_Advanced_Retrieval/README.md` and inspect `06_Advanced_Retrieval/retrieval_tools.py`. Use the inspect command to show which corpus is active, how many pages it has, and which pages are excluded. Do not run a model experiment yet.
     """)
     return
 
@@ -94,8 +94,8 @@ def _(mo):
     | RRF | Combine ranks from several lists |
     | Cross-encoder | Score a question and candidate passage together |
     | Multi-query | Search several rewrites, then combine the candidates |
-    | Hit rate | Fraction of questions with a labelled page in the top results |
-    | MRR | Average reciprocal rank of the first labelled result |
+    | Hit rate | Fraction of questions with an evidence page in the top results |
+    | MRR | Average reciprocal rank of the first result from an evidence page |
     """)
     return
 
@@ -111,9 +111,9 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ## Task 1 of 4 — Label the evidence
+    ## Task 1 of 4 — Choose the evidence pages
 
-    A score needs an answer key. For each question, identify pages that contain evidence, not just matching words. Label pages rather than chunk IDs so the labels can survive a chunk-size change.
+    A score needs an answer key. For each question, identify pages containing evidence for the expected answer. Record page names rather than chunk IDs so the answer key still works if the chunk size changes.
     """)
     return
 
@@ -123,7 +123,11 @@ def _(mo):
     mo.md(r"""
     ### Ask your assistant
 
-    > Use `06_Advanced_Retrieval/retrieval_tools.py` to propose evidence-page labels for the current vibe checks. Compare them with the existing eval cases. Show one question, its proposed pages, and the relevant source text. Wait for me to review the labels before treating new proposals as the answer key. Do not save anything yet.
+    > Use the label command in `06_Advanced_Retrieval/retrieval_tools.py` to suggest evidence pages for the current vibe-check questions. Show each question, its expected answer, the suggested pages, and relevant passages from those pages.
+    >
+    > Let me review and correct the suggestions before using them as the answer key. If I question a suggestion, open the page and help me check whether it supports the expected answer. Use an empty page list when no page provides evidence.
+    >
+    > Keep the proposals in a temporary case file outside the workspace. Apply my corrections and confirm the reviewed answer key. Retain that file for scoring; do not save to the workspace yet.
     """)
     return
 
@@ -131,9 +135,9 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    Open each suggested page and check whether it contains evidence for answering the question. The labeling tool sends its model only the first 240 characters of each page, so it may miss relevant evidence later in the text. A missing label can make a useful result score as a miss. An empty page list means the case is excluded from retrieval scoring, not that the system passed it.
+    Open each suggested page and check whether it contains evidence for answering the question. The tool sends its model only the first 240 characters of each page, so it may miss evidence later in the text.
 
-    An out-of-scope question may still have a relevant policy page explaining the refusal. Review that distinction rather than automatically deleting its labels.
+    A missing evidence page can make a useful result score as a miss. An empty page list excludes the question from retrieval scoring. For an out-of-scope question, include a page only if it supports the expected refusal.
     """)
     return
 
@@ -254,7 +258,7 @@ def _(mo):
     mo.md(r"""
     ## Task 4 of 4 — Score the ladder
 
-    Hit rate asks whether a labelled page appears among the top results. Reciprocal rank rewards finding it sooner: rank one gives one, rank four gives one quarter, and a miss gives zero. Average those values to obtain MRR.
+    Hit rate asks whether an evidence page appears among the top results. Reciprocal rank rewards finding it sooner: rank one gives one, rank four gives one quarter, and a miss gives zero. Average those values to obtain MRR.
     """)
     return
 
@@ -264,7 +268,9 @@ def _(mo):
     mo.md(r"""
     ### Ask your assistant
 
-    > Use `06_Advanced_Retrieval/retrieval_tools.py` to score all five rungs on the active evidence cases and top-four setting. Use my reviewed labels if I provided them; otherwise use the existing cases and state their source. Show hit rate, MRR, search time, and the per-case reciprocal-rank matrix. List any skipped cases. Do not change labels to improve a score or save workspace artifacts.
+    > Use `06_Advanced_Retrieval/retrieval_tools.py` to score all five rungs with top four results, passing our reviewed case file with `--cases`. If the file or my review is missing, ask me before running.
+    >
+    > Show hit rate, MRR, search time, and the per-question reciprocal-rank matrix. List skipped questions. Keep the reviewed evidence pages fixed and do not save workspace artifacts.
     """)
     return
 
@@ -317,7 +323,7 @@ def _(mo):
     </tr>
     </tbody>
     </table>
-    <span class="paragraph">Search time excludes model loading and index construction. This is one sequential run, not a latency benchmark. The full record contains labels, ranked chunks, rewrites, timings, and model settings.</span></span>
+    <span class="paragraph">Search time excludes model loading and index construction. This is one sequential run, not a latency benchmark. The full record contains the answer key, ranked chunks, rewrites, timings, and model settings.</span></span>
     </details>
     """)
     return
@@ -326,7 +332,7 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    Read the per-case results before the averages. Page-based labels can miss duplicated evidence on another page; inspect excerpts before concluding a retriever is useless.
+    Read the per-question results before the averages. The answer key may omit another page containing the same evidence; inspect excerpts before concluding a retriever is useless.
 
     Measure latency repeatedly before choosing a configuration. Query embeddings and query expansion are included in search time; initial model loading and index construction are reported separately.
     """)
@@ -361,7 +367,7 @@ def _(mo):
     mo.md(r"""
     ## Your turn
 
-    Write one question over your corpus where exactly one retriever gets the right page at rank 1. Label its pages, run it through every rung, and write one sentence on why that rung won. If you cannot find such a question, that is a finding too: dense search is enough for this corpus.
+    Write one question over your corpus where exactly one retriever gets the right page at rank 1. Identify its evidence pages, run it through every rung, and write one sentence on why that rung won. If you cannot find such a question, that is a finding too: dense search is enough for this corpus.
     """)
     return
 
@@ -381,7 +387,7 @@ def _(mo):
 
     | Experiment | Production requirement |
     |---|---|
-    | Proposed page labels | Reviewed evidence and new cases from real user questions |
+    | Suggested evidence pages | Reviewed evidence and new cases from real user questions |
     | An index rebuilt for each run | Incremental indexing and a refresh policy |
     | One chunk size and candidate count | Settings evaluated on held-out cases |
     | A local reranker | Model versions and a serving latency budget |
@@ -396,7 +402,7 @@ def _(mo):
     mo.md(r"""
     ## Responsible controls
 
-    - Keep the answer key out of the retrieval index and review labels before scoring.
+    - Keep the answer key out of the retrieval index and review evidence pages before scoring.
     - Record the corpus, models, settings, and actual results; never invent a ranking or metric.
     - Compare quality and repeated latency measurements before adopting a more expensive rung.
     """)
@@ -408,7 +414,7 @@ def _(mo):
     mo.md(r"""
     ## Grow further
 
-    - Change chunk size while keeping page labels fixed, then measure again.
+    - Change chunk size while keeping the evidence pages fixed, then measure again.
     - Compare exact-token questions with paraphrases before trying a router.
     - Cache embeddings or rewrites and measure the effect on latency.
     """)
@@ -420,8 +426,8 @@ def _(mo):
     mo.md(r"""
     <details>
     <summary>About the recorded experiments</summary>
-    <span class="markdown prose dark:prose-invert contents"><span class="paragraph">The recordings were produced by <code>retrieval_tools.py</code> on the seed corpus. Proposed labels are included as proposals, not treated as reviewed truth. Scoring used the existing seed eval cases. No live workspace artifacts were changed for these recordings.</span>
-    <span class="paragraph">If you want to keep an experiment for later workflows, ask your assistant to run the score tool with its save option. That writes only the actual cases and measured ladder through the workspace helper.</span></span>
+    <span class="markdown prose dark:prose-invert contents"><span class="paragraph">These recordings use the seed corpus and five seed questions. Their answer key is preserved in <code>data/recorded_experiments.json</code>; your reviewed evidence pages may produce different scores. No live workspace artifacts were changed.</span>
+    <span class="paragraph">To keep your results, ask your assistant to run score with <code>--cases</code> pointing to your reviewed file and <code>--save</code>. This runs a new experiment and saves its answer key and measurements through the workspace helper.</span></span>
     </details>
     """)
     return

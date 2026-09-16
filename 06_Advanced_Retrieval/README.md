@@ -6,7 +6,7 @@
 Compare dense search, BM25, reciprocal rank fusion, reranking, and query expansion on the same chunks and questions.
 
 ### Create
-Review evidence labels, measure hit rate and MRR, and inspect which questions separate the retrievers.
+Review suggested evidence pages, measure hit rate and MRR, and inspect which questions separate the retrievers.
 
 ### Grow
 Choose retrieval settings using evidence about quality and latency.
@@ -31,20 +31,20 @@ Run from this directory with the shared environment: `uv run --no-sync python re
 |---|---|
 | `inspect` | Corpus source, page names, and short digests |
 | `inspect --page NAME` | The full text of a specific eligible corpus page |
-| `cases` | Existing eval questions and their page labels |
-| `label` | Model-proposed labels from vibe checks, requiring human review |
+| `cases` | Inspect a stored evaluation case set (optional) |
+| `label` | Suggest evidence pages for vibe-check questions, requiring human review |
 | `compare --question TEXT` | Ranked chunks from each rung, timings, scratch BM25, and intermediate candidates/rewrites |
 | `score` | Aggregate scores, per-case results, skipped cases, and provenance |
 
 Select rungs with `--rungs bm25 dense`, or all five by default. Optional `cohere_rerank` must be requested explicitly. Adjust `--k`, `--candidates`, `--chunk-size`, and `--overlap` for controlled experiments.
 
-`--cases FILE` reads a JSON list with `id`, `question`, `reference`, and `pages` per case. Use it for labels the student reviewed or a question the student wrote. Keep temporary case files outside `workspace/`; do not invent labels or change them to make a retriever win.
+`--cases FILE` reads a JSON list with `id`, `question`, `reference`, and `pages` per case. After `label`, keep its proposed case list in a temporary file outside `workspace/`. Show the suggested pages and their passages, apply the student’s corrections, and confirm review before scoring. Always pass this file to `score --cases FILE`; ask if it or the review is missing. Do not substitute the default case set or change the answer key to make a retriever win.
 
 For `score`, `--save` writes the cases actually used and measured ladder through `helpers.workspace`. Save only when the user asks to persist the experiment. Without this flag, experiments do not change workspace artifacts.
 
 ## Measurement boundaries
 
-All rungs share chunks, labels, and top-k. The index excludes the wiki and `vibe_checks.md`. Cases with no labelled evidence are listed as skipped; the tool rejects unknown page labels and an empty scored set. A labelled policy page can still be relevant to an out-of-scope question.
+All rungs share chunks, the reviewed answer key, and top-k. The index excludes the wiki and `vibe_checks.md`. Cases with no evidence pages are listed as skipped; the tool rejects unknown page names and an empty scored set. A policy page in the answer key can still be relevant to an out-of-scope question.
 
 Model loading and index construction are reported separately from search time. Search time includes query embeddings and query expansion where used. One sequential run is not a stable latency benchmark. The scratch BM25 and library version use different IDF formulas, so matching tokenization does not guarantee identical rankings.
 
