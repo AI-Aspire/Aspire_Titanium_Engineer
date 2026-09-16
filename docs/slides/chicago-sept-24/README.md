@@ -18,6 +18,8 @@ projected copy plus speaker notes, a named Google Slides layout template, and
 relevant sources. Slides are intentionally short so instructors can explain
 the idea before the related notebook walkthrough.
 
+The [facilitator script](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/docs/slides/chicago-sept-24/facilitator-script.md) holds the detailed preparation material. Slide notes are intentionally short cue bullets so instructors can rehearse without reading a script.
+
 ## Selected module references
 
 The module metadata in the day files links directly to the corresponding
