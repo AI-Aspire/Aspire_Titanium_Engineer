@@ -27,6 +27,27 @@ Sources: [17 Deep Research](https://github.com/AI-Aspire/Aspire_Titanium_Enginee
 -->
 
 ---
+# 17 · Deep research
+
+**What happens when the loop runs for twenty steps, unwatched?** · 35 min
+
+- A bounded loop over many sources is a different failure surface than one you watch.
+
+<!--
+Slide ID: D4-T17
+Module: [17 Deep research](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/17_Deep_Research/README.md)
+Instructor: Eli
+Type: transition
+Minutes: 0
+Layout: 01 Title
+Speaker notes:
+- Say: A bounded loop over many sources is a different failure surface than one you watch. That is what this module is for.
+- Ask: Hold for a beat — this is the hand-off, not content.
+- Watch: Name the module and who is running it, then move. One breath.
+- Then: Straight into the first content slide.
+Sources: [Module 17 overview](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/17_Deep_Research/README.md).
+-->
+---
 
 # Make research inspectable
 
@@ -147,6 +168,27 @@ Speaker notes:
 Sources: [LangGraph graph API](https://docs.langchain.com/oss/python/langgraph/graph-api), [Unroll deep research notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/17_Deep_Research/Unroll_Deep_Research.ipynb)
 -->
 
+---
+# 18 · Off-the-shelf guardrails
+
+**Do you build the controls, or buy them?** · 30 min
+
+- Someone has already written the PII redactor. What you still own is the policy.
+
+<!--
+Slide ID: D4-T18
+Module: [18 Off-the-shelf guardrails](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/18_Off_The_Shelf_Guardrails/README.md)
+Instructor: Beric
+Type: transition
+Minutes: 0
+Layout: 01 Title
+Speaker notes:
+- Say: Someone has already written the PII redactor. What you still own is the policy. That is what this module is for.
+- Ask: Hold for a beat — this is the hand-off, not content.
+- Watch: Name the module and who is running it, then move. One breath.
+- Then: Straight into the first content slide.
+Sources: [Module 18 overview](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/18_Off_The_Shelf_Guardrails/README.md).
+-->
 ---
 
 # A guardrail is a boundary with a policy

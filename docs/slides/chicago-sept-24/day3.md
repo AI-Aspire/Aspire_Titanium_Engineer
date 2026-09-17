@@ -26,6 +26,27 @@ Speaker notes:
 Sources: [trajectory-evals notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/09_Agent_Evals/Trajectory_Evals.ipynb); [memory notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/10_Agent_Memory/Three_Kinds_of_Memory.ipynb); [Six Ways notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/11_Agent_Architecture/Six_Ways.ipynb); [guardrail notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/13_Guardrails_101/Guardrail_Ladder.ipynb)
 -->
 ---
+# 09 · Agent evals
+
+**Did it behave, or did it just answer?** · 35 min
+
+- Day 2 made answers grounded. Nothing yet proves the path was sound.
+
+<!--
+Slide ID: D3-T09
+Module: [09 Agent evals](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/09_Agent_Evals/README.md)
+Instructor: Eli
+Type: transition
+Minutes: 0
+Layout: 01 Title
+Speaker notes:
+- Say: Day 2 made answers grounded. Nothing yet proves the path was sound. That is what this module is for.
+- Ask: Hold for a beat — this is the hand-off, not content.
+- Watch: Name the module and who is running it, then move. One breath.
+- Then: Straight into the first content slide.
+Sources: [Module 09 overview](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/09_Agent_Evals/README.md).
+-->
+---
 # A useful answer is not enough
 
 `goal → user turns → tool calls → observations → final state`
@@ -137,6 +158,27 @@ Speaker notes:
 - Watch: Compare the notebook’s current text/fact checks with its Grow suggestion to assert external state.
 - Then: Skip if time is short; offer as optional stretch or research.
 Sources: [ReAct](https://arxiv.org/abs/2210.03629); [$\tau$-bench](https://arxiv.org/abs/2406.12045); [trajectory-evals notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/09_Agent_Evals/Trajectory_Evals.ipynb)
+-->
+---
+# 10 · Agent memory
+
+**What should survive the session — and what should not?** · 30 min
+
+- An agent that forgets everything repeats itself. One that remembers everything leaks.
+
+<!--
+Slide ID: D3-T10
+Module: [10 Agent memory](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/10_Agent_Memory/README.md)
+Instructor: Beric
+Type: transition
+Minutes: 0
+Layout: 01 Title
+Speaker notes:
+- Say: An agent that forgets everything repeats itself. One that remembers everything leaks. That is what this module is for.
+- Ask: Hold for a beat — this is the hand-off, not content.
+- Watch: Name the module and who is running it, then move. One breath.
+- Then: Straight into the first content slide.
+Sources: [Module 10 overview](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/10_Agent_Memory/README.md).
 -->
 ---
 # Memory is restored context
@@ -277,13 +319,36 @@ Speaker notes:
 Sources: [MemGPT paper](https://arxiv.org/abs/2310.08560); [memory notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/10_Agent_Memory/Three_Kinds_of_Memory.ipynb)
 -->
 ---
+# 11 · Agent architecture
+
+**One capability, six ways to give it to an agent.** · 35 min
+
+- A tool, a skill folder, an MCP server, a sub-agent, a code-mode runtime, a manifest-described API
+- What reaches the model in each — and what breaks first
+
+<!--
+Slide ID: D3-T11
+Module: [11 Agent architecture](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/11_Agent_Architecture/README.md)
+Instructor: Rohit
+Type: transition
+Minutes: 0
+Layout: 01 Title
+Speaker notes:
+- Say: One capability, six mechanisms. The module is a comparison, not a tour.
+- Ask: Hold for a beat — this is the hand-off, not content.
+- Watch: This is the README's own framing: what reaches the model in each case, and what breaks first. The deliverable is a catalogue saying when to use which.
+- Then: Straight into the first content slide.
+Sources: [Module 11 overview](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/11_Agent_Architecture/README.md).
+-->
+---
 # The model proposes; the harness decides
 
 `user → harness → model → proposed tool call → authorization → tool → observation → harness`
 
 - The model — whatever `LLM_MODEL` is set to — only *generates* a request
 - Your harness authorizes it, runs it, and records what happened
-- State and policy live outside the model, so a different model changes nothing here
+
+**Every one of the six mechanisms sits on the far side of that boundary.** What changes is who owns the thing being called.
 
 <!--
 Slide ID: D3-M11-C1
@@ -296,80 +361,8 @@ Speaker notes:
 - Say: Same boundary as Monday. What changes today is who owns the capability on the far side of it.
 - Ask: Which component actually executes the tool? Not the model — it only ever emits a request.
 - Watch: Task 1 wires a `lookup` function as a tool: a Python function, a JSON schema handed to the model, and your loop running it. The model is provider-agnostic — it is whatever `LLM_MODEL` names, defaulting to `gpt-4.1-mini`. Six_Ways:cell#9 is Task 1 of 7 — A tool.
-- Then: Task 1 is the baseline. The other five tasks move that same `lookup` behind different boundaries.
+- Then: So the six mechanisms are not six technologies. They are six answers to: who owns this capability?
 Sources: [Module 11 README](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/11_Agent_Architecture/README.md); [Six Ways notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/11_Agent_Architecture/Six_Ways.ipynb); [MCP architecture](https://modelcontextprotocol.io/docs/learn/architecture)
--->
----
-# State makes recovery explicit
-
-- A state graph names checkpoints and failure paths
-- Retries need idempotency, not optimism
-- Recovery must distinguish safe retries from repeated side effects
-- Approval gates precede consequential writes
-
-<!--
-Slide ID: D3-M11-C2
-Module: [11 Architecture](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/11_Agent_Architecture/README.md)
-Instructor: Rohit
-Type: core
-Minutes: 2
-Layout: 06 Process steps 1
-Speaker notes:
-- Say: Without explicit state, a restarted run cannot tell you what actually completed.
-- Ask: Where should authorization live if the model asks to reset a password?
-- Watch: Put the named artifact on screen and trace where its values came from. Six_Ways:cell#12 is Task 2 of 7 — A skill. In the notebook: State makes recovery explicit; a skill also exposes a command boundary the harness can audit.
-- Then: Hand into “What a restarted run knows”.
-Sources: [OpenAI Agents SDK guardrails](https://openai.github.io/openai-agents-js/guides/guardrails/); [ReAct](https://arxiv.org/abs/2210.03629); [module alignment](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/11_Agent_Architecture/README.md)
--->
----
-# Choose a mechanism by who owns it
-
-The six options come next. The choice is not about novelty:
-
-| Ask | Because |
-|---|---|
-| Who owns the schema? | you cannot version someone else's contract |
-| What enters the context? | every mechanism costs tokens differently |
-| How does it authenticate? | a service boundary needs a credential |
-| What breaks first? | failure mode decides your fallback |
-
-No mechanism grants permission. Scope every capability regardless of how it is exposed.
-
-<!--
-Slide ID: D3-M11-C3
-Module: [11 Architecture](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/11_Agent_Architecture/README.md)
-Instructor: Rohit
-Type: core
-Minutes: 2
-Layout: 04 Icon cards 2
-Speaker notes:
-- Say: Pick by ownership, auth, and what enters context — not by which is newest.
-- Ask: Which job belongs to a tool, an MCP connection, and a skill?
-- Watch: Put the named artifact on screen and trace where its values came from. Six_Ways:cell#17 is Task 3 of 7 — An MCP server. In the notebook: Tools, MCP, and skills have different jobs; MCP adds a separate process boundary.
-- Then: Hand into “Tool, skill, MCP, or sub-agent”.
-Sources: [ReAct](https://arxiv.org/abs/2210.03629); [$\tau$-bench](https://arxiv.org/abs/2406.12045); [module alignment](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/11_Agent_Architecture/README.md)
--->
----
-# Budget and evidence define the stop
-
-- Bound turns, tools, tokens, time, and money
-- Checkpoint evidence distinguishes done from unknown
-- A stop condition is part of the architecture, not an afterthought
-- Stop, verify, or escalate when recovery is unsafe
-
-<!--
-Slide ID: D3-M11-C4
-Module: [11 Architecture](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/11_Agent_Architecture/README.md)
-Instructor: Rohit
-Type: core
-Minutes: 2
-Layout: 07 Big stats
-Speaker notes:
-- Say: Publish the budget and the stopping evidence together, or neither is checkable.
-- Ask: Which of the six boxes would be invisible in a final-answer-only test?
-- Watch: Module 11 notebook cue: read the six-row `tools_catalog` output and compare the two mechanisms selected for the group's lookup. Six_Ways:cell#20 is Task 4 of 7 — A sub-agent. In the notebook: Budget and evidence define the stop; the catalogue makes capability choices inspectable.
-- Then: Hand into “Read the six-row catalogue”.
-Sources: [Module 11 README](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/11_Agent_Architecture/README.md); [Six Ways notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/11_Agent_Architecture/Six_Ways.ipynb); [Module alignment](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/11_Agent_Architecture/README.md)
 -->
 ---
 # Six ways to give an agent a capability
@@ -402,6 +395,64 @@ Speaker notes:
 Sources: [Six Ways notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/11_Agent_Architecture/Six_Ways.ipynb); [MCP architecture](https://modelcontextprotocol.io/docs/learn/architecture)
 -->
 ---
+# The same capability, six places to put it
+
+One `lookup` function. Six boundaries you could put it behind:
+
+| | The capability lives | You own |
+|---|---|---|
+| Tool | in your process | everything |
+| Skill | in a folder the harness shells out to | the script |
+| MCP server | in a separate process | the protocol contract |
+| Sub-agent | in another agent's loop | its budget and prompt |
+| Code mode | in a runtime that executes model-written code | the sandbox |
+| Manifest | in an API you already run | nothing new |
+
+The model's request looks the same in every case. **What changes is who is responsible when it breaks.**
+
+<!--
+Slide ID: D3-M11-C2
+Module: [11 Architecture](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/11_Agent_Architecture/README.md)
+Instructor: Rohit
+Type: core
+Minutes: 2
+Layout: 06 Process steps 1
+Speaker notes:
+- Say: Six mechanisms, one capability. The choice is an ownership question, not a technology preference.
+- Ask: Audience — your team already runs an internal API. Which row is that, and what do you gain by not rebuilding it?
+- Watch: The notebook implements all six against the same `lookup`, which is what makes them comparable. Six_Ways:cell#12 is Task 2 of 7 — A skill.
+- Then: Note what is NOT here: state graphs and durable execution are module 12, which is not on this cohort's schedule.
+Sources: [MCP architecture](https://modelcontextprotocol.io/docs/learn/architecture), [local Six Ways notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/11_Agent_Architecture/Six_Ways.ipynb)
+-->
+---
+# Choose a mechanism by who owns it
+
+Given the six, the choice is an ownership question — not a novelty contest:
+
+| Ask | Because |
+|---|---|
+| Who owns the schema? | you cannot version someone else's contract |
+| What enters the context? | every mechanism costs tokens differently |
+| How does it authenticate? | a service boundary needs a credential |
+| What breaks first? | failure mode decides your fallback |
+
+No mechanism grants permission. Scope every capability regardless of how it is exposed.
+
+<!--
+Slide ID: D3-M11-C3
+Module: [11 Architecture](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/11_Agent_Architecture/README.md)
+Instructor: Rohit
+Type: core
+Minutes: 2
+Layout: 04 Icon cards 2
+Speaker notes:
+- Say: Pick by ownership, auth, and what enters context — not by which is newest.
+- Ask: Which job belongs to a tool, an MCP connection, and a skill?
+- Watch: Put the named artifact on screen and trace where its values came from. Six_Ways:cell#17 is Task 3 of 7 — An MCP server. In the notebook: Tools, MCP, and skills have different jobs; MCP adds a separate process boundary.
+- Then: Hand into “Tool, skill, MCP, or sub-agent”.
+Sources: [ReAct](https://arxiv.org/abs/2210.03629); [$\tau$-bench](https://arxiv.org/abs/2406.12045); [module alignment](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/11_Agent_Architecture/README.md)
+-->
+---
 # Optional: long work needs checkpoints, not a longer context
 
 - Graphs make state and recovery points explicit
@@ -421,6 +472,27 @@ Speaker notes:
 - Watch: Put the named artifact on screen and trace where its values came from.
 - Then: Skip if time is short; offer as optional stretch or research.
 Sources: [LangGraph: Thinking in LangGraph](https://docs.langchain.com/oss/python/langgraph/thinking-in-langgraph); [Anthropic: Effective harnesses for long-running agents](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents); [module alignment](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/11_Agent_Architecture/README.md)
+-->
+---
+# 13 · Guardrails 101
+
+**What stops it when the model is wrong?** · 30 min
+
+- Instructions influence. Only a control at a choke point constrains.
+
+<!--
+Slide ID: D3-T13
+Module: [13 Guardrails 101](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/13_Guardrails_101/README.md)
+Instructor: Rohit
+Type: transition
+Minutes: 0
+Layout: 01 Title
+Speaker notes:
+- Say: Instructions influence. Only a control at a choke point constrains. That is what this module is for.
+- Ask: Hold for a beat — this is the hand-off, not content.
+- Watch: Name the module and who is running it, then move. One breath.
+- Then: Straight into the first content slide.
+Sources: [Module 13 overview](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/13_Guardrails_101/README.md).
 -->
 ---
 # Guardrails sit at choke points
