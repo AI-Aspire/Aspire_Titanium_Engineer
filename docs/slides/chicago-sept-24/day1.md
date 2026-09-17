@@ -6,6 +6,31 @@ size: 16:9
 title: Day 1 — Prototype and retrieve
 ---
 
+# Today: from a repo to a retrieving agent
+
+- 01 Dev environment — 30m · 02 Prompt patterns — 30m
+- 03 Agents 101 — 35m · 04 Vibe checks and judges — 30m
+- 05 RAG — 30m
+
+Today walks Deskmate from dev → prompt → agents → RAG once; the rest of the week deepens each stage.
+
+<!--
+Slide ID: D1-F0
+Module: Framing, before the selected modules
+Instructor: Miriah
+Type: framing
+Minutes: 2
+Layout: 02 Agenda
+Speaker notes:
+- Say: Today walks one connected path from a repo to a retrieving agent.
+- Ask: Which stage would you want evidence from before you let the next stage depend on it?
+- Watch: Keep the five module times visible; the agenda is a map, not a promise that each stage is production-ready today.
+- Then: Notebook:cell#9 — start with the first development task, then return to the journey after the five modules.
+Sources: [Day 1 schedule](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/docs/schedule/day1.md); [Module 01 notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/01_Dev_Environment/Dev_Environment.ipynb).
+-->
+
+---
+
 # Start with a question, not a technology
 
 - Name one person and one difficult recurring question
@@ -329,6 +354,87 @@ Speaker notes:
 - Watch: Definitions are quoted from the course concept list; keep the same words in later modules rather than re-defining them.
 - Then: Move into the workspace slide; the loop slides follow.
 Sources: [Course concepts](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/docs/CONCEPTS.md); [Module 01 overview](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/01_Dev_Environment/README.md).
+-->
+
+---
+
+# One endpoint, three compatible clients
+
+<div style="display:flex;justify-content:center;margin-top:.35em">
+<svg viewBox="0 0 720 190" width="900" role="img" aria-label="OpenAI, vLLM, and Ollama clients point to one OpenAI-compatible chat completions endpoint">
+  <g text-anchor="middle">
+    <rect x="260" y="18" width="200" height="58" rx="9" fill="#e8f0fe" stroke="#0284c7" stroke-width="2.5"/>
+    <text x="360" y="43" font-size="15" font-weight="700" fill="#075985">POST /v1/chat/completions</text>
+    <text x="360" y="62" font-size="12" fill="#0369a1">your endpoint</text>
+    <rect x="24" y="118" width="170" height="54" rx="9" fill="#f1f5f9" stroke="#94a3b8" stroke-width="2"/>
+    <text x="109" y="151" font-size="15" font-weight="700" fill="#334155">OpenAI</text>
+    <rect x="275" y="118" width="170" height="54" rx="9" fill="#f1f5f9" stroke="#94a3b8" stroke-width="2"/>
+    <text x="360" y="151" font-size="15" font-weight="700" fill="#334155">vLLM</text>
+    <rect x="526" y="118" width="170" height="54" rx="9" fill="#f1f5f9" stroke="#94a3b8" stroke-width="2"/>
+    <text x="611" y="151" font-size="15" font-weight="700" fill="#334155">Ollama</text>
+  </g>
+  <path d="M109 114 L300 79" stroke="#94a3b8" stroke-width="2" marker-end="url(#compat-arrow)"/>
+  <path d="M360 114 V80" stroke="#94a3b8" stroke-width="2" marker-end="url(#compat-arrow)"/>
+  <path d="M611 114 L420 79" stroke="#94a3b8" stroke-width="2" marker-end="url(#compat-arrow)"/>
+  <defs><marker id="compat-arrow" markerWidth="9" markerHeight="9" refX="8" refY="3" orient="auto"><path d="M0 0 L8 3 L0 6 z" fill="#94a3b8"/></marker></defs>
+</svg>
+</div>
+
+Can Deskmate run against our own endpoint? **Yes — set `OPENAI_BASE_URL`.**
+
+<!--
+Slide ID: D1-M01-C0A
+Module: [01 Dev environment](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/01_Dev_Environment/README.md)
+Instructor: Miriah, no-code orientation
+Type: build
+Minutes: 0
+Layout: 02 Agenda 1
+Speaker notes:
+- Say: The client shape stays stable while the endpoint can be OpenAI, vLLM, or Ollama.
+- Ask: What would you change for Priya's VPN question if the endpoint moved from a hosted service to your own server?
+- Watch: Keep the answer operational: `OPENAI_BASE_URL` selects the compatible endpoint; the notebook also reads the model and key from environment variables.
+- Then: Notebook:cell#9 — Task 1 introduces the provider-independent setup before the rest of the repo loop.
+Sources: [Course concepts](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/docs/CONCEPTS.md); [Module 01 notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/01_Dev_Environment/Dev_Environment.ipynb).
+-->
+
+---
+
+# Every notebook has three acts
+
+<div style="display:flex;justify-content:center;margin-top:.65em">
+<svg viewBox="0 0 720 170" width="900" role="img" aria-label="Learn, Create, Grow: learn builds the weak version, create writes to workspace, grow discusses production">
+  <g text-anchor="middle">
+    <rect x="20" y="35" width="200" height="78" rx="9" fill="#ede9fe" stroke="#7c3aed" stroke-width="2.5"/>
+    <text x="120" y="68" font-size="19" font-weight="700" fill="#5b21b6">Learn</text>
+    <text x="120" y="91" font-size="12.5" fill="#6d28d9">weak version first</text>
+    <rect x="260" y="35" width="200" height="78" rx="9" fill="#fef3c7" stroke="#d97706" stroke-width="2.5"/>
+    <text x="360" y="68" font-size="19" font-weight="700" fill="#92400e">Create</text>
+    <text x="360" y="91" font-size="12.5" fill="#b45309">writes to workspace</text>
+    <rect x="500" y="35" width="200" height="78" rx="9" fill="#e0f2fe" stroke="#0284c7" stroke-width="2.5"/>
+    <text x="600" y="68" font-size="19" font-weight="700" fill="#075985">Grow</text>
+    <text x="600" y="91" font-size="12.5" fill="#0369a1">what production needs</text>
+  </g>
+  <path d="M225 74 H255" stroke="#94a3b8" stroke-width="2" marker-end="url(#acts-arrow)"/>
+  <path d="M465 74 H495" stroke="#94a3b8" stroke-width="2" marker-end="url(#acts-arrow)"/>
+  <defs><marker id="acts-arrow" markerWidth="9" markerHeight="9" refX="8" refY="3" orient="auto"><path d="M0 0 L8 3 L0 6 z" fill="#94a3b8"/></marker></defs>
+</svg>
+</div>
+
+Skip Create and Thursday reads Deskmate's seed instead of your group's Priya transcripts.
+
+<!--
+Slide ID: D1-M01-C0B
+Module: [01 Dev environment](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/01_Dev_Environment/README.md)
+Instructor: Miriah, no-code orientation
+Type: build
+Minutes: 0
+Layout: 06 Process steps
+Speaker notes:
+- Say: Learn makes the idea visible, Create makes it yours, and Grow names what production would require.
+- Ask: Which artifact would prove that your group has moved past the seed example?
+- Watch: The middle act is the handoff: it writes group artifacts to `workspace/`; without it, later notebooks can run while still reading Deskmate's seed.
+- Then: Notebook:cell#16 — Task 3 runs `ws.init()` and `ws.status()` so students can see the workspace boundary.
+Sources: [Course concepts](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/docs/CONCEPTS.md); [Module 01 notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/01_Dev_Environment/Dev_Environment.ipynb).
 -->
 
 ---
@@ -1212,6 +1318,66 @@ Sources: [Prompt patterns notebook](https://github.com/AI-Aspire/Aspire_Titanium
 
 ---
 
+# A schema makes the shape a contract
+
+Asking politely for JSON works most of the time. Most of the time is not good enough for code that calls `json.loads`. A schema makes the shape a contract.
+
+Marcus needs a field he can sort a queue by: `risk_level` is sortable; prose is not.
+
+<!--
+Slide ID: D1-M02-C4A
+Module: [02 Prompt patterns](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/02_Prompt_Patterns/README.md)
+Instructor: Eli, code walkthrough
+Type: core
+Minutes: 2
+Layout: 08 Quote
+Speaker notes:
+- Say: Structured output is a boundary between a model response and code that has to use it.
+- Ask: Which part of Marcus's queue would become unreliable if risk arrived as free text?
+- Watch: Keep the distinction sharp: a schema guarantees shape and allowed values, not factual correctness.
+- Then: Notebook:cell#20 — Task 4 introduces the structured-output contract in the notebook's own prose.
+Sources: [Prompt patterns notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/02_Prompt_Patterns/Prompt_Patterns.ipynb); [Course concepts](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/docs/CONCEPTS.md).
+-->
+
+---
+
+# Put the contract in code
+
+```python
+class ProductBrief(BaseModel):
+    product_name: str
+    problem: str
+    users: List[str]
+    must_do: List[str]
+    must_not_do: List[str]
+    risk_level: Literal["low", "medium", "high"]
+```
+
+```python
+result = client.chat.completions.parse(
+    model=MODEL,
+    messages=[...],
+    response_format=ProductBrief,
+)
+```
+
+<!--
+Slide ID: D1-M02-C4AB
+Module: [02 Prompt patterns](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/02_Prompt_Patterns/README.md)
+Instructor: Eli, code walkthrough
+Type: core
+Minutes: 2
+Layout: 09 Lab and code
+Speaker notes:
+- Say: The typed object gives the caller a stable shape and makes `risk_level` one of three values.
+- Ask: Where would you validate a field whose value is shaped correctly but factually wrong?
+- Watch: Point to `response_format=ProductBrief`; the parser is part of the call contract, not a prompt suggestion.
+- Then: Notebook:cell#21 — run the model's typed `ProductBrief` parse before comparing patterns.
+Sources: [Prompt patterns notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/02_Prompt_Patterns/Prompt_Patterns.ipynb); [Course concepts](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/docs/CONCEPTS.md).
+-->
+
+---
+
 # Chain of thought makes difficult work explicit
 
 - Break the task into smaller, checkable steps
@@ -1237,13 +1403,15 @@ Sources: [Chain-of-thought prompting, Wei et al., 2022](https://arxiv.org/abs/22
 
 ---
 
-# ReAct: reason, act, observe
+# Spend a reasoning budget deliberately
 
-- Decide what action would reduce uncertainty
-- Call a tool or perform the next step
-- Use the observation to choose what happens next
+- Compare no explicit reasoning against a high budget
+- Read the token counts and the time cost
+- Keep the trap question and evidence fixed
 
-> Source: [ReAct](https://arxiv.org/abs/2210.03629)
+> More effort costs more tokens and more time.
+
+Deskmate can spend more effort on Priya's VPN question—but measure the cost.
 
 <!--
 Slide ID: D1-M02-C6
@@ -1253,11 +1421,11 @@ Type: core
 Minutes: 2
 Layout: 06 Process steps 1
 Speaker notes:
-- Say: ReAct: reason, act, observe
-- Ask: What observation would change the next action?
-- Watch: Eli will show the prompt pattern first; Beric will later show the agent harness that owns the tool loop.
-- Then: Carry the observation into the next exercise.
-Sources: [ReAct, Yao et al., 2022](https://arxiv.org/abs/2210.03629); [Prompt patterns notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/02_Prompt_Patterns/Prompt_Patterns.ipynb).
+- Say: A reasoning budget is a model setting with a measurable cost.
+- Ask: What evidence would justify spending more tokens on Priya's VPN question?
+- Watch: Hold the question and model constant; compare the token counts and latency before deciding whether more effort helped.
+- Then: Notebook:cell#17 — Task 3 is the reasoning-budget comparison, not a tool-use loop.
+Sources: [Prompt patterns notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/02_Prompt_Patterns/Prompt_Patterns.ipynb); [Course concepts](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/docs/CONCEPTS.md).
 -->
 
 ---
@@ -1734,6 +1902,57 @@ Sources: [Vibe checks and judges notebook](https://github.com/AI-Aspire/Aspire_T
 
 ---
 
+# Establish the floor before trusting a judge
+
+- **Echo:** give every transcript the middle score
+- **Oracle:** copy Marcus's hand score exactly
+- A real judge should clear the floor and approach the ceiling
+
+For Deskmate, Marcus needs an auditable log, so the agreement measure must work before a model is allowed to score it.
+
+<!--
+Slide ID: D1-M04-C1C
+Module: [04 Vibe checks and judges](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/04_Vibe_Checks_and_Judges/README.md)
+Instructor: Beric, code walkthrough
+Type: core
+Minutes: 2
+Layout: 04 Icon cards
+Speaker notes:
+- Say: Baselines tell us whether the agreement number contains signal before a judge enters the room.
+- Ask: What would it mean if the oracle did not score 1.0 on Marcus's hand labels?
+- Watch: Echo is the floor; oracle is the ceiling. A broken measure can make a bad judge look useful.
+- Then: Notebook:cell#20 — Task 4 runs both dumb baselines before any judge call.
+Sources: [Vibe checks and judges notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/04_Vibe_Checks_and_Judges/Vibe_Checks_LLM_Judge.ipynb); [LLM judge study, Zheng et al., 2023](https://arxiv.org/abs/2306.05685).
+-->
+
+---
+
+# Measure the measure before the model
+
+```text
+hand score  →  echo baseline  →  judge  →  oracle ceiling
+                  floor           ?          1.0
+```
+
+No model call here. First make sure the yardstick can see the difference.
+
+<!--
+Slide ID: D1-M04-C1CB
+Module: [04 Vibe checks and judges](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/04_Vibe_Checks_and_Judges/README.md)
+Instructor: Beric, code walkthrough
+Type: core
+Minutes: 2
+Layout: 06 Process steps
+Speaker notes:
+- Say: The baseline exercise isolates the agreement calculation from model quality.
+- Ask: Which result would make you stop and repair the metric before reading another transcript?
+- Watch: The oracle must be exactly 1.0; if it is not, the measure is broken rather than the judge being surprising.
+- Then: Notebook:cell#20 — inspect the floor and ceiling output before the strict judge in Task 5.
+Sources: [Vibe checks and judges notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/04_Vibe_Checks_and_Judges/Vibe_Checks_LLM_Judge.ipynb); [LLM judge study, Zheng et al., 2023](https://arxiv.org/abs/2306.05685).
+-->
+
+---
+
 # A judge is another model with a narrow job
 
 - Give it the case, evidence, answer, and criterion
@@ -1966,6 +2185,46 @@ Sources: [RAG from scratch and library pipeline](https://github.com/AI-Aspire/As
 
 ---
 
+# Retrieval earns its shortcut
+
+<div style="display:flex;justify-content:center;margin-top:.2em">
+<svg viewBox="0 0 780 190" width="920" role="img" aria-label="RAG learning arc: paste everything, build retrieval from scratch, then use LangChain">
+  <g text-anchor="middle">
+    <rect x="12" y="38" width="220" height="76" rx="9" fill="#f1f5f9" stroke="#94a3b8" stroke-width="2"/>
+    <text x="122" y="67" font-size="15" font-weight="700" fill="#334155">paste everything</text>
+    <text x="122" y="91" font-size="12" fill="#64748b">measure token cost</text>
+    <rect x="280" y="38" width="220" height="76" rx="9" fill="#fef3c7" stroke="#d97706" stroke-width="2.5"/>
+    <text x="390" y="67" font-size="15" font-weight="700" fill="#92400e">from scratch</text>
+    <text x="390" y="91" font-size="12" fill="#b45309">embed · rank · paste</text>
+    <rect x="548" y="38" width="220" height="76" rx="9" fill="#e0f2fe" stroke="#0284c7" stroke-width="2.5"/>
+    <text x="658" y="67" font-size="15" font-weight="700" fill="#075985">LangChain</text>
+    <text x="658" y="91" font-size="12" fill="#0369a1">library replaces pieces</text>
+  </g>
+  <path d="M240 76 H272" stroke="#94a3b8" stroke-width="2" marker-end="url(#rag-arc-arrow)"/>
+  <path d="M508 76 H540" stroke="#94a3b8" stroke-width="2" marker-end="url(#rag-arc-arrow)"/>
+  <defs><marker id="rag-arc-arrow" markerWidth="9" markerHeight="9" refX="8" refY="3" orient="auto"><path d="M0 0 L8 3 L0 6 z" fill="#94a3b8"/></marker></defs>
+</svg>
+</div>
+
+For Deskmate and Priya's VPN question: paste all twelve KB pages, read the cost, then retrieve three chunks instead.
+
+<!--
+Slide ID: D1-M05-C2A
+Module: [05 RAG](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/05_RAG/README.md)
+Instructor: Beric, code walkthrough
+Type: core
+Minutes: 2
+Layout: 06 Process steps
+Speaker notes:
+- Say: The library step is last because the from-scratch version makes every hidden operation visible.
+- Ask: What would you measure before replacing the twelve-page prompt with three retrieved chunks?
+- Watch: Tie the arc to Priya's question: paste everything establishes the cost, from scratch exposes chunking and ranking, and LangChain packages those pieces.
+- Then: Notebook:cell#12, Notebook:cell#17, Notebook:cell#20 — run the three stages in order.
+Sources: [RAG notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/05_RAG/RAG_with_LangChain.ipynb); [RAG, Lewis et al., 2020](https://arxiv.org/abs/2005.11401).
+-->
+
+---
+
 # Read the context you assembled
 - **Ask:** Which step changes the stored index, and which step happens for every question?
 - **Inspect:** Locate chunk creation, ranking, and context assembly before the library version; explain what each library component replaces.
@@ -2100,4 +2359,31 @@ Speaker notes:
 - Watch: Optional research; the required exercise remains the fixed RAG baseline.
 - Then: Skip if time is short; offer as optional stretch or research.
 Sources: [Retrieval-augmented generation](https://arxiv.org/abs/2005.11401); [Retrieval Augmented Generation or Long-Context LLMs?](https://arxiv.org/abs/2407.16833).
+-->
+
+---
+
+# What today becomes in production
+
+| What we built | Production equivalent |
+|---|---|
+| Opened a pull request by hand | Templates and a `CODEOWNERS` file that request the right reviewers |
+| A Pydantic model as the output contract | Schema registries and validation middleware shared across teams |
+| A single dense retriever | Hybrid search with a reranker on top |
+
+For Deskmate, that means Priya's answer and Marcus's queue need repeatable review, shape, and retrieval.
+
+<!--
+Slide ID: D1-Z1
+Module: Day 1 closing
+Instructor: Miriah
+Type: framing
+Minutes: 2
+Layout: 05 Two column
+Speaker notes:
+- Say: These are the production equivalents named by today's own notebooks, not a new checklist.
+- Ask: Which row would expose stale-page confidence or cross-user ticket leakage first?
+- Watch: Keep the table wording verbatim; connect Priya's evidence and Marcus's audit trail without promising that today's prototype solves either risk.
+- Then: Notebook:cell#41, Notebook:cell#40, Notebook:cell#38 — close by naming the three module tables behind these rows.
+Sources: [Module 01 notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/01_Dev_Environment/Dev_Environment.ipynb); [Prompt patterns notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/02_Prompt_Patterns/Prompt_Patterns.ipynb); [RAG notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/05_RAG/RAG_with_LangChain.ipynb).
 -->

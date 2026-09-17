@@ -5,6 +5,29 @@ paginate: true
 size: 16:9
 ---
 
+# Today: longer horizons, more sources, more ways to be wrong
+
+- 17 Deep research · 35m
+- 18 Off-the-shelf guardrails · 30m
+- A six-step loop running unsupervised across many sources has a different failure surface than one you watch.
+
+<!--
+Slide ID: D4-F1
+Module: Framing, before the selected modules
+Instructor: Eli, Beric
+Type: framing
+Minutes: 2
+Layout: 02 Agenda
+Speaker notes:
+- Say: Today the system runs longer, sees more sources, and needs more explicit boundaries.
+- Ask: Where would you want a person to see evidence before this loop continues?
+- Watch: Notebook:cell#24 shows the streamed research lifecycle; Notebook:cell#16 shows a transform before the model sees input.
+- Then: Start cold with the research graph, then carry its trace into the guardrail boundary.
+Sources: [17 Deep Research](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/17_Deep_Research/README.md), [18 Off-the-shelf guardrails](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/18_Off_The_Shelf_Guardrails/README.md)
+-->
+
+---
+
 # 17 · Make research inspectable
 
 - A question becomes a brief, plan, findings, evidence packet, and report.
@@ -190,6 +213,53 @@ Sources: [LangGraph durable execution](https://docs.langchain.com/oss/python/lan
 
 ---
 
+# 17 · Compile while the graph runs
+
+- The writer gets the brief and dossier, not the whole conversation.
+- Stream node updates and research queries as they happen.
+- Marcus asks: did the VPN policy change, and when?
+- Keep the trace that shows which KB page was stale.
+
+<!--
+Slide ID: D4-M17-C5
+Module: [17 Unroll deep research](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/17_Deep_Research/README.md)
+Instructor: Eli
+Type: core
+Minutes: 2
+Layout: 06 Process steps 1
+Speaker notes:
+- Say: Compilation is an observable handoff, not a hidden final model call.
+- Ask: Which streamed update would tell you that the research question is drifting?
+- Watch: Notebook:cell#24 — Task 5 compiles and streams the graph; connect Marcus's stale-policy question to the trace.
+- Then: Let the stream finish, then inspect the saved report and its evidence.
+Sources: [LangGraph graph API](https://docs.langchain.com/oss/python/langgraph/graph-api), [Unroll deep research notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/17_Deep_Research/Unroll_Deep_Research.ipynb)
+-->
+
+---
+
+# Inspect the trace before trusting the report
+
+- **Read:** The trace summary before the report.
+- **Check:** Sources, open gaps, and the trace summary are saved together.
+- **Ask:** Which KB page was stale when Marcus asked about the VPN policy?
+
+<!--
+Slide ID: D4-M17-C5B
+Module: [17 Unroll deep research](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/17_Deep_Research/README.md)
+Instructor: Eli
+Type: core
+Minutes: 2
+Layout: 05 Two column 1
+Speaker notes:
+- Say: The report is the product; the trace is how you debug cost, latency, and source quality.
+- Ask: Have the room name the evidence that would let Marcus challenge the answer.
+- Watch: Notebook:cell#27 — Task 6 reads the trace summary and saves the report with sources and open gaps.
+- Then: Treat the stale-page observation as a trace finding, not as a guess about the final prose.
+Sources: [LangGraph graph API](https://docs.langchain.com/oss/python/langgraph/graph-api), [Unroll deep research notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/17_Deep_Research/Unroll_Deep_Research.ipynb)
+-->
+
+---
+
 # 18 · A guardrail is a boundary with a policy
 
 - Input checks gate the model boundary on the blocking path.
@@ -238,11 +308,36 @@ Sources: [OpenAI Agents SDK guardrails](https://openai.github.io/openai-agents-p
 
 # 18 · Placement changes the failure
 
-| Placement | Primary protection | If it blocks |
-|---|---|---|
-| Before generation | Scope, injection, sensitive input | No model or tool run |
-| After generation | Unsupported claims, tone, format | Output is withheld |
-| Tool boundary | Authorization and side effects | Tool call is rejected |
+<div style="display:flex;justify-content:center;margin-top:.1em">
+<svg viewBox="0 0 720 200" width="900" role="img" aria-label="Three guardrail placements around the agent loop: before generation on the input, at the tool boundary, and after generation on the output">
+  <rect x="236" y="62" width="150" height="66" rx="9" fill="#ede9fe" stroke="#7c3aed" stroke-width="2.5"/>
+  <text x="311" y="89" font-size="15" font-weight="700" text-anchor="middle" fill="#5b21b6">the loop</text>
+  <text x="311" y="110" font-size="12" text-anchor="middle" fill="#6d28d9">model + your code</text>
+
+  <rect x="14" y="62" width="150" height="66" rx="9" fill="#fee2e2" stroke="#dc2626" stroke-width="2.5"/>
+  <text x="89" y="84" font-size="13.5" font-weight="700" text-anchor="middle" fill="#7f1d1d">before generation</text>
+  <text x="89" y="103" font-size="11.5" text-anchor="middle" fill="#b91c1c">scope · injection</text>
+  <text x="89" y="119" font-size="11" text-anchor="middle" fill="#b91c1c">blocks: nothing runs</text>
+
+  <rect x="458" y="62" width="150" height="66" rx="9" fill="#fee2e2" stroke="#dc2626" stroke-width="2.5"/>
+  <text x="533" y="84" font-size="13.5" font-weight="700" text-anchor="middle" fill="#7f1d1d">after generation</text>
+  <text x="533" y="103" font-size="11.5" text-anchor="middle" fill="#b91c1c">unsupported claims</text>
+  <text x="533" y="119" font-size="11" text-anchor="middle" fill="#b91c1c">blocks: output withheld</text>
+
+  <rect x="236" y="158" width="150" height="38" rx="9" fill="#fef3c7" stroke="#d97706" stroke-width="3"/>
+  <text x="311" y="175" font-size="13.5" font-weight="700" text-anchor="middle" fill="#92400e">tool boundary</text>
+  <text x="311" y="190" font-size="11" text-anchor="middle" fill="#b45309">authorization · side effects</text>
+
+  <path d="M166 95 H232" stroke="#94a3b8" stroke-width="2.5" marker-end="url(#p1)"/>
+  <path d="M388 95 H454" stroke="#94a3b8" stroke-width="2.5" marker-end="url(#p1)"/>
+  <path d="M311 130 V154" stroke="#d97706" stroke-width="2.5" marker-end="url(#p2)"/>
+  <text x="656" y="99" font-size="12" text-anchor="middle" fill="#475569" font-style="italic">answer</text>
+  <defs>
+    <marker id="p1" markerWidth="10" markerHeight="10" refX="8.5" refY="3" orient="auto"><path d="M0 0 L8.5 3 L0 6 z" fill="#94a3b8"/></marker>
+    <marker id="p2" markerWidth="10" markerHeight="10" refX="8.5" refY="3" orient="auto"><path d="M0 0 L8.5 3 L0 6 z" fill="#d97706"/></marker>
+  </defs>
+</svg>
+</div>
 
 No placement can undo a side effect that already happened.
 
@@ -381,6 +476,52 @@ Sources: [OpenAI Agents SDK tools](https://openai.github.io/openai-agents-python
 
 ---
 
+# 18 · Redaction transforms input before generation
+
+- Redaction removes the secret and keeps the legitimate question.
+- Record what kind of PII was removed, never its value.
+- Deskmate must not leak one user's ticket text into another user's answer.
+
+<!--
+Slide ID: D4-M18-C5
+Module: [18 Off-the-shelf guardrails](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/18_Off_The_Shelf_Guardrails/README.md)
+Instructor: Beric
+Type: core
+Minutes: 2
+Layout: 05 Two column 2
+Speaker notes:
+- Say: A transform can preserve a useful request while changing what reaches the model.
+- Ask: What evidence would prove the identifier was removed without exposing it?
+- Watch: Notebook:cell#16 — Task 3 distinguishes redaction from blocking and records only detected types.
+- Then: Connect the transform to Deskmate's cross-user ticket leakage failure before moving to output checks.
+Sources: [OpenAI Agents SDK guardrails](https://openai.github.io/openai-agents-python/guardrails/), [OTS guardrails notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/18_Off_The_Shelf_Guardrails/OTS_Guardrails.ipynb)
+-->
+
+---
+
+# Redaction changes the input, not the permission
+
+- **Input:** `Priya asks a legitimate VPN question`.
+- **Transform:** Remove the identifier before the model sees it.
+- **Boundary:** Authorization still belongs to the system.
+
+<!--
+Slide ID: D4-M18-C5B
+Module: [18 Off-the-shelf guardrails](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/18_Off_The_Shelf_Guardrails/README.md)
+Instructor: Beric
+Type: core
+Minutes: 2
+Layout: 09 Lab and code 2
+Speaker notes:
+- Say: Redaction is not an authorization decision and should not be taught as one.
+- Ask: Which part of this path changes the data, and which part decides whether the action is allowed?
+- Watch: Notebook:cell#16 — Task 3's pre-pass removes PII before model execution while preserving the question.
+- Then: Carry the distinction into the next slide's placement and tripwire discussion.
+Sources: [OpenAI Agents SDK guardrails](https://openai.github.io/openai-agents-python/guardrails/), [OTS guardrails notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/18_Off_The_Shelf_Guardrails/OTS_Guardrails.ipynb)
+-->
+
+---
+
 # Optional research · State graphs for research
 
 - Anthropic’s case delegates breadth-first research to parallel subagents.
@@ -422,4 +563,31 @@ Speaker notes:
 - Watch: Alignment pending for this extension; the notebook’s confirmed cue is stage-specific tripwire handling.
 - Then: Skip if time is short; offer as optional stretch or research.
 Sources: [OpenAI tool guardrails](https://openai.github.io/openai-agents-python/ref/tool_guardrails/), [OpenAI Agents SDK guardrails](https://openai.github.io/openai-agents-python/guardrails/), [OTS guardrails notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/18_Off_The_Shelf_Guardrails/OTS_Guardrails.ipynb)
+-->
+
+---
+
+# What you can defend on Friday
+
+| Prototype evidence | Production equivalent |
+|---|---|
+| A trace list in state | Persistent traces with cost per node and a dashboard per run |
+| One report saved as markdown | A citation verifier, human review before publish, and versioned reports |
+| Regex PII redaction | A DLP or PII service with audit logging and reversible tokens |
+
+What did you choose **not** to ship?
+
+<!--
+Slide ID: D4-Z1
+Module: Closing, after the selected modules
+Instructor: Eli, Beric
+Type: closing
+Minutes: 2
+Layout: 05 Two column 3
+Speaker notes:
+- Say: These are the boundaries between a working prototype and evidence you can defend.
+- Ask: Which unshipped behavior would you want a named owner and regression case for first?
+- Watch: Notebook:cell#27 supplies the trace/report row; Notebook:cell#16 supplies the redaction row; both production equivalents are lifted from the notebooks.
+- Then: Close on the panel's question: what did you choose not to ship?
+Sources: [Unroll deep research notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/17_Deep_Research/Unroll_Deep_Research.ipynb), [OTS guardrails notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/18_Off_The_Shelf_Guardrails/OTS_Guardrails.ipynb)
 -->

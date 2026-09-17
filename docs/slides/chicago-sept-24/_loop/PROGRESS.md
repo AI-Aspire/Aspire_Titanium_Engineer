@@ -75,3 +75,34 @@ files are committed and pushed; until then every "Course concepts" source link i
 These files are READ-ONLY for this loop, so this run did not commit them. Someone with
 ownership of the course docs needs to push them. Verified 2026-09-17 by resolving every
 module-03 URL: all others return 200.
+
+## Foundation pass — days 1–4 (2026-09-17)
+
+Four herdr subagents (codex), one per day, run in parallel. Each edited only its own `dayN.md`;
+all shared-file edits were made by the orchestrator. **All verification checks pass.**
+
+| Day | Slides added | Highlights |
+|---|---|---|
+| 1 | 9 (`D1-F0`, `D1-M01-C0A/C0B`, `D1-M02-C4A/C4AB`, `D1-M04-C1C/C1CB`, `D1-M05-C2A`, `D1-Z1`) + 1 edited | **Structured output** — the project's worst gap — now a slide pair quoting the notebook's own prose with the real `ProductBrief(BaseModel)` and `response_format=`. ReAct removed from module 02 (it appeared 0 times in that notebook); `D1-M02-C6` now teaches the reasoning-budget task it should. "OpenAI-compatible" and "Learn/Create/Grow" added as `Minutes: 0` build slides so **M01 stays exactly 30**. |
+| 2 | 11 (`D2-F0`, three `C5/C5B/C5A` triples, `D2-Z1`) + 2 edited | Coverage for the uncovered tasks in 06/07/08, respecting day 2's concept/question/answer triple convention. First visuals on day 2: dense-vs-sparse and the retrieval ladder. |
+| 3 | 6 (`D3-F1`, `D3-M11-C5/C5B`, `D3-M13-C2A/C2AB`, `D3-Z1`) | **The five guardrail rungs are named for the first time**, as an SVG ladder with a cell pointer per rung. Module 11's MCP and UTCP added — its own "six ways" had omitted two. |
+| 4 | 6 (`D4-F1`, `D4-M17-C5/C5B`, `D4-M18-C5/C5B`, `D4-Z1`) | Coverage for modules 17/18's uncovered tasks; module 17 grounded in Deskmate (its notebook has zero scenario vocabulary). Orchestrator added the guardrail-placement SVG to `D4-M18-C2`. |
+
+Every day now opens with a real agenda slide (none existed before; days 3 and 4 opened cold on
+module content) and closes with a production slide whose rows are **lifted verbatim** from that
+module's own `## From prototype to production` table — spot-checked against the notebooks.
+
+Verification: all 5 decks render (`marp --no-stdin`); 43 cell pointers in range and matching
+their claimed tasks; no module over budget and M01 exactly 30; zero instructor names in
+projected copy; zero duplicate titles; no mermaid fences. 34 of 35 links in the new lines
+return 200 — the one 404 is the pre-existing `docs/CONCEPTS.md` issue below.
+
+Visual coverage went from day1 5 SVG / day2 0 / day3 0 / day4 0 to **day1 8, day2 2, day3 2,
+day4 1**, plus code slides on day 1.
+
+### Open questions from this pass
+
+- `docs/READING_GUIDE.md` has no entry for modules 17 or 18 (reported by the day-4 agent).
+- Scope note: industry trends are deliberately **not** in these slides — Beric and Eli cover
+  them live with the code, which also keeps the decks consistent with
+  `cohort-outline/sources-and-coverage.md`, whose narrative section disclaims forecasting.

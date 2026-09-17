@@ -20,7 +20,7 @@ Research claims are linked in individual slide notes. Resources with no current 
 | [Few-shot learners, Brown et al., 2020](https://arxiv.org/abs/2005.14165) | D1-M02-C2, D1-M02-R1 |
 | [Chain-of-thought prompting, Wei et al., 2022](https://arxiv.org/abs/2201.11903) | D1-M02-C5, D1-M02-R1, D1-M03-C0 |
 | [Toolformer, Schick et al., 2023](https://arxiv.org/abs/2302.04761) | D1-M03-C0 |
-| [ReAct, Yao et al., 2022](https://arxiv.org/abs/2210.03629) | D1-M02-C6, D1-M03-C2, D1-M03-C2B, D1-M03-R1, D3-M09-C1, D3-M09-C1B, D3-M09-R1, D3-M11-C2, D3-M11-C2B, D3-M11-C3, D3-M11-C3B |
+| [ReAct, Yao et al., 2022](https://arxiv.org/abs/2210.03629) | D1-M03-C2, D1-M03-C2B, D1-M03-R1, D3-M09-C1, D3-M09-C1B, D3-M09-R1, D3-M11-C2, D3-M11-C2B, D3-M11-C3, D3-M11-C3B |
 | [Self-Refine, Madaan et al., 2023](https://arxiv.org/abs/2303.17651) | D1-M02-C7, D1-M02-R1 |
 | [Effective harnesses for long-running agents](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents) | D1-M03-C3, D1-M03-C3B, D1-M03-R1, D3-M11-R1 |
 | [LLM judge study, Zheng et al., 2023](https://arxiv.org/abs/2306.05685) | D1-M04-C1, D1-M04-C1B, D1-M04-C2, D1-M04-C2B, D1-M04-C4, D1-M04-C4B, D1-M04-R1 |

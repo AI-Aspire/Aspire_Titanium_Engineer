@@ -4,6 +4,29 @@ theme: default
 paginate: true
 size: 16:9
 ---
+# Today: making the agent behave, not just answer
+
+09 Agent evals 35m · 10 Agent memory 30m · 11 Agent architecture 35m · 13 Guardrails 101 30m
+
+Day 2 made answers grounded; nothing yet proves that the path was sound, that it remembers, or that it refuses.
+
+Priya’s VPN path, Marcus’s audit log, and every consequential action need evidence around the loop.
+
+<!--
+Slide ID: D3-F1
+Module: [09 Agent evals](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/09_Agent_Evals/README.md)
+Instructor: Eli
+Type: agenda
+Minutes: 2
+Layout: 06 Process steps
+Speaker notes:
+- Say: Today we move from a grounded answer to behavior we can inspect, remember, and constrain.
+- Ask: Which part of Priya’s VPN journey would you trust least if you only saw the final answer?
+- Watch: Notebook:cell#9 (Trajectory_Evals) — the first task builds the agent under test; keep that path in view as the day moves through memory, architecture, and guardrails.
+- Then: Start with the trajectory, then add state, capability boundaries, and policy.
+Sources: [trajectory-evals notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/09_Agent_Evals/Trajectory_Evals.ipynb); [memory notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/10_Agent_Memory/Three_Kinds_of_Memory.ipynb); [Six Ways notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/11_Agent_Architecture/Six_Ways.ipynb); [guardrail notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/13_Guardrails_101/Guardrail_Ladder.ipynb)
+-->
+---
 # A useful answer is not enough
 
 `goal → user turns → tool calls → observations → final state`
@@ -555,6 +578,62 @@ Speaker notes:
 Sources: [Module 11 README](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/11_Agent_Architecture/README.md); [Six Ways notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/11_Agent_Architecture/Six_Ways.ipynb); [Module alignment](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/11_Agent_Architecture/README.md)
 -->
 ---
+# Six ways to give an agent a capability
+
+<div style="display:flex;justify-content:center;margin-top:.1em">
+<svg viewBox="0 0 760 245" width="900" role="img" aria-label="Six capability mechanisms: tool, skill, MCP server, sub-agent, code mode, and API manifest">
+  <rect x="28" y="34" width="210" height="62" rx="9" fill="#ede9fe" stroke="#7c3aed" stroke-width="2.5"/><text x="133" y="61" font-size="16" font-weight="700" text-anchor="middle" fill="#5b21b6">tool</text><text x="133" y="82" font-size="12.5" text-anchor="middle" fill="#6d28d9">your process</text>
+  <rect x="275" y="34" width="210" height="62" rx="9" fill="#fef3c7" stroke="#d97706" stroke-width="2.5"/><text x="380" y="61" font-size="16" font-weight="700" text-anchor="middle" fill="#92400e">skill</text><text x="380" y="82" font-size="12.5" text-anchor="middle" fill="#b45309">versioned capability</text>
+  <rect x="522" y="34" width="210" height="62" rx="9" fill="#e0f2fe" stroke="#0284c7" stroke-width="2.5"/><text x="627" y="61" font-size="16" font-weight="700" text-anchor="middle" fill="#075985">MCP server</text><text x="627" y="82" font-size="12.5" text-anchor="middle" fill="#0369a1">separate service</text>
+  <rect x="28" y="139" width="210" height="62" rx="9" fill="#e0f2fe" stroke="#0284c7" stroke-width="2.5"/><text x="133" y="166" font-size="16" font-weight="700" text-anchor="middle" fill="#075985">sub-agent</text><text x="133" y="187" font-size="12.5" text-anchor="middle" fill="#0369a1">delegated role</text>
+  <rect x="275" y="139" width="210" height="62" rx="9" fill="#fef3c7" stroke="#d97706" stroke-width="2.5"/><text x="380" y="166" font-size="16" font-weight="700" text-anchor="middle" fill="#92400e">code mode</text><text x="380" y="187" font-size="12.5" text-anchor="middle" fill="#b45309">capability logic</text>
+  <rect x="522" y="139" width="210" height="62" rx="9" fill="#ede9fe" stroke="#7c3aed" stroke-width="2.5"/><text x="627" y="166" font-size="16" font-weight="700" text-anchor="middle" fill="#5b21b6">API manifest</text><text x="627" y="187" font-size="12.5" text-anchor="middle" fill="#6d28d9">described endpoint</text>
+  <path d="M380 214 V232" stroke="#94a3b8" stroke-width="2" marker-end="url(#m11a)"/><text x="380" y="243" font-size="12.5" text-anchor="middle" fill="#475569">choose by ownership, auth, context, and failure behavior</text>
+  <defs><marker id="m11a" markerWidth="9" markerHeight="9" refX="8" refY="3" orient="auto"><path d="M0 0 L8 3 L0 6 z" fill="#94a3b8"/></marker></defs>
+</svg>
+</div>
+
+Deskmate’s ticket system is somebody else’s service; MCP is one way to reach it without owning it.
+
+<!--
+Slide ID: D3-M11-C5
+Module: [11 Architecture](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/11_Agent_Architecture/README.md)
+Instructor: Rohit
+Type: core
+Minutes: 2
+Layout: 06 Process steps
+Speaker notes:
+- Say: These are six capability boundaries, not six brands or six permissions.
+- Ask: Who owns Deskmate’s ticket system, and what would you need to audit before connecting to it?
+- Watch: Notebook:cell#17 (Six_Ways) — an MCP server is a separate process discovered over the Model Context Protocol; compare it with the in-process tool.
+- Then: Treat the ticket system as an external boundary and inspect its auth, health, version, and trace behavior.
+Sources: [Six Ways notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/11_Agent_Architecture/Six_Ways.ipynb); [MCP architecture](https://modelcontextprotocol.io/docs/learn/architecture)
+-->
+---
+# MCP and UTCP solve different ownership problems
+
+- **MCP:** a separate server exposes discoverable tools
+- **UTCP:** a manifest describes an API the organization already runs
+- Both separate discovery from invocation
+- Neither grants permission by itself
+
+The mechanism follows the ticket system’s ownership boundary.
+
+<!--
+Slide ID: D3-M11-C5B
+Module: [11 Architecture](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/11_Agent_Architecture/README.md)
+Instructor: Rohit
+Type: core
+Minutes: 2
+Layout: 05 Two column 2
+Speaker notes:
+- Say: MCP adds a service boundary; UTCP describes an existing API boundary.
+- Ask: If Marcus’s ticket system already publishes an authenticated API, what would you gain by wrapping it in another server?
+- Watch: Notebook:cell#27 (Six_Ways) — the UTCP pattern reads a manifest, turns entries into schemas, and calls the original endpoint.
+- Then: Compare the two mechanisms by ownership and authentication before choosing either for Deskmate.
+Sources: [Six Ways notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/11_Agent_Architecture/Six_Ways.ipynb); [Module 11 README](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/11_Agent_Architecture/README.md)
+-->
+---
 # Research: durable state for long-running work
 
 - Graphs make state and recovery points explicit
@@ -664,6 +743,63 @@ Speaker notes:
 Sources: [JSONSchemaBench constrained-decoding study](https://arxiv.org/abs/2501.10868); [guardrail notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/13_Guardrails_101/Guardrail_Ladder.ipynb)
 -->
 ---
+# Name the five guardrail rungs
+
+<div style="display:flex;justify-content:center;margin-top:.1em">
+<svg viewBox="0 0 760 280" width="900" role="img" aria-label="A five-rung guardrail ladder from constrained decoding through rules, a classifier, an LLM judge, and a policy layer">
+  <text x="380" y="22" font-size="14" text-anchor="middle" fill="#475569">cheapest and most mechanical</text>
+  <path d="M112 52 V238" stroke="#94a3b8" stroke-width="4"/><path d="M648 52 V238" stroke="#94a3b8" stroke-width="4"/>
+  <rect x="112" y="48" width="536" height="34" rx="7" fill="#ede9fe" stroke="#7c3aed" stroke-width="2"/><text x="380" y="70" font-size="15" font-weight="700" text-anchor="middle" fill="#5b21b6">Rung 0 · constrained decoding</text>
+  <rect x="112" y="86" width="536" height="34" rx="7" fill="#fef3c7" stroke="#d97706" stroke-width="2"/><text x="380" y="108" font-size="15" font-weight="700" text-anchor="middle" fill="#92400e">Rung 1 · rules</text>
+  <rect x="112" y="124" width="536" height="34" rx="7" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/><text x="380" y="146" font-size="15" font-weight="700" text-anchor="middle" fill="#075985">Rung 2 · a classifier</text>
+  <rect x="112" y="162" width="536" height="34" rx="7" fill="#ede9fe" stroke="#7c3aed" stroke-width="2"/><text x="380" y="184" font-size="15" font-weight="700" text-anchor="middle" fill="#5b21b6">Rung 3 · an LLM judge</text>
+  <rect x="112" y="200" width="536" height="34" rx="7" fill="#fef3c7" stroke="#d97706" stroke-width="2"/><text x="380" y="222" font-size="15" font-weight="700" text-anchor="middle" fill="#92400e">Rung 4 · a policy layer</text>
+  <text x="380" y="265" font-size="14" text-anchor="middle" fill="#475569">more context and authority</text>
+</svg>
+</div>
+
+Deskmate’s “never reset an entitlement without confirmation” is a policy question, not a regex.
+
+<!--
+Slide ID: D3-M13-C2A
+Module: [13 Guardrails 101](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/13_Guardrails_101/README.md)
+Instructor: Rohit
+Type: core
+Minutes: 2
+Layout: 06 Process steps
+Speaker notes:
+- Say: The ladder names five different jobs; only the last one answers who may perform an action.
+- Ask: Where would you place Marcus’s request to reset Priya’s entitlement, and what evidence would that rung need?
+- Watch: Notebook:cell#12 (Guardrail_Ladder) is Rung 0, constrained decoding; Notebook:cell#16 is Rung 1, rules; Notebook:cell#19 is Rung 2, a classifier; Notebook:cell#23 is Rung 3, an LLM judge; Notebook:cell#26 is Rung 4, a policy layer.
+- Then: Keep the ladder visible while comparing cost, coverage, and authority.
+Sources: [guardrail notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/13_Guardrails_101/Guardrail_Ladder.ipynb); [NIST AI RMF](https://www.nist.gov/itl/ai-risk-management-framework)
+-->
+---
+# Choose a rung by the failure you need to stop
+
+- **Rung 0:** make invalid output unreachable
+- **Rung 1:** catch exact patterns cheaply
+- **Rung 2:** catch labeled paraphrases
+- **Rung 3:** judge open-ended meaning
+- **Rung 4:** authorize a user, action, and resource
+
+For Deskmate, “never reset an entitlement without confirmation” ends at policy.
+
+<!--
+Slide ID: D3-M13-C2AB
+Module: [13 Guardrails 101](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/13_Guardrails_101/README.md)
+Instructor: Rohit
+Type: core
+Minutes: 2
+Layout: 05 Two column 2
+Speaker notes:
+- Say: A higher rung is not automatically better; it is a different control with a different failure surface.
+- Ask: Which rung would you leave out for Priya’s read-only VPN question, and which omission would make Marcus’s audit impossible?
+- Watch: Notebook:cell#26 (Guardrail_Ladder) — Rung 4’s answer depends on the user, action, and resource, not on phrasing.
+- Then: Name the rung you chose and the rung you deliberately left out before measuring it.
+Sources: [guardrail notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/13_Guardrails_101/Guardrail_Ladder.ipynb); [OpenAI Agents SDK guardrails](https://openai.github.io/openai-agents-js/guides/guardrails/)
+-->
+---
 # Measure protection and friction
 
 - Coverage without false positives is misleading
@@ -767,4 +903,29 @@ Speaker notes:
 - Watch: Run the notebook’s planted injection through the ladder and inspect which rung catches it; do not infer security from one pass.
 - Then: Skip if time is short; offer as optional stretch or research.
 Sources: [InjecAgent](https://arxiv.org/abs/2403.02691); [NIST AI RMF GenAI Profile](https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.600-1.pdf); [guardrail notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/13_Guardrails_101/Guardrail_Ladder.ipynb)
+-->
+---
+# What production adds around the loop
+
+| What we built | Production equivalent |
+|---|---|
+| One store per user in a folder | Per-tenant isolation, tested for leakage in the eval harness |
+| A stdio MCP server | Authenticated deployment, health checks, protocol version tests |
+| A ladder in a for loop, failing closed | A ladder with latency budgets, fail-closed alerts, and false-positive tracking |
+
+Marcus gets an auditable boundary; Priya’s context stays scoped as the loop grows.
+
+<!--
+Slide ID: D3-Z1
+Module: [13 Guardrails 101](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/13_Guardrails_101/README.md)
+Instructor: Rohit
+Type: close
+Minutes: 2
+Layout: 05 Two column 3
+Speaker notes:
+- Say: Production adds controls around the same loop: scoped memory, authenticated capability boundaries, and measured guardrails.
+- Ask: Which production equivalent would catch the most dangerous Deskmate failure first: leakage, an untrusted service, or silent guardrail drift?
+- Watch: Notebook:cell#39 (Three_Kinds_of_Memory) supplies the per-user isolation row; Notebook:cell#38 (Six_Ways) supplies the MCP row; Notebook:cell#38 (Guardrail_Ladder) supplies the ladder row.
+- Then: Carry the chosen boundary into Friday’s release decision and name what remains unmeasured.
+Sources: [memory notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/10_Agent_Memory/Three_Kinds_of_Memory.ipynb); [Six Ways notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/11_Agent_Architecture/Six_Ways.ipynb); [guardrail notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/13_Guardrails_101/Guardrail_Ladder.ipynb)
 -->

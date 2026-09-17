@@ -14,6 +14,29 @@ Day 2 delivery map from the supplied formal schedule:
 - 11:30–12:00: Module 08 concept introduction; Beric's 12:00 demo owns notebook mechanics.
 -->
 
+# Today: making the agent's evidence trustworthy
+
+06 Advanced retrieval · 35m  ·  07 Agentic retrieval · 30m  ·  08 SDG and RAGAS · 30m
+
+Day 1's retriever was one hand-picked guess; today measures and improves it.
+
+<!--
+Slide ID: D2-F0
+Module: Day 2 foundation
+Instructor: Miriah
+Type: framing
+Minutes: 2
+Layout: 02 Agenda
+Speaker notes:
+- Say: Today we turn one retrieval guess into evidence we can inspect and improve.
+- Ask: Which part of the journey needs evidence before your group can defend it?
+- Watch: Keep the three module blocks as one progression: retrieve, compare, measure.
+- Then: Yesterday's framing remains the starting point; now move into the day-2 questions.
+Sources: Notebook:cell#27; [Day 2 schedule](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/docs/schedule/day2.md); [Module 06 overview](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/06_Advanced_Retrieval/README.md).
+-->
+
+---
+
 # Day 2 · From a prototype to a measured retrieval system
 
 - Yesterday: a question, prompt, agent, and first RAG baseline
@@ -317,6 +340,23 @@ Example question: `VPN-4312 fails after a password reset`
 | Dense | related “remote access” guidance |
 | Hybrid | both clues in the candidate set |
 
+<svg viewBox="0 0 700 150" width="900" role="img" aria-label="Sparse retrieval preserves exact VPN code terms while dense retrieval connects related remote access wording, and hybrid keeps both candidate sets">
+  <g text-anchor="middle">
+    <rect x="18" y="38" width="190" height="58" rx="9" fill="#fef3c7" stroke="#d97706" stroke-width="2.5"/>
+    <text x="113" y="63" font-size="15" font-weight="700" fill="#92400e">sparse / BM25</text>
+    <text x="113" y="82" font-size="12" fill="#b45309">VPN-4312</text>
+    <rect x="255" y="38" width="190" height="58" rx="9" fill="#ede9fe" stroke="#7c3aed" stroke-width="2.5"/>
+    <text x="350" y="63" font-size="15" font-weight="700" fill="#5b21b6">dense</text>
+    <text x="350" y="82" font-size="12" fill="#6d28d9">remote access</text>
+    <rect x="492" y="38" width="190" height="58" rx="9" fill="#e0f2fe" stroke="#0284c7" stroke-width="2.5"/>
+    <text x="587" y="63" font-size="15" font-weight="700" fill="#075985">hybrid</text>
+    <text x="587" y="82" font-size="12" fill="#0369a1">both candidate signals</text>
+    <path d="M210 67 H250" stroke="#94a3b8" stroke-width="2.5" marker-end="url(#dense-sparse-a)"/>
+    <path d="M447 67 H487" stroke="#94a3b8" stroke-width="2.5" marker-end="url(#dense-sparse-a)"/>
+  </g>
+  <defs><marker id="dense-sparse-a" markerWidth="9" markerHeight="9" refX="8" refY="3" orient="auto"><path d="M0 0 L8 3 L0 6 z" fill="#94a3b8"/></marker></defs>
+</svg>
+
 <!--
 Slide ID: D2-M06-C1
 Module: [06 Advanced retrieval](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/06_Advanced_Retrieval/README.md)
@@ -377,6 +417,27 @@ Sources: [Dense Passage Retrieval](https://aclanthology.org/2020.emnlp-main.550/
 # Fuse ranks, then spend judgment carefully
 
 `20 candidates → RRF top 10 → reranker top 5 → context top 3`
+
+<svg viewBox="0 0 700 145" width="900" role="img" aria-label="Retrieval ladder sequence from sparse and dense candidates through fusion and reranking to context">
+  <g text-anchor="middle">
+    <rect x="12" y="40" width="142" height="54" rx="9" fill="#fef3c7" stroke="#d97706" stroke-width="2.5"/>
+    <text x="83" y="63" font-size="14" font-weight="700" fill="#92400e">sparse</text>
+    <text x="83" y="81" font-size="11.5" fill="#b45309">exact terms</text>
+    <rect x="190" y="40" width="142" height="54" rx="9" fill="#ede9fe" stroke="#7c3aed" stroke-width="2.5"/>
+    <text x="261" y="63" font-size="14" font-weight="700" fill="#5b21b6">dense</text>
+    <text x="261" y="81" font-size="11.5" fill="#6d28d9">related meaning</text>
+    <rect x="368" y="40" width="142" height="54" rx="9" fill="#e0f2fe" stroke="#0284c7" stroke-width="2.5"/>
+    <text x="439" y="63" font-size="14" font-weight="700" fill="#075985">fuse</text>
+    <text x="439" y="81" font-size="11.5" fill="#0369a1">RRF shortlist</text>
+    <rect x="546" y="40" width="142" height="54" rx="9" fill="#f8fafc" stroke="#94a3b8" stroke-width="2.5"/>
+    <text x="617" y="63" font-size="14" font-weight="700" fill="#334155">rerank</text>
+    <text x="617" y="81" font-size="11.5" fill="#475569">context top 3</text>
+    <path d="M156 67 H184" stroke="#94a3b8" stroke-width="2.5" marker-end="url(#ladder-a)"/>
+    <path d="M334 67 H362" stroke="#94a3b8" stroke-width="2.5" marker-end="url(#ladder-a)"/>
+    <path d="M512 67 H540" stroke="#94a3b8" stroke-width="2.5" marker-end="url(#ladder-a)"/>
+  </g>
+  <defs><marker id="ladder-a" markerWidth="9" markerHeight="9" refX="8" refY="3" orient="auto"><path d="M0 0 L8 3 L0 6 z" fill="#94a3b8"/></marker></defs>
+</svg>
 
 - **Cheap first:** gather candidates with multiple signals
 - **Expensive later:** let a cross-encoder compare question + passage
@@ -575,6 +636,77 @@ Speaker notes:
 - Then: Tie the answer to the notebook artifact before moving on.
 Sources: [DPR retrieval formulation](https://aclanthology.org/2020.emnlp-main.550/); [local Retrieval Ladder notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/06_Advanced_Retrieval/Retrieval_Ladder.ipynb)
 -->
+---
+
+# Filter before you rank
+
+Deskmate receives Priya's question: “Why can't I reach the staging database from the VPN?”
+
+- Identify the caller first
+- Scope the KB to that user's allowed pages
+- Rank only the permitted candidates
+
+**Retrieval is not an authorisation check.**
+
+<!--
+Slide ID: D2-M06-C5
+Module: [06 Advanced retrieval](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/06_Advanced_Retrieval/README.md)
+Instructor: Eli
+Type: core
+Minutes: 1
+Layout: 06 Process steps
+Speaker notes:
+- Say: A strong ranker can still return the wrong user's evidence.
+- Ask: Where in the pipeline would you attach the caller's identity?
+- Watch: Use Priya's staging-database question and Marcus's helpdesk scope as the contrast.
+- Then: Make the ordering explicit: authorize, filter, rank.
+Sources: Notebook:cell#27; [local Retrieval Ladder notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/06_Advanced_Retrieval/Retrieval_Ladder.ipynb)
+-->
+
+---
+
+# Filter before you rank · Question
+
+- **Question:** Deskmate has Priya's caller identity and a mixed KB. What is the first retrieval operation?
+
+<!--
+Slide ID: D2-M06-C5B
+Module: [06 Advanced retrieval](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/06_Advanced_Retrieval/README.md)
+Instructor: Eli
+Type: core
+Minutes: 1
+Layout: 05 Two column 2
+Speaker notes:
+- Say: Ask learners to name the boundary before they name a ranking method.
+- Ask: Which artifact would reveal that a result belonged to Marcus rather than Priya?
+- Watch: Listen for caller-scoped candidate construction, not a post-answer apology.
+- Then: Reveal the answer and connect it to the notebook's group filter.
+Sources: Notebook:cell#27; [local Retrieval Ladder notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/06_Advanced_Retrieval/Retrieval_Ladder.ipynb)
+-->
+
+---
+
+# Authorize the candidate set, then rank it
+
+- **Answer:** Filter the KB by Priya's allowed group before dense, sparse, or hybrid ranking.
+- **Why:** Ranking an unscoped index can surface Marcus's tickets to Priya.
+- **Next step:** Log the caller, filter, and returned source IDs for each Deskmate answer.
+
+<!--
+Slide ID: D2-M06-C5A
+Module: [06 Advanced retrieval](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/06_Advanced_Retrieval/README.md)
+Instructor: Eli
+Type: core
+Minutes: 1
+Layout: 08 Quote
+Speaker notes:
+- Say: The access boundary comes before retrieval quality.
+- Ask: What should Marcus be able to audit after a result is returned?
+- Watch: Name cross-user ticket leakage as the failure, not merely a poor relevance score.
+- Then: Carry the authorization boundary into the next module's corpus interfaces.
+Sources: Notebook:cell#27; [local Retrieval Ladder notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/06_Advanced_Retrieval/Retrieval_Ladder.ipynb)
+-->
+
 ---
 
 # Research: retrieval is a two-stage design
@@ -869,6 +1001,78 @@ Speaker notes:
 - Then: Tie the answer to the notebook artifact before moving on.
 Sources: [DCI research paper](https://arxiv.org/abs/2605.05242); [local DCI versus Agentic RAG notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/DCI_vs_Agentic_RAG.ipynb)
 -->
+---
+
+# Inspect the difference
+
+Deskmate asks the same agent the split-tunnel question through two corpus interfaces.
+
+| Interface | Evidence to compare |
+|---|---|
+| chunk retriever | ranked section and source ID |
+| direct corpus tools | page path and exact menu heading |
+
+**The answer is not the whole trace.**
+
+<!--
+Slide ID: D2-M07-C5
+Module: [07 Agentic retrieval](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/README.md)
+Instructor: Eli
+Type: core
+Minutes: 1
+Layout: 05 Two column
+Speaker notes:
+- Say: Compare the evidence path when the same agent sees two interfaces.
+- Ask: Which trace field would let Marcus audit the exact menu path?
+- Watch: Keep the question fixed so only the corpus interface changes.
+- Then: Move from a polished answer to the evidence each mode actually inspected.
+Sources: Notebook:cell#24; [local DCI versus Agentic RAG notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/DCI_vs_Agentic_RAG.ipynb)
+-->
+
+---
+
+# Inspect the difference · Question
+
+- **Question:** Which trace would show that Deskmate found the exact split-tunnel menu path?
+
+<!--
+Slide ID: D2-M07-C5B
+Module: [07 Agentic retrieval](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/README.md)
+Instructor: Eli
+Type: core
+Minutes: 1
+Layout: 07 Big stats
+Speaker notes:
+- Say: Ask for the observable difference, not a preference for one interface.
+- Ask: What would you put side by side before accepting the answer?
+- Watch: Listen for source IDs, page reads, and the exact evidence text.
+- Then: Reveal the answer and connect it to the notebook's comparison trace.
+Sources: Notebook:cell#24; [local DCI versus Agentic RAG notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/DCI_vs_Agentic_RAG.ipynb)
+-->
+
+---
+
+# The winning trace names the evidence
+
+- **Answer:** Compare the retrieved source or page path, the quoted menu heading, and the calls used.
+- **Why:** Two interfaces can produce similar prose while inspecting different evidence.
+- **Next step:** Keep the same split-tunnel case and inspect both traces before routing future questions.
+
+<!--
+Slide ID: D2-M07-C5A
+Module: [07 Agentic retrieval](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/README.md)
+Instructor: Eli
+Type: core
+Minutes: 1
+Layout: 08 Quote
+Speaker notes:
+- Say: A comparison is useful only when the evidence path is visible.
+- Ask: Which difference would matter if both answers scored equally?
+- Watch: Tie exact menu-path evidence to the user's question, not to call count alone.
+- Then: Carry the inspection habit into measurement and curation.
+Sources: Notebook:cell#24; [local DCI versus Agentic RAG notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/DCI_vs_Agentic_RAG.ipynb)
+-->
+
 ---
 
 # Research: direct corpus interaction widens the search interface
@@ -1167,6 +1371,77 @@ Sources: [RAGAS paper](https://arxiv.org/abs/2309.15217); [RAGAS metrics documen
 -->
 ---
 
+# Curate the test set before you trust it
+
+Generated cases are drafts. A case asking about a policy the KB never had is not a Deskmate failure.
+
+- Check the source passage and expected answer
+- Remove unsupported or duplicate cases
+- Have a person review the set before it gates anything
+
+**Measurement begins with a defensible case.**
+
+<!--
+Slide ID: D2-M08-C5
+Module: [08 SDG/RAGAS](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/08_SDG_RAGAS/README.md)
+Instructor: Beric
+Type: core
+Minutes: 1
+Layout: 04 Icon cards
+Speaker notes:
+- Say: Synthetic generation expands coverage, but it does not decide what counts.
+- Ask: Which generated Deskmate case would you remove before scoring?
+- Watch: Distinguish an unsupported policy question from a real system failure.
+- Then: Put human review before any eval gate.
+Sources: Notebook:cell#18; [Module 08 notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/08_SDG_RAGAS/Improving_RAG_with_RAGAS.ipynb)
+-->
+
+---
+
+# Curate the test set before you trust it · Question
+
+- **Question:** A generated case asks about a policy absent from the KB. Should it score Deskmate?
+
+<!--
+Slide ID: D2-M08-C5B
+Module: [08 SDG/RAGAS](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/08_SDG_RAGAS/README.md)
+Instructor: Beric
+Type: core
+Minutes: 1
+Layout: 05 Two column 2
+Speaker notes:
+- Say: Ask whether the case tests the product or the generator's imagination.
+- Ask: What evidence would make this case valid for the helpdesk corpus?
+- Watch: Look for a quoted source passage, expected answer, and review decision.
+- Then: Reveal the answer and connect it to the notebook's curation checks.
+Sources: Notebook:cell#18; [Module 08 notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/08_SDG_RAGAS/Improving_RAG_with_RAGAS.ipynb)
+-->
+
+---
+
+# Human review makes the test set count
+
+- **Answer:** Remove the unsupported case; it cannot measure Deskmate behavior without a source in the KB.
+- **Why:** A synthetic question can be fluent, plausible, and still test nothing the product promises.
+- **Next step:** Record the review decision and gate only on the curated set.
+
+<!--
+Slide ID: D2-M08-C5A
+Module: [08 SDG/RAGAS](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/08_SDG_RAGAS/README.md)
+Instructor: Beric
+Type: core
+Minutes: 1
+Layout: 08 Quote
+Speaker notes:
+- Say: The test set is a measurement asset with an owner and a review boundary.
+- Ask: What would Marcus want recorded before trusting a regression result?
+- Watch: Keep human review distinct from changing the system to pass a case.
+- Then: Close by connecting curation to the production table's reviewed gate.
+Sources: Notebook:cell#18; [Module 08 notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/08_SDG_RAGAS/Improving_RAG_with_RAGAS.ipynb)
+-->
+
+---
+
 # Research: RAG evaluation needs multiple lenses
 
 <!--
@@ -1187,3 +1462,28 @@ Sources: [RAGAS: Automated Evaluation of Retrieval Augmented Generation](https:/
 - Separate retrieval, context use, and answer quality
 - Reference-free still requires calibrated measurement
 - Use metrics to decide what trace or case to inspect next
+
+---
+
+# Where retrieval goes in production
+
+| What we built | Production equivalent |
+|---|---|
+| An in-memory index rebuilt each run | A persistent index with incremental updates |
+| Every page visible to every call | Per-user authorisation on list, search, and read |
+| A datasheet printed in a cell | A datasheet committed beside the test set and reviewed before it gates anything |
+
+<!--
+Slide ID: D2-Z1
+Module: Day 2 close
+Instructor: Miriah
+Type: closing
+Minutes: 2
+Layout: 05 Two column
+Speaker notes:
+- Say: These are the production equivalents named by today's three notebooks.
+- Ask: Which prototype row would create the most serious Deskmate risk if left unchanged?
+- Watch: Keep the rows verbatim; do not turn them into a new recommendation list.
+- Then: Hand the group back to its charter and the evidence it will measure.
+Sources: Notebook:cell#34; Notebook:cell#30; Notebook:cell#36; [Module 06 notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/06_Advanced_Retrieval/Retrieval_Ladder.ipynb); [Module 07 notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/DCI_vs_Agentic_RAG.ipynb); [Module 08 notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/08_SDG_RAGAS/Improving_RAG_with_RAGAS.ipynb)
+-->
