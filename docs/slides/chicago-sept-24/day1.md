@@ -1280,7 +1280,7 @@ Layout: 05 Two column 2
 Speaker notes:
 - Say: Self-refine changes the answer; meta-prompting changes the brief
 - Ask: Did the revision improve the answer, the prompt, or both—and what evidence shows that?
-- Watch: Inspect the named output and verify its provenance.
+- Watch: Put the named artifact on screen and trace where its values came from.
 - Then: Compare the revision against the same criteria.
 Sources: [Self-Refine, Madaan et al., 2023](https://arxiv.org/abs/2303.17651); [Prompt patterns notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/02_Prompt_Patterns/Prompt_Patterns.ipynb).
 -->
@@ -1305,7 +1305,7 @@ Layout: 09 Lab and code
 Speaker notes:
 - Say: Compare patterns like an experiment
 - Ask: If prompt B wins one case but loses another, what would you inspect before choosing it?
-- Watch: Inspect the named output and verify its provenance.
+- Watch: Put the named artifact on screen and trace where its values came from.
 - Then: If the next step depends on an observation or tool result, investigate an agent.
 Sources: [Prompt patterns Create/Grow](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/02_Prompt_Patterns/Prompt_Patterns.ipynb); [Simple workflows versus agents](https://www.anthropic.com/engineering/building-effective-agents).
 -->
@@ -1359,11 +1359,10 @@ Sources: [Agent harness notebook](https://github.com/AI-Aspire/Aspire_Titanium_E
 
 ---
 
-# A model answers; an agent can choose a next step · The practical check
-
+# Find the tool call in the trace
 - **Ask:** Which box actually runs a tool, and which box decides whether it is allowed?
-- **Inspect:** In Beric's trace, locate the model message requesting a tool, the tool result, and the subsequent model response.
-- **Decide:** keep the simplest design that clears the check; record the gap when it does not.
+- **Inspect:** In the trace, locate the model message requesting a tool, the tool result, and the model's response to it.
+- **Decide:** If you cannot point at the tool request in the trace, you have a model, not an agent.
 
 <!--
 Slide ID: D1-M03-C1B
@@ -1374,9 +1373,9 @@ Minutes: 2
 Layout: 04 Icon cards
 Speaker notes:
 - Say: A model answers; an agent can choose a next step
-- Ask: Which box actually runs a tool, and which box decides whether it is allowed?
+- Ask: Put the slide's question to the room first and wait; the answer below is the one to land, not to read out.
 - Watch: In Beric's trace, locate the model message requesting a tool, the tool result, and the subsequent model response.
-- Then: Carry the observation into the notebook exercise.
+- Then: If you cannot point at the tool request in the trace, you have a model, not an agent.
 Sources: [Agent harness notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/03_Agents_101/Agent_Harness.ipynb); [Workflow and agent definitions](https://www.anthropic.com/engineering/building-effective-agents).
 -->
 
@@ -1406,11 +1405,10 @@ Sources: [ReAct, Yao et al., 2022](https://arxiv.org/abs/2210.03629); [Agent har
 
 ---
 
-# Tools give the loop controlled capabilities · The practical check
-
+# The description is all the model sees
 - **Ask:** If a retrieved page says “ignore your rules,” does that change the tool's permissions?
 - **Inspect:** Inspect how precise tool descriptions affect tool selection; do not equate making a tool call with making the correct call.
-- **Decide:** keep the simplest design that clears the check; record the gap when it does not.
+- **Decide:** Fix the tool contract before you touch the prompt — the description is all the model sees.
 
 <!--
 Slide ID: D1-M03-C2B
@@ -1421,9 +1419,9 @@ Minutes: 2
 Layout: 05 Two column 2
 Speaker notes:
 - Say: Tools give the loop controlled capabilities
-- Ask: If a retrieved page says “ignore your rules,” does that change the tool's permissions?
+- Ask: Put the slide's question to the room first and wait; the answer below is the one to land, not to read out.
 - Watch: Inspect how precise tool descriptions affect tool selection; do not equate making a tool call with making the correct call.
-- Then: Carry the observation into the notebook exercise.
+- Then: Fix the tool contract before you touch the prompt — the description is all the model sees.
 Sources: [ReAct, Yao et al., 2022](https://arxiv.org/abs/2210.03629); [Agent harness tools](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/03_Agents_101/Agent_Harness.ipynb).
 -->
 
@@ -1453,11 +1451,10 @@ Sources: [Agent harness limits and trace](https://github.com/AI-Aspire/Aspire_Ti
 
 ---
 
-# The harness owns the loop's boundaries · The practical check
-
+# Watch a limit actually fire
 - **Ask:** What should the user receive when the budget ends before the task is complete?
 - **Inspect:** Watch middleware messages and the enforced limit; inspect the saved transcript rather than only the final answer.
-- **Decide:** keep the simplest design that clears the check; record the gap when it does not.
+- **Decide:** A limit only counts if the transcript shows it firing. Untested limits are decoration.
 
 <!--
 Slide ID: D1-M03-C3B
@@ -1468,9 +1465,9 @@ Minutes: 2
 Layout: 07 Big stats
 Speaker notes:
 - Say: The harness owns the loop's boundaries
-- Ask: What should the user receive when the budget ends before the task is complete?
+- Ask: Put the slide's question to the room first and wait; the answer below is the one to land, not to read out.
 - Watch: Watch middleware messages and the enforced limit; inspect the saved transcript rather than only the final answer.
-- Then: Carry the observation into the notebook exercise.
+- Then: A limit only counts if the transcript shows it firing. Untested limits are decoration.
 Sources: [Agent harness limits and trace](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/03_Agents_101/Agent_Harness.ipynb); [Effective harnesses for long-running agents](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents).
 -->
 
@@ -1500,11 +1497,10 @@ Sources: [Agent harness Create/Grow](https://github.com/AI-Aspire/Aspire_Titaniu
 
 ---
 
-# Autonomy needs a reason and a stopping rule · The practical check
-
+# In scope, needs a human, or out of scope
 - **Ask:** What observation would change the next step in your proposed loop?
 - **Inspect:** Compare in-scope, human-needed, and out-of-scope questions. Check whether tool behavior matches the scope before praising fluency.
-- **Decide:** keep the simplest design that clears the check; record the gap when it does not.
+- **Decide:** Give the loop a stopping rule before you give it autonomy.
 
 <!--
 Slide ID: D1-M03-C4B
@@ -1515,9 +1511,9 @@ Minutes: 1
 Layout: 09 Lab and code 2
 Speaker notes:
 - Say: Autonomy needs a reason and a stopping rule
-- Ask: What observation would change the next step in your proposed loop?
+- Ask: Put the slide's question to the room first and wait; the answer below is the one to land, not to read out.
 - Watch: Compare in-scope, human-needed, and out-of-scope questions. Check whether tool behavior matches the scope before praising fluency.
-- Then: Carry the observation into the notebook exercise.
+- Then: Give the loop a stopping rule before you give it autonomy.
 Sources: [Agent harness Create/Grow](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/03_Agents_101/Agent_Harness.ipynb); [Building effective agents](https://www.anthropic.com/engineering/building-effective-agents).
 -->
 
@@ -1571,11 +1567,10 @@ Sources: [Vibe checks and judges notebook](https://github.com/AI-Aspire/Aspire_T
 
 ---
 
-# “Looks good” is the start of a test, not the result · The practical check
-
+# Hand-score before you automate
 - **Ask:** Could two reviewers reasonably disagree about the word “helpful” in your rubric?
-- **Inspect:** Beric starts with rubric definitions and hand-scored transcripts before introducing the automated judge.
-- **Decide:** keep the simplest design that clears the check; record the gap when it does not.
+- **Inspect:** Start from rubric definitions and hand-scored transcripts, before any automated judge runs.
+- **Decide:** Write the rubric before the judge. Hand-score first, or you cannot tell if the judge is wrong.
 
 <!--
 Slide ID: D1-M04-C1B
@@ -1586,9 +1581,9 @@ Minutes: 2
 Layout: 04 Icon cards
 Speaker notes:
 - Say: “Looks good” is the start of a test, not the result
-- Ask: Could two reviewers reasonably disagree about the word “helpful” in your rubric?
+- Ask: Put the slide's question to the room first and wait; the answer below is the one to land, not to read out.
 - Watch: Beric starts with rubric definitions and hand-scored transcripts before introducing the automated judge.
-- Then: Carry the observation into the notebook exercise.
+- Then: Write the rubric before the judge. Hand-score first, or you cannot tell if the judge is wrong.
 Sources: [Vibe checks and judges notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/04_Vibe_Checks_and_Judges/Vibe_Checks_LLM_Judge.ipynb); [LLM judge study, Zheng et al., 2023](https://arxiv.org/abs/2306.05685).
 -->
 
@@ -1618,11 +1613,10 @@ Sources: [Judging LLM-as-a-Judge](https://arxiv.org/abs/2306.05685); [Strict jud
 
 ---
 
-# A judge is another model with a narrow job · The practical check
-
+# Read the judge's reasoning, not its number
 - **Ask:** What is the difference between a valid score and a justified score?
 - **Inspect:** Inspect the strict judge's error handling and compare its rationale with a hand verdict on the same transcript.
-- **Decide:** keep the simplest design that clears the check; record the gap when it does not.
+- **Decide:** Pin the judge's temperature and read its rationale, not just its number.
 
 <!--
 Slide ID: D1-M04-C2B
@@ -1633,9 +1627,9 @@ Minutes: 2
 Layout: 05 Two column 2
 Speaker notes:
 - Say: A judge is another model with a narrow job
-- Ask: What is the difference between a valid score and a justified score?
+- Ask: Put the slide's question to the room first and wait; the answer below is the one to land, not to read out.
 - Watch: Inspect the strict judge's error handling and compare its rationale with a hand verdict on the same transcript.
-- Then: Carry the observation into the notebook exercise.
+- Then: Pin the judge's temperature and read its rationale, not just its number.
 Sources: [Judging LLM-as-a-Judge](https://arxiv.org/abs/2306.05685); [Strict judge implementation](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/04_Vibe_Checks_and_Judges/Vibe_Checks_LLM_Judge.ipynb).
 -->
 
@@ -1665,11 +1659,10 @@ Sources: [Three judge dimensions](https://github.com/AI-Aspire/Aspire_Titanium_E
 
 ---
 
-# An answer can be clear, useful, and wrong · The practical check
-
+# Score the dimensions separately
 - **Ask:** Can an answer faithfully repeat an outdated procedure and still fail the user's task?
 - **Inspect:** Inspect the separate judge columns and their rationales; identify which dimension explains a disagreement.
-- **Decide:** keep the simplest design that clears the check; record the gap when it does not.
+- **Decide:** Score the dimensions separately, or a fluent wrong answer scores as a right one.
 
 <!--
 Slide ID: D1-M04-C3B
@@ -1680,9 +1673,9 @@ Minutes: 2
 Layout: 07 Big stats
 Speaker notes:
 - Say: An answer can be clear, useful, and wrong
-- Ask: Can an answer faithfully repeat an outdated procedure and still fail the user's task?
+- Ask: Put the slide's question to the room first and wait; the answer below is the one to land, not to read out.
 - Watch: Inspect the separate judge columns and their rationales; identify which dimension explains a disagreement.
-- Then: Carry the observation into the notebook exercise.
+- Then: Score the dimensions separately, or a fluent wrong answer scores as a right one.
 Sources: [Three judge dimensions](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/04_Vibe_Checks_and_Judges/Vibe_Checks_LLM_Judge.ipynb); [Ragas faithfulness definition](https://docs.ragas.io/en/stable/concepts/metrics/available_metrics/faithfulness/).
 -->
 
@@ -1712,11 +1705,10 @@ Sources: [Disagreement analysis and responsible controls](https://github.com/AI-
 
 ---
 
-# Disagreement tells you where to investigate · The practical check
-
+# Follow the disagreement
 - **Ask:** What would make you distrust the judge rather than change the answer?
 - **Inspect:** Read the highest-disagreement row in the heatmap and explain the evidence. Do not replace an observed failure with a guessed score.
-- **Decide:** keep the simplest design that clears the check; record the gap when it does not.
+- **Decide:** Investigate where graders disagree; that row is where the rubric is unclear.
 
 <!--
 Slide ID: D1-M04-C4B
@@ -1727,9 +1719,9 @@ Minutes: 1
 Layout: 09 Lab and code 2
 Speaker notes:
 - Say: Disagreement tells you where to investigate
-- Ask: What would make you distrust the judge rather than change the answer?
+- Ask: Put the slide's question to the room first and wait; the answer below is the one to land, not to read out.
 - Watch: Read the highest-disagreement row in the heatmap and explain the evidence. Do not replace an observed failure with a guessed score.
-- Then: Carry the observation into the notebook exercise.
+- Then: Investigate where graders disagree; that row is where the rubric is unclear.
 Sources: [Disagreement analysis and responsible controls](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/04_Vibe_Checks_and_Judges/Vibe_Checks_LLM_Judge.ipynb); [LLM judge limitations](https://arxiv.org/abs/2306.05685).
 -->
 
@@ -1776,18 +1768,17 @@ Layout: 05 Two column
 Speaker notes:
 - Say: A direct question needs accessible evidence
 - Ask: If the source is wrong, what can retrieval actually improve?
-- Watch: Inspect the named output and verify its provenance.
+- Watch: Put the named artifact on screen and trace where its values came from.
 - Then: Today's notebook uses a practical retrieve-then-prompt pipeline, not a reproduction of the paper's training method.
 Sources: [RAG, Lewis et al., 2020](https://arxiv.org/abs/2005.11401); [RAG notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/05_RAG/RAG_with_LangChain.ipynb).
 -->
 
 ---
 
-# A direct question needs accessible evidence · The practical check
-
+# Same question, with and without evidence
 - **Ask:** If the source is wrong, what can retrieval actually improve?
-- **Inspect:** Beric asks the same question without source text and with retrieved context; inspect the evidence rather than assuming the second answer must be better.
-- **Decide:** keep the simplest design that clears the check; record the gap when it does not.
+- **Inspect:** Ask the same question with and without retrieved context; read the evidence rather than assuming the second answer is better.
+- **Decide:** Retrieval earns its place only when the evidence changes the answer.
 
 <!--
 Slide ID: D1-M05-C1B
@@ -1798,9 +1789,9 @@ Minutes: 2
 Layout: 04 Icon cards
 Speaker notes:
 - Say: A direct question needs accessible evidence
-- Ask: If the source is wrong, what can retrieval actually improve?
-- Watch: Inspect the named output and verify its provenance.
-- Then: Carry the observation into the notebook exercise.
+- Ask: Put the slide's question to the room first and wait; the answer below is the one to land, not to read out.
+- Watch: Ask the same question with and without retrieved context; read the evidence rather than assuming the second answer is better.
+- Then: Retrieval earns its place only when the evidence changes the answer.
 Sources: [RAG, Lewis et al., 2020](https://arxiv.org/abs/2005.11401); [RAG notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/05_RAG/RAG_with_LangChain.ipynb).
 -->
 
@@ -1830,11 +1821,10 @@ Sources: [RAG from scratch and library pipeline](https://github.com/AI-Aspire/As
 
 ---
 
-# Prepare the library, then search it for each question · The practical check
-
+# Read the context you assembled
 - **Ask:** Which step changes the stored index, and which step happens for every question?
 - **Inspect:** Locate chunk creation, ranking, and context assembly before the library version; explain what each library component replaces.
-- **Decide:** keep the simplest design that clears the check; record the gap when it does not.
+- **Decide:** Read the assembled context before blaming the model for the answer.
 
 <!--
 Slide ID: D1-M05-C2B
@@ -1845,9 +1835,9 @@ Minutes: 2
 Layout: 05 Two column 2
 Speaker notes:
 - Say: Prepare the library, then search it for each question
-- Ask: Which step changes the stored index, and which step happens for every question?
+- Ask: Put the slide's question to the room first and wait; the answer below is the one to land, not to read out.
 - Watch: Locate chunk creation, ranking, and context assembly before the library version; explain what each library component replaces.
-- Then: Carry the observation into the notebook exercise.
+- Then: Read the assembled context before blaming the model for the answer.
 Sources: [RAG from scratch and library pipeline](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/05_RAG/RAG_with_LangChain.ipynb); [Author's context-assembly notes](https://github.com/soypete/ctx-eng-book/blob/main/research/context-assembly-pipeline-patterns.md).
 -->
 
@@ -1877,11 +1867,10 @@ Sources: [RAG setup, top-k comparison, saved baseline](https://github.com/AI-Asp
 
 ---
 
-# Diagnose the missing evidence before the answer · The practical check
-
+# Change k, inspect the chunks
 - **Ask:** Which component should change if the answer-bearing passage never reaches the prompt?
 - **Inspect:** Compare two k settings on the same question and inspect actual chunks. Keep baseline contexts with each answer.
-- **Decide:** keep the simplest design that clears the check; record the gap when it does not.
+- **Decide:** Repair retrieval before you rewrite the prompt.
 
 <!--
 Slide ID: D1-M05-C3B
@@ -1892,9 +1881,9 @@ Minutes: 2
 Layout: 07 Big stats
 Speaker notes:
 - Say: Diagnose the missing evidence before the answer
-- Ask: Which component should change if the answer-bearing passage never reaches the prompt?
+- Ask: Put the slide's question to the room first and wait; the answer below is the one to land, not to read out.
 - Watch: Compare two k settings on the same question and inspect actual chunks. Keep baseline contexts with each answer.
-- Then: Carry the observation into the notebook exercise.
+- Then: Repair retrieval before you rewrite the prompt.
 Sources: [RAG setup, top-k comparison, saved baseline](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/05_RAG/RAG_with_LangChain.ipynb); [RAG artifact contract](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/05_RAG/README.md).
 -->
 
@@ -1924,11 +1913,10 @@ Sources: [RAG baseline](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/bl
 
 ---
 
-# Agentic retrieval changes the search strategy · The practical check
-
+# Save the baseline's failures
 - **Ask:** What evidence would justify a second search instead of a final answer or clarification?
 - **Inspect:** Establish the fixed baseline first. Save its failures so later retrieval approaches have a fair comparison.
-- **Decide:** keep the simplest design that clears the check; record the gap when it does not.
+- **Decide:** Save the baseline's failures now; they are what later retrieval has to beat.
 
 <!--
 Slide ID: D1-M05-C4B
@@ -1939,9 +1927,9 @@ Minutes: 1
 Layout: 09 Lab and code 2
 Speaker notes:
 - Say: Agentic retrieval changes the search strategy
-- Ask: What evidence would justify a second search instead of a final answer or clarification?
+- Ask: Put the slide's question to the room first and wait; the answer below is the one to land, not to read out.
 - Watch: Establish the fixed baseline first. Save its failures so later retrieval approaches have a fair comparison.
-- Then: Carry the observation into the notebook exercise.
+- Then: Save the baseline's failures now; they are what later retrieval has to beat.
 Sources: [RAG baseline](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/05_RAG/RAG_with_LangChain.ipynb); [Agentic retrieval comparison](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/DCI_vs_Agentic_RAG.ipynb); [RAG versus long-context study](https://arxiv.org/abs/2407.16833).
 -->
 

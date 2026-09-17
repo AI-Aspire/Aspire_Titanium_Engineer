@@ -163,8 +163,7 @@ Sources: [Module 01 Dev Environment](https://github.com/AI-Aspire/Aspire_Titaniu
 -->
 ---
 
-# Quick check · Answer
-
+# What the record has to contain
 - **Answer:** Save the question, prompt, evidence, answer, rubric result, and model/version.
 - **Why:** Without inputs and evidence, a score cannot explain a change.
 - **Next step:** Carry this record forward — the evals notebook scores exactly these fields.
@@ -283,8 +282,7 @@ Sources: [Module 05 notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engin
 -->
 ---
 
-# Quick check · Answer
-
+# Which gate lost the evidence
 - **Answer:** Source coverage, retrieval, or generation, depending on where the evidence disappeared.
 - **Why:** Each gate points to a different engineering change.
 - **Next step:** Name the gate before you change code; each one points at different work.
@@ -355,8 +353,7 @@ Sources: [Dense Passage Retrieval](https://aclanthology.org/2020.emnlp-main.550/
 -->
 ---
 
-# 06 · Exact terms and related meanings need different signals · Answer
-
+# BM25 keeps the code, dense widens the net
 - **Answer:** BM25 protects the exact code; dense search broadens the meaning.
 - **Why:** The two signals expose different candidate passages.
 - **Next step:** In the notebook, read the two orders side by side before judging either.
@@ -421,8 +418,7 @@ Sources: [Reciprocal rank fusion paper](https://cormack.uwaterloo.ca/cormacksigi
 -->
 ---
 
-# Fuse ranks, then spend judgment carefully · Answer
-
+# A reranker cannot recover what was never retrieved
 - **Answer:** No. A reranker cannot recover a candidate absent from the shortlist.
 - **Why:** Later stages only reorder what earlier stages retrieved.
 - **Next step:** So tune recall first, then spend a reranker on the shortlist you trust.
@@ -487,8 +483,7 @@ Sources: [Iterative query generation for multi-hop QA](https://aclanthology.org/
 -->
 ---
 
-# Ask the question more than once · Answer
-
+# New IDs mean new coverage
 - **Answer:** New source IDs show changed coverage; repeated IDs show duplicated evidence.
 - **Why:** More results are not the same as more useful evidence.
 - **Next step:** Watch the source IDs, not the result count, when you add a rung.
@@ -561,8 +556,7 @@ Sources: [DPR retrieval formulation](https://aclanthology.org/2020.emnlp-main.55
 -->
 ---
 
-# Choose the cheapest rung that clears the bar · Answer
-
+# MRR sees rank, hit@5 sees the cutoff
 - **Answer:** MRR improves; hit@5 stays the same when both ranks are inside the cutoff.
 - **Why:** MRR sees exact rank; hit@5 sees whether the result crossed the cutoff.
 - **Next step:** Pick the metric that answers your question before you report a win.
@@ -657,8 +651,7 @@ Sources: [DCI research paper](https://arxiv.org/abs/2605.05242); [local DCI vers
 -->
 ---
 
-# 07 · Retrieval becomes an interface choice · Answer
-
+# Change one thing: the retrieval interface
 - **Answer:** Keep the model, questions, loop, and scoring constant; change only the retrieval interface.
 - **Why:** Otherwise the comparison cannot explain which change caused the result.
 - **Next step:** Hold everything else fixed in the notebook, or the comparison says nothing.
@@ -724,8 +717,7 @@ Sources: [DCI research paper](https://arxiv.org/abs/2605.05242); [local DCI vers
 -->
 ---
 
-# Let the agent navigate a persistent map · Answer
-
+# Clues before the agent reads a page
 - **Answer:** They give the agent navigable clues before it reads a page.
 - **Why:** Filenames alone do not explain which page or section is relevant.
 - **Next step:** Inspect what the agent sees before its first read, not after.
@@ -793,8 +785,7 @@ Sources: [DCI research paper](https://arxiv.org/abs/2605.05242); [local DCI vers
 -->
 ---
 
-# Compare traces, not just answers · Answer
-
+# Evidence failure comes first
 - **Answer:** Evidence failure first; inspect the search path before changing the prompt.
 - **Why:** No relevant page means the answer had nothing reliable to synthesize.
 - **Next step:** Read the search path first; the prompt is the last thing to change.
@@ -859,8 +850,7 @@ Sources: [DCI research paper](https://arxiv.org/abs/2605.05242); [local DCI vers
 -->
 ---
 
-# Stop at the smallest safe interface · Answer
-
+# Identity, permission, and purpose
 - **Answer:** Caller identity, page permission, and purpose—not just the model request.
 - **Why:** The system owns authorization even when the model chooses the next tool.
 - **Next step:** Put the check in the tool, not in the instructions to the model.
@@ -925,7 +915,7 @@ Layout: 06 Process steps
 Speaker notes:
 - Say: Synthetic data makes failures testable
 - Ask: Which source artifact would let a reviewer reject a synthetic question as unsupported?
-- Watch: Inspect the named output and verify its provenance.
+- Watch: Put the named artifact on screen and trace where its values came from.
 - Then: Carry the observation into the next exercise.
 Sources: [Ragas testset generation](https://docs.ragas.io/en/stable/concepts/test_data_generation/rag/); [Module 08 notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/08_SDG_RAGAS/Improving_RAG_with_RAGAS.ipynb)
 -->
@@ -945,14 +935,13 @@ Layout: 04 Icon cards
 Speaker notes:
 - Say: Synthetic data makes failures testable
 - Ask: Which source artifact would let a reviewer reject a synthetic question as unsupported?
-- Watch: Inspect the named output and verify its provenance.
+- Watch: Put the named artifact on screen and trace where its values came from.
 - Then: Reveal the answer, then tie it to the notebook artifact on screen.
 Sources: [Ragas testset generation](https://docs.ragas.io/en/stable/concepts/test_data_generation/rag/); [Module 08 notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/08_SDG_RAGAS/Improving_RAG_with_RAGAS.ipynb)
 -->
 ---
 
-# 08 · Synthetic data makes failures testable · Answer
-
+# Provenance on every generated case
 - **Answer:** The source page, passage, and generation record.
 - **Why:** Provenance lets a reviewer reject unsupported or distorted candidates.
 - **Next step:** Keep provenance on every generated case, or a reviewer cannot reject one.
@@ -999,7 +988,7 @@ Layout: 07 Big stats
 Speaker notes:
 - Say: Metrics answer different diagnostic questions
 - Ask: If the correct passage is missing but the model says “I don’t know,” which retrieval lens is still failing?
-- Watch: Inspect the named output and verify its provenance.
+- Watch: Put the named artifact on screen and trace where its values came from.
 - Then: Use the answer to decide whether to clarify or continue.
 Sources: [RAGAS paper](https://arxiv.org/abs/2309.15217); [RAGAS metrics documentation](https://docs.ragas.io/en/stable/concepts/metrics/); [Module 08 notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/08_SDG_RAGAS/Improving_RAG_with_RAGAS.ipynb); [Unit Testing Your Agents](https://soypetetech.substack.com/p/unit-testing-your-agents)
 -->
@@ -1019,14 +1008,13 @@ Layout: 05 Two column 2
 Speaker notes:
 - Say: Metrics answer different diagnostic questions
 - Ask: If the correct passage is missing but the model says “I don’t know,” which retrieval lens is still failing?
-- Watch: Inspect the named output and verify its provenance.
+- Watch: Put the named artifact on screen and trace where its values came from.
 - Then: Reveal the answer, then tie it to the notebook artifact on screen.
 Sources: [RAGAS paper](https://arxiv.org/abs/2309.15217); [RAGAS metrics documentation](https://docs.ragas.io/en/stable/concepts/metrics/); [Module 08 notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/08_SDG_RAGAS/Improving_RAG_with_RAGAS.ipynb); [Unit Testing Your Agents](https://soypetetech.substack.com/p/unit-testing-your-agents)
 -->
 ---
 
-# Metrics answer different diagnostic questions · Answer
-
+# Context recall, not answer quality
 - **Answer:** Context recall; the needed evidence never reached the context.
 - **Why:** A fluent “I do not know” can still hide a retrieval failure.
 - **Next step:** Separate the two metrics before deciding what to repair.
@@ -1091,8 +1079,7 @@ Sources: [RAGAS paper](https://arxiv.org/abs/2309.15217); [Ragas testset generat
 -->
 ---
 
-# Review synthetic cases as measurement assets · Answer
-
+# Varied wording beats polished questions
 - **Answer:** A set with varied wording, codes, and source types—not only polished questions.
 - **Why:** The test set determines which failures can be seen.
 - **Next step:** Build the varied set first; it decides which failures you can even see.
@@ -1133,7 +1120,7 @@ Layout: 05 Two column 3
 Speaker notes:
 - Say: Stop when the diagnosis is actionable
 - Ask: What would make you reject a high metric score before changing the system?
-- Watch: Inspect the named output and verify its provenance.
+- Watch: Put the named artifact on screen and trace where its values came from.
 - Then: Carry the observation into the next exercise.
 Sources: [RAGAS paper](https://arxiv.org/abs/2309.15217); [RAGAS metrics documentation](https://docs.ragas.io/en/stable/concepts/metrics/); [Module 08 notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/08_SDG_RAGAS/Improving_RAG_with_RAGAS.ipynb)
 -->
@@ -1153,14 +1140,13 @@ Layout: 09 Lab and code 2
 Speaker notes:
 - Say: Stop when the diagnosis is actionable
 - Ask: What would make you reject a high metric score before changing the system?
-- Watch: Inspect the named output and verify its provenance.
+- Watch: Put the named artifact on screen and trace where its values came from.
 - Then: Reveal the answer, then tie it to the notebook artifact on screen.
 Sources: [RAGAS paper](https://arxiv.org/abs/2309.15217); [RAGAS metrics documentation](https://docs.ragas.io/en/stable/concepts/metrics/); [Module 08 notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/08_SDG_RAGAS/Improving_RAG_with_RAGAS.ipynb)
 -->
 ---
 
-# Stop when the diagnosis is actionable · Answer
-
+# Audit the test set, not the score
 - **Answer:** Unsupported cases, duplicates, a narrow test set, or a trace that contradicts the score.
 - **Why:** A high score is not useful when the measurement asset is weak.
 - **Next step:** Audit the test set before you defend the score it produced.
@@ -1193,7 +1179,7 @@ Layout: 08 Quote
 Speaker notes:
 - Say: Research: RAG evaluation needs multiple lenses
 - Ask: Which part of the RAG pipeline would remain invisible if we reported only answer relevancy?
-- Watch: Inspect the named output and verify its provenance.
+- Watch: Put the named artifact on screen and trace where its values came from.
 - Then: Skip if time is short; offer as optional stretch or research.
 Sources: [RAGAS: Automated Evaluation of Retrieval Augmented Generation](https://arxiv.org/abs/2309.15217); [RAGAS metrics documentation](https://docs.ragas.io/en/stable/concepts/metrics/)
 -->
