@@ -64,3 +64,14 @@ Not in scope: 12, 14, 15, 16, 19–23.
 - **Path note:** the script's `heredocs/slides/chicago-sept-24/` does not exist; the user
   confirmed it means `docs/slides/chicago-sept-24/`. `MODULE_REPO` is this same repo, so
   "read-only" applies to the module folders, `docs/CONCEPTS.md`, and `docs/READING_GUIDE.md`.
+
+## Blocking issue for publication
+
+**13 slides in `day1.md` link to `https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/docs/CONCEPTS.md`, which returns 404.** `docs/CONCEPTS.md` and
+`docs/READING_GUIDE.md` are untracked locally (`git status` shows `??`), so they do not
+exist on `main` yet. The slide links are correct in form and will work the moment those two
+files are committed and pushed; until then every "Course concepts" source link is dead.
+
+These files are READ-ONLY for this loop, so this run did not commit them. Someone with
+ownership of the course docs needs to push them. Verified 2026-09-17 by resolving every
+module-03 URL: all others return 200.

@@ -11,14 +11,15 @@ Research claims are linked in individual slide notes. Resources with no current 
 | [The LLM application stack](https://a16z.com/emerging-architectures-for-llm-applications/) | D1-F5, D1-F8, D1-F10, D1-F11, D1-M02-C3 |
 | [The product-market fit framework](https://pmarchive.com/guide_to_startups_part4.html) | D1-F7, D1-F8 |
 | [Concrete startup idea handout](https://corporate.aiaspire.ai/accenture/titanium/NA/agenda/cohort_2/What_We_Mean_by_a_Concrete_Startup_Idea.pdf) | D1-F7 |
-| [Building effective agents](https://www.anthropic.com/engineering/building-effective-agents) | D1-F9, D1-F11, D1-M02-C8, D1-M03-C1, D1-M03-C1B, D1-M03-C4, D1-M03-C4B |
+| [Building effective agents](https://www.anthropic.com/engineering/building-effective-agents) | D1-F9, D1-F11, D1-M02-C8, D1-M03-C0, D1-M03-C1, D1-M03-C1B, D1-M03-C4, D1-M03-C4B, D1-M03-C5 |
 | [GitHub flow](https://docs.github.com/en/get-started/using-github/github-flow) | D1-M01-C3, D1-M01-C4, D1-M01-C4B, D1-M01-C6, D1-M01-RD1 |
 | [git downloads](https://git-scm.com/downloads) | D1-M01-RS1 |
 | [GitHub CLI](https://cli.github.com) | D1-M01-RS1 |
 | [uv installation](https://docs.astral.sh/uv/getting-started/installation/) | D1-M01-RS1 |
 | [GitHub protected branches](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches) | D1-M01-R1 |
 | [Few-shot learners, Brown et al., 2020](https://arxiv.org/abs/2005.14165) | D1-M02-C2, D1-M02-R1 |
-| [Chain-of-thought prompting, Wei et al., 2022](https://arxiv.org/abs/2201.11903) | D1-M02-C5, D1-M02-R1 |
+| [Chain-of-thought prompting, Wei et al., 2022](https://arxiv.org/abs/2201.11903) | D1-M02-C5, D1-M02-R1, D1-M03-C0 |
+| [Toolformer, Schick et al., 2023](https://arxiv.org/abs/2302.04761) | D1-M03-C0 |
 | [ReAct, Yao et al., 2022](https://arxiv.org/abs/2210.03629) | D1-M02-C6, D1-M03-C2, D1-M03-C2B, D1-M03-R1, D3-M09-C1, D3-M09-C1B, D3-M09-R1, D3-M11-C2, D3-M11-C2B, D3-M11-C3, D3-M11-C3B |
 | [Self-Refine, Madaan et al., 2023](https://arxiv.org/abs/2303.17651) | D1-M02-C7, D1-M02-R1 |
 | [Effective harnesses for long-running agents](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents) | D1-M03-C3, D1-M03-C3B, D1-M03-R1, D3-M11-R1 |

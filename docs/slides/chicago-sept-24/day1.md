@@ -1334,13 +1334,102 @@ Sources: [Brown et al., 2020](https://arxiv.org/abs/2005.14165); [Wei et al., 20
 -->
 
 ---
+# From prompt to agent: why the loop exists
+
+<div style="display:flex;justify-content:center;margin-top:.15em">
+<svg viewBox="0 0 760 210" width="920" role="img" aria-label="Four stages: a direct prompt, chain-of-thought which improves reasoning, Toolformer which shows models can call tools, and the harness where your code owns the tools">
+  <g text-anchor="middle">
+    <rect x="6" y="40" width="170" height="82" rx="9" fill="#f1f5f9" stroke="#94a3b8" stroke-width="2"/>
+    <text x="91" y="62" font-size="11.5" fill="#64748b">ASK</text>
+    <text x="91" y="83" font-size="14.5" font-weight="700" fill="#0f172a">direct prompt</text>
+    <text x="91" y="104" font-size="11.5" fill="#475569">one call, one answer</text>
+
+    <rect x="196" y="40" width="170" height="82" rx="9" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
+    <text x="281" y="62" font-size="11.5" fill="#0369a1">THINK</text>
+    <text x="281" y="83" font-size="14.5" font-weight="700" fill="#075985">chain of thought</text>
+    <text x="281" y="104" font-size="11.5" fill="#0369a1">steps, still no facts</text>
+
+    <rect x="386" y="40" width="170" height="82" rx="9" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+    <text x="471" y="62" font-size="11.5" fill="#15803d">ACT</text>
+    <text x="471" y="83" font-size="14.5" font-weight="700" fill="#14532d">tool use</text>
+    <text x="471" y="104" font-size="11.5" fill="#15803d">reach outside the model</text>
+
+    <rect x="576" y="40" width="178" height="82" rx="9" fill="#fef3c7" stroke="#d97706" stroke-width="3"/>
+    <text x="665" y="62" font-size="11.5" fill="#b45309">GOVERN</text>
+    <text x="665" y="83" font-size="14.5" font-weight="700" fill="#92400e">the harness</text>
+    <text x="665" y="104" font-size="11.5" fill="#b45309">your code authorizes</text>
+  </g>
+  <path d="M178 81 H192" stroke="#94a3b8" stroke-width="2" marker-end="url(#e1)"/>
+  <path d="M368 81 H382" stroke="#94a3b8" stroke-width="2" marker-end="url(#e1)"/>
+  <path d="M558 81 H572" stroke="#94a3b8" stroke-width="2" marker-end="url(#e1)"/>
+  <g font-size="11" text-anchor="middle" fill="#64748b">
+    <text x="281" y="140">Wei et al. 2022</text>
+    <text x="471" y="140">Toolformer, Schick et al. 2023</text>
+    <text x="665" y="140">where this course lives</text>
+  </g>
+  <text x="380" y="176" font-size="13" text-anchor="middle" fill="#0f172a">Reasoning alone cannot look anything up. Tool use can — but something must decide if it is allowed.</text>
+  <text x="380" y="198" font-size="12.5" text-anchor="middle" fill="#92400e" font-style="italic">Toolformer taught the model to call tools. We keep the tools in code we own.</text>
+  <defs><marker id="e1" markerWidth="9" markerHeight="9" refX="8" refY="3" orient="auto"><path d="M0 0 L8 3 L0 6 z" fill="#94a3b8"/></marker></defs>
+</svg>
+</div>
+
+<!--
+Slide ID: D1-M03-C0
+Module: [03 Agents 101](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/03_Agents_101/README.md)
+Instructor: Beric
+Type: core
+Minutes: 3
+Layout: 06 Process steps
+Speaker notes:
+- Say: You just spent thirty minutes on prompting. This is what prompting cannot do, and why the next thing is a loop.
+- Ask: Module 02's best prompt still cannot answer "what does our charter say about refunds". What is missing — better reasoning, or access?
+- Watch: Chain of thought made the model's reasoning explicit and measurably better on hard tasks, but a reasoning step cannot retrieve a fact the model was never given. Toolformer showed models can learn to call an API mid-generation — that is the "why agents" moment. The difference here: Toolformer trained tool calls into the weights; we keep tools in code, so the harness can authorize, budget, and log every call.
+- Then: Hand into the loop diagram — the amber GOVERN box is the next slide, drawn in detail.
+Sources: [Chain-of-thought prompting, Wei et al., 2022](https://arxiv.org/abs/2201.11903); [Toolformer, Schick et al., 2023](https://arxiv.org/abs/2302.04761); [Building effective agents](https://www.anthropic.com/engineering/building-effective-agents).
+-->
+---
 
 # A model answers; an agent can choose a next step
 
-- A model call generates a response from supplied input
-- An agent loop can request tools and read results
-- Agent behavior depends on the surrounding loop, not a special model label
-- Application code executes and authorizes actions
+<div style="display:flex;justify-content:center;margin-top:.2em">
+<svg viewBox="0 0 700 250" width="900" role="img" aria-label="An agent loop: the model requests a tool, your code authorizes and runs it, the observation returns to the model, and the loop exits with an answer, a clarification, a refusal, or an exhausted budget">
+  <rect x="2" y="2" width="696" height="196" rx="12" fill="none" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="7 5"/>
+  <text x="14" y="22" font-size="13" fill="#64748b" font-style="italic">the harness — yours, not the model's</text>
+
+  <rect x="36" y="74" width="152" height="66" rx="9" fill="#ede9fe" stroke="#7c3aed" stroke-width="2.5"/>
+  <text x="112" y="101" font-size="16" font-weight="700" text-anchor="middle" fill="#5b21b6">model</text>
+  <text x="112" y="122" font-size="12.5" text-anchor="middle" fill="#6d28d9">picks a next step</text>
+
+  <rect x="274" y="74" width="152" height="66" rx="9" fill="#fef3c7" stroke="#d97706" stroke-width="3"/>
+  <text x="350" y="99" font-size="15.5" font-weight="700" text-anchor="middle" fill="#92400e">your code</text>
+  <text x="350" y="120" font-size="12.5" text-anchor="middle" fill="#b45309">authorizes + runs</text>
+
+  <rect x="512" y="74" width="152" height="66" rx="9" fill="#e0f2fe" stroke="#0284c7" stroke-width="2.5"/>
+  <text x="588" y="101" font-size="16" font-weight="700" text-anchor="middle" fill="#075985">tool</text>
+  <text x="588" y="122" font-size="12.5" text-anchor="middle" fill="#0369a1">does the work</text>
+
+  <path d="M190 96 H270" stroke="#7c3aed" stroke-width="2.5" marker-end="url(#g1)"/>
+  <text x="230" y="87" font-size="11.5" text-anchor="middle" fill="#7c3aed">tool call</text>
+  <path d="M428 96 H508" stroke="#d97706" stroke-width="2.5" marker-end="url(#g2)"/>
+  <path d="M508 126 H432" stroke="#0284c7" stroke-width="2.5" marker-end="url(#g3)"/>
+  <text x="470" y="146" font-size="11.5" text-anchor="middle" fill="#0369a1">result</text>
+  <path d="M274 130 H194" stroke="#0284c7" stroke-width="2.5" marker-end="url(#g3)"/>
+  <text x="234" y="150" font-size="11.5" text-anchor="middle" fill="#0369a1">observation</text>
+
+  <path d="M112 146 V176 H350" stroke="#94a3b8" stroke-width="2" fill="none" marker-end="url(#g4)"/>
+  <text x="240" y="192" font-size="12" text-anchor="middle" fill="#475569">loop again, or exit</text>
+
+  <text x="350" y="228" font-size="13.5" text-anchor="middle" fill="#0f172a" font-weight="600">exit: answer · clarify · decline · budget exhausted</text>
+  <defs>
+    <marker id="g1" markerWidth="10" markerHeight="10" refX="8.5" refY="3" orient="auto"><path d="M0 0 L8.5 3 L0 6 z" fill="#7c3aed"/></marker>
+    <marker id="g2" markerWidth="10" markerHeight="10" refX="8.5" refY="3" orient="auto"><path d="M0 0 L8.5 3 L0 6 z" fill="#d97706"/></marker>
+    <marker id="g3" markerWidth="10" markerHeight="10" refX="8.5" refY="3" orient="auto"><path d="M0 0 L8.5 3 L0 6 z" fill="#0284c7"/></marker>
+    <marker id="g4" markerWidth="10" markerHeight="10" refX="8.5" refY="3" orient="auto"><path d="M0 0 L8.5 3 L0 6 z" fill="#94a3b8"/></marker>
+  </defs>
+</svg>
+</div>
+
+A tool call is a **request**. The amber box decides whether it happens.
 
 <!--
 Slide ID: D1-M03-C1
@@ -1361,7 +1450,7 @@ Sources: [Agent harness notebook](https://github.com/AI-Aspire/Aspire_Titanium_E
 
 # Find the tool call in the trace
 - **Ask:** Which box actually runs a tool, and which box decides whether it is allowed?
-- **Inspect:** In the trace, locate the model message requesting a tool, the tool result, and the model's response to it.
+- **Inspect:** In the trace, locate the model message requesting a tool, the tool result, and the model's response to it — the purple, blue, and purple boxes from the previous slide, in that order.
 - **Decide:** If you cannot point at the tool request in the trace, you have a model, not an agent.
 
 <!--
@@ -1517,6 +1606,62 @@ Speaker notes:
 Sources: [Agent harness Create/Grow](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/03_Agents_101/Agent_Harness.ipynb); [Building effective agents](https://www.anthropic.com/engineering/building-effective-agents).
 -->
 
+---
+# An agentic system is the loop plus everything around it
+
+<div style="display:flex;justify-content:center;margin-top:.1em">
+<svg viewBox="0 0 760 290" width="920" role="img" aria-label="The agent loop at the centre, surrounded by retrieval, memory, guardrails, and evaluation, each labelled with the module that covers it">
+  <rect x="196" y="96" width="368" height="96" rx="11" fill="#ede9fe" stroke="#7c3aed" stroke-width="3"/>
+  <text x="380" y="124" font-size="16" font-weight="700" text-anchor="middle" fill="#5b21b6">the agent loop</text>
+  <text x="380" y="147" font-size="13" text-anchor="middle" fill="#6d28d9">model → tool call → your code → observation</text>
+  <text x="380" y="173" font-size="12" text-anchor="middle" fill="#7c3aed" font-style="italic">module 03 · today</text>
+
+  <rect x="12" y="20" width="164" height="62" rx="9" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
+  <text x="94" y="45" font-size="14.5" font-weight="700" text-anchor="middle" fill="#075985">retrieval</text>
+  <text x="94" y="65" font-size="11.5" text-anchor="middle" fill="#0369a1">modules 05 · 06 · 07</text>
+
+  <rect x="584" y="20" width="164" height="62" rx="9" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+  <text x="666" y="45" font-size="14.5" font-weight="700" text-anchor="middle" fill="#14532d">memory</text>
+  <text x="666" y="65" font-size="11.5" text-anchor="middle" fill="#15803d">module 10</text>
+
+  <rect x="12" y="206" width="164" height="62" rx="9" fill="#fee2e2" stroke="#dc2626" stroke-width="2"/>
+  <text x="94" y="231" font-size="14.5" font-weight="700" text-anchor="middle" fill="#7f1d1d">guardrails</text>
+  <text x="94" y="251" font-size="11.5" text-anchor="middle" fill="#b91c1c">modules 13 · 18</text>
+
+  <rect x="584" y="206" width="164" height="62" rx="9" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+  <text x="666" y="231" font-size="14.5" font-weight="700" text-anchor="middle" fill="#92400e">evaluation</text>
+  <text x="666" y="251" font-size="11.5" text-anchor="middle" fill="#b45309">modules 04 · 09</text>
+
+  <path d="M176 58 C 240 58, 214 96, 258 96" stroke="#0284c7" stroke-width="2" fill="none" marker-end="url(#a1)"/>
+  <path d="M584 58 C 520 58, 546 96, 502 96" stroke="#16a34a" stroke-width="2" fill="none" marker-end="url(#a2)"/>
+  <path d="M176 230 C 240 230, 214 192, 258 192" stroke="#dc2626" stroke-width="2" fill="none" marker-end="url(#a3)"/>
+  <path d="M584 230 C 520 230, 546 192, 502 192" stroke="#d97706" stroke-width="2" fill="none" marker-end="url(#a4)"/>
+
+  <text x="380" y="214" font-size="11.5" text-anchor="middle" fill="#64748b">every step recorded in a trace — the thing you debug and evaluate</text>
+  <text x="380" y="286" font-size="13" text-anchor="middle" fill="#0f172a" font-weight="600">This is the diagram you will redraw all week, and bring to Friday's panel.</text>
+  <defs>
+    <marker id="a1" markerWidth="9" markerHeight="9" refX="8" refY="3" orient="auto"><path d="M0 0 L8 3 L0 6 z" fill="#0284c7"/></marker>
+    <marker id="a2" markerWidth="9" markerHeight="9" refX="8" refY="3" orient="auto"><path d="M0 0 L8 3 L0 6 z" fill="#16a34a"/></marker>
+    <marker id="a3" markerWidth="9" markerHeight="9" refX="8" refY="3" orient="auto"><path d="M0 0 L8 3 L0 6 z" fill="#dc2626"/></marker>
+    <marker id="a4" markerWidth="9" markerHeight="9" refX="8" refY="3" orient="auto"><path d="M0 0 L8 3 L0 6 z" fill="#d97706"/></marker>
+  </defs>
+</svg>
+</div>
+
+<!--
+Slide ID: D1-M03-C5
+Module: [03 Agents 101](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/03_Agents_101/README.md)
+Instructor: Beric
+Type: core
+Minutes: 3
+Layout: 06 Process steps
+Speaker notes:
+- Say: "Agent" is the loop in the middle. "Agentic system" is the loop plus the four things around it — and the rest of the week is those four boxes.
+- Ask: Which box does your prototype not have yet, and what breaks first without it?
+- Watch: Name the module under each box so the week has a shape. Today builds only the purple box; by Friday a defensible system has all five, or a stated reason one is missing.
+- Then: The group block asks you to draw your own version of this. Use this as the frame, not the answer — your boxes will differ.
+Sources: [Building effective agents](https://www.anthropic.com/engineering/building-effective-agents); [Module 03 overview](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/03_Agents_101/README.md); [Course concepts](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/docs/CONCEPTS.md).
+-->
 ---
 
 # Optional: action loops need more than fluent reasoning
