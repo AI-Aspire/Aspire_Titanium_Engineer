@@ -103,13 +103,13 @@ Speaker notes:
 - Say: Most bad AI features blur these three, then cannot explain which part failed.
 - Ask: Which of the three changes when a policy is updated: the task, the evidence, or the decision owner?
 - Watch: Ask groups to put one changing fact and one accountable decision owner on their napkin sketch.
-- Then: Hand into “A prototype tests one uncertainty”.
+- Then: Hand into “A prototype tests your ability to answer a question”.
 Sources: [Author's semantic-contract notes](https://github.com/soypete/ctx-eng-book/blob/main/research/semantic-contracts.md); [Course authoring principles](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/docs/AUTHORING.md).
 -->
 
 ---
 
-# A prototype tests one uncertainty
+# A prototype tests your ability to answer a question
 
 - Can the approach answer the question at all?
 - What failure would change the design?
@@ -333,29 +333,31 @@ Sources: [Day 1 schedule](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/
 -->
 
 ---
+# 01 · Dev environment
 
-# Concepts in this module
+**Dev** — the machinery every later notebook assumes · 30 min
 
-- **Two remotes:** `origin` is your fork, `upstream` is the course repo
-- **The daily loop:** branch → change → read the diff → commit → push → draft PR → second commit
-- **Workspace / seed / artifact:** where your group's work lives, and what stands in until it exists
-- **Learn / Create / Grow:** the three acts of every notebook this week
+- Where the model comes from: one endpoint, any provider
+- How a notebook is shaped: Learn, then **Create**, then Grow
+- Where your work lives: `workspace/`, and the seed until it exists
+- How a change gets reviewed: branch, diff, commit, pull request
+
+No AI in this module. It is the floor the other four stand on.
 
 <!--
-Slide ID: D1-M01-C0
+Slide ID: D1-T01
 Module: [01 Dev environment](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/01_Dev_Environment/README.md)
 Instructor: Miriah, no-code orientation
-Type: core
-Minutes: 2
-Layout: 02 Agenda 1
+Type: transition
+Minutes: 0
+Layout: 01 Title
 Speaker notes:
-- Say: Four terms you will hear all week; this module is where three of them start.
-- Ask: Which of these four do you already use daily, and which is new?
-- Watch: Definitions are quoted from the course concept list; keep the same words in later modules rather than re-defining them. Dev_Environment:cell#9 is Task 1 of 8 — Know your two remotes.
-- Then: Move into the workspace slide; the loop slides follow.
-Sources: [Course concepts](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/docs/CONCEPTS.md); [Module 01 overview](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/01_Dev_Environment/README.md).
+- Say: No AI in this module. It is the four pieces of machinery every later notebook assumes, so an hour lost here is an hour lost on Thursday.
+- Ask: Ask who has already run `make setup` — it tells you how much of the slot is teaching and how much is triage.
+- Watch: These four bullets are the module in order: the endpoint, the notebook's three acts, the workspace, then the git loop. The last two are what Friday's panel actually inspects.
+- Then: Straight into the endpoint slide; it is the one that explains why any provider works.
+Sources: [Module 01 overview](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/01_Dev_Environment/README.md).
 -->
-
 ---
 
 # One endpoint, three compatible clients
@@ -380,14 +382,14 @@ Sources: [Course concepts](https://github.com/AI-Aspire/Aspire_Titanium_Engineer
 </svg>
 </div>
 
-Can Deskmate run against our own endpoint? **Yes — set `OPENAI_BASE_URL`.**
+Every notebook reads `OPENAI_BASE_URL`, so **the same code runs against a cloud key, a self-hosted server, or a local model.**
 
 <!--
 Slide ID: D1-M01-C0A
 Module: [01 Dev environment](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/01_Dev_Environment/README.md)
 Instructor: Miriah, no-code orientation
-Type: build
-Minutes: 0
+Type: core
+Minutes: 1
 Layout: 02 Agenda 1
 Speaker notes:
 - Say: The client shape stays stable while the endpoint can be OpenAI, vLLM, or Ollama.
@@ -426,8 +428,8 @@ Skip Create and Thursday reads Deskmate's seed instead of your group's Priya tra
 Slide ID: D1-M01-C0B
 Module: [01 Dev environment](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/01_Dev_Environment/README.md)
 Instructor: Miriah, no-code orientation
-Type: build
-Minutes: 0
+Type: core
+Minutes: 1
 Layout: 06 Process steps
 Speaker notes:
 - Say: Learn makes the idea visible, Create makes it yours, and Grow names what production would require.
@@ -561,11 +563,15 @@ Sources: [Module 01 notebook, Task 3](https://github.com/AI-Aspire/Aspire_Titani
 
 ---
 
-# Tell your work from the worked example
+# The seed is Deskmate, not your group
 
-- **Ask:** If a notebook shows you data you do not recognise, what happened?
-- **Inspect:** `uv run python scripts/check_workspace.py --status` — one row per artifact, each marked as yours or from the seed
-- **Decide:** never hand-write a file in `workspace/`; run the notebook that writes it, or let the seed carry it
+Every `seed` row above is the instructors' worked example: **Deskmate**, an IT helpdesk agent.
+
+- Notebooks run on it from day one, so nothing is ever blocked
+- Each one you produce replaces a row — and until then the seed answers for you
+- **Never hand-write a file in `workspace/`.** Run the notebook that writes it
+
+A number you did not measure is not yours to defend on Friday.
 
 <!--
 Slide ID: D1-M01-C1B
@@ -575,8 +581,8 @@ Type: core
 Minutes: 1
 Layout: 04 Icon cards
 Speaker notes:
-- Say: The fallback is loud on purpose — `load()` prints a line when it falls back to the seed.
-- Ask: Take the question on the slide as a show of hands, then let someone read the answer off their own `--status` output.
+- Say: Every seed row is somebody else's product. That is fine today and a problem on Friday.
+- Ask: Ask what happens to a group that skips a module — the notebook still runs, which is exactly the trap.
 - Watch: Run `--status` live if the room is ready; otherwise show the table from notebook cell#17.
 - Then: Name the rule that governs the rest of the week: a number you did not measure is not yours to defend.
 Sources: [Module 01 notebook, Task 3](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/01_Dev_Environment/Dev_Environment.ipynb); [Artifact integrity rules](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/AGENTS.md).
@@ -658,11 +664,14 @@ Sources: [Module 01 overview](https://github.com/AI-Aspire/Aspire_Titanium_Engin
 
 ---
 
-# Where the project keeps its evidence
+# The manifest makes a result traceable
 
-- **Ask:** If an answer changes, which part of the history would you inspect first?
-- **Inspect:** the spec, the prompts, the saved results, and the reference docs each live in a known place
-- **Decide:** `manifest.json` records which module wrote what and when — read it before you trust a number
+```json
+{"artifact":"judge_scores", "module":"04", "count":24}
+{"artifact":"baseline_runs", "module":"05", "count":3}
+```
+
+Takeaway: follow the artifact and its writer before trusting the number.
 
 <!--
 Slide ID: D1-M01-C2B
@@ -672,10 +681,10 @@ Type: core
 Minutes: 1
 Layout: 05 Two column 2
 Speaker notes:
-- Say: Your GitHub repo is itself a certification deliverable, so this history is graded.
-- Ask: Push past the first answer — most people say the results; the spec and the prompts are usually where the change actually is.
-- Watch: Show `project/CHARTER.md` and note that notebooks use the seed until its template marker is removed. Dev_Environment:cell#16 is Task 3 of 8 — Initialise your workspace.
-- Then: Leave the manifest on screen going into the fork slide — it is the evidence a reviewer reads.
+- Say: A result is useful when its path and writer are visible.
+- Ask: Which row would you inspect first if a judge score changed?
+- Watch: Compare the two manifest rows: Module 04 wrote 24 judge scores; Module 05 wrote 3 baseline runs. Dev_Environment:cell#16 is Task 3 of 8 — Initialise your workspace.
+- Then: Follow the artifact and its writer before trusting the number.
 Sources: [Module 01 overview](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/01_Dev_Environment/README.md); [Charter template](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/project/CHARTER.md).
 -->
 
@@ -765,11 +774,15 @@ Sources: [GitHub flow](https://docs.github.com/en/get-started/using-github/githu
 
 ---
 
-# Four things to check before you share
+# A commit records; a pull request reviews
 
-- **Ask:** Does committing a change mean that someone else has reviewed it?
-- **Inspect:** where you are, which branch, what the diff says, and where it is going
-- **Decide:** stop if the diff holds files you did not mean to touch, or the remote is unfamiliar
+```text
+branch: feat/<login>-daily-loop
+commit: docs: add <login> to members
+review: pull request
+```
+
+Takeaway: committing records the change; review happens in the pull request.
 
 <!--
 Slide ID: D1-M01-C4B
@@ -779,10 +792,10 @@ Type: core
 Minutes: 2
 Layout: 07 Big stats
 Speaker notes:
-- Say: The branch name and the commit message are the two things a reviewer reads first.
-- Ask: Expect a split on the slide's question. The answer is no: committing records, reviewing is the pull request.
-- Watch: Before class, students were asked to read the last five commit messages on a repo they work in and mark which a reviewer could scan. Ask for one example. Dev_Environment:cell#23 is Task 5 of 8 — Make the change.
-- Then: That split is the hand-off — the next slide is the pull request, where review actually happens.
+- Say: This small history shows the distinction between recording work and reviewing it.
+- Ask: Where in this sequence does another person inspect the change?
+- Watch: Compare the branch and commit from the notebook with the separate pull-request review step. Dev_Environment:cell#20 is Task 4 of 8 — Branch for today's work.
+- Then: Committing records the change; review happens in the pull request.
 Sources: [Module 01 before-you-arrive](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/01_Dev_Environment/README.md); [GitHub flow](https://docs.github.com/en/get-started/using-github/github-flow).
 -->
 
@@ -907,11 +920,14 @@ Sources: [Module 01 notebook, Task 6](https://github.com/AI-Aspire/Aspire_Titani
 
 ---
 
-# Explain the change to someone who was not there
+# A reviewable change explains its why
 
-- **Ask:** What would a reviewer need beyond a screenshot of the answer?
-- **Inspect:** walk a teammate through the edit and the evidence you saved for it
-- **Decide:** if you cannot explain why a line changed, do not ask anyone to review it yet
+```diff
+- api_key = "sk-prod-8f921a99b01c"
++ api_key = os.getenv("SECRET_API_KEY")
+```
+
+Takeaway: explain the changed line and the evidence before requesting review.
 
 <!--
 Slide ID: D1-M01-C5B
@@ -921,10 +937,10 @@ Type: core
 Minutes: 1
 Layout: 09 Lab and code 2
 Speaker notes:
-- Say: A reviewer needs the diff, the destination, and enough context to rerun the comparison.
-- Ask: Have one pair actually try it out loud for thirty seconds; the gaps surface fast.
-- Watch: Point at the diff, not the output. A green run with an unreviewed diff is the failure mode. Dev_Environment:cell#26 is Task 6 of 8 — Review the diff, then commit.
-- Then: Keep the rule for the notebook: the AI editor types, you still read the diff before Task 6 commits it.
+- Say: The changed line tells a reviewer what happened; the explanation tells them why.
+- Ask: What would you say about this line before asking for review?
+- Watch: Compare the old hard-coded key with the environment lookup, then read the staged diff. Dev_Environment:cell#26 is Task 6 of 8 — Review the diff, then commit.
+- Then: Explain the changed line and the evidence before requesting review.
 Sources: [Module 01 notebook, Task 6](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/01_Dev_Environment/Dev_Environment.ipynb); [Keys and endpoints](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/00_Setup/keys.md).
 -->
 
@@ -1223,6 +1239,28 @@ Sources: [Module 01 notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engin
 -->
 
 ---
+# 02 · Prompt patterns
+
+**Prompt** — one call, and everything it needs in it
+
+- A prompt has no memory, no facts of its own, and cannot act.
+- 30 min
+
+<!--
+Slide ID: D1-T02
+Module: [02 Prompt patterns](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/02_Prompt_Patterns/README.md)
+Instructor: Eli
+Type: transition
+Minutes: 0
+Layout: 01 Title
+Speaker notes:
+- Say: A prompt has no memory, no facts of its own, and cannot act. That is what this module is for.
+- Ask: Hold the room for a beat here — this is the hand-off, not content.
+- Watch: Name the module, its stage on the journey, and who is running it. Keep it to one breath.
+- Then: Straight into the first content slide.
+Sources: [Module 02 overview](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/02_Prompt_Patterns/README.md).
+-->
+---
 
 # A prompt is the brief for one request
 
@@ -1253,8 +1291,6 @@ Sources: [Prompt patterns notebook](https://github.com/AI-Aspire/Aspire_Titanium
 - Demonstrate conventions the model cannot infer
 - Change the examples when the behavior changes
 
-> **Paper finding:** “Here we show that scaling up language models greatly improves task-agnostic, few-shot performance, sometimes even reaching competitiveness with prior state-of-the-art fine-tuning approaches.” — Brown et al. (2020)
-
 <!--
 Slide ID: D1-M02-C2
 Module: [02 Prompt patterns](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/02_Prompt_Patterns/README.md)
@@ -1268,6 +1304,29 @@ Speaker notes:
 - Watch: Compare no-examples against two labelled examples, holding the question and evidence fixed — Prompt_Patterns:cell#13, Task 2.
 - Then: Hand into “Context supplies the facts the model cannot know”.
 Sources: [Few-shot learners, Brown et al., 2020](https://arxiv.org/abs/2005.14165); [Prompt patterns notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/02_Prompt_Patterns/Prompt_Patterns.ipynb).
+-->
+
+---
+
+# Scale makes few-shot learning stronger
+
+> “Here we show that scaling up language models greatly improves task-agnostic, few-shot performance, sometimes even reaching competitiveness with prior state-of-the-art fine-tuning approaches.”
+
+— Brown et al. (2020)
+
+<!--
+Slide ID: D1-M02-C2B
+Module: [02 Prompt patterns](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/02_Prompt_Patterns/README.md)
+Instructor: Eli
+Type: evidence
+Minutes: 1
+Layout: 08 Quote
+Speaker notes:
+- Say: The paper's claim is about scale and task-agnostic few-shot performance; it is not a promise that examples replace evaluation.
+- Ask: What would you measure before assuming a larger model is better for your task?
+- Watch: Keep the claim attached to Brown et al. (2020); do not turn it into a universal claim about every model or corpus.
+- Then: Return to the notebook and show the two labelled examples.
+Sources: [Few-shot learners, Brown et al., 2020](https://arxiv.org/abs/2005.14165).
 -->
 
 ---
@@ -1320,9 +1379,11 @@ Sources: [Prompt patterns notebook](https://github.com/AI-Aspire/Aspire_Titanium
 
 # A schema makes the shape a contract
 
-Asking politely for JSON works most of the time. Most of the time is not good enough for code that calls `json.loads`. A schema makes the shape a contract.
+Asking politely for JSON works most of the time. **Most of the time is not good enough for code that calls `json.loads`.**
 
-Marcus needs a field he can sort a queue by: `risk_level` is sortable; prose is not.
+A schema turns the shape into a contract — so the next step can be *code*, not a human reading prose.
+
+Marcus can sort a queue by `risk_level`. He cannot sort a paragraph.
 
 <!--
 Slide ID: D1-M02-C4A
@@ -1341,25 +1402,37 @@ Sources: [Prompt patterns notebook](https://github.com/AI-Aspire/Aspire_Titanium
 
 ---
 
-# Put the contract in code
+# Structured output is how a model calls a function
+
+model output → **schema validation** → parsed arguments → function or MCP tool call
+
+<div style="display:flex;gap:1em;align-items:flex-start;font-size:.72em">
+<div style="flex:1">
 
 ```python
 class ProductBrief(BaseModel):
-    product_name: str
-    problem: str
-    users: List[str]
-    must_do: List[str]
-    must_not_do: List[str]
-    risk_level: Literal["low", "medium", "high"]
+    risk_level: Literal["low","medium","high"]
+
+r = client.chat.completions.parse(
+    ..., response_format=ProductBrief)
+brief = r.choices[0].message.parsed
 ```
 
-```python
-result = client.chat.completions.parse(
-    model=MODEL,
-    messages=[...],
-    response_format=ProductBrief,
-)
+</div>
+<div style="flex:1">
+
+```json
+{"risk_level": "high"}
 ```
+```json
+{"name": "search_charter",
+ "args": {"query": "refund policy"}}
+```
+
+</div>
+</div>
+
+Toolformer showed a model *can* emit a callable request; a schema makes it parseable **every** time. `risk_level` is sortable, so `.parsed` hands code a value it can branch on — but a valid shape is not a true value.
 
 <!--
 Slide ID: D1-M02-C4AB
@@ -1369,10 +1442,10 @@ Type: core
 Minutes: 2
 Layout: 09 Lab and code
 Speaker notes:
-- Say: The typed object gives the caller a stable shape and makes `risk_level` one of three values.
+- Say: This is the hinge of the week — a schema is what turns model output into something code can dispatch.
 - Ask: Where would you validate a field whose value is shaped correctly but factually wrong?
-- Watch: Point to `response_format=ProductBrief`; the parser is part of the call contract, not a prompt suggestion.
-- Then: Notebook:cell#21 — run the model's typed `ProductBrief` parse before comparing patterns.
+- Watch: Prompt_Patterns:cell#20 is Task 4 of 7 — Structured output, and Agent_Harness:cell#18 records each call as {"name", "args"} — the same parseable shape.
+- Then: Hold this thought for module 03: the tool contract on the right is the same idea, and the harness is what decides whether the call runs.
 Sources: [Prompt patterns notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/02_Prompt_Patterns/Prompt_Patterns.ipynb); [Course concepts](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/docs/CONCEPTS.md).
 -->
 
@@ -1502,6 +1575,28 @@ Sources: [Brown et al., 2020](https://arxiv.org/abs/2005.14165); [Wei et al., 20
 -->
 
 ---
+# 03 · Agents 101
+
+**Agents** — a loop your code owns
+
+- Reasoning alone cannot look anything up, or do anything.
+- 35 min
+
+<!--
+Slide ID: D1-T03
+Module: [03 Agents 101](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/03_Agents_101/README.md)
+Instructor: Beric
+Type: transition
+Minutes: 0
+Layout: 01 Title
+Speaker notes:
+- Say: Reasoning alone cannot look anything up, or do anything. That is what this module is for.
+- Ask: Hold the room for a beat here — this is the hand-off, not content.
+- Watch: Name the module, its stage on the journey, and who is running it. Keep it to one breath.
+- Then: Straight into the first content slide.
+Sources: [Module 03 overview](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/03_Agents_101/README.md).
+-->
+---
 # From prompt to agent: why the loop exists
 
 <div style="display:flex;justify-content:center;margin-top:.15em">
@@ -1616,10 +1711,16 @@ Sources: [Agent harness notebook](https://github.com/AI-Aspire/Aspire_Titanium_E
 
 ---
 
-# Find the tool call in the trace
-- **Ask:** Which box actually runs a tool, and which box decides whether it is allowed?
-- **Inspect:** In the trace, locate the model message requesting a tool, the tool result, and the model's response to it — the purple, blue, and purple boxes from the previous slide, in that order.
-- **Decide:** If you cannot point at the tool request in the trace, you have a model, not an agent.
+# The trace proves the agent took a tool step
+
+```text
+for node, update in chunk.items():
+    print(f"--- {node}")
+    print("tool result:", textwrap.shorten(str(m.content), 300))
+    print("tool call:", [(c["name"], c["args"]) for c in m.tool_calls])
+```
+
+Takeaway: the tool request and result are the evidence of an agent loop.
 
 <!--
 Slide ID: D1-M03-C1B
@@ -1629,10 +1730,10 @@ Type: core
 Minutes: 2
 Layout: 04 Icon cards
 Speaker notes:
-- Say: A model answers; an agent can choose a next step
-- Ask: Put the slide's question to the room first and wait; the answer below is the one to land, not to read out.
-- Watch: In the streamed trace, locate the model message requesting a tool, the tool result, and the model's response to it — Agent_Harness:cell#21, Task 4.
-- Then: If you cannot point at the tool request in the trace, you have a model, not an agent.
+- Say: The trace makes the agent's next step visible.
+- Ask: Which line proves the system used a tool?
+- Watch: Locate the model request, tool result, and second model response in order. Agent_Harness:cell#21 is Task 4 of 6 — Watch the loop, step by step.
+- Then: The tool request and result are the evidence of an agent loop.
 Sources: [Agent harness notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/03_Agents_101/Agent_Harness.ipynb); [Workflow and agent definitions](https://www.anthropic.com/engineering/building-effective-agents).
 -->
 
@@ -1662,10 +1763,14 @@ Sources: [ReAct, Yao et al., 2022](https://arxiv.org/abs/2210.03629); [Agent har
 
 ---
 
-# The description is all the model sees
-- **Ask:** If a retrieved page says “ignore your rules,” does that change the tool's permissions?
-- **Inspect:** Inspect how precise tool descriptions affect tool selection; do not equate making a tool call with making the correct call.
-- **Decide:** Fix the tool contract before you touch the prompt — the description is all the model sees.
+# A tool contract is a permission boundary
+
+```text
+search_charter(query: str)
+→ returns matching charter section text
+```
+
+Takeaway: tighten the contract before tuning the prompt.
 
 <!--
 Slide ID: D1-M03-C2B
@@ -1675,10 +1780,10 @@ Type: core
 Minutes: 2
 Layout: 05 Two column 2
 Speaker notes:
-- Say: Tools give the loop controlled capabilities
-- Ask: Put the slide's question to the room first and wait; the answer below is the one to land, not to read out.
-- Watch: Inspect how precise tool descriptions affect tool selection; do not equate making a tool call with making the correct call. Agent_Harness:cell#16 is Task 3 of 6 — Ask questions your users would ask.
-- Then: Fix the tool contract before you touch the prompt — the description is all the model sees.
+- Say: The model can select only from the name, description, and input schema it sees.
+- Ask: What does this contract permit the model to request?
+- Watch: Compare the declared query input with the returned charter section; the contract does not grant access beyond that action. Agent_Harness:cell#9 is Task 1 of 6 — Give the agent something to look up.
+- Then: Tighten the contract before tuning the prompt.
 Sources: [ReAct, Yao et al., 2022](https://arxiv.org/abs/2210.03629); [Agent harness tools](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/03_Agents_101/Agent_Harness.ipynb).
 -->
 
@@ -1708,10 +1813,15 @@ Sources: [Agent harness limits and trace](https://github.com/AI-Aspire/Aspire_Ti
 
 ---
 
-# Watch a limit actually fire
-- **Ask:** What should the user receive when the budget ends before the task is complete?
-- **Inspect:** Watch middleware messages and the enforced limit; inspect the saved transcript rather than only the final answer.
-- **Decide:** A limit only counts if the transcript shows it firing. Untested limits are decoration.
+# The trace records a control, not just an answer
+
+```text
+[middleware] model call with 1 message(s)
+[middleware] model call with 3 message(s)
+limit: 4 model calls
+```
+
+Takeaway: a budget is real only when the trace makes its effect visible.
 
 <!--
 Slide ID: D1-M03-C3B
@@ -1721,10 +1831,10 @@ Type: core
 Minutes: 2
 Layout: 07 Big stats
 Speaker notes:
-- Say: The harness owns the loop's boundaries
-- Ask: Put the slide's question to the room first and wait; the answer below is the one to land, not to read out.
-- Watch: Watch middleware messages and the enforced limit; inspect the saved transcript rather than only the final answer. Agent_Harness:cell#21 is Task 4 of 6 — Watch the loop, step by step.
-- Then: A limit only counts if the transcript shows it firing. Untested limits are decoration.
+- Say: The trace shows work that a polished final answer can hide.
+- Ask: What control would you point to if the run stopped early?
+- Watch: Compare the middleware lines and the enforced budget; inspect the transcript, not only the final answer. Agent_Harness:cell#24 is Task 5 of 6 — Add middleware.
+- Then: A budget is real only when the trace makes its effect visible.
 Sources: [Agent harness limits and trace](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/03_Agents_101/Agent_Harness.ipynb); [Effective harnesses for long-running agents](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents).
 -->
 
@@ -1754,10 +1864,15 @@ Sources: [Agent harness Create/Grow](https://github.com/AI-Aspire/Aspire_Titaniu
 
 ---
 
-# In scope, needs a human, or out of scope
-- **Ask:** What observation would change the next step in your proposed loop?
-- **Inspect:** Compare in-scope, human-needed, and out-of-scope questions. Check whether tool behavior matches the scope before praising fluency.
-- **Decide:** Give the loop a stopping rule before you give it autonomy.
+# One question, one safe exit
+
+```text
+VPN timeout → search KB → give routing step
+still unreachable → offer a ticket
+outside scope → decline
+```
+
+Takeaway: autonomy needs an observed next step and a defined exit.
 
 <!--
 Slide ID: D1-M03-C4B
@@ -1767,10 +1882,10 @@ Type: core
 Minutes: 1
 Layout: 09 Lab and code 2
 Speaker notes:
-- Say: Autonomy needs a reason and a stopping rule
-- Ask: Put the slide's question to the room first and wait; the answer below is the one to land, not to read out.
-- Watch: Compare in-scope, human-needed, and out-of-scope questions. Check whether tool behavior matches the scope before praising fluency. Agent_Harness:cell#24 is Task 5 of 6 — Add middleware.
-- Then: Give the loop a stopping rule before you give it autonomy.
+- Say: The same support question can end in an answer, a handoff, or a refusal.
+- Ask: Which observation changes the next step in this example?
+- Watch: Compare the in-scope route with the human-needed and out-of-scope exits. Agent_Harness:cell#16 is Task 3 of 6 — Ask questions your users would ask.
+- Then: Autonomy needs an observed next step and a defined exit.
 Sources: [Agent harness Create/Grow](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/03_Agents_101/Agent_Harness.ipynb); [Building effective agents](https://www.anthropic.com/engineering/building-effective-agents).
 -->
 
@@ -1855,6 +1970,28 @@ Sources: [ReAct](https://arxiv.org/abs/2210.03629); [Effective harnesses for lon
 -->
 
 ---
+# 04 · Vibe checks and judges
+
+**Measure** — before you trust any of it
+
+- “Looks good” is a hypothesis, not a result.
+- 30 min
+
+<!--
+Slide ID: D1-T04
+Module: [04 Vibe checks and judges](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/04_Vibe_Checks_and_Judges/README.md)
+Instructor: Beric
+Type: transition
+Minutes: 0
+Layout: 01 Title
+Speaker notes:
+- Say: “Looks good” is a hypothesis, not a result. That is what this module is for.
+- Ask: Hold the room for a beat here — this is the hand-off, not content.
+- Watch: Name the module, its stage on the journey, and who is running it. Keep it to one breath.
+- Then: Straight into the first content slide.
+Sources: [Module 04 overview](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/04_Vibe_Checks_and_Judges/README.md).
+-->
+---
 
 # “Looks good” is the start of a test, not the result
 
@@ -1880,10 +2017,14 @@ Sources: [Vibe checks and judges notebook](https://github.com/AI-Aspire/Aspire_T
 
 ---
 
-# Hand-score before you automate
-- **Ask:** Could two reviewers reasonably disagree about the word “helpful” in your rubric?
-- **Inspect:** Start from rubric definitions and hand-scored transcripts, before any automated judge runs.
-- **Decide:** Write the rubric before the judge. Hand-score first, or you cannot tell if the judge is wrong.
+# A rubric turns “good” into a test
+
+```json
+{"aspect":"actionable",
+ "pass":"names the exact next step, menu path, or entitlement"}
+```
+
+Takeaway: write the pass definition before asking a judge to score.
 
 <!--
 Slide ID: D1-M04-C1B
@@ -1893,10 +2034,10 @@ Type: core
 Minutes: 2
 Layout: 04 Icon cards
 Speaker notes:
-- Say: “Looks good” is the start of a test, not the result
-- Ask: Put the slide's question to the room first and wait; the answer below is the one to land, not to read out.
-- Watch: Start from rubric definitions and hand-scored transcripts, before any automated judge — Vibe_Checks_LLM_Judge:cell#9 (rubric), cell#16 (judge by hand first).
-- Then: Write the rubric before the judge. Hand-score first, or you cannot tell if the judge is wrong.
+- Say: A pass definition gives reviewers the same target.
+- Ask: Could two reviewers apply this actionability rule the same way?
+- Watch: Read the aspect and its pass condition before reviewing any transcript. Vibe_Checks_LLM_Judge:cell#9 is Task 1 of 9 — Write the rubric.
+- Then: Write the pass definition before asking a judge to score.
 Sources: [Vibe checks and judges notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/04_Vibe_Checks_and_Judges/Vibe_Checks_LLM_Judge.ipynb); [LLM judge study, Zheng et al., 2023](https://arxiv.org/abs/2306.05685).
 -->
 
@@ -1977,10 +2118,14 @@ Sources: [Judging LLM-as-a-Judge](https://arxiv.org/abs/2306.05685); [Strict jud
 
 ---
 
-# Read the judge's reasoning, not its number
-- **Ask:** What is the difference between a valid score and a justified score?
-- **Inspect:** Inspect the strict judge's error handling and compare its rationale with a hand verdict on the same transcript.
-- **Decide:** Pin the judge's temperature and read its rationale, not just its number.
+# A score needs a reason you can inspect
+
+```json
+{"judge":"human","score":5,
+ "rationale":"Answered without checking a source."}
+```
+
+Takeaway: the rationale explains whether the score is justified.
 
 <!--
 Slide ID: D1-M04-C2B
@@ -1990,10 +2135,10 @@ Type: core
 Minutes: 2
 Layout: 05 Two column 2
 Speaker notes:
-- Say: A judge is another model with a narrow job
-- Ask: Put the slide's question to the room first and wait; the answer below is the one to land, not to read out.
-- Watch: Inspect the strict judge's error handling and compare its rationale with a hand verdict on the same transcript. Vibe_Checks_LLM_Judge:cell#25 is Task 5 of 9 — Build a strict judge.
-- Then: Pin the judge's temperature and read its rationale, not just its number.
+- Say: A number without a rationale gives you nothing to investigate.
+- Ask: What evidence justifies the score of 5?
+- Watch: Compare the score with the one-line rationale and inspect the strict judge's validated response. Vibe_Checks_LLM_Judge:cell#25 is Task 5 of 9 — Build a strict judge.
+- Then: The rationale explains whether the score is justified.
 Sources: [Judging LLM-as-a-Judge](https://arxiv.org/abs/2306.05685); [Strict judge implementation](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/04_Vibe_Checks_and_Judges/Vibe_Checks_LLM_Judge.ipynb).
 -->
 
@@ -2023,10 +2168,14 @@ Sources: [Three judge dimensions](https://github.com/AI-Aspire/Aspire_Titanium_E
 
 ---
 
-# Score the dimensions separately
-- **Ask:** Can an answer faithfully repeat an outdated procedure and still fail the user's task?
-- **Inspect:** Inspect the separate judge columns and their rationales; identify which dimension explains a disagreement.
-- **Decide:** Score the dimensions separately, or a fluent wrong answer scores as a right one.
+# One answer can pass one dimension and fail another
+
+```text
+groundedness: 6   actionable: 10   clarity: 10
+human:         5
+```
+
+Takeaway: separate scores show whether the problem is evidence, action, or expression.
 
 <!--
 Slide ID: D1-M04-C3B
@@ -2036,10 +2185,10 @@ Type: core
 Minutes: 2
 Layout: 07 Big stats
 Speaker notes:
-- Say: An answer can be clear, useful, and wrong
-- Ask: Put the slide's question to the room first and wait; the answer below is the one to land, not to read out.
-- Watch: Inspect the separate judge columns and their rationales; identify which dimension explains a disagreement. Vibe_Checks_LLM_Judge:cell#28 is Task 6 of 9 — Three judges that measure different things.
-- Then: Score the dimensions separately, or a fluent wrong answer scores as a right one.
+- Say: Separate dimensions keep a fluent error from looking like a complete pass.
+- Ask: Which dimension is the weak one in this row?
+- Watch: Compare the three judge columns and their rationales; each measures one property. Vibe_Checks_LLM_Judge:cell#28 is Task 6 of 9 — Three judges that measure different things.
+- Then: Separate scores show whether the problem is evidence, action, or expression.
 Sources: [Three judge dimensions](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/04_Vibe_Checks_and_Judges/Vibe_Checks_LLM_Judge.ipynb); [Ragas faithfulness definition](https://docs.ragas.io/en/stable/concepts/metrics/available_metrics/faithfulness/).
 -->
 
@@ -2069,10 +2218,14 @@ Sources: [Disagreement analysis and responsible controls](https://github.com/AI-
 
 ---
 
-# Follow the disagreement
-- **Ask:** What would make you distrust the judge rather than change the answer?
-- **Inspect:** Read the highest-disagreement row in the heatmap and explain the evidence. Do not replace an observed failure with a guessed score.
-- **Decide:** Investigate where graders disagree; that row is where the rubric is unclear.
+# The widest spread is the next case to read
+
+```text
+groundedness 10 | actionable 5 | clarity 10
+spread         5
+```
+
+Takeaway: investigate the row with the widest spread before changing the system.
 
 <!--
 Slide ID: D1-M04-C4B
@@ -2082,10 +2235,10 @@ Type: core
 Minutes: 1
 Layout: 09 Lab and code 2
 Speaker notes:
-- Say: Disagreement tells you where to investigate
-- Ask: Put the slide's question to the room first and wait; the answer below is the one to land, not to read out.
-- Watch: Read the highest-disagreement row in the heatmap and explain the evidence. Do not replace an observed failure with a guessed score. Vibe_Checks_LLM_Judge:cell#35 is Task 8 of 9 — Find disagreement, not a winner.
-- Then: Investigate where graders disagree; that row is where the rubric is unclear.
+- Say: A spread is a reading list, not a winner.
+- Ask: Which row would you open first, and why?
+- Watch: Read the highest-spread row with its rationales; do not replace an observed failure with a guessed score. Vibe_Checks_LLM_Judge:cell#35 is Task 8 of 9 — Find disagreement, not a winner.
+- Then: Investigate the row with the widest spread before changing the system.
 Sources: [Disagreement analysis and responsible controls](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/04_Vibe_Checks_and_Judges/Vibe_Checks_LLM_Judge.ipynb); [LLM judge limitations](https://arxiv.org/abs/2306.05685).
 -->
 
@@ -2114,6 +2267,28 @@ Sources: [Judging LLM-as-a-Judge with MT-Bench and Chatbot Arena](https://arxiv.
 -->
 
 ---
+# 05 · RAG
+
+**RAG** — give the loop something true to say
+
+- An agent with tools still has no grounded evidence.
+- 30 min
+
+<!--
+Slide ID: D1-T05
+Module: [05 RAG](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/05_RAG/README.md)
+Instructor: Beric
+Type: transition
+Minutes: 0
+Layout: 01 Title
+Speaker notes:
+- Say: An agent with tools still has no grounded evidence. That is what this module is for.
+- Ask: Hold the room for a beat here — this is the hand-off, not content.
+- Watch: Name the module, its stage on the journey, and who is running it. Keep it to one breath.
+- Then: Straight into the first content slide.
+Sources: [Module 05 overview](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/05_RAG/README.md).
+-->
+---
 
 # A direct question needs accessible evidence
 
@@ -2139,10 +2314,15 @@ Sources: [RAG, Lewis et al., 2020](https://arxiv.org/abs/2005.11401); [RAG noteb
 
 ---
 
-# Same question, with and without evidence
-- **Ask:** If the source is wrong, what can retrieval actually improve?
-- **Inspect:** Ask the same question with and without retrieved context; read the evidence rather than assuming the second answer is better.
-- **Decide:** Retrieval earns its place only when the evidence changes the answer.
+# The VPN answer needs the routing evidence
+
+```text
+Question: VPN is green; staging times out
+Evidence: Settings → Routing → “Route private ranges”
+Next: restart the client; then file a ticket with ping output
+```
+
+Takeaway: retrieval helps when it supplies the exact setting and path.
 
 <!--
 Slide ID: D1-M05-C1B
@@ -2152,10 +2332,10 @@ Type: core
 Minutes: 2
 Layout: 04 Icon cards
 Speaker notes:
-- Say: A direct question needs accessible evidence
-- Ask: Put the slide's question to the room first and wait; the answer below is the one to land, not to read out.
-- Watch: Ask the same question with and without retrieved context; read the evidence rather than assuming the second answer is better. RAG_with_LangChain:cell#9 is Task 1 of 7 — See the gap.
-- Then: Retrieval earns its place only when the evidence changes the answer.
+- Say: The answer becomes actionable when the source supplies the setting and path.
+- Ask: Which line would be missing from a fluent answer with no KB evidence?
+- Watch: Compare the exact routing setting and menu path with the vibe check's expected content. RAG_with_LangChain:cell#9 is Task 1 of 7 — See the gap.
+- Then: Retrieval helps when it supplies the exact setting and path.
 Sources: [RAG, Lewis et al., 2020](https://arxiv.org/abs/2005.11401); [RAG notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/05_RAG/RAG_with_LangChain.ipynb).
 -->
 
@@ -2227,10 +2407,13 @@ Sources: [RAG notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/bl
 
 ---
 
-# Read the context you assembled
-- **Ask:** Which step changes the stored index, and which step happens for every question?
-- **Inspect:** Locate chunk creation, ranking, and context assembly before the library version; explain what each library component replaces.
-- **Decide:** Read the assembled context before blaming the model for the answer.
+# The chain assembles evidence before generation
+
+```text
+question → retriever → format_docs → prompt → model → text
+```
+
+Takeaway: inspect the assembled context before blaming the model.
 
 <!--
 Slide ID: D1-M05-C2B
@@ -2240,10 +2423,10 @@ Type: core
 Minutes: 2
 Layout: 05 Two column 2
 Speaker notes:
-- Say: Prepare the library, then search it for each question
-- Ask: Put the slide's question to the room first and wait; the answer below is the one to land, not to read out.
-- Watch: Locate chunk creation, ranking, and context assembly before the library version; explain what each library component replaces. RAG_with_LangChain:cell#20 is Task 4 of 7 — The same pipeline in LangChain.
-- Then: Read the assembled context before blaming the model for the answer.
+- Say: The chain makes the evidence handoff explicit.
+- Ask: Which arrow happens for every question?
+- Watch: Trace the question through the retriever, document formatter, prompt, model, and parser. RAG_with_LangChain:cell#20 is Task 4 of 7 — The same pipeline in LangChain.
+- Then: Inspect the assembled context before blaming the model.
 Sources: [RAG from scratch and library pipeline](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/05_RAG/RAG_with_LangChain.ipynb); [Author's context-assembly notes](https://github.com/soypete/ctx-eng-book/blob/main/research/context-assembly-pipeline-patterns.md).
 -->
 
@@ -2273,10 +2456,14 @@ Sources: [RAG setup, top-k comparison, saved baseline](https://github.com/AI-Asp
 
 ---
 
-# Change k, inspect the chunks
-- **Ask:** Which component should change if the answer-bearing passage never reaches the prompt?
-- **Inspect:** Compare two k settings on the same question and inspect actual chunks. Keep baseline contexts with each answer.
-- **Decide:** Repair retrieval before you rewrite the prompt.
+# More chunks can recover the missing setting
+
+```text
+k = 1  → answer-bearing VPN passage absent
+k = 4  → vpn.md reaches the prompt
+```
+
+Takeaway: change retrieval when the needed passage never arrives.
 
 <!--
 Slide ID: D1-M05-C3B
@@ -2286,10 +2473,10 @@ Type: core
 Minutes: 2
 Layout: 07 Big stats
 Speaker notes:
-- Say: Diagnose the missing evidence before the answer
-- Ask: Put the slide's question to the room first and wait; the answer below is the one to land, not to read out.
-- Watch: Compare two k settings on the same question and inspect actual chunks. Keep baseline contexts with each answer. RAG_with_LangChain:cell#28 is Task 6 of 7 — Retrieval quality is a dial.
-- Then: Repair retrieval before you rewrite the prompt.
+- Say: The first repair is to get the answer-bearing passage into context.
+- Ask: What changed between the two retrieval settings?
+- Watch: Compare the chunks and saved contexts for the same question at two k values. RAG_with_LangChain:cell#28 is Task 6 of 7 — Retrieval quality is a dial.
+- Then: Change retrieval when the needed passage never arrives.
 Sources: [RAG setup, top-k comparison, saved baseline](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/05_RAG/RAG_with_LangChain.ipynb); [RAG artifact contract](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/05_RAG/README.md).
 -->
 
@@ -2319,10 +2506,15 @@ Sources: [RAG baseline](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/bl
 
 ---
 
-# Save the baseline's failures
-- **Ask:** What evidence would justify a second search instead of a final answer or clarification?
-- **Inspect:** Establish the fixed baseline first. Save its failures so later retrieval approaches have a fair comparison.
-- **Decide:** Save the baseline's failures now; they are what later retrieval has to beat.
+# A baseline failure is a comparison point
+
+```text
+Question: analytics warehouse access
+Expected: entitlement, approver, wait
+Baseline: “analytics_warehouse”; manager; one day
+```
+
+Takeaway: save the fixed baseline before asking a second search to beat it.
 
 <!--
 Slide ID: D1-M05-C4B
@@ -2332,10 +2524,10 @@ Type: core
 Minutes: 1
 Layout: 09 Lab and code 2
 Speaker notes:
-- Say: Agentic retrieval changes the search strategy
-- Ask: Put the slide's question to the room first and wait; the answer below is the one to land, not to read out.
-- Watch: Establish the fixed baseline first. Save its failures so later retrieval approaches have a fair comparison. RAG_with_LangChain:cell#20 is Task 4 of 7 — The same pipeline in LangChain.
-- Then: Save the baseline's failures now; they are what later retrieval has to beat.
+- Say: A baseline gives the next retrieval strategy something concrete to improve.
+- Ask: What would a second search have to improve in this answer?
+- Watch: Keep the question, expected content, answer, and contexts together in the saved run. RAG_with_LangChain:cell#32 is Task 7 of 7 — Answer every vibe check and save.
+- Then: Save the fixed baseline before asking a second search to beat it.
 Sources: [RAG baseline](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/05_RAG/RAG_with_LangChain.ipynb); [Agentic retrieval comparison](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/DCI_vs_Agentic_RAG.ipynb); [RAG versus long-context study](https://arxiv.org/abs/2407.16833).
 -->
 

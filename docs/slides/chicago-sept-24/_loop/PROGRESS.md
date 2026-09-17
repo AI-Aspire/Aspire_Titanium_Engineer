@@ -238,3 +238,49 @@ projected-copy-beside-notes page and to the five rendered decks.
 Also fixed: the review generator had been HTML-escaping every line, so `<svg>` markup appeared
 as literal text where the diagram should be. It now passes HTML/SVG through, renders fenced
 code, and builds real tables. The stat tiles are derived from the deck instead of hardcoded.
+
+## Day 1 review pass, with author changes (2026-09-17)
+
+Reviewed Day 1 slide by slide with the author. Changes made, all verified:
+
+- **`D1-F4` retitled** "A prototype tests your ability to answer a question" — the old
+  "…tests one uncertainty" did not match its three question-bullets. Stale references in the
+  facilitator script and a `Then:` hand-off were updated too.
+- **"Concepts in this module" (`D1-M01-C0`) removed.** Its two `Minutes: 0` build slides
+  (endpoint, three acts) were promoted to 1 minute each, so module 01 holds exactly 30.
+- **Deskmate misuse fixed.** Deskmate is the worked-example *product* (an IT helpdesk agent in
+  the seed), not the dev environment, so "Can Deskmate run against our own endpoint?" was
+  wrong on a module-01 slide. Now: every notebook reads `OPENAI_BASE_URL`, so the same code
+  runs against a cloud key, a self-hosted server, or a local model.
+- **Five module transition cards added** (`D1-T01`–`T05`) at `Minutes: 0`. None existed before
+  — each module simply began on a content slide. `D1-T01` sets up module 01's four pieces and
+  states "No AI in this module. It is the floor the other four stand on."
+- **`D1-M01-C1B` rewritten.** It had repeated the `--status` command its partner already showed
+  *with real output*, then added an unrelated rule. It now names Deskmate as the seed.
+- **"Paper finding:" prefix removed** from the Brown et al. slide; the citation is already on it.
+
+### The Ask / Inspect / Decide scaffold is gone — all 40 slides
+
+Confirmed with the author as an artifact of a misunderstood "practical check" convention
+carried over from the earlier deck. Every one of the 40 slides (15 day 1, 16 day 3, 9 day 4)
+now has a real title stating a takeaway plus **one concrete worked example**; the scaffold's
+content moved into the Say/Ask/Watch/Then notes, where it is delivery guidance rather than
+projected text. Day 1's code-bearing slides went from 12 to 27 as a result.
+
+### Author coordination requirements — all met
+
+1. Brown et al. (2020) stays on its own `evidence`-typed slide immediately after the few-shot
+   bullet slide → `D1-M02-C2B`, verified in position.
+2. Structured output now teaches the explicit chain **model output → schema validation →
+   parsed arguments → function or MCP tool call** on `D1-M02-C4AB`, with a `risk_level` JSON
+   example, `ProductBrief`, `response_format=ProductBrief`, `message.parsed`, and the closing
+   caveat that a valid shape is not a true value.
+
+Every code artifact on these slides was checked against the notebook rather than illustrated:
+`search_charter` is a real module-03 tool, `{"name", "args"}` is the shape
+`Agent_Harness:cell#18` records, and `result.choices[0].message.parsed` is the real line in
+`Prompt_Patterns:cell#21`. No student artifacts or answers were fabricated.
+
+Verification: 5 decks render, 168 cell pointers in range, no module over budget (M01 exactly
+30, M02 20/30), zero instructor names in projected copy or notes, zero duplicate titles, zero
+scaffold, zero filler note lines.

@@ -87,7 +87,7 @@ Ask groups to put one changing fact and one accountable decision owner on their 
 [Author's semantic-contract notes](https://github.com/soypete/ctx-eng-book/blob/main/research/semantic-contracts.md); [Course authoring principles](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/docs/AUTHORING.md).
 
 
-### D1-F4 · A prototype tests one uncertainty
+### D1-F4 · A prototype tests your ability to answer a question
 
 - Module: Framing, before the selected modules
 - Instructor: Miriah
