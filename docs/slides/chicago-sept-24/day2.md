@@ -154,7 +154,9 @@ Sources: [Dense Passage Retrieval](https://aclanthology.org/2020.emnlp-main.550/
 ---
 # Fusion: merging two ranked lists
 
-Sparse and dense each return their own ordering. **Reciprocal rank fusion** scores a page by where it lands in each list, then merges:
+Retrieval is **two stages with separate budgets** — cheap candidate generation, then expensive inspection.
+
+**Reciprocal rank fusion** is the cheap stage. It scores a page by where it lands in each list, then merges:
 
 ```text
 sparse:  [A, B, C]      a page ranked highly by BOTH
@@ -163,7 +165,8 @@ dense:   [C, A, D]      rises above one ranked highly by one
 RRF:     [A, C, B, D]
 ```
 
-It is arithmetic — no model call, no judgment. That is why it comes first.
+Arithmetic — no model call. That is why it comes first.
+
 <!--
 Slide ID: D2-M06-C2
 Module: [06 Advanced retrieval](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/06_Advanced_Retrieval/README.md)
@@ -176,7 +179,7 @@ Speaker notes:
 - Ask: If the correct passage never enters the fused shortlist, can reranking recover it?
 - Watch: Retrieval_Ladder Task 3 prints the fused list and cross-encoder order; inspect how many candidates reach the reranker. Retrieval_Ladder:cell#12 is Task 2 of 5 — Dense and sparse.
 - Then: Now the expensive rung — a reranker that actually reads the passages.
-Sources: [Reciprocal rank fusion paper](https://cormack.uwaterloo.ca/cormacksigir09-rrf.pdf); [local Retrieval Ladder notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/06_Advanced_Retrieval/Retrieval_Ladder.ipynb)
+Sources: [Dense Passage Retrieval for Open-Domain Question Answering](https://aclanthology.org/2020.emnlp-main.550/), [Reciprocal rank fusion paper](https://cormack.uwaterloo.ca/cormacksigir09-rrf.pdf), [local Retrieval Ladder notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/06_Advanced_Retrieval/Retrieval_Ladder.ipynb)
 -->
 ---
 # A reranker reads the passage, not just the score
@@ -378,44 +381,36 @@ Sources: Notebook:cell#27; [local Retrieval Ladder notebook](https://github.com/
 -->
 
 ---
+# 07 · Agentic retrieval
 
-# Research: retrieval is a two-stage design
+**Who decides how to search — you, or the agent?** · 30 min
+
+- Module 06 tuned a pipeline you control
+- Module 07 hands the search itself to the agent
 
 <!--
-Slide ID: D2-M06-R1
-Module: [06 Advanced retrieval](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/06_Advanced_Retrieval/README.md)
+Slide ID: D2-T07
+Module: [07 Agentic retrieval](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/README.md)
 Instructor: Eli
-Type: optional
+Type: transition
 Minutes: 0
-Layout: 08 Quote
+Layout: 01 Title
 Speaker notes:
-- Say: Optional: retrieval is recall then precision — two stages with different jobs.
-- Ask: Which claim from the paper is about a benchmark setup rather than a guarantee for our corpus?
-- Watch: Alignment pending for optional research discussion; use the notebook’s dense-versus-BM25 comparison as the local bridge.
-- Then: Skip if time is short; offer as optional stretch or research.
-Sources: [Dense Passage Retrieval for Open-Domain Question Answering](https://aclanthology.org/2020.emnlp-main.550/); [local Retrieval Ladder notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/06_Advanced_Retrieval/Retrieval_Ladder.ipynb)
+- Say: Everything so far was a pipeline with fixed stages. Now the agent chooses its own next move.
+- Ask: Hold for a beat — this is the hand-off, not content.
+- Watch: The trade is control for adaptability, and the cost is that no two runs look the same.
+- Then: Straight into the two interfaces.
+Sources: [Module 07 overview](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/README.md).
 -->
-
-- Dense retrieval complements sparse matching
-- Candidate generation and deep inspection are separate budgets
-- Transfer the architecture, not unverified benchmark outcomes
-
 ---
-
-# 07 · Retrieval becomes an interface choice
-
-`question → search_chunks → ranked sections → answer or search again`
-
-`question → list/search/read → chosen page → answer or search again`
-
-Example question: `Which VPN policy applies to contractors?`
+# Two ways to give an agent the corpus
 
 | Interface | First move | What it can inspect next |
 |---|---|---|
-| **Agentic RAG** — calls a retriever | rank matching chunks | another query or result set |
-| **DCI** — direct corpus interaction | list/search pages | headings, full page, neighboring sections |
+| **Agentic RAG** — calls a retriever | rank matching chunks | another query, or a new result set |
+| **DCI** — direct corpus interaction | list and search *pages* | headings, the full page, neighbouring sections |
 
-**Same question; different evidence path.**
+Same question, different evidence path.
 
 <!--
 Slide ID: D2-M07-C1
@@ -432,9 +427,34 @@ Speaker notes:
 Sources: [DCI research paper](https://arxiv.org/abs/2605.05242); [local DCI versus Agentic RAG notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/DCI_vs_Agentic_RAG.ipynb)
 -->
 ---
+# The loop shape differs
 
-# What stays constant in the comparison: the model, questions, and scoring—or the tool set?
+```text
+Agentic RAG:  question → search_chunks → ranked sections → answer or search again
 
+DCI:          question → list/search/read → chosen page → answer or search again
+```
+
+Example question: `Which VPN policy applies to contractors?`
+
+A retriever returns fragments it scored. File tools let the agent navigate to the page and read around the answer.
+
+<!--
+Slide ID: D2-M07-C1X
+Module: [07 Agentic retrieval](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/README.md)
+Instructor: Eli
+Type: core
+Minutes: 1
+Layout: 06 Process steps
+Speaker notes:
+- Say: The difference is what the agent can do after its first look.
+- Ask: For a policy question that spans two sections, which loop gets you the whole answer?
+- Watch: DCI can read neighbouring sections; a chunk retriever returns only what it scored. DCI_vs_Agentic_RAG:cell#12 is Task 2 of 5 — Two corpus interfaces.
+- Then: Holding everything else constant is what makes the comparison mean anything.
+Sources: [DCI research paper](https://arxiv.org/abs/2605.05242), [local DCI versus Agentic RAG notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/DCI_vs_Agentic_RAG.ipynb)
+-->
+---
+# To compare the two interfaces fairly, what must stay the same?
 <!--
 Slide ID: D2-M07-C1B
 Module: [07 Agentic retrieval](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/README.md)
@@ -443,19 +463,18 @@ Type: core
 Minutes: 1
 Layout: 04 Icon cards
 Speaker notes:
-- Say: Retrieval becomes an interface choice
-- Ask: What stays constant in the notebook comparison, and what is deliberately changed?
+- Say: A comparison is only a comparison if one thing varies. Ask what that one thing should be.
+- Ask: Let the room list what to hold fixed before you reveal. Most name the model and forget the scoring.
 - Watch: DCI_vs_Agentic_RAG setup defines both modes and keeps model, loop, questions, and scoring the same. DCI_vs_Agentic_RAG:cell#9 is Task 1 of 5 — Build the wiki.
-- Then: Reveal the answer, then tie it to the notebook artifact on screen.
+- Then: Then show how short the list of things that may vary actually is.
 Sources: [DCI research paper](https://arxiv.org/abs/2605.05242); [local DCI versus Agentic RAG notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/DCI_vs_Agentic_RAG.ipynb)
 -->
 ---
+# Change only the retrieval interface
 
-# Change one thing: the retrieval interface
-- **Answer:** Keep the model, questions, loop, and scoring constant; change only the retrieval interface.
-- **Why:** Otherwise the comparison cannot explain which change caused the result.
-- **Next step:** Hold everything else fixed in the notebook, or the comparison says nothing.
+- Hold the **model, questions, agent loop, and scoring** constant — vary the interface alone.
 
+Change two things and a difference in the result cannot be attributed to either. This is the same discipline as module 06's ladder: one variable per comparison, or the number means nothing.
 <!--
 Slide ID: D2-M07-C1A
 Module: [07 Agentic retrieval](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/README.md)
@@ -464,10 +483,10 @@ Type: core
 Minutes: 1
 Layout: 08 Quote
 Speaker notes:
-- Say: Reveal the answer and why it matters
+- Say: One variable. Everything else is a control.
 - Ask: What would change if the answer were different?
 - Watch: Point to the visible evidence and the notebook artifact. DCI_vs_Agentic_RAG:cell#9 is Task 1 of 5 — Build the wiki.
-- Then: Tie the answer to the notebook artifact before moving on.
+- Then: With the comparison fixed, the next question is what the agent can actually see.
 Sources: [DCI research paper](https://arxiv.org/abs/2605.05242); [local DCI versus Agentic RAG notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/DCI_vs_Agentic_RAG.ipynb)
 -->
 ---
@@ -737,6 +756,10 @@ Sources: Notebook:cell#24; [local DCI versus Agentic RAG notebook](https://githu
 
 # Research: direct corpus interaction widens the search interface
 
+- Fixed top-k can discard clues before reasoning
+- DCI trades broader access for calls, latency, and controls
+- Test the interface on local traces before routing to it
+
 <!--
 Slide ID: D2-M07-R1
 Module: [07 Agentic retrieval](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/README.md)
@@ -751,10 +774,6 @@ Speaker notes:
 - Then: Skip if time is short; offer as optional stretch or research.
 Sources: [Beyond Semantic Similarity: Rethinking Retrieval for Agentic Search via Direct Corpus Interaction](https://arxiv.org/abs/2605.05242); [local DCI versus Agentic RAG notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/DCI_vs_Agentic_RAG.ipynb)
 -->
-
-- Fixed top-k can discard clues before reasoning
-- DCI trades broader access for calls, latency, and controls
-- Test the interface on local traces before routing to it
 
 ---
 
@@ -1095,6 +1114,10 @@ Sources: Notebook:cell#18; [Module 08 notebook](https://github.com/AI-Aspire/Asp
 
 # Research: RAG evaluation needs multiple lenses
 
+- Separate retrieval, context use, and answer quality
+- Reference-free still requires calibrated measurement
+- Use metrics to decide what trace or case to inspect next
+
 <!--
 Slide ID: D2-M08-R1
 Module: [08 SDG/RAGAS](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/08_SDG_RAGAS/README.md)
@@ -1109,10 +1132,6 @@ Speaker notes:
 - Then: Skip if time is short; offer as optional stretch or research.
 Sources: [RAGAS: Automated Evaluation of Retrieval Augmented Generation](https://arxiv.org/abs/2309.15217); [RAGAS metrics documentation](https://docs.ragas.io/en/stable/concepts/metrics/)
 -->
-
-- Separate retrieval, context use, and answer quality
-- Reference-free still requires calibrated measurement
-- Use metrics to decide what trace or case to inspect next
 
 ---
 
