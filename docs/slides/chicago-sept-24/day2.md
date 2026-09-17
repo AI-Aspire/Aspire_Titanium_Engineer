@@ -40,13 +40,14 @@ Sources: Notebook:cell#27; [Day 2 schedule](https://github.com/AI-Aspire/Aspire_
 -->
 
 ---
-
 # From a prototype to a measured retrieval system
 
-- Yesterday: a question, prompt, agent, and first RAG baseline
-- Today: evidence, retrieval choices, and repeatable measurement
-- Deliverable: explain what changed and what the evidence says
+- Yesterday: a question, a prompt, an agent, and a first RAG baseline
+- Today: retrieval choices, and evidence for which one is better
 
+When a RAG answer is wrong, one of three gates failed:
+
+**Source** — was it in the corpus? · **Retrieval** — did it reach the model? · **Generation** — did the answer use it?
 <!--
 Slide ID: D2-F1
 Module: Day 2 foundation
@@ -57,7 +58,7 @@ Layout: 01 Title
 Speaker notes:
 - Say: Yesterday you got an answer. Today you find out whether it was luck.
 - Ask: What did yesterday's prototype leave uncertain?
-- Watch: Groups name one uncertainty before choosing a retrieval technique.
+- Watch: These three gates are from day 1 and every measurement today names one of them. Say them once here so the diagnostic questions later land.
 - Then: Start with the measurement question, not the metric name.
 Sources: [Day 2 schedule](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/docs/schedule/day2.md); [Module 05 RAG](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/05_RAG/README.md).
 -->
@@ -250,8 +251,6 @@ Ranks of the correct page across three questions: `[2, 8, not found]`
 | **hit@5** | did it land in the top 5 at all? | `1/3` — only rank 2 qualifies |
 | **MRR** | how *early* did it land? | `(1/2 + 1/8 + 0) / 3` |
 
-hit@5 is a pass/fail cutoff. MRR rewards being early. Illustrative numbers, not cohort results.
-
 <!--
 Slide ID: D2-M06-C4
 Module: [06 Advanced retrieval](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/06_Advanced_Retrieval/README.md)
@@ -262,7 +261,7 @@ Layout: 07 Big stats
 Speaker notes:
 - Say: Two metrics, two different questions — and a rung can improve one while leaving the other flat.
 - Ask: Rank 8 contributes 1/8 to MRR and nothing to hit@5. Which metric would you report to a stakeholder, and why?
-- Watch: Work the arithmetic on screen. The "not found" case contributes zero to both, which is what makes recall the first thing to fix. Retrieval_Ladder:cell#22 is Task 4 of 5 — Score the ladder.
+- Watch: Work the arithmetic on screen; these are illustrative ranks, not cohort results. The "not found" case contributes zero to both, which is what makes recall the first thing to fix. Retrieval_Ladder:cell#22 is Task 4 of 5 — Score the ladder.
 - Then: Now the choosing rule, on the next slide.
 Sources: [Lucene BM25Similarity](https://lucene.apache.org/core/9_12_1/core/org/apache/lucene/search/similarities/BM25Similarity.html), [local Retrieval Ladder notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/06_Advanced_Retrieval/Retrieval_Ladder.ipynb)
 -->
@@ -384,15 +383,16 @@ Speaker notes:
 Sources: [Module 07 overview](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/README.md).
 -->
 ---
-# Two ways to give an agent the corpus
+# A retrieval interface is what the agent can ask for
 
-| Interface | First move | What it can inspect next |
+The corpus does not change. **The interface is what the agent gets access to:**
+
+| Interface | The agent calls | Gets back |
 |---|---|---|
-| **Agentic RAG** — calls a retriever | rank matching chunks | another query, or a new result set |
-| **DCI** — direct corpus interaction | list and search *pages* | headings, the full page, neighbouring sections |
+| **Agentic RAG** | a retriever | ranked chunks it did not choose |
+| **DCI** — direct corpus interaction | file tools: list, search, read | whole pages it picked |
 
-Same question, different evidence path.
-
+Same corpus, same question, different evidence path.
 <!--
 Slide ID: D2-M07-C1
 Module: [07 Agentic retrieval](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/README.md)
@@ -401,9 +401,9 @@ Type: core
 Minutes: 1
 Layout: 06 Process steps
 Speaker notes:
-- Say: Retrieval is not one design. Choosing the interface is choosing what the agent can discover.
-- Ask: What stays constant in the notebook comparison, and what is deliberately changed?
-- Watch: DCI_vs_Agentic_RAG setup defines both modes and keeps model, loop, questions, and scoring the same. DCI_vs_Agentic_RAG:cell#9 is Task 1 of 5 — Build the wiki.
+- Say: The corpus is fixed all day. What changes is what the agent is allowed to ask for.
+- Ask: Say the full name once — direct corpus interaction — then use DCI for the rest of the module.
+- Watch: The notebook puts it plainly: the question is what interface the agent gets to the corpus — a retriever returning ranked chunks, or file tools that list, search and read pages. DCI_vs_Agentic_RAG:cell#12 is Task 2 of 5 — Two corpus interfaces.
 - Then: Hold this until the notebook block, where the numbers appear.
 Sources: [DCI research paper](https://arxiv.org/abs/2605.05242); [local DCI versus Agentic RAG notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/DCI_vs_Agentic_RAG.ipynb)
 -->
@@ -435,27 +435,10 @@ Speaker notes:
 Sources: [DCI research paper](https://arxiv.org/abs/2605.05242), [local DCI versus Agentic RAG notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/DCI_vs_Agentic_RAG.ipynb)
 -->
 ---
-# To compare the two interfaces fairly, what must stay the same?
-<!--
-Slide ID: D2-M07-C1B
-Module: [07 Agentic retrieval](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/README.md)
-Instructor: Eli
-Type: core
-Minutes: 1
-Layout: 04 Icon cards
-Speaker notes:
-- Say: A comparison is only a comparison if one thing varies. Ask what that one thing should be.
-- Ask: Let the room list what to hold fixed before you reveal. Most name the model and forget the scoring.
-- Watch: DCI_vs_Agentic_RAG setup defines both modes and keeps model, loop, questions, and scoring the same. DCI_vs_Agentic_RAG:cell#9 is Task 1 of 5 — Build the wiki.
-- Then: Then show how short the list of things that may vary actually is.
-Sources: [DCI research paper](https://arxiv.org/abs/2605.05242); [local DCI versus Agentic RAG notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/DCI_vs_Agentic_RAG.ipynb)
--->
----
 # Change only the retrieval interface
 
 - Hold the **model, questions, agent loop, and scoring** constant — vary the interface alone.
 
-Change two things and a difference in the result cannot be attributed to either. This is the same discipline as module 06's ladder: one variable per comparison, or the number means nothing.
 <!--
 Slide ID: D2-M07-C1A
 Module: [07 Agentic retrieval](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/README.md)
@@ -466,8 +449,8 @@ Layout: 08 Quote
 Speaker notes:
 - Say: One variable. Everything else is a control.
 - Ask: Take answers from two tables before revealing; the wrong answers are the teachable ones.
-- Watch: Point to the visible evidence and the notebook artifact. DCI_vs_Agentic_RAG:cell#9 is Task 1 of 5 — Build the wiki.
-- Then: With the comparison fixed, the next question is what the agent can actually see.
+- Watch: Change two things and a difference in the result cannot be attributed to either. Same discipline as module 06's ladder: one variable per comparison, or the number means nothing. DCI_vs_Agentic_RAG:cell#16 is Task 3 of 5 — One loop for both.
+- Then: One variable per comparison. Next: what the agent can actually see before its first read.
 Sources: [DCI research paper](https://arxiv.org/abs/2605.05242); [local DCI versus Agentic RAG notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/DCI_vs_Agentic_RAG.ipynb)
 -->
 ---
@@ -481,7 +464,26 @@ read_page("vpn.md")   → the whole page, headings and all
 search_chunks(query)  → the Agentic RAG path, for contrast
 ```
 
-The **wiki** is one markdown index of the corpus — page names, what each is for, its section headings:
+It chooses what to open, so it can read around an answer instead of taking scored fragments.
+
+<!--
+Slide ID: D2-M07-C2
+Module: [07 Agentic retrieval](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/README.md)
+Instructor: Eli
+Type: core
+Minutes: 1
+Layout: 09 Lab and code
+Speaker notes:
+- Say: Retrieval stops being an endpoint you call and becomes a set of tools the agent decides between.
+- Ask: Rhetorical — name the three tools, then move to what makes choosing possible.
+- Watch: These are the real tool names in the notebook. DCI_vs_Agentic_RAG:cell#12 is Task 2 of 5 — Two corpus interfaces.
+- Then: Choosing only works if the agent knows what is there — which is the next slide.
+Sources: [DCI research paper](https://arxiv.org/abs/2605.05242), [local DCI versus Agentic RAG notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/DCI_vs_Agentic_RAG.ipynb)
+-->
+---
+# The wiki is the map that makes choosing possible
+
+One markdown index of the corpus — page names, what each is for, its section headings:
 
 | Page | Purpose | Headings |
 |---|---|---|
@@ -489,19 +491,20 @@ The **wiki** is one markdown index of the corpus — page names, what each is fo
 | `password-and-mfa.md` | password and second-factor recovery | reset · MFA · lockouts |
 
 Without it the agent reads pages at random. With it, it chooses before it reads.
+
 <!--
-Slide ID: D2-M07-C2
+Slide ID: D2-M07-C2W
 Module: [07 Agentic retrieval](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/README.md)
 Instructor: Eli
 Type: core
 Minutes: 1
-Layout: 06 Process steps 1
+Layout: 05 Two column
 Speaker notes:
-- Say: Retrieval stops being an endpoint you call and becomes a set of tools the agent decides between.
-- Ask: A page index costs tokens on every turn. What does that buy you that a ranked chunk list does not?
-- Watch: The wiki skeleton is built from the headings by hand; the model writes each one-line purpose. DCI_vs_Agentic_RAG:cell#9 is Task 1 of 5 — Build the wiki.
-- Then: The map is what makes the next tool call a choice rather than a guess.
-Sources: [DCI research paper](https://arxiv.org/abs/2605.05242); [local DCI versus Agentic RAG notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/DCI_vs_Agentic_RAG.ipynb)
+- Say: A file tool without a map is a guess. The wiki is what turns the next call into a decision.
+- Ask: A page index costs tokens on every turn. What does that buy that a ranked chunk list does not?
+- Watch: The skeleton is built from the headings by hand; the model writes each one-line purpose. DCI_vs_Agentic_RAG:cell#9 is Task 1 of 5 — Build the wiki.
+- Then: Purpose and headings are the clues — which is what the next question turns on.
+Sources: [local DCI versus Agentic RAG notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/DCI_vs_Agentic_RAG.ipynb)
 -->
 ---
 
@@ -832,22 +835,14 @@ Speaker notes:
 Sources: [Ragas testset generation](https://docs.ragas.io/en/stable/concepts/test_data_generation/rag/); [Module 08 notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/08_SDG_RAGAS/Improving_RAG_with_RAGAS.ipynb)
 -->
 ---
+# Four RAGAS metrics, four different questions
 
-# Metrics answer different diagnostic questions
-
-| Metric | Looks at | Does not establish |
+| Metric | Looks at | Does **not** establish |
 |---|---|---|
-| Context precision | Did useful evidence rank high? | Answer correctness |
-| Context recall | Did needed evidence appear? | Complete retrieval |
-| Faithfulness | Did claims stay supported? | Source authority |
-| Answer relevancy | Did the response address the question? | Factual truth |
-
-Worked example: retrieved text says “manager approval”; answer says “automatic approval.”
-- Context precision: did the needed passage rank high?
-- Faithfulness: did the answer follow the passage?
-- Answer relevancy: did it answer the question?
-
-**One answer can be relevant but unfaithful.**
+| Context precision | did useful evidence rank high? | answer correctness |
+| Context recall | did needed evidence appear at all? | complete retrieval |
+| Faithfulness | did claims stay supported? | source authority |
+| Answer relevancy | did it address the question? | factual truth |
 
 <!--
 Slide ID: D2-M08-C2
@@ -862,6 +857,33 @@ Speaker notes:
 - Watch: Put the named artifact on screen and trace where its values came from. Improving_RAG_with_RAGAS:cell#13 is Task 2 of 6 — Generate the test set.
 - Then: Hand into “Metrics answer different diagnostic questions · Question”.
 Sources: [RAGAS paper](https://arxiv.org/abs/2309.15217); [RAGAS metrics documentation](https://docs.ragas.io/en/stable/concepts/metrics/); [Module 08 notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/08_SDG_RAGAS/Improving_RAG_with_RAGAS.ipynb); [Unit Testing Your Agents](https://soypetetech.substack.com/p/unit-testing-your-agents)
+-->
+---
+# One answer, three different verdicts
+
+The retrieved page says **"manager approval"**. The answer says **"automatic approval."**
+
+| Metric | Verdict |
+|---|---|
+| Context recall | **pass** — the right passage was retrieved |
+| Faithfulness | **fail** — the answer contradicts it |
+| Answer relevancy | **pass** — it did answer the question asked |
+
+An answer can be relevant and still be unfaithful. One score cannot tell you which.
+
+<!--
+Slide ID: D2-M08-C2E
+Module: [08 SDG and RAGAS](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/08_SDG_RAGAS/README.md)
+Instructor: Beric
+Type: core
+Minutes: 1
+Layout: 05 Two column
+Speaker notes:
+- Say: This is the case that justifies four metrics instead of one score.
+- Ask: Audience — which metric would a single "quality" number have hidden here? All three.
+- Watch: Relevancy and faithfulness disagree on the same answer, which is the whole argument for scoring them apart. Improving_RAG_with_RAGAS:cell#25 is Task 5 of 6 — Measure with RAGAS.
+- Then: A high score on the wrong metric is how a bad answer ships.
+Sources: [RAGAS metrics documentation](https://docs.ragas.io/en/stable/concepts/metrics/), [local RAGAS notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/08_SDG_RAGAS/Improving_RAG_with_RAGAS.ipynb)
 -->
 ---
 
