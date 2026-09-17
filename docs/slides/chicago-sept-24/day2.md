@@ -80,7 +80,7 @@ Layout: 05 Two column
 Speaker notes:
 - Say: A successful answer is not yet a test
 - Ask: What must be saved so another run can be compared fairly?
-- Watch: Groups identify input, expected behavior, and evidence in one case.
+- Watch: Groups identify input, expected behavior, and evidence in one case. Vibe_Checks_LLM_Judge:cell#12 is Task 2 of 9 — Write the vibe checks.
 - Then: Use the case to decide what the evaluator should inspect.
 Sources: [Module 04 notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/04_Vibe_Checks_and_Judges/Vibe_Checks_LLM_Judge.ipynb); [In Defense of Evals](https://www.sh-reya.com/blog/in-defense-ai-evals/).
 -->
@@ -107,7 +107,7 @@ Layout: 05 Two column 1
 Speaker notes:
 - Say: Diagnose the failure before selecting a score
 - Ask: Which row changes if the correct page never entered the prompt?
-- Watch: Learners separate retrieval failure from answer-generation failure.
+- Watch: Learners separate retrieval failure from answer-generation failure. Vibe_Checks_LLM_Judge:cell#9 is Task 1 of 9 — Write the rubric.
 - Then: Carry that distinction into the RAG pipeline.
 Sources: [Module 04 overview](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/04_Vibe_Checks_and_Judges/README.md); [RAGAS metrics](https://docs.ragas.io/en/stable/concepts/metrics/available_metrics/).
 -->
@@ -132,8 +132,8 @@ Layout: 06 Process steps
 Speaker notes:
 - Say: A judge applies a narrow rubric to a saved case
 - Ask: What would you check by hand before trusting the judge?
-- Watch: Learners name a reference, rubric, and disagreement case.
-- Then: Beric will show the trace and judge output in the notebook.
+- Watch: Learners name a reference, rubric, and disagreement case. Vibe_Checks_LLM_Judge:cell#25 is Task 5 of 9 — Build a strict judge.
+- Then: Show the trace and the judge output side by side in the notebook.
 Sources: [Module 04 notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/04_Vibe_Checks_and_Judges/Vibe_Checks_LLM_Judge.ipynb); [LLM-as-a-judge limitations](https://arxiv.org/abs/2306.05685).
 -->
 
@@ -159,7 +159,7 @@ Layout: 04 Icon cards
 Speaker notes:
 - Say: Every eval case should test a known uncertainty
 - Ask: Which failure would this case expose?
-- Watch: Learners connect each case to a failure hypothesis and artifact.
+- Watch: Learners connect each case to a failure hypothesis and artifact. Vibe_Checks_LLM_Judge:cell#12 is Task 2 of 9 — Write the vibe checks.
 - Then: Use the saved case in the judge demo.
 Sources: [Module 04 overview](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/04_Vibe_Checks_and_Judges/README.md); [Machine Learning Yearning](https://github.com/ajaymache/machine-learning-yearning/blob/master/full%20book/machine-learning-yearning.pdf).
 -->
@@ -180,8 +180,8 @@ Layout: 07 Big stats
 Speaker notes:
 - Say: Ask the question before revealing the answer
 - Ask: Which record lets you locate the failing step?
-- Watch: Listen for prompt, context, output, rubric, and version.
-- Then: Beric reveals the answer and connects it to the evals notebook.
+- Watch: Listen for prompt, context, output, rubric, and version. Dev_Environment:cell#16 is Task 3 of 8 — Initialise your workspace.
+- Then: Reveal the answer, then tie it to the evals notebook on screen.
 Sources: [Module 01 Dev Environment](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/01_Dev_Environment/README.md); [Machine Learning Yearning](https://github.com/ajaymache/machine-learning-yearning/blob/master/full%20book/machine-learning-yearning.pdf).
 -->
 ---
@@ -201,7 +201,7 @@ Layout: 08 Quote
 Speaker notes:
 - Say: Reveal the answer and why it matters
 - Ask: What would change if the answer were different?
-- Watch: Point to the visible evidence and the notebook artifact.
+- Watch: Point to the visible evidence and the notebook artifact. Dev_Environment:cell#16 is Task 3 of 8 — Initialise your workspace.
 - Then: Tie the answer to the notebook artifact before moving on.
 Sources: [Module 01 Dev Environment](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/01_Dev_Environment/README.md); [Machine Learning Yearning](https://github.com/ajaymache/machine-learning-yearning/blob/master/full%20book/machine-learning-yearning.pdf).
 -->
@@ -226,7 +226,7 @@ Layout: 06 Process steps
 Speaker notes:
 - Say: RAG is a question-to-evidence pipeline
 - Ask: At which arrow could the correct fact be lost?
-- Watch: Learners point to source coverage, retrieval, context use, or answer use.
+- Watch: Learners point to source coverage, retrieval, context use, or answer use. RAG_with_LangChain:cell#9 is Task 1 of 7 — See the gap.
 - Then: Define the preparation and per-question steps.
 Sources: [RAG](https://arxiv.org/abs/2005.11401); [Module 05 notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/05_RAG/RAG_with_LangChain.ipynb).
 -->
@@ -253,7 +253,7 @@ Layout: 06 Process steps 1
 Speaker notes:
 - Say: Separate index preparation from question-time retrieval
 - Ask: Which step happens once, and which repeats for every user question?
-- Watch: Learners distinguish chunks and embeddings from ranked context.
+- Watch: Learners distinguish chunks and embeddings from ranked context. RAG_with_LangChain:cell#17 is Task 3 of 7 — RAG from scratch.
 - Then: Show why changing k or the retriever changes the evidence.
 Sources: [Module 05 notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/05_RAG/RAG_with_LangChain.ipynb); [Context assembly notes](https://github.com/soypete/ctx-eng-book/blob/main/research/context-assembly-pipeline-patterns.md).
 -->
@@ -278,7 +278,7 @@ Layout: 04 Icon cards
 Speaker notes:
 - Say: Diagnose the gate before changing the system
 - Ask: If the page exists but never enters context, which gate failed?
-- Watch: Learners name a different remedy for each gate.
+- Watch: Learners name a different remedy for each gate. RAG_with_LangChain:cell#24 is Task 5 of 7 — Wire it into a chain.
 - Then: Use the gates to understand advanced retrieval.
 Sources: [RAG](https://arxiv.org/abs/2005.11401); [Module 05 overview](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/05_RAG/README.md).
 -->
@@ -299,8 +299,8 @@ Layout: 05 Two column 2
 Speaker notes:
 - Say: Make the failure location visible
 - Ask: Which observation would justify changing the retriever?
-- Watch: Learners use the table instead of treating every miss as a prompt problem.
-- Then: Eli reveals the answer and connects it to advanced retrieval.
+- Watch: Learners use the table instead of treating every miss as a prompt problem. RAG_with_LangChain:cell#24 is Task 5 of 7 — Wire it into a chain.
+- Then: Reveal the answer, then carry it into the advanced-retrieval ladder.
 Sources: [Module 05 notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/05_RAG/RAG_with_LangChain.ipynb); [RAG failure analysis](https://arxiv.org/abs/2005.11401).
 -->
 ---
@@ -320,7 +320,7 @@ Layout: 08 Quote
 Speaker notes:
 - Say: Reveal the answer and why it matters
 - Ask: What would change if the answer were different?
-- Watch: Point to the visible evidence and the notebook artifact.
+- Watch: Point to the visible evidence and the notebook artifact. RAG_with_LangChain:cell#24 is Task 5 of 7 — Wire it into a chain.
 - Then: Tie the answer to the notebook artifact before moving on.
 Sources: [Module 05 notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/05_RAG/RAG_with_LangChain.ipynb); [RAG failure analysis](https://arxiv.org/abs/2005.11401).
 -->
@@ -367,7 +367,7 @@ Layout: 05 Two column
 Speaker notes:
 - Say: Exact terms and related meanings need different signals
 - Ask: Which part of the question would dense retrieval risk blurring, and which part would BM25 preserve?
-- Watch: Retrieval_Ladder Task 2 prints dense and scratch/library BM25 orders for one question; compare the disagreement.
+- Watch: Retrieval_Ladder Task 2 prints dense and scratch/library BM25 orders for one question; compare the disagreement. Retrieval_Ladder:cell#9 is Task 1 of 5 — Label the evidence.
 - Then: A reranker is a later model that reads the question and candidate passage together to reorder a shortlist.
 Sources: [Dense Passage Retrieval](https://aclanthology.org/2020.emnlp-main.550/); [Lucene BM25Similarity](https://lucene.apache.org/core/9_12_1/core/org/apache/lucene/search/similarities/BM25Similarity.html); [local Retrieval Ladder notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/06_Advanced_Retrieval/Retrieval_Ladder.ipynb)
 -->
@@ -387,7 +387,7 @@ Layout: 04 Icon cards
 Speaker notes:
 - Say: Exact terms and related meanings need different signals
 - Ask: Which part of the question would dense retrieval risk blurring, and which part would BM25 preserve?
-- Watch: Retrieval_Ladder Task 2 prints dense and scratch/library BM25 orders for one question; compare the disagreement.
+- Watch: Retrieval_Ladder Task 2 prints dense and scratch/library BM25 orders for one question; compare the disagreement. Retrieval_Ladder:cell#9 is Task 1 of 5 — Label the evidence.
 - Then: Reveal the answer, then tie it to the notebook artifact on screen.
 Sources: [Dense Passage Retrieval](https://aclanthology.org/2020.emnlp-main.550/); [Lucene BM25Similarity](https://lucene.apache.org/core/9_12_1/core/org/apache/lucene/search/similarities/BM25Similarity.html); [local Retrieval Ladder notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/06_Advanced_Retrieval/Retrieval_Ladder.ipynb)
 -->
@@ -408,7 +408,7 @@ Layout: 08 Quote
 Speaker notes:
 - Say: Reveal the answer and why it matters
 - Ask: What would change if the answer were different?
-- Watch: Point to the visible evidence and the notebook artifact.
+- Watch: Point to the visible evidence and the notebook artifact. Retrieval_Ladder:cell#9 is Task 1 of 5 — Label the evidence.
 - Then: Tie the answer to the notebook artifact before moving on.
 Sources: [Dense Passage Retrieval](https://aclanthology.org/2020.emnlp-main.550/); [Lucene BM25Similarity](https://lucene.apache.org/core/9_12_1/core/org/apache/lucene/search/similarities/BM25Similarity.html); [local Retrieval Ladder notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/06_Advanced_Retrieval/Retrieval_Ladder.ipynb)
 -->
@@ -451,9 +451,9 @@ Type: core
 Minutes: 1
 Layout: 06 Process steps
 Speaker notes:
-- Say: Fuse ranks, then spend judgment carefully
+- Say: Fusion is cheap and mechanical. A reranker costs a model call per candidate — spend it last.
 - Ask: If the correct passage never enters the fused shortlist, can reranking recover it?
-- Watch: Retrieval_Ladder Task 3 prints the fused list and cross-encoder order; inspect how many candidates reach the reranker.
+- Watch: Retrieval_Ladder Task 3 prints the fused list and cross-encoder order; inspect how many candidates reach the reranker. Retrieval_Ladder:cell#12 is Task 2 of 5 — Dense and sparse.
 - Then: Carry the observation into the next exercise.
 Sources: [Reciprocal rank fusion paper](https://cormack.uwaterloo.ca/cormacksigir09-rrf.pdf); [local Retrieval Ladder notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/06_Advanced_Retrieval/Retrieval_Ladder.ipynb)
 -->
@@ -473,7 +473,7 @@ Layout: 05 Two column 2
 Speaker notes:
 - Say: Fuse ranks, then spend judgment carefully
 - Ask: If the correct passage never enters the fused shortlist, can reranking recover it?
-- Watch: Retrieval_Ladder Task 3 prints the fused list and cross-encoder order; inspect how many candidates reach the reranker.
+- Watch: Retrieval_Ladder Task 3 prints the fused list and cross-encoder order; inspect how many candidates reach the reranker. Retrieval_Ladder:cell#12 is Task 2 of 5 — Dense and sparse.
 - Then: Reveal the answer, then tie it to the notebook artifact on screen.
 Sources: [Reciprocal rank fusion paper](https://cormack.uwaterloo.ca/cormacksigir09-rrf.pdf); [local Retrieval Ladder notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/06_Advanced_Retrieval/Retrieval_Ladder.ipynb)
 -->
@@ -494,7 +494,7 @@ Layout: 08 Quote
 Speaker notes:
 - Say: Reveal the answer and why it matters
 - Ask: What would change if the answer were different?
-- Watch: Point to the visible evidence and the notebook artifact.
+- Watch: Point to the visible evidence and the notebook artifact. Retrieval_Ladder:cell#12 is Task 2 of 5 — Dense and sparse.
 - Then: Tie the answer to the notebook artifact before moving on.
 Sources: [Reciprocal rank fusion paper](https://cormack.uwaterloo.ca/cormacksigir09-rrf.pdf); [local Retrieval Ladder notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/06_Advanced_Retrieval/Retrieval_Ladder.ipynb)
 -->
@@ -516,10 +516,10 @@ Type: core
 Minutes: 1
 Layout: 06 Process steps 1
 Speaker notes:
-- Say: Ask the question more than once
+- Say: One phrasing finds one neighbourhood. Asking twice is how you find the pages a single query missed.
 - Ask: What evidence would show that a rewrite changed coverage rather than merely added duplicates?
-- Watch: Retrieval_Ladder Task 3 prints three rewrites and one list per retriever; compare per-case reciprocal ranks in Task 4.
-- Then: Use the answer to decide whether to clarify or continue.
+- Watch: Retrieval_Ladder Task 3 prints three rewrites and one list per retriever; compare per-case reciprocal ranks in Task 4. Retrieval_Ladder:cell#17 is Task 3 of 5 — Fuse, rerank, expand.
+- Then: Hand into “Ask the question more than once · Question”.
 Sources: [Iterative query generation for multi-hop QA](https://aclanthology.org/D19-1261/); [local Retrieval Ladder notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/06_Advanced_Retrieval/Retrieval_Ladder.ipynb)
 -->
 ---
@@ -538,7 +538,7 @@ Layout: 07 Big stats
 Speaker notes:
 - Say: Ask the question more than once
 - Ask: What evidence would show that a rewrite changed coverage rather than merely added duplicates?
-- Watch: Retrieval_Ladder Task 3 prints three rewrites and one list per retriever; compare per-case reciprocal ranks in Task 4.
+- Watch: Retrieval_Ladder Task 3 prints three rewrites and one list per retriever; compare per-case reciprocal ranks in Task 4. Retrieval_Ladder:cell#17 is Task 3 of 5 — Fuse, rerank, expand.
 - Then: Reveal the answer, then tie it to the notebook artifact on screen.
 Sources: [Iterative query generation for multi-hop QA](https://aclanthology.org/D19-1261/); [local Retrieval Ladder notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/06_Advanced_Retrieval/Retrieval_Ladder.ipynb)
 -->
@@ -559,7 +559,7 @@ Layout: 08 Quote
 Speaker notes:
 - Say: Reveal the answer and why it matters
 - Ask: What would change if the answer were different?
-- Watch: Point to the visible evidence and the notebook artifact.
+- Watch: Point to the visible evidence and the notebook artifact. Retrieval_Ladder:cell#17 is Task 3 of 5 — Fuse, rerank, expand.
 - Then: Tie the answer to the notebook artifact before moving on.
 Sources: [Iterative query generation for multi-hop QA](https://aclanthology.org/D19-1261/); [local Retrieval Ladder notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/06_Advanced_Retrieval/Retrieval_Ladder.ipynb)
 -->
@@ -589,10 +589,10 @@ Type: core
 Minutes: 1
 Layout: 07 Big stats
 Speaker notes:
-- Say: Choose the cheapest rung that clears the bar
+- Say: Every rung adds latency and a new way to be wrong. Add one only when the numbers demand it.
 - Ask: Which evidence would change your conclusion?
-- Watch: Retrieval_Ladder Task 4 prints hit rate, MRR, latency, and a per-case reciprocal-rank matrix; use the matrix to choose one rung.
-- Then: Use the answer to decide whether to clarify or continue.
+- Watch: Retrieval_Ladder Task 4 prints hit rate, MRR, latency, and a per-case reciprocal-rank matrix; use the matrix to choose one rung. Retrieval_Ladder:cell#22 is Task 4 of 5 — Score the ladder.
+- Then: Hand into “Choose the cheapest rung that clears the bar · Question”.
 Sources: [DPR retrieval formulation](https://aclanthology.org/2020.emnlp-main.550/); [local Retrieval Ladder notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/06_Advanced_Retrieval/Retrieval_Ladder.ipynb)
 -->
 ---
@@ -611,7 +611,7 @@ Layout: 09 Lab and code 2
 Speaker notes:
 - Say: Choose the cheapest rung that clears the bar
 - Ask: Which evidence would change your conclusion?
-- Watch: Retrieval_Ladder Task 4 prints hit rate, MRR, latency, and a per-case reciprocal-rank matrix; use the matrix to choose one rung.
+- Watch: Retrieval_Ladder Task 4 prints hit rate, MRR, latency, and a per-case reciprocal-rank matrix; use the matrix to choose one rung. Retrieval_Ladder:cell#22 is Task 4 of 5 — Score the ladder.
 - Then: Reveal the answer, then tie it to the notebook artifact on screen.
 Sources: [DPR retrieval formulation](https://aclanthology.org/2020.emnlp-main.550/); [local Retrieval Ladder notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/06_Advanced_Retrieval/Retrieval_Ladder.ipynb)
 -->
@@ -632,7 +632,7 @@ Layout: 08 Quote
 Speaker notes:
 - Say: Reveal the answer and why it matters
 - Ask: What would change if the answer were different?
-- Watch: Point to the visible evidence and the notebook artifact.
+- Watch: Point to the visible evidence and the notebook artifact. Retrieval_Ladder:cell#22 is Task 4 of 5 — Score the ladder.
 - Then: Tie the answer to the notebook artifact before moving on.
 Sources: [DPR retrieval formulation](https://aclanthology.org/2020.emnlp-main.550/); [local Retrieval Ladder notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/06_Advanced_Retrieval/Retrieval_Ladder.ipynb)
 -->
@@ -719,7 +719,7 @@ Type: optional
 Minutes: 0
 Layout: 08 Quote
 Speaker notes:
-- Say: Research: retrieval is a two-stage design
+- Say: Optional: retrieval is recall then precision — two stages with different jobs.
 - Ask: Which claim from the paper is about a benchmark setup rather than a guarantee for our corpus?
 - Watch: Alignment pending for optional research discussion; use the notebook’s dense-versus-BM25 comparison as the local bridge.
 - Then: Skip if time is short; offer as optional stretch or research.
@@ -757,7 +757,7 @@ Layout: 06 Process steps
 Speaker notes:
 - Say: Retrieval becomes an interface choice
 - Ask: What stays constant in the notebook comparison, and what is deliberately changed?
-- Watch: DCI_vs_Agentic_RAG setup defines both modes and keeps model, loop, questions, and scoring the same.
+- Watch: DCI_vs_Agentic_RAG setup defines both modes and keeps model, loop, questions, and scoring the same. DCI_vs_Agentic_RAG:cell#9 is Task 1 of 5 — Build the wiki.
 - Then: Carry the observation into the next exercise.
 Sources: [DCI research paper](https://arxiv.org/abs/2605.05242); [local DCI versus Agentic RAG notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/DCI_vs_Agentic_RAG.ipynb)
 -->
@@ -777,7 +777,7 @@ Layout: 04 Icon cards
 Speaker notes:
 - Say: Retrieval becomes an interface choice
 - Ask: What stays constant in the notebook comparison, and what is deliberately changed?
-- Watch: DCI_vs_Agentic_RAG setup defines both modes and keeps model, loop, questions, and scoring the same.
+- Watch: DCI_vs_Agentic_RAG setup defines both modes and keeps model, loop, questions, and scoring the same. DCI_vs_Agentic_RAG:cell#9 is Task 1 of 5 — Build the wiki.
 - Then: Reveal the answer, then tie it to the notebook artifact on screen.
 Sources: [DCI research paper](https://arxiv.org/abs/2605.05242); [local DCI versus Agentic RAG notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/DCI_vs_Agentic_RAG.ipynb)
 -->
@@ -798,7 +798,7 @@ Layout: 08 Quote
 Speaker notes:
 - Say: Reveal the answer and why it matters
 - Ask: What would change if the answer were different?
-- Watch: Point to the visible evidence and the notebook artifact.
+- Watch: Point to the visible evidence and the notebook artifact. DCI_vs_Agentic_RAG:cell#9 is Task 1 of 5 — Build the wiki.
 - Then: Tie the answer to the notebook artifact before moving on.
 Sources: [DCI research paper](https://arxiv.org/abs/2605.05242); [local DCI versus Agentic RAG notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/DCI_vs_Agentic_RAG.ipynb)
 -->
@@ -821,9 +821,9 @@ Type: core
 Minutes: 1
 Layout: 06 Process steps 1
 Speaker notes:
-- Say: Let the agent navigate a persistent map
+- Say: An index of what exists lets the agent choose before it reads, instead of reading to find out.
 - Ask: Why does DCI need a map before it receives a question?
-- Watch: Task 1 renders a wiki table; inspect whether each page has a distinct purpose and useful headings.
+- Watch: Task 1 renders a wiki table; inspect whether each page has a distinct purpose and useful headings. DCI_vs_Agentic_RAG:cell#12 is Task 2 of 5 — Two corpus interfaces.
 - Then: Carry the observation into the next exercise.
 Sources: [DCI research paper](https://arxiv.org/abs/2605.05242); [local DCI versus Agentic RAG notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/DCI_vs_Agentic_RAG.ipynb)
 -->
@@ -843,7 +843,7 @@ Layout: 05 Two column 2
 Speaker notes:
 - Say: Let the agent navigate a persistent map
 - Ask: Why does DCI need a map before it receives a question?
-- Watch: Task 1 renders a wiki table; inspect whether each page has a distinct purpose and useful headings.
+- Watch: Task 1 renders a wiki table; inspect whether each page has a distinct purpose and useful headings. DCI_vs_Agentic_RAG:cell#12 is Task 2 of 5 — Two corpus interfaces.
 - Then: Reveal the answer, then tie it to the notebook artifact on screen.
 Sources: [DCI research paper](https://arxiv.org/abs/2605.05242); [local DCI versus Agentic RAG notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/DCI_vs_Agentic_RAG.ipynb)
 -->
@@ -864,7 +864,7 @@ Layout: 08 Quote
 Speaker notes:
 - Say: Reveal the answer and why it matters
 - Ask: What would change if the answer were different?
-- Watch: Point to the visible evidence and the notebook artifact.
+- Watch: Point to the visible evidence and the notebook artifact. DCI_vs_Agentic_RAG:cell#12 is Task 2 of 5 — Two corpus interfaces.
 - Then: Tie the answer to the notebook artifact before moving on.
 Sources: [DCI research paper](https://arxiv.org/abs/2605.05242); [local DCI versus Agentic RAG notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/DCI_vs_Agentic_RAG.ipynb)
 -->
@@ -889,9 +889,9 @@ Type: core
 Minutes: 1
 Layout: 05 Two column 1
 Speaker notes:
-- Say: Compare traces, not just answers
+- Say: Two agents can reach the same answer by paths of very different quality.
 - Ask: What trace field distinguishes an evidence miss from a generation miss?
-- Watch: Tasks 4–5 print answer scores, named-page evidence, calls, characters, latency, and both traces.
+- Watch: Tasks 4–5 print answer scores, named-page evidence, calls, characters, latency, and both traces. DCI_vs_Agentic_RAG:cell#16 is Task 3 of 5 — One loop for both.
 - Then: Carry the observation into the next exercise.
 Sources: [DCI research paper](https://arxiv.org/abs/2605.05242); [local DCI versus Agentic RAG notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/DCI_vs_Agentic_RAG.ipynb)
 -->
@@ -911,7 +911,7 @@ Layout: 07 Big stats
 Speaker notes:
 - Say: Compare traces, not just answers
 - Ask: What trace field distinguishes an evidence miss from a generation miss?
-- Watch: Tasks 4–5 print answer scores, named-page evidence, calls, characters, latency, and both traces.
+- Watch: Tasks 4–5 print answer scores, named-page evidence, calls, characters, latency, and both traces. DCI_vs_Agentic_RAG:cell#16 is Task 3 of 5 — One loop for both.
 - Then: Reveal the answer, then tie it to the notebook artifact on screen.
 Sources: [DCI research paper](https://arxiv.org/abs/2605.05242); [local DCI versus Agentic RAG notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/DCI_vs_Agentic_RAG.ipynb)
 -->
@@ -932,7 +932,7 @@ Layout: 08 Quote
 Speaker notes:
 - Say: Reveal the answer and why it matters
 - Ask: What would change if the answer were different?
-- Watch: Point to the visible evidence and the notebook artifact.
+- Watch: Point to the visible evidence and the notebook artifact. DCI_vs_Agentic_RAG:cell#16 is Task 3 of 5 — One loop for both.
 - Then: Tie the answer to the notebook artifact before moving on.
 Sources: [DCI research paper](https://arxiv.org/abs/2605.05242); [local DCI versus Agentic RAG notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/DCI_vs_Agentic_RAG.ipynb)
 -->
@@ -954,10 +954,10 @@ Type: core
 Minutes: 1
 Layout: 05 Two column 2
 Speaker notes:
-- Say: Stop at the smallest safe interface
+- Say: More capability is more attack surface. Take the smallest interface that passes.
 - Ask: What must be checked before a DCI read_page call on a user transcript?
-- Watch: Task 2’s notebook question explicitly asks which tool could leak a transcript and what to check on the caller.
-- Then: Use the answer to decide whether to clarify or continue.
+- Watch: Task 2’s notebook question explicitly asks which tool could leak a transcript and what to check on the caller. DCI_vs_Agentic_RAG:cell#20 is Task 4 of 5 — Score every case.
+- Then: Hand into “Stop at the smallest safe interface · Question”.
 Sources: [DCI research paper](https://arxiv.org/abs/2605.05242); [local DCI versus Agentic RAG notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/DCI_vs_Agentic_RAG.ipynb)
 -->
 ---
@@ -976,7 +976,7 @@ Layout: 09 Lab and code 2
 Speaker notes:
 - Say: Stop at the smallest safe interface
 - Ask: What must be checked before a DCI read_page call on a user transcript?
-- Watch: Task 2’s notebook question explicitly asks which tool could leak a transcript and what to check on the caller.
+- Watch: Task 2’s notebook question explicitly asks which tool could leak a transcript and what to check on the caller. DCI_vs_Agentic_RAG:cell#20 is Task 4 of 5 — Score every case.
 - Then: Reveal the answer, then tie it to the notebook artifact on screen.
 Sources: [DCI research paper](https://arxiv.org/abs/2605.05242); [local DCI versus Agentic RAG notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/DCI_vs_Agentic_RAG.ipynb)
 -->
@@ -997,7 +997,7 @@ Layout: 08 Quote
 Speaker notes:
 - Say: Reveal the answer and why it matters
 - Ask: What would change if the answer were different?
-- Watch: Point to the visible evidence and the notebook artifact.
+- Watch: Point to the visible evidence and the notebook artifact. DCI_vs_Agentic_RAG:cell#20 is Task 4 of 5 — Score every case.
 - Then: Tie the answer to the notebook artifact before moving on.
 Sources: [DCI research paper](https://arxiv.org/abs/2605.05242); [local DCI versus Agentic RAG notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/DCI_vs_Agentic_RAG.ipynb)
 -->
@@ -1085,7 +1085,7 @@ Type: optional
 Minutes: 0
 Layout: 08 Quote
 Speaker notes:
-- Say: Research: direct corpus interaction widens the search interface
+- Say: Optional: giving the agent file-like access changes what it can discover, and what it can reach.
 - Ask: What evidence would falsify the claim that DCI is worth its extra calls for our questions?
 - Watch: Alignment is present through the notebook’s controlled two-mode comparison; no cohort score is assumed.
 - Then: Skip if time is short; offer as optional stretch or research.
@@ -1119,7 +1119,7 @@ Layout: 06 Process steps
 Speaker notes:
 - Say: Synthetic data makes failures testable
 - Ask: Which source artifact would let a reviewer reject a synthetic question as unsupported?
-- Watch: Put the named artifact on screen and trace where its values came from.
+- Watch: Put the named artifact on screen and trace where its values came from. Improving_RAG_with_RAGAS:cell#9 is Task 1 of 6 — A weak pipeline on purpose.
 - Then: Carry the observation into the next exercise.
 Sources: [Ragas testset generation](https://docs.ragas.io/en/stable/concepts/test_data_generation/rag/); [Module 08 notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/08_SDG_RAGAS/Improving_RAG_with_RAGAS.ipynb)
 -->
@@ -1139,7 +1139,7 @@ Layout: 04 Icon cards
 Speaker notes:
 - Say: Synthetic data makes failures testable
 - Ask: Which source artifact would let a reviewer reject a synthetic question as unsupported?
-- Watch: Put the named artifact on screen and trace where its values came from.
+- Watch: Put the named artifact on screen and trace where its values came from. Improving_RAG_with_RAGAS:cell#9 is Task 1 of 6 — A weak pipeline on purpose.
 - Then: Reveal the answer, then tie it to the notebook artifact on screen.
 Sources: [Ragas testset generation](https://docs.ragas.io/en/stable/concepts/test_data_generation/rag/); [Module 08 notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/08_SDG_RAGAS/Improving_RAG_with_RAGAS.ipynb)
 -->
@@ -1160,7 +1160,7 @@ Layout: 08 Quote
 Speaker notes:
 - Say: Reveal the answer and why it matters
 - Ask: What would change if the answer were different?
-- Watch: Point to the visible evidence and the notebook artifact.
+- Watch: Point to the visible evidence and the notebook artifact. Improving_RAG_with_RAGAS:cell#9 is Task 1 of 6 — A weak pipeline on purpose.
 - Then: Tie the answer to the notebook artifact before moving on.
 Sources: [Ragas testset generation](https://docs.ragas.io/en/stable/concepts/test_data_generation/rag/); [Module 08 notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/08_SDG_RAGAS/Improving_RAG_with_RAGAS.ipynb)
 -->
@@ -1190,10 +1190,10 @@ Type: core
 Minutes: 1
 Layout: 07 Big stats
 Speaker notes:
-- Say: Metrics answer different diagnostic questions
+- Say: Context recall and faithfulness fail for different reasons and demand different repairs.
 - Ask: If the correct passage is missing but the model says “I don’t know,” which retrieval lens is still failing?
-- Watch: Put the named artifact on screen and trace where its values came from.
-- Then: Use the answer to decide whether to clarify or continue.
+- Watch: Put the named artifact on screen and trace where its values came from. Improving_RAG_with_RAGAS:cell#13 is Task 2 of 6 — Generate the test set.
+- Then: Hand into “Metrics answer different diagnostic questions · Question”.
 Sources: [RAGAS paper](https://arxiv.org/abs/2309.15217); [RAGAS metrics documentation](https://docs.ragas.io/en/stable/concepts/metrics/); [Module 08 notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/08_SDG_RAGAS/Improving_RAG_with_RAGAS.ipynb); [Unit Testing Your Agents](https://soypetetech.substack.com/p/unit-testing-your-agents)
 -->
 ---
@@ -1212,7 +1212,7 @@ Layout: 05 Two column 2
 Speaker notes:
 - Say: Metrics answer different diagnostic questions
 - Ask: If the correct passage is missing but the model says “I don’t know,” which retrieval lens is still failing?
-- Watch: Put the named artifact on screen and trace where its values came from.
+- Watch: Put the named artifact on screen and trace where its values came from. Improving_RAG_with_RAGAS:cell#13 is Task 2 of 6 — Generate the test set.
 - Then: Reveal the answer, then tie it to the notebook artifact on screen.
 Sources: [RAGAS paper](https://arxiv.org/abs/2309.15217); [RAGAS metrics documentation](https://docs.ragas.io/en/stable/concepts/metrics/); [Module 08 notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/08_SDG_RAGAS/Improving_RAG_with_RAGAS.ipynb); [Unit Testing Your Agents](https://soypetetech.substack.com/p/unit-testing-your-agents)
 -->
@@ -1233,7 +1233,7 @@ Layout: 08 Quote
 Speaker notes:
 - Say: Reveal the answer and why it matters
 - Ask: What would change if the answer were different?
-- Watch: Point to the visible evidence and the notebook artifact.
+- Watch: Point to the visible evidence and the notebook artifact. Improving_RAG_with_RAGAS:cell#13 is Task 2 of 6 — Generate the test set.
 - Then: Tie the answer to the notebook artifact before moving on.
 Sources: [RAGAS paper](https://arxiv.org/abs/2309.15217); [RAGAS metrics documentation](https://docs.ragas.io/en/stable/concepts/metrics/); [Module 08 notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/08_SDG_RAGAS/Improving_RAG_with_RAGAS.ipynb); [Unit Testing Your Agents](https://soypetetech.substack.com/p/unit-testing-your-agents)
 -->
@@ -1255,9 +1255,9 @@ Type: core
 Minutes: 1
 Layout: 04 Icon cards
 Speaker notes:
-- Say: Review synthetic cases as measurement assets
+- Say: A generated test set is a measurement instrument. Review it before it gates anything.
 - Ask: Which dimension would expose a system that succeeds on polished questions but fails on terse error-code queries?
-- Watch: Module 08 notebook cue: inspect deduplication, schema validation, quoted-page checks, the datasheet, and the kept/removed counts.
+- Watch: Module 08 notebook cue: inspect deduplication, schema validation, quoted-page checks, the datasheet, and the kept/removed counts. Improving_RAG_with_RAGAS:cell#18 is Task 3 of 6 — Curate the test set before you trust it.
 - Then: Curate once, then compare two system versions on the same set.
 Sources: [RAGAS paper](https://arxiv.org/abs/2309.15217); [Ragas testset generation](https://docs.ragas.io/en/stable/concepts/test_data_generation/rag/); [Module 08 notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/08_SDG_RAGAS/Improving_RAG_with_RAGAS.ipynb)
 -->
@@ -1277,7 +1277,7 @@ Layout: 07 Big stats
 Speaker notes:
 - Say: Review synthetic cases as measurement assets
 - Ask: Which dimension would expose a system that succeeds on polished questions but fails on terse error-code queries?
-- Watch: Module 08 notebook cue: inspect deduplication, schema validation, quoted-page checks, the datasheet, and the kept/removed counts.
+- Watch: Module 08 notebook cue: inspect deduplication, schema validation, quoted-page checks, the datasheet, and the kept/removed counts. Improving_RAG_with_RAGAS:cell#18 is Task 3 of 6 — Curate the test set before you trust it.
 - Then: Reveal the answer, then tie it to the notebook artifact on screen.
 Sources: [RAGAS paper](https://arxiv.org/abs/2309.15217); [Ragas testset generation](https://docs.ragas.io/en/stable/concepts/test_data_generation/rag/); [Module 08 notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/08_SDG_RAGAS/Improving_RAG_with_RAGAS.ipynb)
 -->
@@ -1298,7 +1298,7 @@ Layout: 08 Quote
 Speaker notes:
 - Say: Reveal the answer and why it matters
 - Ask: What would change if the answer were different?
-- Watch: Point to the visible evidence and the notebook artifact.
+- Watch: Point to the visible evidence and the notebook artifact. Improving_RAG_with_RAGAS:cell#18 is Task 3 of 6 — Curate the test set before you trust it.
 - Then: Tie the answer to the notebook artifact before moving on.
 Sources: [RAGAS paper](https://arxiv.org/abs/2309.15217); [Ragas testset generation](https://docs.ragas.io/en/stable/concepts/test_data_generation/rag/); [Module 08 notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/08_SDG_RAGAS/Improving_RAG_with_RAGAS.ipynb)
 -->
@@ -1322,9 +1322,9 @@ Type: core
 Minutes: 1
 Layout: 05 Two column 3
 Speaker notes:
-- Say: Stop when the diagnosis is actionable
+- Say: Stop measuring when you know which component to change, not when the number looks good.
 - Ask: What would make you reject a high metric score before changing the system?
-- Watch: Put the named artifact on screen and trace where its values came from.
+- Watch: Put the named artifact on screen and trace where its values came from. Improving_RAG_with_RAGAS:cell#21 is Task 4 of 6 — Run the baseline over the test set.
 - Then: Carry the observation into the next exercise.
 Sources: [RAGAS paper](https://arxiv.org/abs/2309.15217); [RAGAS metrics documentation](https://docs.ragas.io/en/stable/concepts/metrics/); [Module 08 notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/08_SDG_RAGAS/Improving_RAG_with_RAGAS.ipynb)
 -->
@@ -1344,7 +1344,7 @@ Layout: 09 Lab and code 2
 Speaker notes:
 - Say: Stop when the diagnosis is actionable
 - Ask: What would make you reject a high metric score before changing the system?
-- Watch: Put the named artifact on screen and trace where its values came from.
+- Watch: Put the named artifact on screen and trace where its values came from. Improving_RAG_with_RAGAS:cell#21 is Task 4 of 6 — Run the baseline over the test set.
 - Then: Reveal the answer, then tie it to the notebook artifact on screen.
 Sources: [RAGAS paper](https://arxiv.org/abs/2309.15217); [RAGAS metrics documentation](https://docs.ragas.io/en/stable/concepts/metrics/); [Module 08 notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/08_SDG_RAGAS/Improving_RAG_with_RAGAS.ipynb)
 -->
@@ -1365,7 +1365,7 @@ Layout: 08 Quote
 Speaker notes:
 - Say: Reveal the answer and why it matters
 - Ask: What would change if the answer were different?
-- Watch: Point to the visible evidence and the notebook artifact.
+- Watch: Point to the visible evidence and the notebook artifact. Improving_RAG_with_RAGAS:cell#21 is Task 4 of 6 — Run the baseline over the test set.
 - Then: Tie the answer to the notebook artifact before moving on.
 Sources: [RAGAS paper](https://arxiv.org/abs/2309.15217); [RAGAS metrics documentation](https://docs.ragas.io/en/stable/concepts/metrics/); [Module 08 notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/08_SDG_RAGAS/Improving_RAG_with_RAGAS.ipynb)
 -->
@@ -1453,7 +1453,7 @@ Type: optional
 Minutes: 0
 Layout: 08 Quote
 Speaker notes:
-- Say: Research: RAG evaluation needs multiple lenses
+- Say: Optional: one score cannot separate a retrieval failure from a generation failure.
 - Ask: Which part of the RAG pipeline would remain invisible if we reported only answer relevancy?
 - Watch: Put the named artifact on screen and trace where its values came from.
 - Then: Skip if time is short; offer as optional stretch or research.

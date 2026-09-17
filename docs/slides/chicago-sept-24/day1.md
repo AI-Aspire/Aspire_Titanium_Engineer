@@ -47,10 +47,10 @@ Type: framing
 Minutes: 1
 Layout: 01 Title
 Speaker notes:
-- Say: Start with a question, not a technology
+- Say: Teams that start from a technology build something impressive that nobody asked for.
 - Ask: What decision would become easier if this question were answered well?
 - Watch: In the later charter exercise, write one user and one recurring question; do not fill in the group's choice here.
-- Then: Use the answer to decide whether to clarify or continue.
+- Then: Hand into “Define what a useful answer must contain”.
 Sources: [Concrete Idea Worksheet](https://corporate.aiaspire.ai/accenture/titanium/NA/agenda/cohort_2/Concrete_Idea_Worksheet.pdf); [Charter template](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/project/CHARTER.md).
 -->
 
@@ -75,7 +75,7 @@ Type: framing
 Minutes: 1
 Layout: 02 Agenda 1
 Speaker notes:
-- Say: Define what a useful answer must contain
+- Say: If you cannot say what a correct answer contains, you cannot tell a good demo from a lucky one.
 - Ask: Which part of the answer would let you detect that the procedure is stale?
 - Watch: During charter work, have the group write what a correct answer must contain for three questions.
 - Then: Carry the observation into the next exercise.
@@ -100,10 +100,10 @@ Type: framing
 Minutes: 1
 Layout: 05 Two column
 Speaker notes:
-- Say: Separate the task, the evidence, and the decision
+- Say: Most bad AI features blur these three, then cannot explain which part failed.
 - Ask: Which of the three changes when a policy is updated: the task, the evidence, or the decision owner?
 - Watch: Ask groups to put one changing fact and one accountable decision owner on their napkin sketch.
-- Then: Use the answer to decide whether to clarify or continue.
+- Then: Hand into “A prototype tests one uncertainty”.
 Sources: [Author's semantic-contract notes](https://github.com/soypete/ctx-eng-book/blob/main/research/semantic-contracts.md); [Course authoring principles](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/docs/AUTHORING.md).
 -->
 
@@ -125,10 +125,10 @@ Type: framing
 Minutes: 1
 Layout: 06 Process steps
 Speaker notes:
-- Say: A prototype tests one uncertainty
+- Say: A prototype that tests four things at once tells you nothing about any of them.
 - Ask: What result would make you abandon the current approach rather than add another feature?
 - Watch: In the charter, write two likely failures and how the group would notice each one.
-- Then: Use the answer to decide whether to clarify or continue.
+- Then: Hand into “PoC: prove the mechanism manually”.
 Sources: [Machine Learning Yearning](https://github.com/ajaymache/machine-learning-yearning/blob/master/full%20book/machine-learning-yearning.pdf); [Charter template](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/project/CHARTER.md).
 -->
 
@@ -150,7 +150,7 @@ Type: framing
 Minutes: 1
 Layout: 09 Lab and code
 Speaker notes:
-- Say: PoC: prove the mechanism manually
+- Say: Do it by hand first. If a person cannot do it with the data available, neither can a model.
 - Ask: Which manual step would you automate first, and what evidence would show that automation is safe?
 - Watch: Groups later build two prompt-only prototypes; keep the copied context and answer criteria visible for comparison.
 - Then: Carry the observation into the next exercise.
@@ -175,7 +175,7 @@ Type: framing
 Minutes: 1
 Layout: 05 Two column 1
 Speaker notes:
-- Say: A PoC exits with evidence, not enthusiasm
+- Say: The exit criterion is a recorded comparison, not a room that liked the demo.
 - Ask: What would make a prompt-only PoC a useful failure?
 - Watch: Groups should carry one comparison question and two likely failures into the prompt-pattern exercise.
 - Then: Compare the revision against the same criteria.
@@ -200,7 +200,7 @@ Type: framing
 Minutes: 1
 Layout: 05 Two column 2
 Speaker notes:
-- Say: MVP: one person completes one useful flow
+- Say: One person, one flow, end to end. Breadth is what you add after that works.
 - Ask: What is the smallest end-to-end flow your user could complete without a team member explaining the demo?
 - Watch: Groups should keep their first product boundary narrow enough to demonstrate in the pitch.
 - Then: Carry the observation into the next exercise.
@@ -225,10 +225,10 @@ Type: framing
 Minutes: 1
 Layout: 05 Two column 3
 Speaker notes:
-- Say: The MVP is one designed experience
+- Say: An MVP is a coherent experience, not a feature list with the rough edges left in.
 - Ask: What would count as a test drive for your proposed AI product?
 - Watch: In the napkin sketch, mark the one flow the group will show and the future options it will leave out.
-- Then: Use the answer to decide whether to clarify or continue.
+- Then: Hand into “Production is repeatable operation”.
 Sources: [The product-market fit framework](https://pmarchive.com/guide_to_startups_part4.html); [The LLM application stack](https://a16z.com/emerging-architectures-for-llm-applications/).
 -->
 
@@ -250,10 +250,10 @@ Type: framing
 Minutes: 1
 Layout: 07 Big stats
 Speaker notes:
-- Say: Production is repeatable operation
+- Say: Production is not a bigger prototype; it is the same task surviving variation you did not pick.
 - Ask: Which production responsibility would be missing if the demo only showed a successful answer?
 - Watch: Groups should name one quality risk and one person who would own the consequence of failure.
-- Then: Use the answer to decide whether to clarify or continue.
+- Then: Hand into “Production is the infrastructure around the car”.
 Sources: [Building effective agents](https://www.anthropic.com/engineering/building-effective-agents); [Module 01 production discussion](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/01_Dev_Environment/Dev_Environment.ipynb).
 -->
 
@@ -275,10 +275,10 @@ Type: framing
 Minutes: 1
 Layout: 06 Process steps 1
 Speaker notes:
-- Say: Production is the infrastructure around the car
+- Say: The model is the engine. Almost everything that makes it shippable is the car around it.
 - Ask: Which control would you need before allowing the assistant to change data rather than only suggest a next step?
 - Watch: Ask groups to circle one production concern their current PoC intentionally leaves unresolved.
-- Then: Use the answer to decide whether to clarify or continue.
+- Then: Hand into “The same build ladder applies to AI”.
 Sources: [The LLM application stack](https://a16z.com/emerging-architectures-for-llm-applications/); [Author's context-assembly notes](https://github.com/soypete/ctx-eng-book/blob/main/research/context-assembly-pipeline-patterns.md).
 -->
 
@@ -300,10 +300,10 @@ Type: framing
 Minutes: 1
 Layout: 04 Icon cards
 Speaker notes:
-- Say: The same build ladder applies to AI
+- Say: AI does not get its own ladder. The rungs are the same; only the failure modes are new.
 - Ask: Which new evidence—not which new component—would move your system to the next level?
 - Watch: Groups should label their proposed system as a PoC, MVP, or production target and state what evidence is still missing.
-- Then: Use the answer to decide whether to clarify or continue.
+- Then: Hand into “Day 1: answer one question, then earn complexity”.
 Sources: [The LLM application stack](https://a16z.com/emerging-architectures-for-llm-applications/); [Building effective agents](https://www.anthropic.com/engineering/building-effective-agents).
 -->
 
@@ -325,7 +325,7 @@ Type: framing
 Minutes: 1
 Layout: 02 Agenda
 Speaker notes:
-- Say: Day 1: answer one question, then earn complexity
+- Say: One question, answered well, beats four half-built capabilities at the Friday panel.
 - Ask: What is the first question your group will answer, and what evidence will tell you whether the prototype helped?
 - Watch: Carry the question, answer contract, and first failure hypothesis into the group charter.
 - Then: Carry the observation into the next exercise.
@@ -351,7 +351,7 @@ Layout: 02 Agenda 1
 Speaker notes:
 - Say: Four terms you will hear all week; this module is where three of them start.
 - Ask: Which of these four do you already use daily, and which is new?
-- Watch: Definitions are quoted from the course concept list; keep the same words in later modules rather than re-defining them.
+- Watch: Definitions are quoted from the course concept list; keep the same words in later modules rather than re-defining them. Dev_Environment:cell#9 is Task 1 of 8 — Know your two remotes.
 - Then: Move into the workspace slide; the loop slides follow.
 Sources: [Course concepts](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/docs/CONCEPTS.md); [Module 01 overview](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/01_Dev_Environment/README.md).
 -->
@@ -651,7 +651,7 @@ Layout: 06 Process steps
 Speaker notes:
 - Say: The repo keeps a history of the work, and `manifest.json` records which module wrote what, when.
 - Ask: If an answer changes, which part of the history would you inspect first?
-- Watch: The module README's header names what this notebook reads and writes: reads nothing, writes the manifest and the charter.
+- Watch: The module README's header names what this notebook reads and writes: reads nothing, writes the manifest and the charter. Dev_Environment:cell#16 is Task 3 of 8 — Initialise your workspace.
 - Then: Point out that an SME reviewer in Phase 3 can read the manifest and see the same thing.
 Sources: [Module 01 overview](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/01_Dev_Environment/README.md); [Module 01 notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/01_Dev_Environment/Dev_Environment.ipynb); [Artifact integrity rules](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/AGENTS.md).
 -->
@@ -674,7 +674,7 @@ Layout: 05 Two column 2
 Speaker notes:
 - Say: Your GitHub repo is itself a certification deliverable, so this history is graded.
 - Ask: Push past the first answer — most people say the results; the spec and the prompts are usually where the change actually is.
-- Watch: Show `project/CHARTER.md` and note that notebooks use the seed until its template marker is removed.
+- Watch: Show `project/CHARTER.md` and note that notebooks use the seed until its template marker is removed. Dev_Environment:cell#16 is Task 3 of 8 — Initialise your workspace.
 - Then: Leave the manifest on screen going into the fork slide — it is the evidence a reviewer reads.
 Sources: [Module 01 overview](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/01_Dev_Environment/README.md); [Charter template](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/project/CHARTER.md).
 -->
@@ -781,7 +781,7 @@ Layout: 07 Big stats
 Speaker notes:
 - Say: The branch name and the commit message are the two things a reviewer reads first.
 - Ask: Expect a split on the slide's question. The answer is no: committing records, reviewing is the pull request.
-- Watch: Before class, students were asked to read the last five commit messages on a repo they work in and mark which a reviewer could scan. Ask for one example.
+- Watch: Before class, students were asked to read the last five commit messages on a repo they work in and mark which a reviewer could scan. Ask for one example. Dev_Environment:cell#23 is Task 5 of 8 — Make the change.
 - Then: That split is the hand-off — the next slide is the pull request, where review actually happens.
 Sources: [Module 01 before-you-arrive](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/01_Dev_Environment/README.md); [GitHub flow](https://docs.github.com/en/get-started/using-github/github-flow).
 -->
@@ -923,7 +923,7 @@ Layout: 09 Lab and code 2
 Speaker notes:
 - Say: A reviewer needs the diff, the destination, and enough context to rerun the comparison.
 - Ask: Have one pair actually try it out loud for thirty seconds; the gaps surface fast.
-- Watch: Point at the diff, not the output. A green run with an unreviewed diff is the failure mode.
+- Watch: Point at the diff, not the output. A green run with an unreviewed diff is the failure mode. Dev_Environment:cell#26 is Task 6 of 8 — Review the diff, then commit.
 - Then: Keep the rule for the notebook: the AI editor types, you still read the diff before Task 6 commits it.
 Sources: [Module 01 notebook, Task 6](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/01_Dev_Environment/Dev_Environment.ipynb); [Keys and endpoints](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/00_Setup/keys.md).
 -->
@@ -1034,7 +1034,7 @@ Layout: 04 Icon cards
 Speaker notes:
 - Say: These three lines prevent most of the time the room would otherwise lose.
 - Ask: A notebook that worked an hour ago now fails with `ModuleNotFoundError`. What changed?
-- Watch: The answer is almost always that a bare `uv sync` or `uv run --group dev` removed an optional group. Fix: `make setup`, which keeps the groups already installed.
+- Watch: The answer is almost always that a bare `uv sync` or `uv run --group dev` removed an optional group. Fix: `make setup`, which keeps the groups already installed. Dev_Environment:cell#33 is Task 8 of 8 — Update the open pull request.
 - Then: For an intercepted host, the terminal works because the machine trusts the private CA, but a container will not — keep the CA file to hand.
 Sources: [Setup and troubleshooting](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/00_Setup/README.md); [Course concepts, setup traps](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/docs/CONCEPTS.md).
 -->
@@ -1139,7 +1139,7 @@ Type: optional
 Minutes: 0
 Layout: 04 Icon cards
 Speaker notes:
-- Say: Optional: make review a system property
+- Say: Branch protection is how you stop relying on everyone remembering to be careful.
 - Ask: Which failure would your current checks miss even if every check passed?
 - Watch: The notebook's Grow section (cell#41) pairs each thing done by hand today with what production does automatically: branch protection, required checks, `CODEOWNERS`, a bot that syncs forks.
 - Then: Skip if time is short; offer as optional stretch or research.
@@ -1238,10 +1238,10 @@ Type: core
 Minutes: 2
 Layout: 04 Icon cards
 Speaker notes:
-- Say: A prompt is the brief for one request
+- Say: Everything the model knows about this request has to be in the request.
 - Ask: What important fact would the model be forced to guess if it is not in the prompt?
-- Watch: Eli begins with the same question and shows how each prompt pattern changes the request.
-- Then: Use the answer to decide whether to clarify or continue.
+- Watch: Begin with one question and keep it fixed; each pattern changes only the request around it. Prompt_Patterns:cell#9 is Task 1.
+- Then: Hand into “Few-shot: show the behavior you want”.
 Sources: [Prompt patterns notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/02_Prompt_Patterns/Prompt_Patterns.ipynb).
 -->
 
@@ -1263,10 +1263,10 @@ Type: core
 Minutes: 2
 Layout: 08 Quote
 Speaker notes:
-- Say: Few-shot: show the behavior you want
+- Say: Two labelled examples teach a convention that no amount of description will.
 - Ask: What behavior would you demonstrate with an example rather than describe in another paragraph?
-- Watch: Eli compares a prompt with no examples against one with examples while holding the question and evidence constant.
-- Then: Use the answer to decide whether to clarify or continue.
+- Watch: Compare no-examples against two labelled examples, holding the question and evidence fixed — Prompt_Patterns:cell#13, Task 2.
+- Then: Hand into “Context supplies the facts the model cannot know”.
 Sources: [Few-shot learners, Brown et al., 2020](https://arxiv.org/abs/2005.14165); [Prompt patterns notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/02_Prompt_Patterns/Prompt_Patterns.ipynb).
 -->
 
@@ -1286,9 +1286,9 @@ Type: core
 Minutes: 2
 Layout: 05 Two column
 Speaker notes:
-- Say: Context supplies the facts the model cannot know
+- Say: The model has never read your charter. Whatever it needs, you supply.
 - Ask: What fact would the model otherwise have to guess?
-- Watch: Eli compares the same prompt with and without a supplied policy excerpt.
+- Watch: Same prompt with and without the pasted policy excerpt — Prompt_Patterns:cell#23, Task 5. This is the manual ancestor of RAG.
 - Then: Carry the observation into the next exercise.
 Sources: [Prompt patterns notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/02_Prompt_Patterns/Prompt_Patterns.ipynb); [The LLM application stack](https://a16z.com/emerging-architectures-for-llm-applications/).
 -->
@@ -1309,9 +1309,9 @@ Type: core
 Minutes: 2
 Layout: 05 Two column 1
 Speaker notes:
-- Say: Persona and format shape the answer
+- Say: Voice and shape are separable from truth — a well-formatted answer can still be wrong.
 - Ask: Which part of the prompt changes the reader, and which part changes the shape of the answer?
-- Watch: Eli compares persona and structured-output variants and checks factual content separately from voice and formatting.
+- Watch: Compare persona and structured-output variants; check factual content separately from voice — Prompt_Patterns:cell#9 (persona), cell#20 (schema).
 - Then: Carry the observation into the next exercise.
 Sources: [Prompt patterns notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/02_Prompt_Patterns/Prompt_Patterns.ipynb); [Author's semantic-contract notes](https://github.com/soypete/ctx-eng-book/blob/main/research/semantic-contracts.md).
 -->
@@ -1394,10 +1394,10 @@ Type: core
 Minutes: 2
 Layout: 06 Process steps
 Speaker notes:
-- Say: Chain of thought makes difficult work explicit
+- Say: Making the steps visible is what lets you check the work instead of trusting it.
 - Ask: Which step could you verify independently?
-- Watch: Eli compares a direct answer with a structured answer that exposes checkable work.
-- Then: Use the answer to decide whether to clarify or continue.
+- Watch: Compare a direct answer with one that exposes checkable steps — Prompt_Patterns:cell#17, the reasoning-budget task.
+- Then: Hand into “Spend a reasoning budget deliberately”.
 Sources: [Chain-of-thought prompting, Wei et al., 2022](https://arxiv.org/abs/2201.11903); [Prompt patterns notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/02_Prompt_Patterns/Prompt_Patterns.ipynb).
 -->
 
@@ -1446,9 +1446,9 @@ Type: core
 Minutes: 2
 Layout: 05 Two column 2
 Speaker notes:
-- Say: Self-refine changes the answer; meta-prompting changes the brief
+- Say: One loop improves the answer; the other improves the instructions. Different tools.
 - Ask: Did the revision improve the answer, the prompt, or both—and what evidence shows that?
-- Watch: Put the named artifact on screen and trace where its values came from.
+- Watch: Put the named artifact on screen and trace where its values came from. Prompt_Patterns:cell#31 is Task 7 of 7 — Meta-prompting.
 - Then: Compare the revision against the same criteria.
 Sources: [Self-Refine, Madaan et al., 2023](https://arxiv.org/abs/2303.17651); [Prompt patterns notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/02_Prompt_Patterns/Prompt_Patterns.ipynb).
 -->
@@ -1471,9 +1471,9 @@ Type: core
 Minutes: 1
 Layout: 09 Lab and code
 Speaker notes:
-- Say: Compare patterns like an experiment
+- Say: Hold the question fixed and change one thing, or you are collecting anecdotes.
 - Ask: If prompt B wins one case but loses another, what would you inspect before choosing it?
-- Watch: Put the named artifact on screen and trace where its values came from.
+- Watch: Put the named artifact on screen and trace where its values came from. Prompt_Patterns:cell#31 is Task 7 of 7 — Meta-prompting.
 - Then: If the next step depends on an observation or tool result, investigate an agent.
 Sources: [Prompt patterns Create/Grow](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/02_Prompt_Patterns/Prompt_Patterns.ipynb); [Simple workflows versus agents](https://www.anthropic.com/engineering/building-effective-agents).
 -->
@@ -1494,7 +1494,7 @@ Type: optional
 Minutes: 0
 Layout: 08 Quote
 Speaker notes:
-- Say: Optional: from examples to measured refinement
+- Say: Optional: this is where hand-tuned prompts give way to measured optimisation.
 - Ask: Which of these mechanisms would address your observed error, and which would not?
 - Watch: Optional reading, not an extra optimization module.
 - Then: Skip if time is short; offer as optional stretch or research.
@@ -1551,7 +1551,7 @@ Layout: 06 Process steps
 Speaker notes:
 - Say: You just spent thirty minutes on prompting. This is what prompting cannot do, and why the next thing is a loop.
 - Ask: Module 02's best prompt still cannot answer "what does our charter say about refunds". What is missing — better reasoning, or access?
-- Watch: Chain of thought made the model's reasoning explicit and measurably better on hard tasks, but a reasoning step cannot retrieve a fact the model was never given. Toolformer showed models can learn to call an API mid-generation — that is the "why agents" moment. The difference here: Toolformer trained tool calls into the weights; we keep tools in code, so the harness can authorize, budget, and log every call.
+- Watch: Chain of thought made the model's reasoning explicit and measurably better on hard tasks, but a reasoning step cannot retrieve a fact the model was never given. Toolformer showed models can learn to call an API mid-generation — that is the "why agents" moment. The difference here: Toolformer trained tool calls into the weights; we keep tools in code, so the harness can authorize, budget, and log every call. Agent_Harness:cell#9 is Task 1 of 6 — Give the agent something to look up.
 - Then: Hand into the loop diagram — the amber GOVERN box is the next slide, drawn in detail.
 Sources: [Chain-of-thought prompting, Wei et al., 2022](https://arxiv.org/abs/2201.11903); [Toolformer, Schick et al., 2023](https://arxiv.org/abs/2302.04761); [Building effective agents](https://www.anthropic.com/engineering/building-effective-agents).
 -->
@@ -1607,9 +1607,9 @@ Type: core
 Minutes: 2
 Layout: 06 Process steps
 Speaker notes:
-- Say: A model answers; an agent can choose a next step
+- Say: The loop is yours. The model only proposes; your code decides.
 - Ask: Which box actually runs a tool, and which box decides whether it is allowed?
-- Watch: In Beric's trace, locate the model message requesting a tool, the tool result, and the subsequent model response.
+- Watch: In the streamed trace, locate the model message requesting a tool, the tool result, and the model's response to it — Agent_Harness:cell#21, Task 4.
 - Then: Carry the observation into the next exercise.
 Sources: [Agent harness notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/03_Agents_101/Agent_Harness.ipynb); [Workflow and agent definitions](https://www.anthropic.com/engineering/building-effective-agents).
 -->
@@ -1631,7 +1631,7 @@ Layout: 04 Icon cards
 Speaker notes:
 - Say: A model answers; an agent can choose a next step
 - Ask: Put the slide's question to the room first and wait; the answer below is the one to land, not to read out.
-- Watch: In Beric's trace, locate the model message requesting a tool, the tool result, and the subsequent model response.
+- Watch: In the streamed trace, locate the model message requesting a tool, the tool result, and the model's response to it — Agent_Harness:cell#21, Task 4.
 - Then: If you cannot point at the tool request in the trace, you have a model, not an agent.
 Sources: [Agent harness notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/03_Agents_101/Agent_Harness.ipynb); [Workflow and agent definitions](https://www.anthropic.com/engineering/building-effective-agents).
 -->
@@ -1653,9 +1653,9 @@ Type: core
 Minutes: 2
 Layout: 04 Icon cards
 Speaker notes:
-- Say: Tools give the loop controlled capabilities
+- Say: A tool is a contract you publish, and the model sees nothing but that contract.
 - Ask: If a retrieved page says “ignore your rules,” does that change the tool's permissions?
-- Watch: Inspect how precise tool descriptions affect tool selection; do not equate making a tool call with making the correct call.
+- Watch: Inspect how precise tool descriptions affect tool selection; do not equate making a tool call with making the correct call. Agent_Harness:cell#16 is Task 3 of 6 — Ask questions your users would ask.
 - Then: Carry the observation into the next exercise.
 Sources: [ReAct, Yao et al., 2022](https://arxiv.org/abs/2210.03629); [Agent harness tools](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/03_Agents_101/Agent_Harness.ipynb).
 -->
@@ -1677,7 +1677,7 @@ Layout: 05 Two column 2
 Speaker notes:
 - Say: Tools give the loop controlled capabilities
 - Ask: Put the slide's question to the room first and wait; the answer below is the one to land, not to read out.
-- Watch: Inspect how precise tool descriptions affect tool selection; do not equate making a tool call with making the correct call.
+- Watch: Inspect how precise tool descriptions affect tool selection; do not equate making a tool call with making the correct call. Agent_Harness:cell#16 is Task 3 of 6 — Ask questions your users would ask.
 - Then: Fix the tool contract before you touch the prompt — the description is all the model sees.
 Sources: [ReAct, Yao et al., 2022](https://arxiv.org/abs/2210.03629); [Agent harness tools](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/03_Agents_101/Agent_Harness.ipynb).
 -->
@@ -1699,9 +1699,9 @@ Type: core
 Minutes: 2
 Layout: 06 Process steps 1
 Speaker notes:
-- Say: The harness owns the loop's boundaries
+- Say: Limits, budgets, and exits belong to the harness — the model cannot enforce its own.
 - Ask: What should the user receive when the budget ends before the task is complete?
-- Watch: Watch middleware messages and the enforced limit; inspect the saved transcript rather than only the final answer.
+- Watch: Watch middleware messages and the enforced limit; inspect the saved transcript rather than only the final answer. Agent_Harness:cell#21 is Task 4 of 6 — Watch the loop, step by step.
 - Then: Carry the observation into the next exercise.
 Sources: [Agent harness limits and trace](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/03_Agents_101/Agent_Harness.ipynb); [Effective harnesses for long-running agents](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents).
 -->
@@ -1723,7 +1723,7 @@ Layout: 07 Big stats
 Speaker notes:
 - Say: The harness owns the loop's boundaries
 - Ask: Put the slide's question to the room first and wait; the answer below is the one to land, not to read out.
-- Watch: Watch middleware messages and the enforced limit; inspect the saved transcript rather than only the final answer.
+- Watch: Watch middleware messages and the enforced limit; inspect the saved transcript rather than only the final answer. Agent_Harness:cell#21 is Task 4 of 6 — Watch the loop, step by step.
 - Then: A limit only counts if the transcript shows it firing. Untested limits are decoration.
 Sources: [Agent harness limits and trace](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/03_Agents_101/Agent_Harness.ipynb); [Effective harnesses for long-running agents](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents).
 -->
@@ -1745,9 +1745,9 @@ Type: core
 Minutes: 2
 Layout: 05 Two column 3
 Speaker notes:
-- Say: Autonomy needs a reason and a stopping rule
+- Say: Autonomy without a stopping rule is just an unbounded bill and an unread trace.
 - Ask: What observation would change the next step in your proposed loop?
-- Watch: Compare in-scope, human-needed, and out-of-scope questions. Check whether tool behavior matches the scope before praising fluency.
+- Watch: Compare in-scope, human-needed, and out-of-scope questions. Check whether tool behavior matches the scope before praising fluency. Agent_Harness:cell#24 is Task 5 of 6 — Add middleware.
 - Then: A diagnosis needing an initial symptom, a search, and a follow-up question may benefit from adaptation.
 Sources: [Agent harness Create/Grow](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/03_Agents_101/Agent_Harness.ipynb); [Building effective agents](https://www.anthropic.com/engineering/building-effective-agents).
 -->
@@ -1769,7 +1769,7 @@ Layout: 09 Lab and code 2
 Speaker notes:
 - Say: Autonomy needs a reason and a stopping rule
 - Ask: Put the slide's question to the room first and wait; the answer below is the one to land, not to read out.
-- Watch: Compare in-scope, human-needed, and out-of-scope questions. Check whether tool behavior matches the scope before praising fluency.
+- Watch: Compare in-scope, human-needed, and out-of-scope questions. Check whether tool behavior matches the scope before praising fluency. Agent_Harness:cell#24 is Task 5 of 6 — Add middleware.
 - Then: Give the loop a stopping rule before you give it autonomy.
 Sources: [Agent harness Create/Grow](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/03_Agents_101/Agent_Harness.ipynb); [Building effective agents](https://www.anthropic.com/engineering/building-effective-agents).
 -->
@@ -1826,7 +1826,7 @@ Layout: 06 Process steps
 Speaker notes:
 - Say: "Agent" is the loop in the middle. "Agentic system" is the loop plus the four things around it — and the rest of the week is those four boxes.
 - Ask: Which box does your prototype not have yet, and what breaks first without it?
-- Watch: Name the module under each box so the week has a shape. Today builds only the purple box; by Friday a defensible system has all five, or a stated reason one is missing.
+- Watch: Name the module under each box so the week has a shape. Today builds only the purple box; by Friday a defensible system has all five, or a stated reason one is missing. Agent_Harness:cell#28 is Task 6 of 6 — Save the transcripts.
 - Then: The group block asks you to draw your own version of this. Use this as the frame, not the answer — your boxes will differ.
 Sources: [Building effective agents](https://www.anthropic.com/engineering/building-effective-agents); [Module 03 overview](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/03_Agents_101/README.md); [Course concepts](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/docs/CONCEPTS.md).
 -->
@@ -1847,7 +1847,7 @@ Type: optional
 Minutes: 0
 Layout: 08 Quote
 Speaker notes:
-- Say: Optional: action loops need more than fluent reasoning
+- Say: Optional: fluent reasoning is not the same as reliable action over many steps.
 - Ask: After an interruption, which evidence would make a retry safe?
 - Watch: Optional research only; the first harness does not implement full production recovery.
 - Then: Skip if time is short; offer as optional stretch or research.
@@ -1871,9 +1871,9 @@ Type: core
 Minutes: 2
 Layout: 04 Icon cards
 Speaker notes:
-- Say: “Looks good” is the start of a test, not the result
+- Say: “Looks good” is a hypothesis. Everything after this slide is how you test it.
 - Ask: Could two reviewers reasonably disagree about the word “helpful” in your rubric?
-- Watch: Beric starts with rubric definitions and hand-scored transcripts before introducing the automated judge.
+- Watch: Start from rubric definitions and hand-scored transcripts, before any automated judge — Vibe_Checks_LLM_Judge:cell#9 (rubric), cell#16 (judge by hand first).
 - Then: For the support question, “clear answer” and “correct permitted next step” are different requirements.
 Sources: [Vibe checks and judges notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/04_Vibe_Checks_and_Judges/Vibe_Checks_LLM_Judge.ipynb); [LLM judge study, Zheng et al., 2023](https://arxiv.org/abs/2306.05685).
 -->
@@ -1895,7 +1895,7 @@ Layout: 04 Icon cards
 Speaker notes:
 - Say: “Looks good” is the start of a test, not the result
 - Ask: Put the slide's question to the room first and wait; the answer below is the one to land, not to read out.
-- Watch: Beric starts with rubric definitions and hand-scored transcripts before introducing the automated judge.
+- Watch: Start from rubric definitions and hand-scored transcripts, before any automated judge — Vibe_Checks_LLM_Judge:cell#9 (rubric), cell#16 (judge by hand first).
 - Then: Write the rubric before the judge. Hand-score first, or you cannot tell if the judge is wrong.
 Sources: [Vibe checks and judges notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/04_Vibe_Checks_and_Judges/Vibe_Checks_LLM_Judge.ipynb); [LLM judge study, Zheng et al., 2023](https://arxiv.org/abs/2306.05685).
 -->
@@ -1968,10 +1968,10 @@ Type: core
 Minutes: 2
 Layout: 05 Two column
 Speaker notes:
-- Say: A judge is another model with a narrow job
+- Say: The judge is not an authority. It is an instrument, and you calibrate it first.
 - Ask: What is the difference between a valid score and a justified score?
-- Watch: Inspect the strict judge's error handling and compare its rationale with a hand verdict on the same transcript.
-- Then: Use the answer to decide whether to clarify or continue.
+- Watch: Inspect the strict judge's error handling and compare its rationale with a hand verdict on the same transcript. Vibe_Checks_LLM_Judge:cell#25 is Task 5 of 9 — Build a strict judge.
+- Then: Hand into “Read the judge's reasoning, not its number”.
 Sources: [Judging LLM-as-a-Judge](https://arxiv.org/abs/2306.05685); [Strict judge implementation](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/04_Vibe_Checks_and_Judges/Vibe_Checks_LLM_Judge.ipynb).
 -->
 
@@ -1992,7 +1992,7 @@ Layout: 05 Two column 2
 Speaker notes:
 - Say: A judge is another model with a narrow job
 - Ask: Put the slide's question to the room first and wait; the answer below is the one to land, not to read out.
-- Watch: Inspect the strict judge's error handling and compare its rationale with a hand verdict on the same transcript.
+- Watch: Inspect the strict judge's error handling and compare its rationale with a hand verdict on the same transcript. Vibe_Checks_LLM_Judge:cell#25 is Task 5 of 9 — Build a strict judge.
 - Then: Pin the judge's temperature and read its rationale, not just its number.
 Sources: [Judging LLM-as-a-Judge](https://arxiv.org/abs/2306.05685); [Strict judge implementation](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/04_Vibe_Checks_and_Judges/Vibe_Checks_LLM_Judge.ipynb).
 -->
@@ -2014,9 +2014,9 @@ Type: core
 Minutes: 2
 Layout: 04 Icon cards 1
 Speaker notes:
-- Say: An answer can be clear, useful, and wrong
+- Say: Fluency and correctness are independent. Score them apart or you conflate them.
 - Ask: Can an answer faithfully repeat an outdated procedure and still fail the user's task?
-- Watch: Inspect the separate judge columns and their rationales; identify which dimension explains a disagreement.
+- Watch: Inspect the separate judge columns and their rationales; identify which dimension explains a disagreement. Vibe_Checks_LLM_Judge:cell#28 is Task 6 of 9 — Three judges that measure different things.
 - Then: Carry the observation into the next exercise.
 Sources: [Three judge dimensions](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/04_Vibe_Checks_and_Judges/Vibe_Checks_LLM_Judge.ipynb); [Ragas faithfulness definition](https://docs.ragas.io/en/stable/concepts/metrics/available_metrics/faithfulness/).
 -->
@@ -2038,7 +2038,7 @@ Layout: 07 Big stats
 Speaker notes:
 - Say: An answer can be clear, useful, and wrong
 - Ask: Put the slide's question to the room first and wait; the answer below is the one to land, not to read out.
-- Watch: Inspect the separate judge columns and their rationales; identify which dimension explains a disagreement.
+- Watch: Inspect the separate judge columns and their rationales; identify which dimension explains a disagreement. Vibe_Checks_LLM_Judge:cell#28 is Task 6 of 9 — Three judges that measure different things.
 - Then: Score the dimensions separately, or a fluent wrong answer scores as a right one.
 Sources: [Three judge dimensions](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/04_Vibe_Checks_and_Judges/Vibe_Checks_LLM_Judge.ipynb); [Ragas faithfulness definition](https://docs.ragas.io/en/stable/concepts/metrics/available_metrics/faithfulness/).
 -->
@@ -2060,10 +2060,10 @@ Type: core
 Minutes: 2
 Layout: 06 Process steps
 Speaker notes:
-- Say: Disagreement tells you where to investigate
+- Say: Where graders disagree is where your rubric is ambiguous, not where the model is bad.
 - Ask: What would make you distrust the judge rather than change the answer?
-- Watch: Read the highest-disagreement row in the heatmap and explain the evidence. Do not replace an observed failure with a guessed score.
-- Then: Use the answer to decide whether to clarify or continue.
+- Watch: Read the highest-disagreement row in the heatmap and explain the evidence. Do not replace an observed failure with a guessed score. Vibe_Checks_LLM_Judge:cell#35 is Task 8 of 9 — Find disagreement, not a winner.
+- Then: Hand into “Follow the disagreement”.
 Sources: [Disagreement analysis and responsible controls](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/04_Vibe_Checks_and_Judges/Vibe_Checks_LLM_Judge.ipynb); [LLM judge limitations](https://arxiv.org/abs/2306.05685).
 -->
 
@@ -2084,7 +2084,7 @@ Layout: 09 Lab and code 2
 Speaker notes:
 - Say: Disagreement tells you where to investigate
 - Ask: Put the slide's question to the room first and wait; the answer below is the one to land, not to read out.
-- Watch: Read the highest-disagreement row in the heatmap and explain the evidence. Do not replace an observed failure with a guessed score.
+- Watch: Read the highest-disagreement row in the heatmap and explain the evidence. Do not replace an observed failure with a guessed score. Vibe_Checks_LLM_Judge:cell#35 is Task 8 of 9 — Find disagreement, not a winner.
 - Then: Investigate where graders disagree; that row is where the rubric is unclear.
 Sources: [Disagreement analysis and responsible controls](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/04_Vibe_Checks_and_Judges/Vibe_Checks_LLM_Judge.ipynb); [LLM judge limitations](https://arxiv.org/abs/2306.05685).
 -->
@@ -2106,7 +2106,7 @@ Type: optional
 Minutes: 0
 Layout: 08 Quote
 Speaker notes:
-- Say: Optional: calibrate the measuring instrument
+- Say: Optional: before you trust the measurement, measure the measurement.
 - Ask: How would you detect a bias that both model judges share?
 - Watch: Optional reading; no new evaluation-framework lab is required.
 - Then: Skip if time is short; offer as optional stretch or research.
@@ -2130,9 +2130,9 @@ Type: core
 Minutes: 2
 Layout: 05 Two column
 Speaker notes:
-- Say: A direct question needs accessible evidence
+- Say: Retrieval is not a feature. It is what you reach for when the model lacks the facts.
 - Ask: If the source is wrong, what can retrieval actually improve?
-- Watch: Put the named artifact on screen and trace where its values came from.
+- Watch: Put the named artifact on screen and trace where its values came from. RAG_with_LangChain:cell#9 is Task 1 of 7 — See the gap.
 - Then: Today's notebook uses a practical retrieve-then-prompt pipeline, not a reproduction of the paper's training method.
 Sources: [RAG, Lewis et al., 2020](https://arxiv.org/abs/2005.11401); [RAG notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/05_RAG/RAG_with_LangChain.ipynb).
 -->
@@ -2154,7 +2154,7 @@ Layout: 04 Icon cards
 Speaker notes:
 - Say: A direct question needs accessible evidence
 - Ask: Put the slide's question to the room first and wait; the answer below is the one to land, not to read out.
-- Watch: Ask the same question with and without retrieved context; read the evidence rather than assuming the second answer is better.
+- Watch: Ask the same question with and without retrieved context; read the evidence rather than assuming the second answer is better. RAG_with_LangChain:cell#9 is Task 1 of 7 — See the gap.
 - Then: Retrieval earns its place only when the evidence changes the answer.
 Sources: [RAG, Lewis et al., 2020](https://arxiv.org/abs/2005.11401); [RAG notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/05_RAG/RAG_with_LangChain.ipynb).
 -->
@@ -2176,9 +2176,9 @@ Type: core
 Minutes: 2
 Layout: 06 Process steps
 Speaker notes:
-- Say: Prepare the library, then search it for each question
+- Say: Indexing happens once; searching happens per question. Confusing them costs money.
 - Ask: Which step changes the stored index, and which step happens for every question?
-- Watch: Locate chunk creation, ranking, and context assembly before the library version; explain what each library component replaces.
+- Watch: Locate chunk creation, ranking, and context assembly before the library version; explain what each library component replaces. RAG_with_LangChain:cell#17 is Task 3 of 7 — RAG from scratch.
 - Then: Carry the observation into the next exercise.
 Sources: [RAG from scratch and library pipeline](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/05_RAG/RAG_with_LangChain.ipynb); [Author's context-assembly notes](https://github.com/soypete/ctx-eng-book/blob/main/research/context-assembly-pipeline-patterns.md).
 -->
@@ -2242,7 +2242,7 @@ Layout: 05 Two column 2
 Speaker notes:
 - Say: Prepare the library, then search it for each question
 - Ask: Put the slide's question to the room first and wait; the answer below is the one to land, not to read out.
-- Watch: Locate chunk creation, ranking, and context assembly before the library version; explain what each library component replaces.
+- Watch: Locate chunk creation, ranking, and context assembly before the library version; explain what each library component replaces. RAG_with_LangChain:cell#20 is Task 4 of 7 — The same pipeline in LangChain.
 - Then: Read the assembled context before blaming the model for the answer.
 Sources: [RAG from scratch and library pipeline](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/05_RAG/RAG_with_LangChain.ipynb); [Author's context-assembly notes](https://github.com/soypete/ctx-eng-book/blob/main/research/context-assembly-pipeline-patterns.md).
 -->
@@ -2264,9 +2264,9 @@ Type: core
 Minutes: 2
 Layout: 04 Icon cards 2
 Speaker notes:
-- Say: Diagnose the missing evidence before the answer
+- Say: When the answer is wrong, look at the evidence it was given before blaming the model.
 - Ask: Which component should change if the answer-bearing passage never reaches the prompt?
-- Watch: Compare two k settings on the same question and inspect actual chunks. Keep baseline contexts with each answer.
+- Watch: Compare two k settings on the same question and inspect actual chunks. Keep baseline contexts with each answer. RAG_with_LangChain:cell#28 is Task 6 of 7 — Retrieval quality is a dial.
 - Then: The lab stores questions, answers, and contexts together so later checks can identify the failure stage.
 Sources: [RAG setup, top-k comparison, saved baseline](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/05_RAG/RAG_with_LangChain.ipynb); [RAG artifact contract](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/05_RAG/README.md).
 -->
@@ -2288,7 +2288,7 @@ Layout: 07 Big stats
 Speaker notes:
 - Say: Diagnose the missing evidence before the answer
 - Ask: Put the slide's question to the room first and wait; the answer below is the one to land, not to read out.
-- Watch: Compare two k settings on the same question and inspect actual chunks. Keep baseline contexts with each answer.
+- Watch: Compare two k settings on the same question and inspect actual chunks. Keep baseline contexts with each answer. RAG_with_LangChain:cell#28 is Task 6 of 7 — Retrieval quality is a dial.
 - Then: Repair retrieval before you rewrite the prompt.
 Sources: [RAG setup, top-k comparison, saved baseline](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/05_RAG/RAG_with_LangChain.ipynb); [RAG artifact contract](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/05_RAG/README.md).
 -->
@@ -2310,10 +2310,10 @@ Type: core
 Minutes: 2
 Layout: 06 Process steps 1
 Speaker notes:
-- Say: Agentic retrieval changes the search strategy
+- Say: Letting the agent choose how to search is a different design, with different failures.
 - Ask: What evidence would justify a second search instead of a final answer or clarification?
-- Watch: Establish the fixed baseline first. Save its failures so later retrieval approaches have a fair comparison.
-- Then: Use the answer to decide whether to clarify or continue.
+- Watch: Establish the fixed baseline first. Save its failures so later retrieval approaches have a fair comparison. RAG_with_LangChain:cell#20 is Task 4 of 7 — The same pipeline in LangChain.
+- Then: Hand into “Save the baseline's failures”.
 Sources: [RAG baseline](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/05_RAG/RAG_with_LangChain.ipynb); [Agentic retrieval comparison](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/DCI_vs_Agentic_RAG.ipynb); [RAG versus long-context study](https://arxiv.org/abs/2407.16833).
 -->
 
@@ -2334,7 +2334,7 @@ Layout: 09 Lab and code 2
 Speaker notes:
 - Say: Agentic retrieval changes the search strategy
 - Ask: Put the slide's question to the room first and wait; the answer below is the one to land, not to read out.
-- Watch: Establish the fixed baseline first. Save its failures so later retrieval approaches have a fair comparison.
+- Watch: Establish the fixed baseline first. Save its failures so later retrieval approaches have a fair comparison. RAG_with_LangChain:cell#20 is Task 4 of 7 — The same pipeline in LangChain.
 - Then: Save the baseline's failures now; they are what later retrieval has to beat.
 Sources: [RAG baseline](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/05_RAG/RAG_with_LangChain.ipynb); [Agentic retrieval comparison](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/DCI_vs_Agentic_RAG.ipynb); [RAG versus long-context study](https://arxiv.org/abs/2407.16833).
 -->
@@ -2356,7 +2356,7 @@ Type: optional
 Minutes: 0
 Layout: 05 Two column 3
 Speaker notes:
-- Say: Optional: retrieval is a design space, not a slogan
+- Say: Optional: retrieval is a set of trade-offs you measure, not a box you tick.
 - Ask: Which assumptions would you need to match before applying a paper's result to your system?
 - Watch: Optional research; the required exercise remains the fixed RAG baseline.
 - Then: Skip if time is short; offer as optional stretch or research.

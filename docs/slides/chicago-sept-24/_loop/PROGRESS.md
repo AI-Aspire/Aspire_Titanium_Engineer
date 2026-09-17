@@ -196,3 +196,45 @@ styled `<pre>`, and converts markdown tables to real `<table>` elements.
 from the decks, with zero escaped SVG: 13 live diagrams, 7 code blocks, 10 tables. The
 generator lives in the scratchpad (not committed — it is a tool, and `preview/` is untracked
 by the README's stated review scope).
+
+## Speaker-note repair, all four days (2026-09-17)
+
+Reviewed Day 1 slide-by-slide, found four note-quality problems, then fixed them across all
+four decks. Every count is now **zero**, and projected copy is provably unchanged (slide,
+title and minute totals identical to the pre-edit baseline: 87/62/42/24 slides,
+122/68/72/42 minutes).
+
+| Issue | Before | After |
+|---|---|---|
+| `Say:` merely restates the slide title | 69 | 0 |
+| Filler `Then:` ("Use the answer to decide whether to clarify or continue") | 30 | 0 |
+| `core` slides with no notebook cell pointer | 124 | 0 |
+| Instructor names in note bodies ("Eli compares…", "In Beric's trace…") | 12 | 0 |
+
+Each rewritten `Say:` now states why the point matters rather than rewording the title — e.g.
+"The judge is not an authority. It is an instrument, and you calibrate it first." Each `Then:`
+names the actual hand-off. Every pointer reads `Notebook:cell#N is Task N of M — <title>`,
+with the task verified against the notebook; 10 initially landed on the wrong task (a
+sequential-mapping artifact) and were corrected to match their slide's subject.
+
+Day 2's `D2-F2`…`D2-F9A` are recaps of day-1 modules 04/01/05, so their pointers go into those
+day-1 notebooks rather than day 2's.
+
+**Worker note.** Four herdr workers ran this in parallel; only day 4 completed
+(14 `Say:`, 4 `Then:`, 16 pointers). The other three each blocked on a self-inflicted
+transcription slip — a missing `/Users` prefix, a mistyped scratchpad path, a patch string that
+did not match — and the brief's no-retry rule made each fatal. The first attempt for all four
+also blocked on `uv` being unable to write `~/.cache/uv` in their sandbox; the helper was
+switched to plain `python3`. Days 1–3 were finished directly. For future runs: give workers a
+pre-verified path list rather than asking them to compose paths, and allow one self-correction
+before the BLOCKED stop.
+
+### Review artifacts
+
+`preview/index.html` is the entry point: a table of all 14 modules with slide count, minutes
+against budget, visual count and cell-pointer coverage, linking to each module's
+projected-copy-beside-notes page and to the five rendered decks.
+
+Also fixed: the review generator had been HTML-escaping every line, so `<svg>` markup appeared
+as literal text where the diagram should be. It now passes HTML/SVG through, renders fenced
+code, and builds real tables. The stat tiles are derived from the deck instead of hardcoded.

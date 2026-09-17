@@ -42,9 +42,9 @@ Type: core
 Minutes: 2
 Layout: 06 Process steps
 Speaker notes:
-- Say: A useful answer is not enough
+- Say: A right answer reached by a wrong path will fail the next question you ask.
 - Ask: What evidence would a final answer hide that the trajectory exposes?
-- Watch: Run the notebook’s first agent-under-test cell; observe the section count, search_kb call, and answer naming a section.
+- Watch: Run the notebook’s first agent-under-test cell; observe the section count, search_kb call, and answer naming a section. Trajectory_Evals:cell#9 is Task 1 of 8 — Build the agent under test.
 - Then: Carry the observation into the next exercise.
 Sources: [ReAct paper](https://arxiv.org/abs/2210.03629); [trajectory-evals notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/09_Agent_Evals/Trajectory_Evals.ipynb)
 -->
@@ -64,7 +64,7 @@ Layout: 04 Icon cards
 Speaker notes:
 - Say: A useful answer is not enough
 - Ask: Put the slide's question to the room first and wait; the answer below is the one to land, not to read out.
-- Watch: Run the notebook’s first agent-under-test cell; observe the section count, search_kb call, and answer naming a section.
+- Watch: Run the notebook’s first agent-under-test cell; observe the section count, search_kb call, and answer naming a section. Trajectory_Evals:cell#9 is Task 1 of 8 — Build the agent under test.
 - Then: A good answer with a bad trajectory still fails — score the path, not just the result.
 Sources: [ReAct paper](https://arxiv.org/abs/2210.03629); [trajectory-evals notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/09_Agent_Evals/Trajectory_Evals.ipynb)
 -->
@@ -84,10 +84,10 @@ Type: core
 Minutes: 2
 Layout: 04 Icon cards
 Speaker notes:
-- Say: Turn a prompt into a testable task
+- Say: A test needs a hidden success condition; if the agent can see the answer, you measured nothing.
 - Ask: Which requirement should be deterministic for the VPN task, and which needs judgment?
-- Watch: Inspect one generated task row; observe its category, opening, facts, and hidden success condition.
-- Then: Use the answer to decide whether to clarify or continue.
+- Watch: Inspect one generated task row; observe its category, opening, facts, and hidden success condition. Trajectory_Evals:cell#12 is Task 2 of 8 — Compose tasks from your eval cases.
+- Then: Hand into “Deterministic check or judged criterion”.
 Sources: [OpenAI evals build guide](https://github.com/openai/evals/blob/main/docs/build-eval.md); [OpenAI graders reference](https://platform.openai.com/docs/api-reference/graders); [trajectory-evals notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/09_Agent_Evals/Trajectory_Evals.ipynb)
 -->
 ---
@@ -106,7 +106,7 @@ Layout: 05 Two column 2
 Speaker notes:
 - Say: Turn a prompt into a testable task
 - Ask: Put the slide's question to the room first and wait; the answer below is the one to land, not to read out.
-- Watch: Inspect one generated task row; observe its category, opening, facts, and hidden success condition.
+- Watch: Inspect one generated task row; observe its category, opening, facts, and hidden success condition. Trajectory_Evals:cell#12 is Task 2 of 8 — Compose tasks from your eval cases.
 - Then: Decide which requirements are deterministic and which need judgment before writing the case.
 Sources: [OpenAI evals build guide](https://github.com/openai/evals/blob/main/docs/build-eval.md); [OpenAI graders reference](https://platform.openai.com/docs/api-reference/graders); [trajectory-evals notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/09_Agent_Evals/Trajectory_Evals.ipynb)
 -->
@@ -126,10 +126,10 @@ Type: core
 Minutes: 2
 Layout: 07 Big stats
 Speaker notes:
-- Say: Reliability lives across runs
+- Say: One green run is a coin flip you won. Reliability only shows up across repeats.
 - Ask: Why can pass^k be much lower than pass rate without either metric being wrong?
-- Watch: Run repeated tasks and the planted regression; compare lookup-category movement with out-of-scope and injection categories.
-- Then: Use the answer to decide whether to clarify or continue.
+- Watch: Run repeated tasks and the planted regression; compare lookup-category movement with out-of-scope and injection categories. Trajectory_Evals:cell#16 is Task 3 of 8 — Simulate the user.
+- Then: Hand into “Run it again, then plant a regression”.
 Sources: [$\tau$-bench](https://arxiv.org/abs/2406.12045); [trajectory-evals notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/09_Agent_Evals/Trajectory_Evals.ipynb)
 -->
 ---
@@ -148,7 +148,7 @@ Layout: 07 Big stats
 Speaker notes:
 - Say: Reliability lives across runs
 - Ask: Put the slide's question to the room first and wait; the answer below is the one to land, not to read out.
-- Watch: Run repeated tasks and the planted regression; compare lookup-category movement with out-of-scope and injection categories.
+- Watch: Run repeated tasks and the planted regression; compare lookup-category movement with out-of-scope and injection categories. Trajectory_Evals:cell#16 is Task 3 of 8 — Simulate the user.
 - Then: One green run is not reliability. Repeat the task before you report a pass rate.
 Sources: [$\tau$-bench](https://arxiv.org/abs/2406.12045); [trajectory-evals notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/09_Agent_Evals/Trajectory_Evals.ipynb)
 -->
@@ -170,10 +170,10 @@ Type: core
 Minutes: 2
 Layout: 06 Process steps 1
 Speaker notes:
-- Say: Stop on evidence, not confidence
+- Say: Ship on a number you measured, and on a harness you proved catches a planted break.
 - Ask: What must be reproducible before you call an agent change ready to ship?
-- Watch: Read the printed capability report and locate the worst failure and planted-regression result.
-- Then: Use the answer to decide whether to clarify or continue.
+- Watch: Read the printed capability report and locate the worst failure and planted-regression result. Trajectory_Evals:cell#19 is Task 4 of 8 — Score the trajectory, not the answer.
+- Then: Hand into “Read the capability report”.
 Sources: [OpenAI evals](https://evals.openai.com/); [trajectory-evals notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/09_Agent_Evals/Trajectory_Evals.ipynb); [Unit Testing Your Agents](https://soypetetech.substack.com/p/unit-testing-your-agents)
 -->
 ---
@@ -192,7 +192,7 @@ Layout: 09 Lab and code 2
 Speaker notes:
 - Say: Stop on evidence, not confidence
 - Ask: Put the slide's question to the room first and wait; the answer below is the one to land, not to read out.
-- Watch: Read the printed capability report and locate the worst failure and planted-regression result.
+- Watch: Read the printed capability report and locate the worst failure and planted-regression result. Trajectory_Evals:cell#19 is Task 4 of 8 — Score the trajectory, not the answer.
 - Then: Prove the harness catches your planted regression, or a green run means nothing.
 Sources: [OpenAI evals](https://evals.openai.com/); [trajectory-evals notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/09_Agent_Evals/Trajectory_Evals.ipynb); [Unit Testing Your Agents](https://soypetetech.substack.com/p/unit-testing-your-agents)
 -->
@@ -211,7 +211,7 @@ Type: optional
 Minutes: 0
 Layout: 08 Quote
 Speaker notes:
-- Say: Research: from traces to state
+- Say: Optional: a trace is evidence; state is what lets a run resume from it.
 - Ask: What does tau-bench add beyond checking the agent’s final sentence?
 - Watch: Compare the notebook’s current text/fact checks with its Grow suggestion to assert external state.
 - Then: Skip if time is short; offer as optional stretch or research.
@@ -233,9 +233,9 @@ Type: core
 Minutes: 2
 Layout: 05 Two column
 Speaker notes:
-- Say: Memory is restored context
+- Say: The model remembers nothing. Memory is state you write, govern, and choose to restore.
 - Ask: Where does the remembered Mac fact live between the two model calls?
-- Watch: Run the naive memory demonstration; observe the same-session answer versus the fresh-session “I do not know.”
+- Watch: Run the naive memory demonstration; observe the same-session answer versus the fresh-session “I do not know.”. Three_Kinds_of_Memory:cell#9 is Task 1 of 7 — See the gap.
 - Then: The harness must choose what to persist and what to place back into the next prompt.
 Sources: [MemGPT](https://arxiv.org/abs/2310.08560); [memory notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/10_Agent_Memory/Three_Kinds_of_Memory.ipynb)
 -->
@@ -255,7 +255,7 @@ Layout: 04 Icon cards
 Speaker notes:
 - Say: Memory is restored context
 - Ask: Put the slide's question to the room first and wait; the answer below is the one to land, not to read out.
-- Watch: Run the naive memory demonstration; observe the same-session answer versus the fresh-session “I do not know.”
+- Watch: Run the naive memory demonstration; observe the same-session answer versus the fresh-session “I do not know.”. Three_Kinds_of_Memory:cell#9 is Task 1 of 7 — See the gap.
 - Then: Name what must survive the session before you add a store.
 Sources: [MemGPT](https://arxiv.org/abs/2310.08560); [memory notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/10_Agent_Memory/Three_Kinds_of_Memory.ipynb)
 -->
@@ -301,7 +301,7 @@ Layout: 05 Two column 2
 Speaker notes:
 - Say: Give each memory a job
 - Ask: Put the slide's question to the room first and wait; the answer below is the one to land, not to read out.
-- Watch: Read the notebook’s three-kind implementation and identify the procedural, semantic, episodic, and working layers in the assembled prompt.
+- Watch: Read the notebook’s three-kind implementation and identify the procedural, semantic, episodic, and working layers in the assembled prompt. Three_Kinds_of_Memory:cell#12 is Task 2 of 7 — Write episodes from your trajectories.
 - Then: Give each memory kind one job; a single undifferentiated store recalls the wrong thing.
 Sources: [MemGPT](https://arxiv.org/abs/2310.08560); [memory notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/10_Agent_Memory/Three_Kinds_of_Memory.ipynb)
 -->
@@ -320,9 +320,9 @@ Type: core
 Minutes: 2
 Layout: 07 Big stats 1
 Speaker notes:
-- Say: Budget memory deliberately
+- Say: Context is a budget. Decide what gets trimmed first, before the window forces the choice.
 - Ask: Which tier does the notebook drop first, and which two tiers does it protect?
-- Watch: Compare the 6,000- and 120-token breakdowns, then observe compacted=True and raw retrieval of ticket 48213.
+- Watch: Compare the 6,000- and 120-token breakdowns, then observe compacted=True and raw retrieval of ticket 48213. Three_Kinds_of_Memory:cell#16 is Task 3 of 7 — A long-term store you can read.
 - Then: Carry the observation into the next exercise.
 Sources: [MemGPT](https://arxiv.org/abs/2310.08560); [memory notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/10_Agent_Memory/Three_Kinds_of_Memory.ipynb)
 -->
@@ -342,7 +342,7 @@ Layout: 07 Big stats
 Speaker notes:
 - Say: Budget memory deliberately
 - Ask: Put the slide's question to the room first and wait; the answer below is the one to land, not to read out.
-- Watch: Compare the 6,000- and 120-token breakdowns, then observe compacted=True and raw retrieval of ticket 48213.
+- Watch: Compare the 6,000- and 120-token breakdowns, then observe compacted=True and raw retrieval of ticket 48213. Three_Kinds_of_Memory:cell#16 is Task 3 of 7 — A long-term store you can read.
 - Then: Set the token budget first — compaction you cannot see is compaction you cannot debug.
 Sources: [MemGPT](https://arxiv.org/abs/2310.08560); [memory notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/10_Agent_Memory/Three_Kinds_of_Memory.ipynb)
 -->
@@ -361,9 +361,9 @@ Type: core
 Minutes: 2
 Layout: 06 Process steps
 Speaker notes:
-- Say: Remember less, govern better
+- Say: Forgetting on purpose is a feature: stale facts and leaked context are both memory bugs.
 - Ask: What test detects a memory store that leaks one user’s ticket into another user’s session?
-- Watch: Run the supersede-on-subject check and the leakage test; observe stale facts being rejected and user stores kept separate.
+- Watch: Run the supersede-on-subject check and the leakage test; observe stale facts being rejected and user stores kept separate. Three_Kinds_of_Memory:cell#20 is Task 4 of 7 — Assemble working memory under a budget.
 - Then: Carry the observation into the next exercise.
 Sources: [MemGPT](https://arxiv.org/abs/2310.08560); [memory notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/10_Agent_Memory/Three_Kinds_of_Memory.ipynb)
 -->
@@ -383,7 +383,7 @@ Layout: 09 Lab and code 2
 Speaker notes:
 - Say: Remember less, govern better
 - Ask: Put the slide's question to the room first and wait; the answer below is the one to land, not to read out.
-- Watch: Run the supersede-on-subject check and the leakage test; observe stale facts being rejected and user stores kept separate.
+- Watch: Run the supersede-on-subject check and the leakage test; observe stale facts being rejected and user stores kept separate. Three_Kinds_of_Memory:cell#20 is Task 4 of 7 — Assemble working memory under a budget.
 - Then: Remembering less is a feature: stale facts and leaked context are both memory bugs.
 Sources: [MemGPT](https://arxiv.org/abs/2310.08560); [memory notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/10_Agent_Memory/Three_Kinds_of_Memory.ipynb)
 -->
@@ -402,7 +402,7 @@ Type: optional
 Minutes: 0
 Layout: 08 Quote
 Speaker notes:
-- Say: Research: memory as a managed resource
+- Say: Optional: memory is a managed store with retention and scope, not a transcript.
 - Ask: What does virtual context management move, and what remains fixed?
 - Watch: Compare the notebook’s raw archive plus summary with the paper’s tiered-context idea.
 - Then: Skip if time is short; offer as optional stretch or research.
@@ -425,9 +425,9 @@ Type: core
 Minutes: 2
 Layout: 06 Process steps
 Speaker notes:
-- Say: Recap: model inside a harness
+- Say: Same boundary as Monday, now with the question of who owns each capability.
 - Ask: Which component actually executes search_kb?
-- Watch: Compare this boundary with the Six Ways capability catalogue and the search_kb call and trace shown in module 09.
+- Watch: Compare this boundary with the Six Ways capability catalogue and the search_kb call and trace shown in module 09. Six_Ways:cell#9 is Task 1 of 7 — A tool.
 - Then: Carry the observation into the next exercise.
 Sources: [Module 11 README](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/11_Agent_Architecture/README.md); [Six Ways notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/11_Agent_Architecture/Six_Ways.ipynb); [MCP architecture](https://modelcontextprotocol.io/docs/learn/architecture)
 -->
@@ -447,7 +447,7 @@ Layout: 04 Icon cards
 Speaker notes:
 - Say: Recap: model inside a harness
 - Ask: Put the slide's question to the room first and wait; the answer below is the one to land, not to read out.
-- Watch: Compare this boundary with the Six Ways capability catalogue and the search_kb call and trace shown in module 09.
+- Watch: Compare this boundary with the Six Ways capability catalogue and the search_kb call and trace shown in module 09. Six_Ways:cell#9 is Task 1 of 7 — A tool.
 - Then: Draw the boundary before choosing a mechanism.
 Sources: [Module 11 README](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/11_Agent_Architecture/README.md); [Six Ways notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/11_Agent_Architecture/Six_Ways.ipynb); [MCP architecture](https://modelcontextprotocol.io/docs/learn/architecture)
 -->
@@ -467,10 +467,10 @@ Type: core
 Minutes: 2
 Layout: 06 Process steps 1
 Speaker notes:
-- Say: State makes recovery explicit
+- Say: Without explicit state, a restarted run cannot tell you what actually completed.
 - Ask: Where should authorization live if the model asks to reset a password?
-- Watch: Put the named artifact on screen and trace where its values came from.
-- Then: Use the answer to decide whether to clarify or continue.
+- Watch: Put the named artifact on screen and trace where its values came from. Six_Ways:cell#12 is Task 2 of 7 — A skill.
+- Then: Hand into “What a restarted run knows”.
 Sources: [OpenAI Agents SDK guardrails](https://openai.github.io/openai-agents-js/guides/guardrails/); [ReAct](https://arxiv.org/abs/2210.03629); [module alignment](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/11_Agent_Architecture/README.md)
 -->
 ---
@@ -489,7 +489,7 @@ Layout: 05 Two column 2
 Speaker notes:
 - Say: State makes recovery explicit
 - Ask: Put the slide's question to the room first and wait; the answer below is the one to land, not to read out.
-- Watch: Module 11 notebook cue: compare the tool, skill, MCP, sub-agent, code-mode, and manifest traces; inspect what enters context and the recorded call count/context size.
+- Watch: Module 11 notebook cue: compare the tool, skill, MCP, sub-agent, code-mode, and manifest traces; inspect what enters context and the recorded call count/context size. Six_Ways:cell#12 is Task 2 of 7 — A skill.
 - Then: Make state explicit, or a restarted run cannot tell you what actually completed.
 Sources: [OpenAI Agents SDK guardrails](https://openai.github.io/openai-agents-js/guides/guardrails/); [ReAct](https://arxiv.org/abs/2210.03629); [module alignment](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/11_Agent_Architecture/README.md)
 -->
@@ -509,10 +509,10 @@ Type: core
 Minutes: 2
 Layout: 04 Icon cards 2
 Speaker notes:
-- Say: Tools, MCP, and skills have different jobs
+- Say: Pick by ownership, auth, and what enters context — not by which is newest.
 - Ask: Which job belongs to a tool, an MCP connection, and a skill?
-- Watch: Put the named artifact on screen and trace where its values came from.
-- Then: Use the answer to decide whether to clarify or continue.
+- Watch: Put the named artifact on screen and trace where its values came from. Six_Ways:cell#17 is Task 3 of 7 — An MCP server.
+- Then: Hand into “Tool, skill, MCP, or sub-agent”.
 Sources: [ReAct](https://arxiv.org/abs/2210.03629); [$\tau$-bench](https://arxiv.org/abs/2406.12045); [module alignment](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/11_Agent_Architecture/README.md)
 -->
 ---
@@ -531,7 +531,7 @@ Layout: 07 Big stats
 Speaker notes:
 - Say: Tools, MCP, and skills have different jobs
 - Ask: Put the slide's question to the room first and wait; the answer below is the one to land, not to read out.
-- Watch: Module 11 notebook cue: edit the capability catalogue and compare two mechanisms for one lookup; inspect ownership, auth, call count, and context size.
+- Watch: Module 11 notebook cue: edit the capability catalogue and compare two mechanisms for one lookup; inspect ownership, auth, call count, and context size. Six_Ways:cell#17 is Task 3 of 7 — An MCP server.
 - Then: Pick the mechanism by who owns it and how it is versioned, not by novelty.
 Sources: [ReAct](https://arxiv.org/abs/2210.03629); [$\tau$-bench](https://arxiv.org/abs/2406.12045); [module alignment](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/11_Agent_Architecture/README.md)
 -->
@@ -551,10 +551,10 @@ Type: core
 Minutes: 2
 Layout: 07 Big stats
 Speaker notes:
-- Say: Budget and evidence define the stop
+- Say: Publish the budget and the stopping evidence together, or neither is checkable.
 - Ask: Which of the six boxes would be invisible in a final-answer-only test?
-- Watch: Module 11 notebook cue: read the six-row `tools_catalog` output and compare the two mechanisms selected for the group's lookup.
-- Then: Use the answer to decide whether to clarify or continue.
+- Watch: Module 11 notebook cue: read the six-row `tools_catalog` output and compare the two mechanisms selected for the group's lookup. Six_Ways:cell#20 is Task 4 of 7 — A sub-agent.
+- Then: Hand into “Read the six-row catalogue”.
 Sources: [Module 11 README](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/11_Agent_Architecture/README.md); [Six Ways notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/11_Agent_Architecture/Six_Ways.ipynb); [Module alignment](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/11_Agent_Architecture/README.md)
 -->
 ---
@@ -573,7 +573,7 @@ Layout: 09 Lab and code 2
 Speaker notes:
 - Say: Budget and evidence define the stop
 - Ask: Put the slide's question to the room first and wait; the answer below is the one to land, not to read out.
-- Watch: Module 11 notebook cue: read the six-row `tools_catalog` output and compare the two mechanisms selected for the group's lookup.
+- Watch: Module 11 notebook cue: read the six-row `tools_catalog` output and compare the two mechanisms selected for the group's lookup. Six_Ways:cell#20 is Task 4 of 7 — A sub-agent.
 - Then: Publish the budget and the stopping evidence together.
 Sources: [Module 11 README](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/11_Agent_Architecture/README.md); [Six Ways notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/11_Agent_Architecture/Six_Ways.ipynb); [Module alignment](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/11_Agent_Architecture/README.md)
 -->
@@ -648,7 +648,7 @@ Type: optional
 Minutes: 0
 Layout: 08 Quote
 Speaker notes:
-- Say: Research: durable state for long-running work
+- Say: Optional: long work needs checkpoints and safe retries, not a longer context window.
 - Ask: What does the benchmark evaluate that a model-only architecture cannot represent?
 - Watch: Put the named artifact on screen and trace where its values came from.
 - Then: Skip if time is short; offer as optional stretch or research.
@@ -670,10 +670,10 @@ Type: core
 Minutes: 2
 Layout: 06 Process steps
 Speaker notes:
-- Say: Guardrails sit at choke points
+- Say: Instructions influence the model. Only code at a choke point constrains it.
 - Ask: Why is a prompt instruction not enough to authorize a password reset?
-- Watch: Run case-set creation; observe benign transcript inputs alongside planted attacks and expected allow/block labels.
-- Then: Use the answer to decide whether to clarify or continue.
+- Watch: Run case-set creation; observe benign transcript inputs alongside planted attacks and expected allow/block labels. Guardrail_Ladder:cell#9 is Task 1 of 7 — Build the case set from your transcripts.
+- Then: Hand into “Benign cases beside planted attacks”.
 Sources: [NIST AI RMF](https://www.nist.gov/itl/ai-risk-management-framework); [OpenAI Agents SDK guardrails](https://openai.github.io/openai-agents-js/guides/guardrails/); [guardrail notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/13_Guardrails_101/Guardrail_Ladder.ipynb)
 -->
 ---
@@ -692,7 +692,7 @@ Layout: 04 Icon cards
 Speaker notes:
 - Say: Guardrails sit at choke points
 - Ask: Put the slide's question to the room first and wait; the answer below is the one to land, not to read out.
-- Watch: Run case-set creation; observe benign transcript inputs alongside planted attacks and expected allow/block labels.
+- Watch: Run case-set creation; observe benign transcript inputs alongside planted attacks and expected allow/block labels. Guardrail_Ladder:cell#9 is Task 1 of 7 — Build the case set from your transcripts.
 - Then: Put the guardrail at the choke point, not in the instructions to the model.
 Sources: [NIST AI RMF](https://www.nist.gov/itl/ai-risk-management-framework); [OpenAI Agents SDK guardrails](https://openai.github.io/openai-agents-js/guides/guardrails/); [guardrail notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/13_Guardrails_101/Guardrail_Ladder.ipynb)
 -->
@@ -716,10 +716,10 @@ Type: core
 Minutes: 2
 Layout: 07 Big stats 1
 Speaker notes:
-- Say: Choose the cheapest sufficient rung
+- Say: Each rung buys coverage and costs latency or false positives. Cheapest that clears the bar.
 - Ask: Which rung is best for an exact card-number pattern, and why?
-- Watch: Run the constrained-decoding demo and rules/classifier comparison; observe kept tokens, rule latency, and disagreements.
-- Then: Use the answer to decide whether to clarify or continue.
+- Watch: Run the constrained-decoding demo and rules/classifier comparison; observe kept tokens, rule latency, and disagreements. Guardrail_Ladder:cell#12 is Task 2 of 7 — Rung 0, constrained decoding.
+- Then: Hand into “Compare the rungs you can afford”.
 Sources: [JSONSchemaBench constrained-decoding study](https://arxiv.org/abs/2501.10868); [guardrail notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/13_Guardrails_101/Guardrail_Ladder.ipynb)
 -->
 ---
@@ -738,7 +738,7 @@ Layout: 05 Two column 2
 Speaker notes:
 - Say: Choose the cheapest sufficient rung
 - Ask: Put the slide's question to the room first and wait; the answer below is the one to land, not to read out.
-- Watch: Run the constrained-decoding demo and rules/classifier comparison; observe kept tokens, rule latency, and disagreements.
+- Watch: Run the constrained-decoding demo and rules/classifier comparison; observe kept tokens, rule latency, and disagreements. Guardrail_Ladder:cell#12 is Task 2 of 7 — Rung 0, constrained decoding.
 - Then: Take the cheapest rung that clears your bar; add one only when the numbers demand it.
 Sources: [JSONSchemaBench constrained-decoding study](https://arxiv.org/abs/2501.10868); [guardrail notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/13_Guardrails_101/Guardrail_Ladder.ipynb)
 -->
@@ -815,10 +815,10 @@ Type: core
 Minutes: 2
 Layout: 05 Two column 3
 Speaker notes:
-- Say: Measure protection and friction
+- Say: Coverage without a false-positive number is half a measurement.
 - Ask: Why must false positives appear beside attack coverage?
-- Watch: Compare the notebook’s rungs table; observe attacks caught, false positives, and mean milliseconds for each rung.
-- Then: Use the answer to decide whether to clarify or continue.
+- Watch: Compare the notebook’s rungs table; observe attacks caught, false positives, and mean milliseconds for each rung. Guardrail_Ladder:cell#16 is Task 3 of 7 — Rung 1, rules.
+- Then: Hand into “Caught attacks against false positives”.
 Sources: [NIST AI RMF GenAI Profile](https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.600-1.pdf); [guardrail notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/13_Guardrails_101/Guardrail_Ladder.ipynb)
 -->
 ---
@@ -837,7 +837,7 @@ Layout: 07 Big stats
 Speaker notes:
 - Say: Measure protection and friction
 - Ask: Put the slide's question to the room first and wait; the answer below is the one to land, not to read out.
-- Watch: Compare the notebook’s rungs table; observe attacks caught, false positives, and mean milliseconds for each rung.
+- Watch: Compare the notebook’s rungs table; observe attacks caught, false positives, and mean milliseconds for each rung. Guardrail_Ladder:cell#16 is Task 3 of 7 — Rung 1, rules.
 - Then: Report attacks caught and false positives together — protection without friction is unmeasured.
 Sources: [NIST AI RMF GenAI Profile](https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.600-1.pdf); [guardrail notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/13_Guardrails_101/Guardrail_Ladder.ipynb)
 -->
@@ -857,9 +857,9 @@ Type: core
 Minutes: 2
 Layout: 06 Process steps 1
 Speaker notes:
-- Say: Stop safely and record why
+- Say: Fail closed, and log which rung stopped it — a block nobody can explain gets switched off.
 - Ask: What happens when one rung raises an exception?
-- Watch: Run the full ladder; observe the stopped_at rung, ran list, false-positive summary, and saved ladder_results artifact.
+- Watch: Run the full ladder; observe the stopped_at rung, ran list, false-positive summary, and saved ladder_results artifact. Guardrail_Ladder:cell#19 is Task 4 of 7 — Rung 2, a classifier.
 - Then: Carry the observation into the next exercise.
 Sources: [OpenAI Agents SDK guardrails](https://openai.github.io/openai-agents-js/guides/guardrails/); [InjecAgent](https://arxiv.org/abs/2403.02691); [guardrail notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/13_Guardrails_101/Guardrail_Ladder.ipynb)
 -->
@@ -879,7 +879,7 @@ Layout: 09 Lab and code 2
 Speaker notes:
 - Say: Stop safely and record why
 - Ask: Put the slide's question to the room first and wait; the answer below is the one to land, not to read out.
-- Watch: Run the full ladder; observe the stopped_at rung, ran list, false-positive summary, and saved ladder_results artifact.
+- Watch: Run the full ladder; observe the stopped_at rung, ran list, false-positive summary, and saved ladder_results artifact. Guardrail_Ladder:cell#19 is Task 4 of 7 — Rung 2, a classifier.
 - Then: Fail closed, and record which rung stopped it and why.
 Sources: [OpenAI Agents SDK guardrails](https://openai.github.io/openai-agents-js/guides/guardrails/); [InjecAgent](https://arxiv.org/abs/2403.02691); [guardrail notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/13_Guardrails_101/Guardrail_Ladder.ipynb)
 -->
@@ -898,7 +898,7 @@ Type: optional
 Minutes: 0
 Layout: 08 Quote
 Speaker notes:
-- Say: Research: untrusted context can steer action
+- Say: Optional: retrieved text is data, never authority. Tool authorization must survive a mistake.
 - Ask: Which boundary can still protect the tool if the retrieved text fools the model?
 - Watch: Run the notebook’s planted injection through the ladder and inspect which rung catches it; do not infer security from one pass.
 - Then: Skip if time is short; offer as optional stretch or research.
