@@ -6,9 +6,10 @@ size: 16:9
 ---
 # Today: making the agent behave, not just answer
 
-09 Agent evals 35m · 10 Agent memory 30m · 11 Agent architecture 35m · 13 Guardrails 101 30m
-
-Day 2 made answers grounded; nothing yet proves that the path was sound, that it remembers, or that it refuses.
+- 09 Agent evals — 35m
+- 10 Agent memory — 30m
+- 11 Agent architecture — 35m
+- 13 Guardrails 101 — 30m
 
 <!--
 Slide ID: D3-F1
@@ -18,7 +19,7 @@ Type: agenda
 Minutes: 2
 Layout: 06 Process steps
 Speaker notes:
-- Say: Today we move from a grounded answer to behavior we can inspect, remember, and constrain.
+- Say: Day 2 made answers grounded. Nothing yet proves the path was sound, that it remembers, or that it refuses.
 - Ask: Which part of Priya’s VPN journey would you trust least if you only saw the final answer?
 - Watch: Notebook:cell#9 (Trajectory_Evals) — the first task builds the agent under test; keep that path in view as the day moves through memory, architecture, and guardrails.
 - Then: Start with the trajectory, then add state, capability boundaries, and policy. Priya’s VPN path, Marcus’s audit log, and every consequential action need evidence around the loop.
@@ -29,7 +30,7 @@ Sources: [trajectory-evals notebook](https://github.com/AI-Aspire/Aspire_Titaniu
 
 `goal → user turns → tool calls → observations → final state`
 
-- A helpdesk answer can sound right and still take the wrong path
+- An AI answer can sound right and still take the wrong path
 - Evaluate the complete trajectory, not only the final sentence
 
 <!--
@@ -69,7 +70,7 @@ Speaker notes:
 Sources: [OpenAI evals build guide](https://github.com/openai/evals/blob/main/docs/build-eval.md); [OpenAI graders reference](https://platform.openai.com/docs/api-reference/graders); [trajectory-evals notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/09_Agent_Evals/Trajectory_Evals.ipynb)
 -->
 ---
-# 80% is not what 80% sounds like
+# The compounding error problem
 
 An agent that passes 80% of the time, run three times on the same task:
 
@@ -78,7 +79,7 @@ An agent that passes 80% of the time, run three times on the same task:
 | pass rate | 0.80 |
 | **pass^3** — all three attempts succeed | **≈ 0.5** |
 
-One run is a sample of one. Plant a regression and check the number actually moves.
+Each step multiplies. A multi-step agent at 80% per step is a coin flip end to end — and one run tells you nothing about which.
 
 <!--
 Slide ID: D3-M09-C3
@@ -91,7 +92,7 @@ Speaker notes:
 - Say: One green run is a coin flip you won. Reliability only shows up across repeats.
 - Ask: Why can pass^k be much lower than pass rate without either metric being wrong?
 - Watch: Run repeated tasks and the planted regression; compare lookup-category movement with out-of-scope and injection categories. Trajectory_Evals:cell#16 is Task 3 of 8 — Simulate the user. In the notebook: Reliability lives across repeated trajectories, not one green run.
-- Then: Hand into “Run it again, then plant a regression”.
+- Then: So run each task k times. The regression-planting check comes next, and it depends on this.
 Sources: [$\tau$-bench](https://arxiv.org/abs/2406.12045); [trajectory-evals notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/09_Agent_Evals/Trajectory_Evals.ipynb)
 -->
 ---
@@ -207,11 +208,38 @@ Speaker notes:
 Sources: [MemGPT](https://arxiv.org/abs/2310.08560); [memory notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/10_Agent_Memory/Three_Kinds_of_Memory.ipynb)
 -->
 ---
+# Your context window is not your effective context window
+
+- **Capacity is not architecture.** A 1M-token window is what the model can *accept*, not what it can reliably *use*
+- **Position and difficulty degrade it.** Relevant facts buried mid-context get missed; on NoLiMa, 11 of 13 models fell below half their short-context score by 32K
+- **So memory is a retrieval problem.** Select what this step needs — rank, filter, scope — instead of appending until the window fills
+
+> [Lost in the Middle](https://arxiv.org/abs/2307.03172) · [RULER](https://arxiv.org/abs/2404.06654) · [NoLiMa](https://arxiv.org/abs/2502.05167)
+
+<!--
+Slide ID: D3-M10-C4X
+Module: [10 Memory](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/10_Agent_Memory/README.md)
+Instructor: Beric
+Type: core
+Minutes: 2
+Layout: 05 Two column
+Speaker notes:
+- Say: Every context problem has an escape hatch: wait for a bigger window. The research says that does not fix the part that is actually hard.
+- Ask: Audience — if an agent hits a 250K-token limit, what is the first question? Not "how do we compact better" but "why did this task need 250K tokens?"
+- Watch: Three separate questions hide inside "long context" — how much can it accept, how efficiently can it process, and how reliably can it pick what matters. The industry solved the first two. Three_Kinds_of_Memory:cell#20 is Task 4 of 7 — Assemble working memory under a budget.
+- Then: Conversation history is not relevant because it happened. A tool result is not relevant because the agent produced it. Context needs a lifecycle.
+Sources: [Lost in the Middle](https://arxiv.org/abs/2307.03172), [RULER](https://arxiv.org/abs/2404.06654), [NoLiMa](https://arxiv.org/abs/2502.05167), [MemGPT](https://arxiv.org/abs/2310.08560)
+-->
+---
 # Remember less, govern better
 
-- Supersede stale facts and delete when required
-- Scope memory by user or tenant
-- Test truthfulness, staleness, and leakage
+**Not all context is equally important.** More memory is not better memory.
+
+- Retrieve *into* memory the way you retrieve into a prompt — rank, filter, take the top few
+- Supersede stale facts, and delete when required
+- Scope by user or tenant, then test for truthfulness, staleness, and leakage
+
+A memory store is a corpus you own. Everything from the last two days applies to it.
 
 <!--
 Slide ID: D3-M10-C4
@@ -221,10 +249,10 @@ Type: core
 Minutes: 2
 Layout: 06 Process steps
 Speaker notes:
-- Say: Forgetting on purpose is a feature: stale facts and leaked context are both memory bugs.
+- Say: More memory is not better memory. This is a retrieval problem wearing a different name.
 - Ask: What test detects a memory store that leaks one user’s ticket into another user’s session?
 - Watch: Run the supersede-on-subject check and the leakage test; observe stale facts being rejected and user stores kept separate. Three_Kinds_of_Memory:cell#20 is Task 4 of 7 — Assemble working memory under a budget. In the notebook: Remember less, govern better; compaction should preserve recovery evidence.
-- Then: Carry the observation into the next exercise.
+- Then: Same moves as days 1 and 2 — rank, filter, scope — now applied to what the agent carries forward.
 Sources: [MemGPT](https://arxiv.org/abs/2310.08560); [memory notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/10_Agent_Memory/Three_Kinds_of_Memory.ipynb)
 -->
 ---
@@ -253,9 +281,9 @@ Sources: [MemGPT paper](https://arxiv.org/abs/2310.08560); [memory notebook](htt
 
 `user → harness → model → proposed tool call → authorization → tool → observation → harness`
 
-- The model generates; the harness controls
-- The trace records what the system actually did
-- State and policy sit outside the model
+- The model — whatever `LLM_MODEL` is set to — only *generates* a request
+- Your harness authorizes it, runs it, and records what happened
+- State and policy live outside the model, so a different model changes nothing here
 
 <!--
 Slide ID: D3-M11-C1
@@ -265,10 +293,10 @@ Type: core
 Minutes: 2
 Layout: 06 Process steps
 Speaker notes:
-- Say: Same boundary as Monday, now with the question of who owns each capability.
-- Ask: Which component actually executes search_kb?
-- Watch: Compare this boundary with the Six Ways capability catalogue and the search_kb call and trace shown in module 09. Six_Ways:cell#9 is Task 1 of 7 — A tool. In the notebook: Recap: the model is inside a harness that owns capability execution.
-- Then: Carry the observation into the next exercise.
+- Say: Same boundary as Monday. What changes today is who owns the capability on the far side of it.
+- Ask: Which component actually executes the tool? Not the model — it only ever emits a request.
+- Watch: Task 1 wires a `lookup` function as a tool: a Python function, a JSON schema handed to the model, and your loop running it. The model is provider-agnostic — it is whatever `LLM_MODEL` names, defaulting to `gpt-4.1-mini`. Six_Ways:cell#9 is Task 1 of 7 — A tool.
+- Then: Task 1 is the baseline. The other five tasks move that same `lookup` behind different boundaries.
 Sources: [Module 11 README](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/11_Agent_Architecture/README.md); [Six Ways notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/11_Agent_Architecture/Six_Ways.ipynb); [MCP architecture](https://modelcontextprotocol.io/docs/learn/architecture)
 -->
 ---
