@@ -88,13 +88,13 @@ Speaker notes:
 Sources: [Dense Passage Retrieval](https://aclanthology.org/2020.emnlp-main.550/); [Lucene BM25Similarity](https://lucene.apache.org/core/9_12_1/core/org/apache/lucene/search/similarities/BM25Similarity.html); [local Retrieval Ladder notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/06_Advanced_Retrieval/Retrieval_Ladder.ipynb)
 -->
 ---
-# Which method would you use for each source?
+# Which method would you use for each question?
 
-| Source | What a question about it looks like |
+| Question | Against |
 |---|---|
-| `tickets.jsonl` | "what happened with T-1001?" — exact IDs |
-| `vpn.md` | "why can't I reach staging?" — described, not named |
-| the whole KB | a user who does not know which page they need |
+| "what does `uv sync` remove?" | `python-environments.md` |
+| "why can't I reach staging?" | `vpn.md` |
+| "how long until someone looks at this?" | the whole KB |
 
 <!--
 Slide ID: D2-M06-C1B
@@ -104,20 +104,20 @@ Type: core
 Minutes: 1
 Layout: 04 Icon cards
 Speaker notes:
-- Say: Take each row in turn. The answer is in the naming: exact identifiers are a sparse problem, described symptoms are a dense one.
-- Ask: Push on row three — most rooms say hybrid, and the reason matters: you do not know in advance which kind of question arrives.
-- Watch: Retrieval_Ladder Task 2 prints dense and scratch/library BM25 orders for one question; compare the disagreement. Retrieval_Ladder:cell#9 is Task 1 of 5 — Label the evidence.
-- Then: Reveal it — “Exact IDs are sparse; described symptoms are dense”.
+- Say: Three real pages from the course corpus. The question shape, not the topic, decides the method.
+- Ask: Audience — take one row at a time. Row three is the interesting one: nobody knows which page answers it.
+- Watch: `uv sync` is a literal string on the page. "reach staging" never appears — the page says split tunnelling. The third question is answered by a priority table in `tickets.md` that the user cannot name. Retrieval_Ladder:cell#12 is Task 2 of 5 — Dense and sparse.
+- Then: Reveal it — exact strings are sparse, described symptoms are dense, and unknown-page is hybrid.
 Sources: [Dense Passage Retrieval](https://aclanthology.org/2020.emnlp-main.550/); [Lucene BM25Similarity](https://lucene.apache.org/core/9_12_1/core/org/apache/lucene/search/similarities/BM25Similarity.html); [local Retrieval Ladder notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/06_Advanced_Retrieval/Retrieval_Ladder.ipynb)
 -->
 ---
-# Exact IDs are sparse; described symptoms are dense
+# Exact strings are sparse; descriptions are dense
 
-- `tickets.jsonl` → **sparse**. `T-1001` is a token, not a meaning.
-- `vpn.md` → **dense**. "cannot reach staging" never says "split tunnel".
-- the whole KB → **hybrid**. You cannot predict which arrives.
+- **`uv sync`** → sparse. It is a literal token on the page.
+- **"reach staging"** → dense. The page says *split tunnelling*, never those words.
+- **unknown page** → hybrid. You cannot predict which arrives.
 
-The two signals surface different passages, so the candidate set differs before any ranking happens.
+The two signals surface different candidates, so the set differs before any ranking happens.
 <!--
 Slide ID: D2-M06-C1A
 Module: [06 Advanced retrieval](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/06_Advanced_Retrieval/README.md)
@@ -126,10 +126,10 @@ Type: core
 Minutes: 1
 Layout: 08 Quote
 Speaker notes:
-- Say: Reveal the answer and why it matters
+- Say: Hybrid is the default precisely because you cannot know the question shape in advance.
 - Ask: Take answers from two tables before revealing; the wrong answers are the teachable ones.
 - Watch: Point to the visible evidence and the notebook artifact. Retrieval_Ladder:cell#9 is Task 1 of 5 — Label the evidence.
-- Then: Hybrid is the default precisely because the question shape is not knowable in advance.
+- Then: Which raises the next question: once you have two ranked lists, how do you merge them?
 Sources: [Dense Passage Retrieval](https://aclanthology.org/2020.emnlp-main.550/); [Lucene BM25Similarity](https://lucene.apache.org/core/9_12_1/core/org/apache/lucene/search/similarities/BM25Similarity.html); [local Retrieval Ladder notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/06_Advanced_Retrieval/Retrieval_Ladder.ipynb)
 -->
 ---
@@ -485,8 +485,8 @@ The **wiki** is one markdown index of the corpus — page names, what each is fo
 
 | Page | Purpose | Headings |
 |---|---|---|
-| `vpn.md` | contractor remote access | reset · device · escalation |
-| `mfa.md` | second-factor recovery | lost phone · backup code |
+| `vpn.md` | VPN connection and routing | connecting · split tunnelling · known issues |
+| `password-and-mfa.md` | password and second-factor recovery | reset · MFA · lockouts |
 
 Without it the agent reads pages at random. With it, it chooses before it reads.
 <!--
