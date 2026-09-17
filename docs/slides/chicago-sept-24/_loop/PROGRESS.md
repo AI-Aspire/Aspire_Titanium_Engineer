@@ -347,3 +347,22 @@ Also this pass, at the author's request:
   point to one scenario.
 - `D1-M02-R1`: the three paper bullets are now links — Brown et al. 2020, Wei et al. 2022,
   Madaan et al. 2023. All three verified 200.
+
+### Author review round 2 (2026-09-17)
+
+- **`D1-M03-C4B` "One question, one safe exit" removed.** Its parent `C4` already makes the
+  point and the notebook's Task 3 runs those three routes live, so the code covers it. The
+  Task 3 pointer was carried into the parent's `Watch:` line. Module 03 now leaves 15 of its
+  35 minutes for code.
+- **`D1-M04-C1CB` rewritten.** The author could not read it — "hand score → echo baseline →
+  judge → oracle ceiling" over "floor / ? / 1.0" did not explain itself, and it is **not**
+  about rubrics. Retitled **"Test the agreement metric, not the judge"** and rebuilt as a
+  three-row table (echo = floor, oracle = exactly 1.0, real judge = between), closing on: if
+  the oracle is not 1.0, the *metric* is broken, not the judge. The notes now open by saying
+  what the slide is not about.
+- **Scenario asides moved off slides into notes.** `D1-M04-C1C`'s "For Deskmate, Marcus needs
+  an auditable log…" moved, with the author's framing that this is what the user experiences
+  in their own environment. Seven more appended asides moved the same way on `D1-M01-C0B`,
+  `D1-M02-C4A`, `D1-Z1`, `D3-F1`, `D3-M11-C5`, `D3-M13-C2A`, `D3-Z1`.
+  Deskmate stays in projected copy only where it **is** the content: the seed slide
+  (`D1-M01-C1B`) and day 2's worked question/answer triples.

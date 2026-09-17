@@ -10,8 +10,6 @@ size: 16:9
 
 Day 2 made answers grounded; nothing yet proves that the path was sound, that it remembers, or that it refuses.
 
-Priya’s VPN path, Marcus’s audit log, and every consequential action need evidence around the loop.
-
 <!--
 Slide ID: D3-F1
 Module: [09 Agent evals](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/09_Agent_Evals/README.md)
@@ -23,7 +21,7 @@ Speaker notes:
 - Say: Today we move from a grounded answer to behavior we can inspect, remember, and constrain.
 - Ask: Which part of Priya’s VPN journey would you trust least if you only saw the final answer?
 - Watch: Notebook:cell#9 (Trajectory_Evals) — the first task builds the agent under test; keep that path in view as the day moves through memory, architecture, and guardrails.
-- Then: Start with the trajectory, then add state, capability boundaries, and policy.
+- Then: Start with the trajectory, then add state, capability boundaries, and policy. Priya’s VPN path, Marcus’s audit log, and every consequential action need evidence around the loop.
 Sources: [trajectory-evals notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/09_Agent_Evals/Trajectory_Evals.ipynb); [memory notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/10_Agent_Memory/Three_Kinds_of_Memory.ipynb); [Six Ways notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/11_Agent_Architecture/Six_Ways.ipynb); [guardrail notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/13_Guardrails_101/Guardrail_Ladder.ipynb)
 -->
 ---
@@ -353,8 +351,6 @@ Sources: [Module 11 README](https://github.com/AI-Aspire/Aspire_Titanium_Enginee
 </svg>
 </div>
 
-Deskmate’s ticket system is somebody else’s service; MCP is one way to reach it without owning it.
-
 <!--
 Slide ID: D3-M11-C5
 Module: [11 Architecture](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/11_Agent_Architecture/README.md)
@@ -366,7 +362,7 @@ Speaker notes:
 - Say: These are six capability boundaries, not six brands or six permissions.
 - Ask: Who owns Deskmate’s ticket system, and what would you need to audit before connecting to it?
 - Watch: Notebook:cell#17 (Six_Ways) — an MCP server is a separate process discovered over the Model Context Protocol; compare it with the in-process tool. In the notebook: MCP adds a service boundary; UTCP describes an existing API boundary.
-- Then: Treat the ticket system as an external boundary and inspect its auth, health, version, and trace behavior.
+- Then: Treat the ticket system as an external boundary and inspect its auth, health, version, and trace behavior. Deskmate’s ticket system is somebody else’s service; MCP is one way to reach it without owning it.
 Sources: [Six Ways notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/11_Agent_Architecture/Six_Ways.ipynb); [MCP architecture](https://modelcontextprotocol.io/docs/learn/architecture)
 -->
 ---
@@ -454,8 +450,6 @@ Sources: [JSONSchemaBench constrained-decoding study](https://arxiv.org/abs/2501
 </svg>
 </div>
 
-Deskmate’s “never reset an entitlement without confirmation” is a policy question, not a regex.
-
 <!--
 Slide ID: D3-M13-C2A
 Module: [13 Guardrails 101](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/13_Guardrails_101/README.md)
@@ -467,7 +461,7 @@ Speaker notes:
 - Say: The ladder names five different jobs; only the last one answers who may perform an action.
 - Ask: Where would you place Marcus’s request to reset Priya’s entitlement, and what evidence would that rung need?
 - Watch: Notebook:cell#12 (Guardrail_Ladder) is Rung 0, constrained decoding; Notebook:cell#16 is Rung 1, rules; Notebook:cell#19 is Rung 2, a classifier; Notebook:cell#23 is Rung 3, an LLM judge; Notebook:cell#26 is Rung 4, a policy layer. In the notebook: A higher rung is not automatically better; it is a different control with a different failure surface.
-- Then: Keep the ladder visible while comparing cost, coverage, and authority.
+- Then: Keep the ladder visible while comparing cost, coverage, and authority. Deskmate’s “never reset an entitlement without confirmation” is a policy question, not a regex.
 Sources: [guardrail notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/13_Guardrails_101/Guardrail_Ladder.ipynb); [NIST AI RMF](https://www.nist.gov/itl/ai-risk-management-framework)
 -->
 ---
@@ -544,8 +538,6 @@ Sources: [InjecAgent](https://arxiv.org/abs/2403.02691); [NIST AI RMF GenAI Prof
 | A stdio MCP server | Authenticated deployment, health checks, protocol version tests |
 | A ladder in a for loop, failing closed | A ladder with latency budgets, fail-closed alerts, and false-positive tracking |
 
-Marcus gets an auditable boundary; Priya’s context stays scoped as the loop grows.
-
 <!--
 Slide ID: D3-Z1
 Module: [13 Guardrails 101](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/13_Guardrails_101/README.md)
@@ -557,6 +549,6 @@ Speaker notes:
 - Say: Production adds controls around the same loop: scoped memory, authenticated capability boundaries, and measured guardrails.
 - Ask: Which production equivalent would catch the most dangerous Deskmate failure first: leakage, an untrusted service, or silent guardrail drift?
 - Watch: Notebook:cell#39 (Three_Kinds_of_Memory) supplies the per-user isolation row; Notebook:cell#38 (Six_Ways) supplies the MCP row; Notebook:cell#38 (Guardrail_Ladder) supplies the ladder row.
-- Then: Carry the chosen boundary into Friday’s release decision and name what remains unmeasured.
+- Then: Carry the chosen boundary into Friday’s release decision and name what remains unmeasured. Marcus gets an auditable boundary; Priya’s context stays scoped as the loop grows.
 Sources: [memory notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/10_Agent_Memory/Three_Kinds_of_Memory.ipynb); [Six Ways notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/11_Agent_Architecture/Six_Ways.ipynb); [guardrail notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/13_Guardrails_101/Guardrail_Ladder.ipynb)
 -->

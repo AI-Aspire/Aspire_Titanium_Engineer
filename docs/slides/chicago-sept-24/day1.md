@@ -421,8 +421,6 @@ Sources: [Course concepts](https://github.com/AI-Aspire/Aspire_Titanium_Engineer
 </svg>
 </div>
 
-Skip Create and Thursday reads Deskmate's seed instead of your group's Priya transcripts.
-
 <!--
 Slide ID: D1-M01-C0B
 Module: [01 Dev environment](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/01_Dev_Environment/README.md)
@@ -434,7 +432,7 @@ Speaker notes:
 - Say: Learn makes the idea visible, Create makes it yours, and Grow names what production would require.
 - Ask: Which artifact would prove that your group has moved past the seed example?
 - Watch: The middle act is the handoff: it writes group artifacts to `workspace/`; without it, later notebooks can run while still reading Deskmate's seed.
-- Then: Notebook:cell#16 — Task 3 runs `ws.init()` and `ws.status()` so students can see the workspace boundary.
+- Then: Notebook:cell#16 — Task 3 runs `ws.init()` and `ws.status()` so students can see the workspace boundary. Skip Create and Thursday reads Deskmate's seed instead of your group's Priya transcripts.
 Sources: [Course concepts](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/docs/CONCEPTS.md); [Module 01 notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/01_Dev_Environment/Dev_Environment.ipynb).
 -->
 
@@ -1382,8 +1380,6 @@ Asking politely for JSON works most of the time. **Most of the time is not good 
 
 A schema turns the shape into a contract — so the next step can be *code*, not a human reading prose.
 
-Marcus can sort a queue by `risk_level`. He cannot sort a paragraph.
-
 <!--
 Slide ID: D1-M02-C4A
 Module: [02 Prompt patterns](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/02_Prompt_Patterns/README.md)
@@ -1395,7 +1391,7 @@ Speaker notes:
 - Say: Structured output is a boundary between a model response and code that has to use it.
 - Ask: Which part of Marcus's queue would become unreliable if risk arrived as free text?
 - Watch: Keep the distinction sharp: a schema guarantees shape and allowed values, not factual correctness.
-- Then: Notebook:cell#20 — Task 4 introduces the structured-output contract in the notebook's own prose.
+- Then: Notebook:cell#20 — Task 4 introduces the structured-output contract in the notebook's own prose. Marcus can sort a queue by `risk_level`. He cannot sort a paragraph.
 Sources: [Prompt patterns notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/02_Prompt_Patterns/Prompt_Patterns.ipynb); [Course concepts](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/docs/CONCEPTS.md).
 -->
 
@@ -1856,35 +1852,8 @@ Layout: 05 Two column 3
 Speaker notes:
 - Say: Autonomy without a stopping rule is just an unbounded bill and an unread trace.
 - Ask: What observation would change the next step in your proposed loop?
-- Watch: Compare in-scope, human-needed, and out-of-scope questions. Check whether tool behavior matches the scope before praising fluency. Agent_Harness:cell#24 is Task 5 of 6 — Add middleware.
+- Watch: Compare in-scope, human-needed, and out-of-scope questions — Agent_Harness:cell#16 is Task 3 of 6 — Ask questions your users would ask, where those three routes run live. Check tool behaviour matches the scope before praising fluency; the limit itself is cell#24, Task 5 of 6 — Add middleware.
 - Then: A diagnosis needing an initial symptom, a search, and a follow-up question may benefit from adaptation.
-Sources: [Agent harness Create/Grow](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/03_Agents_101/Agent_Harness.ipynb); [Building effective agents](https://www.anthropic.com/engineering/building-effective-agents).
--->
-
----
-
-# One question, one safe exit
-
-```text
-VPN timeout → search KB → give routing step
-still unreachable → offer a ticket
-outside scope → decline
-```
-
-Takeaway: autonomy needs an observed next step and a defined exit.
-
-<!--
-Slide ID: D1-M03-C4B
-Module: [03 Agents 101](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/03_Agents_101/README.md)
-Instructor: Beric, code walkthrough
-Type: core
-Minutes: 1
-Layout: 09 Lab and code 2
-Speaker notes:
-- Say: The same support question can end in an answer, a handoff, or a refusal.
-- Ask: Which observation changes the next step in this example?
-- Watch: Compare the in-scope route with the human-needed and out-of-scope exits. Agent_Harness:cell#16 is Task 3 of 6 — Ask questions your users would ask.
-- Then: Autonomy needs an observed next step and a defined exit.
 Sources: [Agent harness Create/Grow](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/03_Agents_101/Agent_Harness.ipynb); [Building effective agents](https://www.anthropic.com/engineering/building-effective-agents).
 -->
 
@@ -2045,10 +2014,8 @@ Sources: [Vibe checks and judges notebook](https://github.com/AI-Aspire/Aspire_T
 # Establish the floor before trusting a judge
 
 - **Echo:** give every transcript the middle score
-- **Oracle:** copy Marcus's hand score exactly
+- **Oracle:** copy the hand score exactly
 - A real judge should clear the floor and approach the ceiling
-
-For Deskmate, Marcus needs an auditable log, so the agreement measure must work before a model is allowed to score it.
 
 <!--
 Slide ID: D1-M04-C1C
@@ -2059,22 +2026,25 @@ Minutes: 2
 Layout: 04 Icon cards
 Speaker notes:
 - Say: Baselines tell us whether the agreement number contains signal before a judge enters the room.
-- Ask: What would it mean if the oracle did not score 1.0 on Marcus's hand labels?
+- Ask: What would it mean if the oracle did not score 1.0 against the hand labels?
 - Watch: Echo is the floor; oracle is the ceiling. A broken measure can make a bad judge look useful.
-- Then: Notebook:cell#20 — Task 4 runs both dumb baselines before any judge call.
+- Then: For Deskmate, Marcus needs an auditable log — that is what the user actually experiences in their environment, so the agreement measure has to work before a model is allowed to score anything. Vibe_Checks_LLM_Judge:cell#20 is Task 4 of 9 — Two dumb baselines before any judge.
 Sources: [Vibe checks and judges notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/04_Vibe_Checks_and_Judges/Vibe_Checks_LLM_Judge.ipynb); [LLM judge study, Zheng et al., 2023](https://arxiv.org/abs/2306.05685).
 -->
 
 ---
 
-# Measure the measure before the model
+# Test the agreement metric, not the judge
 
-```text
-hand score  →  echo baseline  →  judge  →  oracle ceiling
-                  floor           ?          1.0
-```
+Score the same transcripts three ways and compare agreement with your hand scores:
 
-No model call here. First make sure the yardstick can see the difference.
+| Scorer | What it does | Agreement should be |
+|---|---|---|
+| Echo | gives every transcript the middle score | **low** — this is the floor |
+| Oracle | copies your hand score | **exactly 1.0** — the ceiling |
+| A real judge | actually reads the transcript | between the two |
+
+If the oracle is not 1.0, the **metric** is broken — not the judge.
 
 <!--
 Slide ID: D1-M04-C1CB
@@ -2084,10 +2054,10 @@ Type: core
 Minutes: 2
 Layout: 06 Process steps
 Speaker notes:
-- Say: The baseline exercise isolates the agreement calculation from model quality.
-- Ask: Which result would make you stop and repair the metric before reading another transcript?
-- Watch: The oracle must be exactly 1.0; if it is not, the measure is broken rather than the judge being surprising.
-- Then: Notebook:cell#20 — inspect the floor and ceiling output before the strict judge in Task 5.
+- Say: This is not about rubrics. It asks a narrower question: can the agreement number tell a good scorer from a useless one at all?
+- Ask: Echo scores everything the same and still gets some agreement by luck. What does that number tell you about any judge you compare to it?
+- Watch: Two scorers that cannot judge — echo and oracle — run through the same agreement calculation. The oracle copies the hand scores, so it must read exactly 1.0; anything else means the calculation is wrong.
+- Then: Only once the floor and ceiling look right is a real judge's score worth reading. Vibe_Checks_LLM_Judge:cell#20 is Task 4 of 9 — Two dumb baselines before any judge.
 Sources: [Vibe checks and judges notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/04_Vibe_Checks_and_Judges/Vibe_Checks_LLM_Judge.ipynb); [LLM judge study, Zheng et al., 2023](https://arxiv.org/abs/2306.05685).
 -->
 
@@ -2564,8 +2534,6 @@ Sources: [Retrieval-augmented generation](https://arxiv.org/abs/2005.11401); [Re
 | A Pydantic model as the output contract | Schema registries and validation middleware shared across teams |
 | A single dense retriever | Hybrid search with a reranker on top |
 
-For Deskmate, that means Priya's answer and Marcus's queue need repeatable review, shape, and retrieval.
-
 <!--
 Slide ID: D1-Z1
 Module: Day 1 closing
@@ -2577,6 +2545,6 @@ Speaker notes:
 - Say: These are the production equivalents named by today's own notebooks, not a new checklist.
 - Ask: Which row would expose stale-page confidence or cross-user ticket leakage first?
 - Watch: Keep the table wording verbatim; connect Priya's evidence and Marcus's audit trail without promising that today's prototype solves either risk.
-- Then: Notebook:cell#41, Notebook:cell#40, Notebook:cell#38 — close by naming the three module tables behind these rows.
+- Then: Notebook:cell#41, Notebook:cell#40, Notebook:cell#38 — close by naming the three module tables behind these rows. For Deskmate, that means Priya's answer and Marcus's queue need repeatable review, shape, and retrieval.
 Sources: [Module 01 notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/01_Dev_Environment/Dev_Environment.ipynb); [Prompt patterns notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/02_Prompt_Patterns/Prompt_Patterns.ipynb); [RAG notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/05_RAG/RAG_with_LangChain.ipynb).
 -->
