@@ -35,6 +35,8 @@ From the README's Learn/Create/Grow block and the notebook's eight numbered task
 | P10 | Production enforces by rule what was done by hand today: branch protection, required checks, `CODEOWNERS`. | `Dev_Environment.ipynb:cell#41` (comparison table), `cell#42` (responsible controls), `cell#43` (grow further) |
 | P11 | `uv sync` and `uv run --group` are *exact*: they remove groups you do not name. Use the make targets. | `00_Setup/README.md` ("One trap worth knowing"); `docs/CONCEPTS.md` ("Two setup traps that cost the most time") |
 | P12 | Verify the environment before the room: `make preflight` classifies each host open / intercepted / blocked. | `00_Setup/README.md` ("Before you arrive: check the network"); `Makefile:33` (`preflight`) |
+| P13 | Notebook state is shared and long-range, so cells run in order; a stale kernel is the single most common cause of "it broke". | Verified cross-cell dependencies: `USER` defined `cell#6` → used `cell#21`, `24`, `27`, `31`; `BRANCH` defined `cell#21` → used `cell#31`, `34`, `37`, `39`; `on_the_fork` defined `cell#10` → used `cell#13`; `ORIGIN_SLUG` defined `cell#10` → used `cell#31`, `39`. Floor row in `docs/CONCEPTS.md:83` ("half of all 'it broke' is stale kernel state \| all"). |
+| P14 | Every command runs through one helper that prints what it ran, so a student can always separate a git error from a notebook bug. | `Dev_Environment.ipynb:cell#6` (`sh()` wraps `subprocess.run`, prints `$ cmd` plus stdout+stderr, raises on non-zero unless `check=False`); every later code cell calls it. Also the first hard stop: `cell#6` raises when `gh auth status` fails. |
 
 ### Libraries, models, services
 
@@ -260,6 +262,7 @@ notebook cell.
 | Kept and sourced `D1-M01-C5`/`C5B` (was C4/C4B) | "Review the change, not just the successful run" — the one exact match with the prior deck. Carried forward the leaked-key example from Day1.pptx #17, now tied to `00_Setup/keys.md` and `make scrub`. Dropped the unsourced "smaller models forget best practices" claim. |
 | Added `D1-M01-C6` | **New:** push `-u`, draft PR from the terminal, and a second commit updating the same PR (P7, P8). Points at `cell#30`–`cell#34`. |
 | Added `D1-M01-C7` | **New:** setup traps — `uv` groups are exact, `make preflight` verdicts, and "`check-day` failing before you save work is normal" (P11, P12). This is the no-code slot's highest-value content and was entirely missing. |
+| Added `D1-M01-C8` | **New, from the coverage audit:** "How to survive a notebook" — the `sh()` helper prints `$ cmd` + output, cells run in order because state is shared, read the last line and rerun that cell, and `gh auth status` is the first hard stop. Closes the three real gaps the audit found (P13, P14). `C1B` and `C2B` each gave up a minute to hold the 30-minute budget. |
 | Kept `D1-M01-R1` | Optional "make review a system property" (P10), unchanged apart from a cell pointer. |
 | Added `D1-M01-RD1` | "Before and after class reading" — required/optional, built from the module README's "Before you arrive" and `00_Setup`, with a note that READING_GUIDE has no module-01 entry. |
 | Added `D1-M01-RS1` | "Resources" slide — verified links only. |
@@ -280,6 +283,35 @@ links into this repo following the existing convention. No new URLs were invente
   in the full day deck; the `D1-M01-*` block sums to exactly 30 `Minutes:`.
 - Every `cell#N` pointer written above and in the deck was checked against a numbered dump of
   `01_Dev_Environment/Dev_Environment.ipynb` (44 cells, indices 0–43).
+
+### Coverage audit (second pass)
+
+Every shell command, Python construct, and Grow-section topic in the notebook was extracted
+mechanically and matched against the deck's module-01 block: **34 of 34 items covered.**
+
+Three real gaps were found and closed by adding `D1-M01-C8`:
+
+| Gap | Why it mattered | Fix |
+|---|---|---|
+| Jupyter run order / stale kernel | `docs/CONCEPTS.md:83` calls it "half of all *it broke*" for **all** modules; this is the week's first notebook and nothing in Day 1 covered it. State is genuinely long-range — `BRANCH` is set in `cell#21` and still used in `cell#39`. | `C8` bullet 2 + `Ask:` note |
+| `gh auth status` as the first hard stop | `cell#6` raises without it; was in the companion sheet but on no slide | `C8` bullet 4 + `Watch:` note |
+| The `sh()` helper | Every command in the notebook goes through it; unexplained, students cannot tell a git error from a notebook bug | `C8` bullet 1 + `Watch:` note |
+
+Two were judged not worth slide space and folded into existing speaker notes instead:
+`git log --oneline -5` and `git status -sb` (outputs students read rather than skills they
+need) now appear in `C3`'s `Watch:` line. `git rev-parse --show-toplevel` is plumbing inside
+`cell#6` and is left out deliberately.
+
+### Prerequisite audit
+
+Of the 11 rows in `docs/CONCEPTS.md` § "Laptop setup — the floor", **five are exercised by
+this notebook** (git, Jupyter kernels, `uv`, `pathlib.Path`, env vars/`.env`) and six are
+not (type hints, `dataclass`, JSON/JSONL authoring, `async`/`await`, HTTP/REST/streaming) —
+those arrive from module 02 on. Note that `pathlib.Path` is listed in the floor table against
+modules 05/10/13 but is **first used here** (`cell#24`, `cell#34`, `cell#39`). The full
+table, plus the one genuine Python hurdle (`cell#10`'s remote-slug regex, verified against
+SSH, HTTPS, and `.git` forms, and its silent fallback when no match) is in the companion
+sheet §1b.
 
 ### Independent review
 

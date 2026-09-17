@@ -26,6 +26,52 @@ the material is hard, but that it is familiar enough to rush, and the two things
 will actually be hurt by later — the workspace/seed mechanic and the `uv` groups trap —
 are the two least git-like parts of the slot.
 
+## 1b. Background a mid-level engineer needs to complete this notebook
+
+`docs/CONCEPTS.md` § "Laptop setup — the floor" lists 11 prerequisite rows for the whole
+course. Only five are actually exercised by module 01, and the notebook supplies none of
+them — a student missing one is stuck on mechanics, not on the lesson. Checked against every
+command and Python construct the notebook runs.
+
+| Prerequisite | Why *this* notebook needs it | Where it bites | Floor row? |
+|---|---|---|---|
+| **Git: branch, diff, commit, push, two remotes** | The entire module is this loop | `cell#10`–`cell#34` | yes — "Monday's dev-environment demo is this loop \| 01" |
+| **A GitHub account + `gh` logged in** | `cell#6` raises without it; `cell#31` opens a real PR | `cell#6`, `cell#31` | no — assumed by `00_Setup` |
+| **Jupyter: run order, restart, state** | 44 cells with shared state; `USER`, `BRANCH`, `on_the_fork`, `members` are all defined in earlier cells and used later | `cell#6` → `cell#39` | yes — "half of all *it broke* is stale kernel state \| all" |
+| **`uv`, and why `uv sync` is exact** | A bare `uv sync` breaks the environment the notebook runs in | before `cell#0` | yes — "always" |
+| **`pathlib.Path`** | `REPO_ROOT / "project" / "members.md"`, `.read_text()`, `.write_text()`, `.unlink(missing_ok=True)`, `.relative_to()` | `cell#24`, `cell#34`, `cell#39` | yes — listed for modules 05/10/13, but **first used here** |
+| **Env vars and `.env`** | Not read by this notebook, but the secrets rule taught here is about `.env` | `00_Setup/keys.md` | yes |
+| **Reading a `subprocess` wrapper** | Every command runs through `sh()`; a student who cannot read it cannot tell a helper bug from a git error | `cell#6` | no — implied by "Python… every cell" |
+| **f-strings** | Every command is interpolated: `f"git switch -c {BRANCH}"` | throughout | implied |
+| **Regex, lightly** | `re.search(r"github\.com[:/]+([^/]+)/(.+?)(?:\.git)?$", origin_url)` parses the remote slug | `cell#10` | implied |
+
+**Not needed here** (floor rows that do *not* apply to module 01, so do not spend time on
+them in this slot): type hints / `from __future__ import annotations`, `dataclass`,
+JSON/JSONL as an authoring skill, `async`/`await`, HTTP/REST/bearer tokens/streaming. They
+arrive from module 02 onward.
+
+**The one genuine Python hurdle** is `cell#10`. It is the only cell doing real logic rather
+than issuing a command, and it combines a regex with a `cohort.toml` lookup and a boolean
+that two later cells depend on:
+
+```python
+UPSTREAM_SLUG = COHORT["cohort"]["repo"]          # from cohort.toml
+m = re.search(r"github\.com[:/]+([^/]+)/(.+?)(?:\.git)?$", origin_url)
+ORIGIN_SLUG = f"{m.group(1)}/{m.group(2)}" if m else origin_url
+on_the_fork = UPSTREAM_SLUG.lower() not in ORIGIN_SLUG.lower()
+```
+
+The regex handles both SSH (`git@github.com:user/repo.git`) and HTTPS
+(`https://github.com/user/repo`) remotes and strips an optional `.git`. If a student's
+`origin` is an unusual form, `m` is `None` and `ORIGIN_SLUG` silently becomes the raw URL,
+which makes the `gh --repo` calls in `cell#31` fail later with a confusing error. Worth
+knowing as a support path: ask to see `git remote -v`.
+
+**Coverage note.** Every command and construct in the notebook is now represented somewhere
+in the deck — 34 of 34 items in the audit, including the three that were missing before this
+pass (kernel run order, `gh auth status` as the first hard stop, and the `sh()` helper, all
+now on slide `D1-M01-C8`).
+
 ## 2. What students will be able to do
 
 1. Say which remote they push to and which they pull course updates from, and add a missing

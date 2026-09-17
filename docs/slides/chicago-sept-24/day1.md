@@ -367,7 +367,7 @@ Slide ID: D1-M01-C1B
 Module: [01 Dev environment](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/01_Dev_Environment/README.md)
 Instructor: Miriah, no-code orientation
 Type: core
-Minutes: 2
+Minutes: 1
 Layout: 04 Icon cards
 Speaker notes:
 - Say: The fallback is loud on purpose — `load()` prints a line when it falls back to the seed.
@@ -417,7 +417,7 @@ Slide ID: D1-M01-C2B
 Module: [01 Dev environment](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/01_Dev_Environment/README.md)
 Instructor: Miriah, no-code orientation
 Type: core
-Minutes: 2
+Minutes: 1
 Layout: 05 Two column 2
 Speaker notes:
 - Say: Your GitHub repo is itself a certification deliverable, so this history is graded.
@@ -445,7 +445,7 @@ Layout: 05 Two column 1
 Speaker notes:
 - Say: Two remotes, two jobs. You push to your fork and send changes back as pull requests.
 - Ask: You fetched upstream and your files did not change. Is something wrong?
-- Watch: Task 1 (cell#10) adds `upstream` if it is missing, reading the slug from `cohort.toml`. Task 2 (cell#13) fetches and then only *prints* the fast-forward command, so students run the merge deliberately.
+- Watch: Task 1 (cell#10) adds `upstream` if it is missing, reading the slug from `cohort.toml`. Task 2 (cell#13) fetches, shows the last five upstream commits with `git log --oneline -5` and the branch's position with `git status -sb`, then only *prints* the fast-forward command, so students run the merge deliberately.
 - Then: Note that fetching updates your copy of the remote branches without touching your working files.
 Sources: [GitHub flow](https://docs.github.com/en/get-started/using-github/github-flow); [Module 01 notebook, Tasks 1-2](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/01_Dev_Environment/Dev_Environment.ipynb).
 -->
@@ -586,6 +586,30 @@ Speaker notes:
 - Watch: The answer is almost always that a bare `uv sync` or `uv run --group dev` removed an optional group. Fix: `make setup`, which keeps the groups already installed.
 - Then: For an intercepted host, the terminal works because the machine trusts the private CA, but a container will not — keep the CA file to hand.
 Sources: [Setup and troubleshooting](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/00_Setup/README.md); [Course concepts, setup traps](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/docs/CONCEPTS.md).
+-->
+
+---
+
+# How to survive a notebook
+
+- Every cell prints the command it ran, as `$ git …`, then that command's output
+- **Run cells in order, top to bottom.** Half of all "it broke" is stale kernel state
+- If a cell fails: read the last line, fix it, rerun *that* cell — not the whole notebook
+- `gh auth status` failing is the first hard stop: fix it in a terminal, then rerun
+
+<!--
+Slide ID: D1-M01-C8
+Module: [01 Dev environment](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/01_Dev_Environment/README.md)
+Instructor: Miriah, no-code orientation
+Type: core
+Minutes: 2
+Layout: 04 Icon cards
+Speaker notes:
+- Say: This is the first notebook of the week, so these habits are worth thirty seconds now rather than an hour later.
+- Ask: A cell you have already run succeeds, you edit a cell above it, rerun only the lower one — is the state what you think it is?
+- Watch: The `sh()` helper in cell#6 wraps `subprocess.run` and prints `$ <command>` plus stdout and stderr, so students can always see exactly what ran. Cell#6 also captures their GitHub login and the repo root, and raises if `gh auth status` says they are not logged in.
+- Then: Every task cell in this notebook ends with a line telling you what you should have seen; if you did not see it, stop there rather than running on.
+Sources: [Course concepts, laptop setup floor](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/docs/CONCEPTS.md); [Module 01 notebook, Setup cell](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/01_Dev_Environment/Dev_Environment.ipynb).
 -->
 
 ---
