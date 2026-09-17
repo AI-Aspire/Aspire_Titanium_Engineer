@@ -341,20 +341,20 @@ Example question: `VPN-4312 fails after a password reset`
 | Hybrid | both clues in the candidate set |
 
 <svg viewBox="0 0 700 150" width="900" role="img" aria-label="Sparse retrieval preserves exact VPN code terms while dense retrieval connects related remote access wording, and hybrid keeps both candidate sets">
-  <g text-anchor="middle">
-    <rect x="18" y="38" width="190" height="58" rx="9" fill="#fef3c7" stroke="#d97706" stroke-width="2.5"/>
-    <text x="113" y="63" font-size="15" font-weight="700" fill="#92400e">sparse / BM25</text>
-    <text x="113" y="82" font-size="12" fill="#b45309">VPN-4312</text>
-    <rect x="255" y="38" width="190" height="58" rx="9" fill="#ede9fe" stroke="#7c3aed" stroke-width="2.5"/>
-    <text x="350" y="63" font-size="15" font-weight="700" fill="#5b21b6">dense</text>
-    <text x="350" y="82" font-size="12" fill="#6d28d9">remote access</text>
-    <rect x="492" y="38" width="190" height="58" rx="9" fill="#e0f2fe" stroke="#0284c7" stroke-width="2.5"/>
-    <text x="587" y="63" font-size="15" font-weight="700" fill="#075985">hybrid</text>
-    <text x="587" y="82" font-size="12" fill="#0369a1">both candidate signals</text>
-    <path d="M210 67 H250" stroke="#94a3b8" stroke-width="2.5" marker-end="url(#dense-sparse-a)"/>
-    <path d="M447 67 H487" stroke="#94a3b8" stroke-width="2.5" marker-end="url(#dense-sparse-a)"/>
-  </g>
-  <defs><marker id="dense-sparse-a" markerWidth="9" markerHeight="9" refX="8" refY="3" orient="auto"><path d="M0 0 L8 3 L0 6 z" fill="#94a3b8"/></marker></defs>
+<g text-anchor="middle">
+<rect x="18" y="38" width="190" height="58" rx="9" fill="#fef3c7" stroke="#d97706" stroke-width="2.5"/>
+<text x="113" y="63" font-size="15" font-weight="700" fill="#92400e">sparse / BM25</text>
+<text x="113" y="82" font-size="12" fill="#b45309">VPN-4312</text>
+<rect x="255" y="38" width="190" height="58" rx="9" fill="#ede9fe" stroke="#7c3aed" stroke-width="2.5"/>
+<text x="350" y="63" font-size="15" font-weight="700" fill="#5b21b6">dense</text>
+<text x="350" y="82" font-size="12" fill="#6d28d9">remote access</text>
+<rect x="492" y="38" width="190" height="58" rx="9" fill="#e0f2fe" stroke="#0284c7" stroke-width="2.5"/>
+<text x="587" y="63" font-size="15" font-weight="700" fill="#075985">hybrid</text>
+<text x="587" y="82" font-size="12" fill="#0369a1">both candidate signals</text>
+<path d="M210 67 H250" stroke="#94a3b8" stroke-width="2.5" marker-end="url(#dense-sparse-a)"/>
+<path d="M447 67 H487" stroke="#94a3b8" stroke-width="2.5" marker-end="url(#dense-sparse-a)"/>
+</g>
+<defs><marker id="dense-sparse-a" markerWidth="9" markerHeight="9" refX="8" refY="3" orient="auto"><path d="M0 0 L8 3 L0 6 z" fill="#94a3b8"/></marker></defs>
 </svg>
 
 <!--
@@ -419,24 +419,24 @@ Sources: [Dense Passage Retrieval](https://aclanthology.org/2020.emnlp-main.550/
 `20 candidates → RRF top 10 → reranker top 5 → context top 3`
 
 <svg viewBox="0 0 700 145" width="900" role="img" aria-label="Retrieval ladder sequence from sparse and dense candidates through fusion and reranking to context">
-  <g text-anchor="middle">
-    <rect x="12" y="40" width="142" height="54" rx="9" fill="#fef3c7" stroke="#d97706" stroke-width="2.5"/>
-    <text x="83" y="63" font-size="14" font-weight="700" fill="#92400e">sparse</text>
-    <text x="83" y="81" font-size="11.5" fill="#b45309">exact terms</text>
-    <rect x="190" y="40" width="142" height="54" rx="9" fill="#ede9fe" stroke="#7c3aed" stroke-width="2.5"/>
-    <text x="261" y="63" font-size="14" font-weight="700" fill="#5b21b6">dense</text>
-    <text x="261" y="81" font-size="11.5" fill="#6d28d9">related meaning</text>
-    <rect x="368" y="40" width="142" height="54" rx="9" fill="#e0f2fe" stroke="#0284c7" stroke-width="2.5"/>
-    <text x="439" y="63" font-size="14" font-weight="700" fill="#075985">fuse</text>
-    <text x="439" y="81" font-size="11.5" fill="#0369a1">RRF shortlist</text>
-    <rect x="546" y="40" width="142" height="54" rx="9" fill="#f8fafc" stroke="#94a3b8" stroke-width="2.5"/>
-    <text x="617" y="63" font-size="14" font-weight="700" fill="#334155">rerank</text>
-    <text x="617" y="81" font-size="11.5" fill="#475569">context top 3</text>
-    <path d="M156 67 H184" stroke="#94a3b8" stroke-width="2.5" marker-end="url(#ladder-a)"/>
-    <path d="M334 67 H362" stroke="#94a3b8" stroke-width="2.5" marker-end="url(#ladder-a)"/>
-    <path d="M512 67 H540" stroke="#94a3b8" stroke-width="2.5" marker-end="url(#ladder-a)"/>
-  </g>
-  <defs><marker id="ladder-a" markerWidth="9" markerHeight="9" refX="8" refY="3" orient="auto"><path d="M0 0 L8 3 L0 6 z" fill="#94a3b8"/></marker></defs>
+<g text-anchor="middle">
+<rect x="12" y="40" width="142" height="54" rx="9" fill="#fef3c7" stroke="#d97706" stroke-width="2.5"/>
+<text x="83" y="63" font-size="14" font-weight="700" fill="#92400e">sparse</text>
+<text x="83" y="81" font-size="11.5" fill="#b45309">exact terms</text>
+<rect x="190" y="40" width="142" height="54" rx="9" fill="#ede9fe" stroke="#7c3aed" stroke-width="2.5"/>
+<text x="261" y="63" font-size="14" font-weight="700" fill="#5b21b6">dense</text>
+<text x="261" y="81" font-size="11.5" fill="#6d28d9">related meaning</text>
+<rect x="368" y="40" width="142" height="54" rx="9" fill="#e0f2fe" stroke="#0284c7" stroke-width="2.5"/>
+<text x="439" y="63" font-size="14" font-weight="700" fill="#075985">fuse</text>
+<text x="439" y="81" font-size="11.5" fill="#0369a1">RRF shortlist</text>
+<rect x="546" y="40" width="142" height="54" rx="9" fill="#f8fafc" stroke="#94a3b8" stroke-width="2.5"/>
+<text x="617" y="63" font-size="14" font-weight="700" fill="#334155">rerank</text>
+<text x="617" y="81" font-size="11.5" fill="#475569">context top 3</text>
+<path d="M156 67 H184" stroke="#94a3b8" stroke-width="2.5" marker-end="url(#ladder-a)"/>
+<path d="M334 67 H362" stroke="#94a3b8" stroke-width="2.5" marker-end="url(#ladder-a)"/>
+<path d="M512 67 H540" stroke="#94a3b8" stroke-width="2.5" marker-end="url(#ladder-a)"/>
+</g>
+<defs><marker id="ladder-a" markerWidth="9" markerHeight="9" refX="8" refY="3" orient="auto"><path d="M0 0 L8 3 L0 6 z" fill="#94a3b8"/></marker></defs>
 </svg>
 
 - **Cheap first:** gather candidates with multiple signals

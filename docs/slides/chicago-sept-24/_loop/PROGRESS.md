@@ -321,3 +321,29 @@ Also this pass:
   prefix. The check is now prefix-aware; all decks are at zero.
 
 The review index now shows a **"min for code"** column so the balance is visible at a glance.
+
+### Rendering bug: indented SVG was being code-blocked (2026-09-17)
+
+The author reported the `D1-M03-C0` evolution diagram rendering as a grey box with its own
+markup spilling out as prose. The deck source was fine; the cause was **indentation**. Markdown
+treats a line indented four or more spaces as a code block, so partway through each inline
+`<svg>` Marp stopped passing HTML through and began escaping it into `<pre>`. The result: the
+first few shapes drew, then the rest of the diagram appeared as visible source text.
+
+This was **silently affecting every deck**, not just the reported slide — 231 indented SVG
+lines across days 1–4. All are now de-indented, and the rendered output has **zero** escaped
+`<rect>`/`<text>`/`<path>` fragments on any deck. The diagrams themselves are unchanged and
+verified intact (the evolution diagram still has its 4 boxes, 17 labels, 4 arrows and marker
+defs).
+
+The structural verifier now includes check **2b**, which fails if any line inside an `<svg>`
+carries leading whitespace, so this cannot regress.
+
+Also this pass, at the author's request:
+
+- `D1-M02-C6`: removed "Deskmate can spend more effort on Priya's VPN question—but measure the
+  cost", which restated the blockquote above it. The blockquote now reads "**Reasoning is token
+  spend.** More effort costs more tokens and more time," and the `Ask:` note no longer ties the
+  point to one scenario.
+- `D1-M02-R1`: the three paper bullets are now links — Brown et al. 2020, Wei et al. 2022,
+  Madaan et al. 2023. All three verified 200.

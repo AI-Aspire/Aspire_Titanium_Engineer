@@ -363,21 +363,21 @@ Sources: [Module 01 overview](https://github.com/AI-Aspire/Aspire_Titanium_Engin
 
 <div style="display:flex;justify-content:center;margin-top:.35em">
 <svg viewBox="0 0 720 190" width="900" role="img" aria-label="OpenAI, vLLM, and Ollama clients point to one OpenAI-compatible chat completions endpoint">
-  <g text-anchor="middle">
-    <rect x="260" y="18" width="200" height="58" rx="9" fill="#e8f0fe" stroke="#0284c7" stroke-width="2.5"/>
-    <text x="360" y="43" font-size="15" font-weight="700" fill="#075985">POST /v1/chat/completions</text>
-    <text x="360" y="62" font-size="12" fill="#0369a1">your endpoint</text>
-    <rect x="24" y="118" width="170" height="54" rx="9" fill="#f1f5f9" stroke="#94a3b8" stroke-width="2"/>
-    <text x="109" y="151" font-size="15" font-weight="700" fill="#334155">OpenAI</text>
-    <rect x="275" y="118" width="170" height="54" rx="9" fill="#f1f5f9" stroke="#94a3b8" stroke-width="2"/>
-    <text x="360" y="151" font-size="15" font-weight="700" fill="#334155">vLLM</text>
-    <rect x="526" y="118" width="170" height="54" rx="9" fill="#f1f5f9" stroke="#94a3b8" stroke-width="2"/>
-    <text x="611" y="151" font-size="15" font-weight="700" fill="#334155">Ollama</text>
-  </g>
-  <path d="M109 114 L300 79" stroke="#94a3b8" stroke-width="2" marker-end="url(#compat-arrow)"/>
-  <path d="M360 114 V80" stroke="#94a3b8" stroke-width="2" marker-end="url(#compat-arrow)"/>
-  <path d="M611 114 L420 79" stroke="#94a3b8" stroke-width="2" marker-end="url(#compat-arrow)"/>
-  <defs><marker id="compat-arrow" markerWidth="9" markerHeight="9" refX="8" refY="3" orient="auto"><path d="M0 0 L8 3 L0 6 z" fill="#94a3b8"/></marker></defs>
+<g text-anchor="middle">
+<rect x="260" y="18" width="200" height="58" rx="9" fill="#e8f0fe" stroke="#0284c7" stroke-width="2.5"/>
+<text x="360" y="43" font-size="15" font-weight="700" fill="#075985">POST /v1/chat/completions</text>
+<text x="360" y="62" font-size="12" fill="#0369a1">your endpoint</text>
+<rect x="24" y="118" width="170" height="54" rx="9" fill="#f1f5f9" stroke="#94a3b8" stroke-width="2"/>
+<text x="109" y="151" font-size="15" font-weight="700" fill="#334155">OpenAI</text>
+<rect x="275" y="118" width="170" height="54" rx="9" fill="#f1f5f9" stroke="#94a3b8" stroke-width="2"/>
+<text x="360" y="151" font-size="15" font-weight="700" fill="#334155">vLLM</text>
+<rect x="526" y="118" width="170" height="54" rx="9" fill="#f1f5f9" stroke="#94a3b8" stroke-width="2"/>
+<text x="611" y="151" font-size="15" font-weight="700" fill="#334155">Ollama</text>
+</g>
+<path d="M109 114 L300 79" stroke="#94a3b8" stroke-width="2" marker-end="url(#compat-arrow)"/>
+<path d="M360 114 V80" stroke="#94a3b8" stroke-width="2" marker-end="url(#compat-arrow)"/>
+<path d="M611 114 L420 79" stroke="#94a3b8" stroke-width="2" marker-end="url(#compat-arrow)"/>
+<defs><marker id="compat-arrow" markerWidth="9" markerHeight="9" refX="8" refY="3" orient="auto"><path d="M0 0 L8 3 L0 6 z" fill="#94a3b8"/></marker></defs>
 </svg>
 </div>
 
@@ -404,20 +404,20 @@ Sources: [Course concepts](https://github.com/AI-Aspire/Aspire_Titanium_Engineer
 
 <div style="display:flex;justify-content:center;margin-top:.65em">
 <svg viewBox="0 0 720 170" width="900" role="img" aria-label="Learn, Create, Grow: learn builds the weak version, create writes to workspace, grow discusses production">
-  <g text-anchor="middle">
-    <rect x="20" y="35" width="200" height="78" rx="9" fill="#ede9fe" stroke="#7c3aed" stroke-width="2.5"/>
-    <text x="120" y="68" font-size="19" font-weight="700" fill="#5b21b6">Learn</text>
-    <text x="120" y="91" font-size="12.5" fill="#6d28d9">weak version first</text>
-    <rect x="260" y="35" width="200" height="78" rx="9" fill="#fef3c7" stroke="#d97706" stroke-width="2.5"/>
-    <text x="360" y="68" font-size="19" font-weight="700" fill="#92400e">Create</text>
-    <text x="360" y="91" font-size="12.5" fill="#b45309">writes to workspace</text>
-    <rect x="500" y="35" width="200" height="78" rx="9" fill="#e0f2fe" stroke="#0284c7" stroke-width="2.5"/>
-    <text x="600" y="68" font-size="19" font-weight="700" fill="#075985">Grow</text>
-    <text x="600" y="91" font-size="12.5" fill="#0369a1">what production needs</text>
-  </g>
-  <path d="M225 74 H255" stroke="#94a3b8" stroke-width="2" marker-end="url(#acts-arrow)"/>
-  <path d="M465 74 H495" stroke="#94a3b8" stroke-width="2" marker-end="url(#acts-arrow)"/>
-  <defs><marker id="acts-arrow" markerWidth="9" markerHeight="9" refX="8" refY="3" orient="auto"><path d="M0 0 L8 3 L0 6 z" fill="#94a3b8"/></marker></defs>
+<g text-anchor="middle">
+<rect x="20" y="35" width="200" height="78" rx="9" fill="#ede9fe" stroke="#7c3aed" stroke-width="2.5"/>
+<text x="120" y="68" font-size="19" font-weight="700" fill="#5b21b6">Learn</text>
+<text x="120" y="91" font-size="12.5" fill="#6d28d9">weak version first</text>
+<rect x="260" y="35" width="200" height="78" rx="9" fill="#fef3c7" stroke="#d97706" stroke-width="2.5"/>
+<text x="360" y="68" font-size="19" font-weight="700" fill="#92400e">Create</text>
+<text x="360" y="91" font-size="12.5" fill="#b45309">writes to workspace</text>
+<rect x="500" y="35" width="200" height="78" rx="9" fill="#e0f2fe" stroke="#0284c7" stroke-width="2.5"/>
+<text x="600" y="68" font-size="19" font-weight="700" fill="#075985">Grow</text>
+<text x="600" y="91" font-size="12.5" fill="#0369a1">what production needs</text>
+</g>
+<path d="M225 74 H255" stroke="#94a3b8" stroke-width="2" marker-end="url(#acts-arrow)"/>
+<path d="M465 74 H495" stroke="#94a3b8" stroke-width="2" marker-end="url(#acts-arrow)"/>
+<defs><marker id="acts-arrow" markerWidth="9" markerHeight="9" refX="8" refY="3" orient="auto"><path d="M0 0 L8 3 L0 6 z" fill="#94a3b8"/></marker></defs>
 </svg>
 </div>
 
@@ -693,21 +693,21 @@ Sources: [Module 01 overview](https://github.com/AI-Aspire/Aspire_Titanium_Engin
 
 <div style="display:flex;justify-content:center;margin-top:.4em">
 <svg viewBox="0 0 620 170" width="880" role="img" aria-label="origin is your fork, which you push to; upstream is the course repository, which you fetch from">
-  <rect x="10" y="46" width="176" height="74" rx="9" fill="#e8f0fe" stroke="#2563eb" stroke-width="2.5"/>
-  <text x="98" y="76" font-size="17" font-weight="700" text-anchor="middle" fill="#1e3a8a">your fork</text>
-  <text x="98" y="99" font-size="14" font-family="monospace" text-anchor="middle" fill="#334155">origin</text>
-  <rect x="434" y="46" width="176" height="74" rx="9" fill="#f1f5f9" stroke="#64748b" stroke-width="2.5"/>
-  <text x="522" y="76" font-size="17" font-weight="700" text-anchor="middle" fill="#0f172a">course repo</text>
-  <text x="522" y="99" font-size="14" font-family="monospace" text-anchor="middle" fill="#334155">upstream</text>
-  <path d="M188 68 H430" stroke="#2563eb" stroke-width="2.5" marker-end="url(#ar1)"/>
-  <text x="309" y="58" font-size="14" text-anchor="middle" fill="#2563eb">push, then pull request</text>
-  <path d="M430 100 H192" stroke="#64748b" stroke-width="2.5" stroke-dasharray="6 4" marker-end="url(#ar2)"/>
-  <text x="309" y="122" font-size="14" text-anchor="middle" fill="#475569">git fetch upstream</text>
-  <text x="309" y="152" font-size="13" text-anchor="middle" fill="#64748b" font-style="italic">you have write access on the left, not the right</text>
-  <defs>
-    <marker id="ar1" markerWidth="10" markerHeight="10" refX="8.5" refY="3" orient="auto"><path d="M0 0 L8.5 3 L0 6 z" fill="#2563eb"/></marker>
-    <marker id="ar2" markerWidth="10" markerHeight="10" refX="8.5" refY="3" orient="auto"><path d="M0 0 L8.5 3 L0 6 z" fill="#64748b"/></marker>
-  </defs>
+<rect x="10" y="46" width="176" height="74" rx="9" fill="#e8f0fe" stroke="#2563eb" stroke-width="2.5"/>
+<text x="98" y="76" font-size="17" font-weight="700" text-anchor="middle" fill="#1e3a8a">your fork</text>
+<text x="98" y="99" font-size="14" font-family="monospace" text-anchor="middle" fill="#334155">origin</text>
+<rect x="434" y="46" width="176" height="74" rx="9" fill="#f1f5f9" stroke="#64748b" stroke-width="2.5"/>
+<text x="522" y="76" font-size="17" font-weight="700" text-anchor="middle" fill="#0f172a">course repo</text>
+<text x="522" y="99" font-size="14" font-family="monospace" text-anchor="middle" fill="#334155">upstream</text>
+<path d="M188 68 H430" stroke="#2563eb" stroke-width="2.5" marker-end="url(#ar1)"/>
+<text x="309" y="58" font-size="14" text-anchor="middle" fill="#2563eb">push, then pull request</text>
+<path d="M430 100 H192" stroke="#64748b" stroke-width="2.5" stroke-dasharray="6 4" marker-end="url(#ar2)"/>
+<text x="309" y="122" font-size="14" text-anchor="middle" fill="#475569">git fetch upstream</text>
+<text x="309" y="152" font-size="13" text-anchor="middle" fill="#64748b" font-style="italic">you have write access on the left, not the right</text>
+<defs>
+<marker id="ar1" markerWidth="10" markerHeight="10" refX="8.5" refY="3" orient="auto"><path d="M0 0 L8.5 3 L0 6 z" fill="#2563eb"/></marker>
+<marker id="ar2" markerWidth="10" markerHeight="10" refX="8.5" refY="3" orient="auto"><path d="M0 0 L8.5 3 L0 6 z" fill="#64748b"/></marker>
+</defs>
 </svg>
 </div>
 
@@ -732,25 +732,25 @@ Sources: [GitHub flow](https://docs.github.com/en/get-started/using-github/githu
 
 <div style="display:flex;justify-content:center;margin-top:.3em">
 <svg viewBox="0 0 660 130" width="900" role="img" aria-label="branch, then change, then read the diff, then commit">
-  <g font-size="14" text-anchor="middle">
-    <rect x="6" y="34" width="140" height="58" rx="8" fill="#e8f0fe" stroke="#2563eb" stroke-width="2"/>
-    <text x="76" y="52" font-size="12" fill="#2563eb">STEP 1</text>
-    <text x="76" y="72" font-weight="700" fill="#1e3a8a">branch</text>
-    <rect x="176" y="34" width="140" height="58" rx="8" fill="#e8f0fe" stroke="#2563eb" stroke-width="2"/>
-    <text x="246" y="52" font-size="12" fill="#2563eb">STEP 2</text>
-    <text x="246" y="72" font-weight="700" fill="#1e3a8a">change</text>
-    <rect x="346" y="34" width="140" height="58" rx="8" fill="#fef3c7" stroke="#d97706" stroke-width="2.5"/>
-    <text x="416" y="52" font-size="12" fill="#b45309">STEP 3</text>
-    <text x="416" y="72" font-weight="700" fill="#92400e">read the diff</text>
-    <rect x="516" y="34" width="140" height="58" rx="8" fill="#e8f0fe" stroke="#2563eb" stroke-width="2"/>
-    <text x="586" y="52" font-size="12" fill="#2563eb">STEP 4</text>
-    <text x="586" y="72" font-weight="700" fill="#1e3a8a">commit</text>
-  </g>
-  <path d="M148 63 H172" stroke="#94a3b8" stroke-width="2" marker-end="url(#s1)"/>
-  <path d="M318 63 H342" stroke="#94a3b8" stroke-width="2" marker-end="url(#s1)"/>
-  <path d="M488 63 H512" stroke="#94a3b8" stroke-width="2" marker-end="url(#s1)"/>
-  <text x="416" y="112" font-size="13" text-anchor="middle" fill="#b45309" font-style="italic">the step your AI editor cannot do for you</text>
-  <defs><marker id="s1" markerWidth="9" markerHeight="9" refX="8" refY="3" orient="auto"><path d="M0 0 L8 3 L0 6 z" fill="#94a3b8"/></marker></defs>
+<g font-size="14" text-anchor="middle">
+<rect x="6" y="34" width="140" height="58" rx="8" fill="#e8f0fe" stroke="#2563eb" stroke-width="2"/>
+<text x="76" y="52" font-size="12" fill="#2563eb">STEP 1</text>
+<text x="76" y="72" font-weight="700" fill="#1e3a8a">branch</text>
+<rect x="176" y="34" width="140" height="58" rx="8" fill="#e8f0fe" stroke="#2563eb" stroke-width="2"/>
+<text x="246" y="52" font-size="12" fill="#2563eb">STEP 2</text>
+<text x="246" y="72" font-weight="700" fill="#1e3a8a">change</text>
+<rect x="346" y="34" width="140" height="58" rx="8" fill="#fef3c7" stroke="#d97706" stroke-width="2.5"/>
+<text x="416" y="52" font-size="12" fill="#b45309">STEP 3</text>
+<text x="416" y="72" font-weight="700" fill="#92400e">read the diff</text>
+<rect x="516" y="34" width="140" height="58" rx="8" fill="#e8f0fe" stroke="#2563eb" stroke-width="2"/>
+<text x="586" y="52" font-size="12" fill="#2563eb">STEP 4</text>
+<text x="586" y="72" font-weight="700" fill="#1e3a8a">commit</text>
+</g>
+<path d="M148 63 H172" stroke="#94a3b8" stroke-width="2" marker-end="url(#s1)"/>
+<path d="M318 63 H342" stroke="#94a3b8" stroke-width="2" marker-end="url(#s1)"/>
+<path d="M488 63 H512" stroke="#94a3b8" stroke-width="2" marker-end="url(#s1)"/>
+<text x="416" y="112" font-size="13" text-anchor="middle" fill="#b45309" font-style="italic">the step your AI editor cannot do for you</text>
+<defs><marker id="s1" markerWidth="9" markerHeight="9" refX="8" refY="3" orient="auto"><path d="M0 0 L8 3 L0 6 z" fill="#94a3b8"/></marker></defs>
 </svg>
 </div>
 
@@ -1483,9 +1483,7 @@ Sources: [Chain-of-thought prompting, Wei et al., 2022](https://arxiv.org/abs/22
 - Read the token counts and the time cost
 - Keep the trap question and evidence fixed
 
-> More effort costs more tokens and more time.
-
-Deskmate can spend more effort on Priya's VPN question—but measure the cost.
+> Reasoning is token spend. More effort costs more tokens and more time.
 
 <!--
 Slide ID: D1-M02-C6
@@ -1496,7 +1494,7 @@ Minutes: 2
 Layout: 06 Process steps 1
 Speaker notes:
 - Say: A reasoning budget is a model setting with a measurable cost.
-- Ask: What evidence would justify spending more tokens on Priya's VPN question?
+- Ask: What result would justify paying for more reasoning on this question?
 - Watch: Hold the question and model constant; compare the token counts and latency before deciding whether more effort helped.
 - Then: Notebook:cell#17 — Task 3 is the reasoning-budget comparison, not a tool-use loop.
 Sources: [Prompt patterns notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/02_Prompt_Patterns/Prompt_Patterns.ipynb); [Course concepts](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/docs/CONCEPTS.md).
@@ -1556,9 +1554,9 @@ Sources: [Prompt patterns Create/Grow](https://github.com/AI-Aspire/Aspire_Titan
 
 # Optional: from examples to measured refinement
 
-- Brown et al.: examples supplied at inference time
-- Wei et al.: reasoning demonstrations on tested tasks
-- Madaan et al.: feedback and revision loops
+- [Brown et al., 2020](https://arxiv.org/abs/2005.14165): examples supplied at inference time
+- [Wei et al., 2022](https://arxiv.org/abs/2201.11903): reasoning demonstrations on tested tasks
+- [Madaan et al., 2023](https://arxiv.org/abs/2303.17651): feedback and revision loops
 
 <!--
 Slide ID: D1-M02-R1
@@ -1602,38 +1600,38 @@ Sources: [Module 03 overview](https://github.com/AI-Aspire/Aspire_Titanium_Engin
 
 <div style="display:flex;justify-content:center;margin-top:.15em">
 <svg viewBox="0 0 760 210" width="920" role="img" aria-label="Four stages: a direct prompt, chain-of-thought which improves reasoning, Toolformer which shows models can call tools, and the harness where your code owns the tools">
-  <g text-anchor="middle">
-    <rect x="6" y="40" width="170" height="82" rx="9" fill="#f1f5f9" stroke="#94a3b8" stroke-width="2"/>
-    <text x="91" y="62" font-size="11.5" fill="#64748b">ASK</text>
-    <text x="91" y="83" font-size="14.5" font-weight="700" fill="#0f172a">direct prompt</text>
-    <text x="91" y="104" font-size="11.5" fill="#475569">one call, one answer</text>
+<g text-anchor="middle">
+<rect x="6" y="40" width="170" height="82" rx="9" fill="#f1f5f9" stroke="#94a3b8" stroke-width="2"/>
+<text x="91" y="62" font-size="11.5" fill="#64748b">ASK</text>
+<text x="91" y="83" font-size="14.5" font-weight="700" fill="#0f172a">direct prompt</text>
+<text x="91" y="104" font-size="11.5" fill="#475569">one call, one answer</text>
 
-    <rect x="196" y="40" width="170" height="82" rx="9" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
-    <text x="281" y="62" font-size="11.5" fill="#0369a1">THINK</text>
-    <text x="281" y="83" font-size="14.5" font-weight="700" fill="#075985">chain of thought</text>
-    <text x="281" y="104" font-size="11.5" fill="#0369a1">steps, still no facts</text>
+<rect x="196" y="40" width="170" height="82" rx="9" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
+<text x="281" y="62" font-size="11.5" fill="#0369a1">THINK</text>
+<text x="281" y="83" font-size="14.5" font-weight="700" fill="#075985">chain of thought</text>
+<text x="281" y="104" font-size="11.5" fill="#0369a1">steps, still no facts</text>
 
-    <rect x="386" y="40" width="170" height="82" rx="9" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
-    <text x="471" y="62" font-size="11.5" fill="#15803d">ACT</text>
-    <text x="471" y="83" font-size="14.5" font-weight="700" fill="#14532d">tool use</text>
-    <text x="471" y="104" font-size="11.5" fill="#15803d">reach outside the model</text>
+<rect x="386" y="40" width="170" height="82" rx="9" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+<text x="471" y="62" font-size="11.5" fill="#15803d">ACT</text>
+<text x="471" y="83" font-size="14.5" font-weight="700" fill="#14532d">tool use</text>
+<text x="471" y="104" font-size="11.5" fill="#15803d">reach outside the model</text>
 
-    <rect x="576" y="40" width="178" height="82" rx="9" fill="#fef3c7" stroke="#d97706" stroke-width="3"/>
-    <text x="665" y="62" font-size="11.5" fill="#b45309">GOVERN</text>
-    <text x="665" y="83" font-size="14.5" font-weight="700" fill="#92400e">the harness</text>
-    <text x="665" y="104" font-size="11.5" fill="#b45309">your code authorizes</text>
-  </g>
-  <path d="M178 81 H192" stroke="#94a3b8" stroke-width="2" marker-end="url(#e1)"/>
-  <path d="M368 81 H382" stroke="#94a3b8" stroke-width="2" marker-end="url(#e1)"/>
-  <path d="M558 81 H572" stroke="#94a3b8" stroke-width="2" marker-end="url(#e1)"/>
-  <g font-size="11" text-anchor="middle" fill="#64748b">
-    <text x="281" y="140">Wei et al. 2022</text>
-    <text x="471" y="140">Toolformer, Schick et al. 2023</text>
-    <text x="665" y="140">where this course lives</text>
-  </g>
-  <text x="380" y="176" font-size="13" text-anchor="middle" fill="#0f172a">Reasoning alone cannot look anything up. Tool use can — but something must decide if it is allowed.</text>
-  <text x="380" y="198" font-size="12.5" text-anchor="middle" fill="#92400e" font-style="italic">Toolformer taught the model to call tools. We keep the tools in code we own.</text>
-  <defs><marker id="e1" markerWidth="9" markerHeight="9" refX="8" refY="3" orient="auto"><path d="M0 0 L8 3 L0 6 z" fill="#94a3b8"/></marker></defs>
+<rect x="576" y="40" width="178" height="82" rx="9" fill="#fef3c7" stroke="#d97706" stroke-width="3"/>
+<text x="665" y="62" font-size="11.5" fill="#b45309">GOVERN</text>
+<text x="665" y="83" font-size="14.5" font-weight="700" fill="#92400e">the harness</text>
+<text x="665" y="104" font-size="11.5" fill="#b45309">your code authorizes</text>
+</g>
+<path d="M178 81 H192" stroke="#94a3b8" stroke-width="2" marker-end="url(#e1)"/>
+<path d="M368 81 H382" stroke="#94a3b8" stroke-width="2" marker-end="url(#e1)"/>
+<path d="M558 81 H572" stroke="#94a3b8" stroke-width="2" marker-end="url(#e1)"/>
+<g font-size="11" text-anchor="middle" fill="#64748b">
+<text x="281" y="140">Wei et al. 2022</text>
+<text x="471" y="140">Toolformer, Schick et al. 2023</text>
+<text x="665" y="140">where this course lives</text>
+</g>
+<text x="380" y="176" font-size="13" text-anchor="middle" fill="#0f172a">Reasoning alone cannot look anything up. Tool use can — but something must decide if it is allowed.</text>
+<text x="380" y="198" font-size="12.5" text-anchor="middle" fill="#92400e" font-style="italic">Toolformer taught the model to call tools. We keep the tools in code we own.</text>
+<defs><marker id="e1" markerWidth="9" markerHeight="9" refX="8" refY="3" orient="auto"><path d="M0 0 L8 3 L0 6 z" fill="#94a3b8"/></marker></defs>
 </svg>
 </div>
 
@@ -1657,39 +1655,39 @@ Sources: [Chain-of-thought prompting, Wei et al., 2022](https://arxiv.org/abs/22
 
 <div style="display:flex;justify-content:center;margin-top:.2em">
 <svg viewBox="0 0 700 250" width="900" role="img" aria-label="An agent loop: the model requests a tool, your code authorizes and runs it, the observation returns to the model, and the loop exits with an answer, a clarification, a refusal, or an exhausted budget">
-  <rect x="2" y="2" width="696" height="196" rx="12" fill="none" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="7 5"/>
-  <text x="14" y="22" font-size="13" fill="#64748b" font-style="italic">the harness — yours, not the model's</text>
+<rect x="2" y="2" width="696" height="196" rx="12" fill="none" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="7 5"/>
+<text x="14" y="22" font-size="13" fill="#64748b" font-style="italic">the harness — yours, not the model's</text>
 
-  <rect x="36" y="74" width="152" height="66" rx="9" fill="#ede9fe" stroke="#7c3aed" stroke-width="2.5"/>
-  <text x="112" y="101" font-size="16" font-weight="700" text-anchor="middle" fill="#5b21b6">model</text>
-  <text x="112" y="122" font-size="12.5" text-anchor="middle" fill="#6d28d9">picks a next step</text>
+<rect x="36" y="74" width="152" height="66" rx="9" fill="#ede9fe" stroke="#7c3aed" stroke-width="2.5"/>
+<text x="112" y="101" font-size="16" font-weight="700" text-anchor="middle" fill="#5b21b6">model</text>
+<text x="112" y="122" font-size="12.5" text-anchor="middle" fill="#6d28d9">picks a next step</text>
 
-  <rect x="274" y="74" width="152" height="66" rx="9" fill="#fef3c7" stroke="#d97706" stroke-width="3"/>
-  <text x="350" y="99" font-size="15.5" font-weight="700" text-anchor="middle" fill="#92400e">your code</text>
-  <text x="350" y="120" font-size="12.5" text-anchor="middle" fill="#b45309">authorizes + runs</text>
+<rect x="274" y="74" width="152" height="66" rx="9" fill="#fef3c7" stroke="#d97706" stroke-width="3"/>
+<text x="350" y="99" font-size="15.5" font-weight="700" text-anchor="middle" fill="#92400e">your code</text>
+<text x="350" y="120" font-size="12.5" text-anchor="middle" fill="#b45309">authorizes + runs</text>
 
-  <rect x="512" y="74" width="152" height="66" rx="9" fill="#e0f2fe" stroke="#0284c7" stroke-width="2.5"/>
-  <text x="588" y="101" font-size="16" font-weight="700" text-anchor="middle" fill="#075985">tool</text>
-  <text x="588" y="122" font-size="12.5" text-anchor="middle" fill="#0369a1">does the work</text>
+<rect x="512" y="74" width="152" height="66" rx="9" fill="#e0f2fe" stroke="#0284c7" stroke-width="2.5"/>
+<text x="588" y="101" font-size="16" font-weight="700" text-anchor="middle" fill="#075985">tool</text>
+<text x="588" y="122" font-size="12.5" text-anchor="middle" fill="#0369a1">does the work</text>
 
-  <path d="M190 96 H270" stroke="#7c3aed" stroke-width="2.5" marker-end="url(#g1)"/>
-  <text x="230" y="87" font-size="11.5" text-anchor="middle" fill="#7c3aed">tool call</text>
-  <path d="M428 96 H508" stroke="#d97706" stroke-width="2.5" marker-end="url(#g2)"/>
-  <path d="M508 126 H432" stroke="#0284c7" stroke-width="2.5" marker-end="url(#g3)"/>
-  <text x="470" y="146" font-size="11.5" text-anchor="middle" fill="#0369a1">result</text>
-  <path d="M274 130 H194" stroke="#0284c7" stroke-width="2.5" marker-end="url(#g3)"/>
-  <text x="234" y="150" font-size="11.5" text-anchor="middle" fill="#0369a1">observation</text>
+<path d="M190 96 H270" stroke="#7c3aed" stroke-width="2.5" marker-end="url(#g1)"/>
+<text x="230" y="87" font-size="11.5" text-anchor="middle" fill="#7c3aed">tool call</text>
+<path d="M428 96 H508" stroke="#d97706" stroke-width="2.5" marker-end="url(#g2)"/>
+<path d="M508 126 H432" stroke="#0284c7" stroke-width="2.5" marker-end="url(#g3)"/>
+<text x="470" y="146" font-size="11.5" text-anchor="middle" fill="#0369a1">result</text>
+<path d="M274 130 H194" stroke="#0284c7" stroke-width="2.5" marker-end="url(#g3)"/>
+<text x="234" y="150" font-size="11.5" text-anchor="middle" fill="#0369a1">observation</text>
 
-  <path d="M112 146 V176 H350" stroke="#94a3b8" stroke-width="2" fill="none" marker-end="url(#g4)"/>
-  <text x="240" y="192" font-size="12" text-anchor="middle" fill="#475569">loop again, or exit</text>
+<path d="M112 146 V176 H350" stroke="#94a3b8" stroke-width="2" fill="none" marker-end="url(#g4)"/>
+<text x="240" y="192" font-size="12" text-anchor="middle" fill="#475569">loop again, or exit</text>
 
-  <text x="350" y="228" font-size="13.5" text-anchor="middle" fill="#0f172a" font-weight="600">exit: answer · clarify · decline · budget exhausted</text>
-  <defs>
-    <marker id="g1" markerWidth="10" markerHeight="10" refX="8.5" refY="3" orient="auto"><path d="M0 0 L8.5 3 L0 6 z" fill="#7c3aed"/></marker>
-    <marker id="g2" markerWidth="10" markerHeight="10" refX="8.5" refY="3" orient="auto"><path d="M0 0 L8.5 3 L0 6 z" fill="#d97706"/></marker>
-    <marker id="g3" markerWidth="10" markerHeight="10" refX="8.5" refY="3" orient="auto"><path d="M0 0 L8.5 3 L0 6 z" fill="#0284c7"/></marker>
-    <marker id="g4" markerWidth="10" markerHeight="10" refX="8.5" refY="3" orient="auto"><path d="M0 0 L8.5 3 L0 6 z" fill="#94a3b8"/></marker>
-  </defs>
+<text x="350" y="228" font-size="13.5" text-anchor="middle" fill="#0f172a" font-weight="600">exit: answer · clarify · decline · budget exhausted</text>
+<defs>
+<marker id="g1" markerWidth="10" markerHeight="10" refX="8.5" refY="3" orient="auto"><path d="M0 0 L8.5 3 L0 6 z" fill="#7c3aed"/></marker>
+<marker id="g2" markerWidth="10" markerHeight="10" refX="8.5" refY="3" orient="auto"><path d="M0 0 L8.5 3 L0 6 z" fill="#d97706"/></marker>
+<marker id="g3" markerWidth="10" markerHeight="10" refX="8.5" refY="3" orient="auto"><path d="M0 0 L8.5 3 L0 6 z" fill="#0284c7"/></marker>
+<marker id="g4" markerWidth="10" markerHeight="10" refX="8.5" refY="3" orient="auto"><path d="M0 0 L8.5 3 L0 6 z" fill="#94a3b8"/></marker>
+</defs>
 </svg>
 </div>
 
@@ -1895,40 +1893,40 @@ Sources: [Agent harness Create/Grow](https://github.com/AI-Aspire/Aspire_Titaniu
 
 <div style="display:flex;justify-content:center;margin-top:.1em">
 <svg viewBox="0 0 760 290" width="920" role="img" aria-label="The agent loop at the centre, surrounded by retrieval, memory, guardrails, and evaluation, each labelled with the module that covers it">
-  <rect x="196" y="96" width="368" height="96" rx="11" fill="#ede9fe" stroke="#7c3aed" stroke-width="3"/>
-  <text x="380" y="124" font-size="16" font-weight="700" text-anchor="middle" fill="#5b21b6">the agent loop</text>
-  <text x="380" y="147" font-size="13" text-anchor="middle" fill="#6d28d9">model → tool call → your code → observation</text>
-  <text x="380" y="173" font-size="12" text-anchor="middle" fill="#7c3aed" font-style="italic">module 03 · today</text>
+<rect x="196" y="96" width="368" height="96" rx="11" fill="#ede9fe" stroke="#7c3aed" stroke-width="3"/>
+<text x="380" y="124" font-size="16" font-weight="700" text-anchor="middle" fill="#5b21b6">the agent loop</text>
+<text x="380" y="147" font-size="13" text-anchor="middle" fill="#6d28d9">model → tool call → your code → observation</text>
+<text x="380" y="173" font-size="12" text-anchor="middle" fill="#7c3aed" font-style="italic">module 03 · today</text>
 
-  <rect x="12" y="20" width="164" height="62" rx="9" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
-  <text x="94" y="45" font-size="14.5" font-weight="700" text-anchor="middle" fill="#075985">retrieval</text>
-  <text x="94" y="65" font-size="11.5" text-anchor="middle" fill="#0369a1">modules 05 · 06 · 07</text>
+<rect x="12" y="20" width="164" height="62" rx="9" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
+<text x="94" y="45" font-size="14.5" font-weight="700" text-anchor="middle" fill="#075985">retrieval</text>
+<text x="94" y="65" font-size="11.5" text-anchor="middle" fill="#0369a1">modules 05 · 06 · 07</text>
 
-  <rect x="584" y="20" width="164" height="62" rx="9" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
-  <text x="666" y="45" font-size="14.5" font-weight="700" text-anchor="middle" fill="#14532d">memory</text>
-  <text x="666" y="65" font-size="11.5" text-anchor="middle" fill="#15803d">module 10</text>
+<rect x="584" y="20" width="164" height="62" rx="9" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+<text x="666" y="45" font-size="14.5" font-weight="700" text-anchor="middle" fill="#14532d">memory</text>
+<text x="666" y="65" font-size="11.5" text-anchor="middle" fill="#15803d">module 10</text>
 
-  <rect x="12" y="206" width="164" height="62" rx="9" fill="#fee2e2" stroke="#dc2626" stroke-width="2"/>
-  <text x="94" y="231" font-size="14.5" font-weight="700" text-anchor="middle" fill="#7f1d1d">guardrails</text>
-  <text x="94" y="251" font-size="11.5" text-anchor="middle" fill="#b91c1c">modules 13 · 18</text>
+<rect x="12" y="206" width="164" height="62" rx="9" fill="#fee2e2" stroke="#dc2626" stroke-width="2"/>
+<text x="94" y="231" font-size="14.5" font-weight="700" text-anchor="middle" fill="#7f1d1d">guardrails</text>
+<text x="94" y="251" font-size="11.5" text-anchor="middle" fill="#b91c1c">modules 13 · 18</text>
 
-  <rect x="584" y="206" width="164" height="62" rx="9" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
-  <text x="666" y="231" font-size="14.5" font-weight="700" text-anchor="middle" fill="#92400e">evaluation</text>
-  <text x="666" y="251" font-size="11.5" text-anchor="middle" fill="#b45309">modules 04 · 09</text>
+<rect x="584" y="206" width="164" height="62" rx="9" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+<text x="666" y="231" font-size="14.5" font-weight="700" text-anchor="middle" fill="#92400e">evaluation</text>
+<text x="666" y="251" font-size="11.5" text-anchor="middle" fill="#b45309">modules 04 · 09</text>
 
-  <path d="M176 58 C 240 58, 214 96, 258 96" stroke="#0284c7" stroke-width="2" fill="none" marker-end="url(#a1)"/>
-  <path d="M584 58 C 520 58, 546 96, 502 96" stroke="#16a34a" stroke-width="2" fill="none" marker-end="url(#a2)"/>
-  <path d="M176 230 C 240 230, 214 192, 258 192" stroke="#dc2626" stroke-width="2" fill="none" marker-end="url(#a3)"/>
-  <path d="M584 230 C 520 230, 546 192, 502 192" stroke="#d97706" stroke-width="2" fill="none" marker-end="url(#a4)"/>
+<path d="M176 58 C 240 58, 214 96, 258 96" stroke="#0284c7" stroke-width="2" fill="none" marker-end="url(#a1)"/>
+<path d="M584 58 C 520 58, 546 96, 502 96" stroke="#16a34a" stroke-width="2" fill="none" marker-end="url(#a2)"/>
+<path d="M176 230 C 240 230, 214 192, 258 192" stroke="#dc2626" stroke-width="2" fill="none" marker-end="url(#a3)"/>
+<path d="M584 230 C 520 230, 546 192, 502 192" stroke="#d97706" stroke-width="2" fill="none" marker-end="url(#a4)"/>
 
-  <text x="380" y="214" font-size="11.5" text-anchor="middle" fill="#64748b">every step recorded in a trace — the thing you debug and evaluate</text>
-  <text x="380" y="286" font-size="13" text-anchor="middle" fill="#0f172a" font-weight="600">This is the diagram you will redraw all week, and bring to Friday's panel.</text>
-  <defs>
-    <marker id="a1" markerWidth="9" markerHeight="9" refX="8" refY="3" orient="auto"><path d="M0 0 L8 3 L0 6 z" fill="#0284c7"/></marker>
-    <marker id="a2" markerWidth="9" markerHeight="9" refX="8" refY="3" orient="auto"><path d="M0 0 L8 3 L0 6 z" fill="#16a34a"/></marker>
-    <marker id="a3" markerWidth="9" markerHeight="9" refX="8" refY="3" orient="auto"><path d="M0 0 L8 3 L0 6 z" fill="#dc2626"/></marker>
-    <marker id="a4" markerWidth="9" markerHeight="9" refX="8" refY="3" orient="auto"><path d="M0 0 L8 3 L0 6 z" fill="#d97706"/></marker>
-  </defs>
+<text x="380" y="214" font-size="11.5" text-anchor="middle" fill="#64748b">every step recorded in a trace — the thing you debug and evaluate</text>
+<text x="380" y="286" font-size="13" text-anchor="middle" fill="#0f172a" font-weight="600">This is the diagram you will redraw all week, and bring to Friday's panel.</text>
+<defs>
+<marker id="a1" markerWidth="9" markerHeight="9" refX="8" refY="3" orient="auto"><path d="M0 0 L8 3 L0 6 z" fill="#0284c7"/></marker>
+<marker id="a2" markerWidth="9" markerHeight="9" refX="8" refY="3" orient="auto"><path d="M0 0 L8 3 L0 6 z" fill="#16a34a"/></marker>
+<marker id="a3" markerWidth="9" markerHeight="9" refX="8" refY="3" orient="auto"><path d="M0 0 L8 3 L0 6 z" fill="#dc2626"/></marker>
+<marker id="a4" markerWidth="9" markerHeight="9" refX="8" refY="3" orient="auto"><path d="M0 0 L8 3 L0 6 z" fill="#d97706"/></marker>
+</defs>
 </svg>
 </div>
 
@@ -2370,20 +2368,20 @@ Sources: [RAG from scratch and library pipeline](https://github.com/AI-Aspire/As
 
 <div style="display:flex;justify-content:center;margin-top:.2em">
 <svg viewBox="0 0 780 190" width="920" role="img" aria-label="RAG learning arc: paste everything, build retrieval from scratch, then use LangChain">
-  <g text-anchor="middle">
-    <rect x="12" y="38" width="220" height="76" rx="9" fill="#f1f5f9" stroke="#94a3b8" stroke-width="2"/>
-    <text x="122" y="67" font-size="15" font-weight="700" fill="#334155">paste everything</text>
-    <text x="122" y="91" font-size="12" fill="#64748b">measure token cost</text>
-    <rect x="280" y="38" width="220" height="76" rx="9" fill="#fef3c7" stroke="#d97706" stroke-width="2.5"/>
-    <text x="390" y="67" font-size="15" font-weight="700" fill="#92400e">from scratch</text>
-    <text x="390" y="91" font-size="12" fill="#b45309">embed · rank · paste</text>
-    <rect x="548" y="38" width="220" height="76" rx="9" fill="#e0f2fe" stroke="#0284c7" stroke-width="2.5"/>
-    <text x="658" y="67" font-size="15" font-weight="700" fill="#075985">LangChain</text>
-    <text x="658" y="91" font-size="12" fill="#0369a1">library replaces pieces</text>
-  </g>
-  <path d="M240 76 H272" stroke="#94a3b8" stroke-width="2" marker-end="url(#rag-arc-arrow)"/>
-  <path d="M508 76 H540" stroke="#94a3b8" stroke-width="2" marker-end="url(#rag-arc-arrow)"/>
-  <defs><marker id="rag-arc-arrow" markerWidth="9" markerHeight="9" refX="8" refY="3" orient="auto"><path d="M0 0 L8 3 L0 6 z" fill="#94a3b8"/></marker></defs>
+<g text-anchor="middle">
+<rect x="12" y="38" width="220" height="76" rx="9" fill="#f1f5f9" stroke="#94a3b8" stroke-width="2"/>
+<text x="122" y="67" font-size="15" font-weight="700" fill="#334155">paste everything</text>
+<text x="122" y="91" font-size="12" fill="#64748b">measure token cost</text>
+<rect x="280" y="38" width="220" height="76" rx="9" fill="#fef3c7" stroke="#d97706" stroke-width="2.5"/>
+<text x="390" y="67" font-size="15" font-weight="700" fill="#92400e">from scratch</text>
+<text x="390" y="91" font-size="12" fill="#b45309">embed · rank · paste</text>
+<rect x="548" y="38" width="220" height="76" rx="9" fill="#e0f2fe" stroke="#0284c7" stroke-width="2.5"/>
+<text x="658" y="67" font-size="15" font-weight="700" fill="#075985">LangChain</text>
+<text x="658" y="91" font-size="12" fill="#0369a1">library replaces pieces</text>
+</g>
+<path d="M240 76 H272" stroke="#94a3b8" stroke-width="2" marker-end="url(#rag-arc-arrow)"/>
+<path d="M508 76 H540" stroke="#94a3b8" stroke-width="2" marker-end="url(#rag-arc-arrow)"/>
+<defs><marker id="rag-arc-arrow" markerWidth="9" markerHeight="9" refX="8" refY="3" orient="auto"><path d="M0 0 L8 3 L0 6 z" fill="#94a3b8"/></marker></defs>
 </svg>
 </div>
 
