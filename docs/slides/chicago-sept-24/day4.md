@@ -7,6 +7,9 @@ size: 16:9
 
 # Today: longer horizons, more sources, more ways to be wrong
 
+- 14 Voice agents · 40m
+- 15 Prompt optimisation · 35m
+- 16 GraphRAG · 40m
 - 17 Deep research · 35m
 - 18 Off-the-shelf guardrails · 30m
 - A six-step loop running unsupervised across many sources has a different failure surface than one you watch.
@@ -26,6 +29,279 @@ Speaker notes:
 Sources: [17 Deep Research](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/17_Deep_Research/README.md), [18 Off-the-shelf guardrails](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/18_Off_The_Shelf_Guardrails/README.md)
 -->
 
+---
+# 14 · Voice agents
+
+**A research panel you can hear.** · 40 min
+
+- A planner splits the question, researchers read your corpus, a critic attacks the draft, a judge decides
+- Speech is a round trip bolted onto a loop you already understand
+
+<!--
+Slide ID: D4-T14
+Module: [14 Voice agents](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/14_Voice_Agents/README.md)
+Instructor: Eli
+Type: transition
+Minutes: 0
+Layout: 01 Title
+Speaker notes:
+- Say: Voice is not a new kind of agent. It is two HTTP services either side of the loop you have been building all week.
+- Ask: Hold for a beat — this is the hand-off, not content.
+- Watch: Name the module and move. The panel roles are the content.
+- Then: Straight into the first content slide.
+Sources: [Module 14 overview](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/14_Voice_Agents/README.md).
+-->
+---
+# Voice is a round trip, not a new architecture
+
+- **STT:** audio in, a transcript out · **TTS:** a line and a voice name in, audio out
+- Both are OpenAI-compatible HTTP services, like every other call this week
+- Prove the round trip *first*: synthesize a line, play it, transcribe it back, compare
+- Everything between them is the agent loop you already have
+
+<!--
+Slide ID: D4-M14-C1
+Module: [14 Voice agents](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/14_Voice_Agents/README.md)
+Instructor: Eli
+Type: core
+Minutes: 2
+Layout: 06 Process steps
+Speaker notes:
+- Say: The reason to prove the round trip before building anything on it is that speech failures and reasoning failures look identical in a transcript. If you have not confirmed the audio path, every bad answer is ambiguous.
+- Ask: A narrated answer comes back wrong. How do you tell a transcription error from a research error?
+- Watch: Voice_Deep_Research:cell#9 is Task 1 of 6 — voice in, voice out. In the notebook: two OpenAI-compatible HTTP services do the speech work; prove the round trip before building anything on it.
+- Then: Note this is the OpenAI-compatible idea from Monday doing real work — the speech services swap the same way the model does.
+Sources: [OpenAI speech to text](https://developers.openai.com/api/docs/guides/speech-to-text), [voice notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/14_Voice_Agents/Voice_Deep_Research.ipynb)
+-->
+---
+# A critic that sends the draft back
+
+<div style="display:flex;justify-content:center;margin-top:.1em">
+<svg viewBox="0 0 760 180" width="900" role="img" aria-label="The voice panel loop: a planner splits a question into three angles, three researchers work in parallel, an aggregator drafts, then a critic and judge loop back until the judge passes the draft">
+<rect x="10" y="60" width="104" height="50" rx="8" fill="#ede9fe" stroke="#7c3aed" stroke-width="2.5"/>
+<text x="62" y="82" font-size="13" font-weight="700" text-anchor="middle" fill="#5b21b6">planner</text>
+<text x="62" y="99" font-size="10.5" text-anchor="middle" fill="#6d28d9">3 angles</text>
+<rect x="148" y="22" width="104" height="30" rx="6" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
+<text x="200" y="42" font-size="11.5" text-anchor="middle" fill="#075985">researcher</text>
+<rect x="148" y="60" width="104" height="30" rx="6" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
+<text x="200" y="80" font-size="11.5" text-anchor="middle" fill="#075985">researcher</text>
+<rect x="148" y="98" width="104" height="30" rx="6" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
+<text x="200" y="118" font-size="11.5" text-anchor="middle" fill="#075985">researcher</text>
+<rect x="286" y="60" width="104" height="50" rx="8" fill="#ede9fe" stroke="#7c3aed" stroke-width="2.5"/>
+<text x="338" y="82" font-size="13" font-weight="700" text-anchor="middle" fill="#5b21b6">aggregator</text>
+<text x="338" y="99" font-size="10.5" text-anchor="middle" fill="#6d28d9">drafts</text>
+<rect x="424" y="60" width="90" height="50" rx="8" fill="#fee2e2" stroke="#dc2626" stroke-width="2.5"/>
+<text x="469" y="82" font-size="13" font-weight="700" text-anchor="middle" fill="#7f1d1d">critic</text>
+<text x="469" y="99" font-size="10.5" text-anchor="middle" fill="#b91c1c">attacks</text>
+<rect x="548" y="60" width="90" height="50" rx="8" fill="#fef3c7" stroke="#d97706" stroke-width="2.5"/>
+<text x="593" y="82" font-size="13" font-weight="700" text-anchor="middle" fill="#92400e">judge</text>
+<text x="593" y="99" font-size="10.5" text-anchor="middle" fill="#92400e">pass?</text>
+<rect x="668" y="68" width="82" height="34" rx="8" fill="#dcfce7" stroke="#16a34a" stroke-width="2.5"/>
+<text x="709" y="90" font-size="12.5" font-weight="700" text-anchor="middle" fill="#166534">answer</text>
+<path d="M116 85 H144" stroke="#94a3b8" stroke-width="2" marker-end="url(#va)"/>
+<path d="M254 75 H282" stroke="#94a3b8" stroke-width="2" marker-end="url(#va)"/>
+<path d="M392 85 H420" stroke="#94a3b8" stroke-width="2" marker-end="url(#va)"/>
+<path d="M516 85 H544" stroke="#94a3b8" stroke-width="2" marker-end="url(#va)"/>
+<path d="M640 85 H664" stroke="#16a34a" stroke-width="2.5" marker-end="url(#vg)"/>
+<path d="M593 114 V140 H338 V114" fill="none" stroke="#dc2626" stroke-width="2.5" stroke-dasharray="5 3" marker-end="url(#vr)"/>
+<text x="466" y="155" font-size="11.5" text-anchor="middle" fill="#b91c1c" font-style="italic">sent back for a revision · capped rounds</text>
+<defs>
+<marker id="va" markerWidth="9" markerHeight="9" refX="7.5" refY="3" orient="auto"><path d="M0 0 L7.5 3 L0 6 z" fill="#94a3b8"/></marker>
+<marker id="vg" markerWidth="9" markerHeight="9" refX="7.5" refY="3" orient="auto"><path d="M0 0 L7.5 3 L0 6 z" fill="#16a34a"/></marker>
+<marker id="vr" markerWidth="9" markerHeight="9" refX="7.5" refY="3" orient="auto"><path d="M0 0 L7.5 3 L0 6 z" fill="#dc2626"/></marker>
+</defs>
+</svg>
+</div>
+
+The judge can refuse. That backward edge is the module — and the round cap is what keeps it from running forever.
+
+<!--
+Slide ID: D4-M14-C2
+Module: [14 Voice agents](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/14_Voice_Agents/README.md)
+Instructor: Eli
+Type: core
+Minutes: 3
+Layout: 06 Process steps
+Speaker notes:
+- Say: Every loop so far ran forward. This one has an edge that goes back: the critic attacks the draft, the judge decides, and a failed draft returns to the aggregator for another round. That is also the first thing that can spin, which is why the cap is part of the design and not a safety afterthought.
+- Ask: What would make you cap the rounds at two rather than five?
+- Watch: Voice_Deep_Research:cell#24 is Task 5 of 6 — the full narrated session. In the notebook: the orchestrator runs plan, three researchers in parallel, aggregate, then critic and judge until the judge passes the draft or the round cap hits. Every step is an event, and the narrator compresses long events to one spoken line.
+- Then: The questions the panel researches are the failing tasks from their own capability report, so the panel is auditing their own agent out loud.
+Sources: [voice notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/14_Voice_Agents/Voice_Deep_Research.ipynb)
+-->
+---
+# 15 · Prompt optimisation
+
+**Stop hand-tuning the prompt. Compile it.** · 35 min
+
+- A signature, a metric, and an optimiser that searches for the instruction and the demos
+- BootstrapFewShot, MIPROv2, GEPA — on the same task, measured the same way
+
+<!--
+Slide ID: D4-T15
+Module: [15 Prompt optimisation](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/15_Prompt_Optimization/README.md)
+Instructor: Eli
+Type: transition
+Minutes: 0
+Layout: 01 Title
+Speaker notes:
+- Say: Monday you wrote prompts by hand. This module makes writing them a compile step with a number attached.
+- Ask: Hold for a beat — this is the hand-off, not content.
+- Watch: Needs the optim dependency group — make setup-optim, once, before the notebook opens.
+- Then: Straight into the first content slide.
+Sources: [Module 15 overview](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/15_Prompt_Optimization/README.md).
+-->
+---
+# An optimiser is a search, so it needs a bar
+
+- A **signature** is the fields in and out, with one instruction
+- A **metric** says whether one prediction was good — here, agreement with *your* hand scores
+- Score the un-optimised program on held-out examples **first**
+- That number is the bar every optimiser has to beat
+
+Without the baseline, "the optimiser helped" is a feeling.
+
+<!--
+Slide ID: D4-M15-C1
+Module: [15 Prompt optimisation](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/15_Prompt_Optimization/README.md)
+Instructor: Eli
+Type: core
+Minutes: 3
+Layout: 06 Process steps
+Speaker notes:
+- Say: This is measure-before-you-adopt again, now pointed at the prompt itself. The metric here is agreement with the scores you assigned by hand, which means the optimiser is searching for a prompt that judges the way you judge. Held-out matters: examples the optimiser never saw are the only honest score.
+- Ask: Your optimised judge agrees with you 90 percent of the time. What have you not yet learned about it?
+- Watch: DSPy_Optimizers:cell#12 is Task 2 of 6 — the program and the metric. In the notebook: score the un-optimized program on the held-out examples first, because that number is the bar every optimizer has to beat. DSPy_Optimizers:cell#9 is Task 1, building examples from the transcripts they scored by hand.
+- Then: Six hand-scored transcripts is a small training set — say so, and say that it bounds how much any optimiser can claim.
+Sources: [DSPy](https://arxiv.org/abs/2310.03714), [optimiser notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/15_Prompt_Optimization/DSPy_Optimizers.ipynb)
+-->
+---
+# The signature declares fields; the metric is just a function
+
+```python
+class ScoreAnswer(dspy.Signature):
+    """Score a support assistant's answer to a user's question."""
+    question: str = dspy.InputField()
+    response: str = dspy.InputField()
+    score:    int = dspy.OutputField(desc="an integer score")
+
+
+def agreement(example, pred, trace=None) -> bool:
+    return abs(as_int(pred.score) - example.score) <= TOL
+```
+
+`agreement` is the whole objective — the optimiser can only chase what this returns.
+
+<!--
+Slide ID: D4-M15-C1A
+Module: [15 Prompt optimisation](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/15_Prompt_Optimization/README.md)
+Instructor: Eli
+Type: core
+Minutes: 3
+Layout: 04 Lab and code
+Speaker notes:
+- Say: Two things to notice. The signature is a declaration — fields in, fields out, one docstring instruction — and no prompt text. And the metric is an ordinary Python function returning a bool, comparing the prediction to the score a human gave, with a tolerance.
+- Ask: The metric allows a tolerance. What does that choice do to what the optimiser learns?
+- Watch: Notebook:cell#13 — Task 2 defines the program and the metric. Point at the docstring and at with_instructions: that string is what MIPROv2 and GEPA are allowed to rewrite, which is why the instruction lives in one place.
+- Then: This is the sharpest version of a point from Monday — the objective you write down is the only thing that gets optimised. A loose tolerance buys agreement cheaply and teaches the judge less.
+Sources: [DSPy](https://arxiv.org/abs/2310.03714), [optimiser notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/15_Prompt_Optimization/DSPy_Optimizers.ipynb)
+-->
+---
+# Three optimisers, three things they are allowed to change
+
+| Optimiser | What it changes | Cost |
+|---|---|---|
+| BootstrapFewShot | demos only — never the instruction | cheapest |
+| MIPROv2 | proposes instructions **and** demo sets, keeps the best mix | many more calls |
+| GEPA | reads *why* a guess was wrong and rewrites the instruction | needs feedback text |
+
+Read the table as cost against benefit, not as a leaderboard.
+
+<!--
+Slide ID: D4-M15-C2
+Module: [15 Prompt optimisation](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/15_Prompt_Optimization/README.md)
+Instructor: Eli
+Type: core
+Minutes: 3
+Layout: 05 Two column
+Speaker notes:
+- Say: The useful distinction is what each one is permitted to touch. Bootstrap can only replay what the base program already gets right, so it cannot fix a task the program fails outright. MIPROv2 searches instruction space, which costs calls. GEPA needs a metric that returns feedback text rather than just a number, and it may not be in the installed DSPy — the cell checks and skips cleanly.
+- Ask: Which of the three can improve a prompt that currently fails every example?
+- Watch: DSPy_Optimizers:cell#16, cell#19, and cell#23 are Tasks 3, 4, and 5 — BootstrapFewShot, MIPROv2, GEPA. In the notebook: bootstrap never changes the instruction and can only replay what the base program already gets right.
+- Then: The answer to the Ask is not bootstrap — if nothing passes the metric, it has nothing to harvest as a demo. Then land on cost against benefit and move.
+Sources: [DSPy](https://arxiv.org/abs/2310.03714), [optimiser notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/15_Prompt_Optimization/DSPy_Optimizers.ipynb)
+-->
+---
+# 16 · GraphRAG
+
+**When does a graph earn its cost?** · 40 min
+
+- A vector store retrieves what *looks like* the question; a graph retrieves what is *connected* to it
+- Built three ways, measured against the strongest vector baseline you can build
+
+<!--
+Slide ID: D4-T16
+Module: [16 GraphRAG](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/16_GraphRAG/README.md)
+Instructor: Eli
+Type: transition
+Minutes: 0
+Layout: 01 Title
+Speaker notes:
+- Say: This module is a decision, not a technique tour. The deliverable is a table that says whether the graph was worth building.
+- Ask: Hold for a beat — this is the hand-off, not content.
+- Watch: Needs the graph dependency group — make setup-graph, once, which installs spaCy, its English model, networkx, and rdflib.
+- Then: Straight into the first content slide.
+Sources: [Module 16 overview](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/16_GraphRAG/README.md).
+-->
+---
+# The multi-hop hypothesis
+
+Some questions are answered in one page. The interesting ones need **two**:
+
+- a transcript where the agent failed, **and** the knowledge-base page it should have used
+- similarity ranking may grab one side strongly and miss the other entirely
+- a graph that knows the two are connected can walk from one to the other
+
+That is the hypothesis. The rest of the module tries to falsify it.
+
+<!--
+Slide ID: D4-M16-C1
+Module: [16 GraphRAG](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/16_GraphRAG/README.md)
+Instructor: Eli
+Type: core
+Minutes: 3
+Layout: 05 Two column
+Speaker notes:
+- Say: A graph is expensive, so it needs a hypothesis it can fail. This is it: one hop past the words. A question whose answer lives in two documents is where similarity search is structurally weak, because ranking each candidate independently has no way to prefer a pair.
+- Ask: Think of a question about your own product whose answer needs two documents — which two?
+- Watch: GraphRAG:cell#9 is Task 1 of 7 — the multi-hop hypothesis. In the notebook: a retriever that ranks by similarity may grab one side strongly and miss the other. That is also the question their README asked them to bring.
+- Then: Note what a triple is — subject, relation, object, with the page it came from — because the provenance on the edge is what makes a graph answer checkable.
+Sources: [graph notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/16_GraphRAG/GraphRAG.ipynb)
+-->
+---
+# Build the steelman, or the comparison is worthless
+
+- The baseline is **not** a toy top-k: dense **+** BM25, unioned, then a cross-encoder rerank
+- Same eval cases, same prompt, same answer model — only the retrieved context differs
+- Two measures: **reference recall** (structural, free) and **correctness** (a model judge)
+- Decide from the table whether the graph earned its build cost
+
+Beat a weak baseline and you have learned nothing except that you built a weak baseline.
+
+<!--
+Slide ID: D4-M16-C2
+Module: [16 GraphRAG](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/16_GraphRAG/README.md)
+Instructor: Eli
+Type: core
+Minutes: 3
+Layout: 03 Big stats
+Speaker notes:
+- Say: This is the most transferable habit in the module and it has nothing to do with graphs. If you want to know whether a new technique helps, the thing you compare against has to be the best version of the old one. The notebook calls it a steelman baseline, and it is the full stack from Tuesday — dense, BM25, cross-encoder rerank.
+- Ask: What in your own stack have you adopted without measuring it against its strongest alternative?
+- Watch: GraphRAG:cell#12 is Task 2 of 7 — the steelman baseline: dense cosine over the chunks, BM25 over the same chunks, the union as a candidate pool, then a local cross-encoder to rerank to the top five. GraphRAG:cell#29 is Task 6, measuring both on their eval cases. Note the one variable that changes: same prompt as the baseline, so the only difference is what goes into the context window.
+- Then: Their README says it plainly — bring your team the table, not the feeling. The saved scores are what a release decision reads when someone proposes GraphRAG.
+Sources: [graph notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/16_GraphRAG/GraphRAG.ipynb)
+-->
 ---
 # 17 · Deep research
 
@@ -95,6 +371,38 @@ Speaker notes:
 - Ask: Which boundary would you inspect first when the final answer is wrong?
 - Watch: Notebook:cell#9 — Task 1 defines the question and typed contracts that make each handoff inspectable. In the notebook: A trace earns trust only when it preserves the query, hits, and gaps needed to challenge the result.
 - Then: Compare the contract boundaries with the trace on the next slide.
+Sources: [LangGraph graph API](https://docs.langchain.com/oss/python/langgraph/graph-api), [Unroll deep research notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/17_Deep_Research/Unroll_Deep_Research.ipynb)
+-->
+---
+# The contract is the handoff
+
+```python
+class ResearchBrief(BaseModel):
+    question: str
+    audience: str
+    deliverable: str
+    success_criteria: list[str]
+    constraints: list[str]
+
+class ResearchConfig(BaseModel):
+    max_research_tasks:    int = Field(default=budget(3, 2), ge=1, le=6)
+    max_researcher_loops:  int = Field(default=1, ge=1, le=3)
+```
+
+A path you cannot predict still has boundaries you can **type** — and ceilings you can **cap**.
+
+<!--
+Slide ID: D4-M17-C1A
+Module: [17 Unroll deep research](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/17_Deep_Research/README.md)
+Instructor: Eli
+Type: core
+Minutes: 3
+Layout: 04 Lab and code
+Speaker notes:
+- Say: This is the answer to the problem we opened with. You cannot hardcode the path, but you can say exactly what has to be true at each handoff. A brief is not prose — it is five fields, and a stage that cannot fill them has failed early and visibly instead of producing a vague report later.
+- Ask: Which of those five fields would you refuse to make optional?
+- Watch: Notebook:cell#10 — Task 1 defines the contracts and the budgets together. Point at the ge and le bounds: every loop in an unpredictable process has a ceiling, and le=6 on research tasks is what stops a plan from fanning out forever.
+- Then: Note that the budgets sit in the same object as the contracts, on purpose — the shape of the handoff and the cost of the step are one decision.
 Sources: [LangGraph graph API](https://docs.langchain.com/oss/python/langgraph/graph-api), [Unroll deep research notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/17_Deep_Research/Unroll_Deep_Research.ipynb)
 -->
 
@@ -199,8 +507,8 @@ Sources: [LangGraph durable execution](https://docs.langchain.com/oss/python/lan
 
 - The writer gets the brief and dossier, not the whole conversation.
 - Stream node updates and research queries as they happen.
-- Marcus asks: did the VPN policy change, and when?
-- Keep the trace that shows which KB page was stale.
+- Each line names the node that finished and the state it wrote.
+- Keep the trace that shows which source was stale.
 
 <!--
 Slide ID: D4-M17-C5
@@ -212,7 +520,7 @@ Layout: 06 Process steps 1
 Speaker notes:
 - Say: Compilation is an observable handoff, not a hidden final model call.
 - Ask: Which streamed update would tell you that the research question is drifting?
-- Watch: Notebook:cell#24 — Task 5 compiles and streams the graph; connect Marcus's stale-policy question to the trace. In the notebook: The report is the product; the trace is how you debug cost, latency, and source quality.
+- Watch: Notebook:cell#24 — Task 5 compiles and streams the graph. The concrete case in their own environment is a stale-policy question — did the VPN policy change, and when — where the trace is what shows which knowledge-base page was out of date. In the notebook: The report is the product; the trace is how you debug cost, latency, and source quality.
 - Then: Let the stream finish, then inspect the saved report and its evidence.
 Sources: [LangGraph graph API](https://docs.langchain.com/oss/python/langgraph/graph-api), [Unroll deep research notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/17_Deep_Research/Unroll_Deep_Research.ipynb)
 -->
@@ -346,6 +654,34 @@ Speaker notes:
 - Then: Inspect the uncaught cases on the next slide before choosing warn-only behavior.
 Sources: [OpenAI Agents SDK guardrails](https://openai.github.io/openai-agents-python/guardrails/), [OTS guardrails notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/18_Off_The_Shelf_Guardrails/OTS_Guardrails.ipynb)
 -->
+---
+# A "cheap rule" is a named pattern
+
+```python
+INJECTION = {
+    "ignore instructions": r"ignore\s+(your\s+|all\s+)?(previous|prior|all|above)\s+instructions",
+    "prompt extraction": r"(tell|show|give)\s+me\s+your\s+(system\s+)?prompt|...",
+    "role override":     r"pretend\s+(you\s+are|to\s+be)|you\s+are\s+now\s+(a|an)\b|...",
+    "constraint bypass": r"no\s+(rules|restrictions|guardrails)|jailbreak|developer\s+mode",
+}
+```
+
+The key is the name. A block reports **which** pattern fired — so the log says `role override`, not `blocked`.
+
+<!--
+Slide ID: D4-M18-C3A
+Module: [18 Off-the-shelf guardrails](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/18_Off_The_Shelf_Guardrails/README.md)
+Instructor: Beric
+Type: core
+Minutes: 3
+Layout: 04 Lab and code
+Speaker notes:
+- Say: Worth seeing what a rule rung actually is, because it is less impressive and more useful than people expect — a dict of named regexes. The naming is the engineering decision. Yesterday we said a block nobody can explain gets switched off by the first person it inconveniences; this is how you avoid that, by making the reason a value the code carries rather than a comment.
+- Ask: Which of these four would a determined attacker get past first?
+- Watch: Notebook:cell#13 — Task 2 writes each policy as a plain function that returns whether it tripped and why, then wraps it for the SDK. The scope check pairs with this one: a request has to share vocabulary with the corpus and match no off-topic pattern.
+- Then: Every one of these is paraphraseable, which is the brittleness the previous slide claimed. That is the argument for measuring false negatives on their own case set rather than trusting the list.
+Sources: [OpenAI Agents SDK guardrails](https://openai.github.io/openai-agents-python/guardrails/), [OTS guardrails notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/18_Off_The_Shelf_Guardrails/OTS_Guardrails.ipynb)
+-->
 
 ---
 
@@ -370,7 +706,7 @@ Speaker notes:
 - Ask: What must be true before a password-reset tool can execute?
 - Watch: Notebook:cell#24 — Task 5 places the agent and tool inside the guarded lifecycle, separating execution from model output. In the notebook: A model can request a password reset, but only the system can verify identity and authorize the side effect.
 - Then: Note the last two bullets are test design, not enforcement: a suite that only tries attacks cannot tell you what you broke for legitimate users. Same protection-and-friction pair from yesterday's ladder measurements.
-- Then: Optional, if someone asks what a real middleware layer looks like in code — there are open-source guardrail middleware projects that sit between the agent and its tools. LINK UNVERIFIED: the author mentioned a Zambelli/forge guardrail repo; the closest match found was antoinezambelli/forge with a Rust port at whit3rabbit/forge-guardrails, neither confirmed as the intended reference. Confirm the URL before naming it in the room.
+- Then: Optional, two open-source middleware layers to name if someone asks what this looks like in code. Agentware (https://github.com/HaikeiLabs/Agentware) is the closer match to these bullets: policy enforcement and audit middleware for agent tool calls, in Go, Python, and TypeScript. Its framing is exactly the owner-and-audit problem — attribution dies at the first delegation hop — so it writes one append-only record per tool call carrying the invoking human subject and the delegation chain. That is the through-line to yesterday's multi-agent module: once a supervisor delegates, the audit row is the only thing that still knows who actually asked. Forge (https://github.com/antoinezambelli/forge) sits at a different layer — a reliability layer for self-hosted LLM tool-calling, with schema validation, rescue parsing for malformed tool calls, retries, and a composable guardrails-middleware mode; it runs as a proxy in front of an OpenAI-compatible endpoint, the same swap-your-provider property this course is built on. A Rust port of it exists at whit3rabbit/forge-guardrails.
 Sources: [OpenAI Agents SDK tools](https://openai.github.io/openai-agents-python/tools/), [OpenAI Agents SDK guardrails](https://openai.github.io/openai-agents-python/guardrails/), [OTS guardrails notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/18_Off_The_Shelf_Guardrails/OTS_Guardrails.ipynb)
 -->
 
@@ -378,22 +714,32 @@ Sources: [OpenAI Agents SDK tools](https://openai.github.io/openai-agents-python
 
 # Redaction transforms input before generation
 
-- Redaction removes the secret and keeps the legitimate question.
-- Record what kind of PII was removed, never its value.
-- Deskmate must not leak one user's ticket text into another user's answer.
+A third option, next to allow and block: **let it through, changed.**
+
+```python
+def redact_pii(raw: str) -> Redaction:
+    text, found = raw, []
+    for label, pat in PII.items():
+        if re.search(pat, text):
+            found.append(label)
+            text = re.sub(pat, f"[{label.upper()}_REDACTED]", text)
+    return Redaction(text, found)
+```
+
+`found` holds the **kinds** removed — `["email", "phone"]` — never the values.
 
 <!--
 Slide ID: D4-M18-C5
 Module: [18 Off-the-shelf guardrails](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/18_Off_The_Shelf_Guardrails/README.md)
 Instructor: Beric
 Type: core
-Minutes: 2
-Layout: 05 Two column 2
+Minutes: 3
+Layout: 04 Lab and code
 Speaker notes:
-- Say: A transform can preserve a useful request while changing what reaches the model.
+- Say: This is the one genuinely new mechanism in the module. Every control so far was a verdict — allow or block. A transform keeps a legitimate question alive while changing what the model receives, and the user never gets refused for including their own email address.
 - Ask: What evidence would prove the identifier was removed without exposing it?
-- Watch: Notebook:cell#16 — Task 3 distinguishes redaction from blocking and records only detected types. In the notebook: Redaction is not an authorization decision and should not be taught as one.
-- Then: Connect the transform to Deskmate's cross-user ticket leakage failure before moving to output checks.
+- Watch: Notebook:cell#17 — Task 3 distinguishes redaction from blocking. Point at the return: the Redaction dataclass carries the rewritten text and the list of labels, so the record proves redaction happened without storing the secret. That answers the Ask. In the notebook: this pre-pass is boring and fast on purpose.
+- Then: Say clearly that redaction is not an authorization decision and should not be taught as one. In their own environment this is what stops one user's ticket text reaching another user's answer — worth naming as the concrete case, since they will hit it in the notebook.
 Sources: [OpenAI Agents SDK guardrails](https://openai.github.io/openai-agents-python/guardrails/), [OTS guardrails notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/18_Off_The_Shelf_Guardrails/OTS_Guardrails.ipynb)
 -->
 
