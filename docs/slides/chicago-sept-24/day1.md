@@ -309,11 +309,35 @@ Sources: [Day 1 schedule](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/
 
 ---
 
-# Your environment is a shared workbench
+# Concepts in this module
 
-- Source files describe what should run
-- Dependencies and settings shape how it runs
-- Saved results record what actually happened
+- **Two remotes:** `origin` is your fork, `upstream` is the course repo
+- **The daily loop:** branch → change → read the diff → commit → push → draft PR → second commit
+- **Workspace / seed / artifact:** where your group's work lives, and what stands in until it exists
+- **Learn / Create / Grow:** the three acts of every notebook this week
+
+<!--
+Slide ID: D1-M01-C0
+Module: [01 Dev environment](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/01_Dev_Environment/README.md)
+Instructor: Miriah, no-code orientation
+Type: core
+Minutes: 2
+Layout: 02 Agenda 1
+Speaker notes:
+- Say: Four terms you will hear all week; this module is where three of them start.
+- Ask: Which of these four do you already use daily, and which is new?
+- Watch: Definitions are quoted from the course concept list; keep the same words in later modules rather than re-defining them.
+- Then: Move into the workspace slide; the loop slides follow.
+Sources: [Course concepts](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/docs/CONCEPTS.md); [Module 01 overview](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/01_Dev_Environment/README.md).
+-->
+
+---
+
+# The workspace holds what your group produces
+
+- `workspace/` is yours, untracked; `data/seed/` is the tracked worked example
+- An **artifact** is one named, schema-validated output
+- Until your group produces one, the seed carries it — and the tooling says so
 
 <!--
 Slide ID: D1-M01-C1
@@ -323,20 +347,20 @@ Type: core
 Minutes: 2
 Layout: 05 Two column
 Speaker notes:
-- Say: Your environment is a shared workbench
-- Ask: Which changed input could explain two different answers from the same source file?
-- Watch: Inspect the named output and verify its provenance.
-- Then: Use the answer to decide whether to clarify or continue.
-Sources: [Module 01 overview](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/01_Dev_Environment/README.md); [Module 01 notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/01_Dev_Environment/Dev_Environment.ipynb).
+- Say: The workspace holds what your group produces; the seed stands in until it does.
+- Ask: If a notebook shows you data you do not recognise, what happened?
+- Watch: Task 3 of 8 runs `ws.init()` then `ws.status()` (notebook cell#17) and prints a table whose rows read `seed` on a fresh clone.
+- Then: Set the expectation that every row saying `seed` on Monday morning is correct, not broken.
+Sources: [Module 01 notebook, Task 3](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/01_Dev_Environment/Dev_Environment.ipynb); [Workspace concepts](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/docs/CONCEPTS.md).
 -->
 
 ---
 
-# Your environment is a shared workbench · The practical check
+# The workspace holds what your group produces · The practical check
 
-- **Ask:** Which changed input could explain two different answers from the same source file?
-- **Inspect:** Find the notebook, environment settings, and saved artifact location; distinguish source from result without running code in the concept slot.
-- **Decide:** keep the simplest design that clears the check; record the gap when it does not.
+- **Ask:** If a notebook shows you data you do not recognise, what happened?
+- **Inspect:** `uv run python scripts/check_workspace.py --status` — one row per artifact, each marked as yours or from the seed.
+- **Decide:** never hand-write a file in `workspace/`; if an artifact is missing, run the notebook that writes it, or let the seed carry it.
 
 <!--
 Slide ID: D1-M01-C1B
@@ -346,11 +370,11 @@ Type: core
 Minutes: 2
 Layout: 04 Icon cards
 Speaker notes:
-- Say: Your environment is a shared workbench
-- Ask: Which changed input could explain two different answers from the same source file?
-- Watch: Inspect the named output and verify its provenance.
-- Then: Carry the observation into the notebook exercise.
-Sources: [Module 01 overview](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/01_Dev_Environment/README.md); [Module 01 notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/01_Dev_Environment/Dev_Environment.ipynb).
+- Say: The fallback is loud on purpose — `load()` prints a line when it falls back to the seed.
+- Ask: If a notebook shows you data you do not recognise, what happened?
+- Watch: Run `--status` live if the room is ready; otherwise show the table from notebook cell#17.
+- Then: Name the rule that governs the rest of the week: a number you did not measure is not yours to defend.
+Sources: [Module 01 notebook, Task 3](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/01_Dev_Environment/Dev_Environment.ipynb); [Artifact integrity rules](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/AGENTS.md).
 -->
 
 ---
@@ -373,11 +397,11 @@ Type: core
 Minutes: 2
 Layout: 06 Process steps
 Speaker notes:
-- Say: The repo keeps a history of the work
+- Say: The repo keeps a history of the work, and `manifest.json` records which module wrote what, when.
 - Ask: If an answer changes, which part of the history would you inspect first?
-- Watch: Inspect the named output and verify its provenance.
-- Then: Use the answer to decide whether to clarify or continue.
-Sources: [Module 01 overview](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/01_Dev_Environment/README.md); [Module 01 workspace initialization](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/01_Dev_Environment/Dev_Environment.ipynb); [Artifact integrity rules](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/AGENTS.md).
+- Watch: The module README's header names what this notebook reads and writes: reads nothing, writes the manifest and the charter.
+- Then: Point out that an SME reviewer in Phase 3 can read the manifest and see the same thing.
+Sources: [Module 01 overview](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/01_Dev_Environment/README.md); [Module 01 notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/01_Dev_Environment/Dev_Environment.ipynb); [Artifact integrity rules](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/AGENTS.md).
 -->
 
 ---
@@ -396,20 +420,20 @@ Type: core
 Minutes: 2
 Layout: 05 Two column 2
 Speaker notes:
-- Say: The repo keeps a history of the work
+- Say: Your GitHub repo is itself a certification deliverable, so this history is graded.
 - Ask: If an answer changes, which part of the history would you inspect first?
-- Watch: Inspect the named output and verify its provenance.
+- Watch: Show `project/CHARTER.md` and note that notebooks use the seed until its template marker is removed.
 - Then: Carry the observation into the notebook exercise.
-Sources: [Module 01 overview](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/01_Dev_Environment/README.md); [Module 01 workspace initialization](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/01_Dev_Environment/Dev_Environment.ipynb); [Artifact integrity rules](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/AGENTS.md).
+Sources: [Module 01 overview](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/01_Dev_Environment/README.md); [Charter template](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/project/CHARTER.md).
 -->
 
 ---
 
-# A small change should have a clear history
+# You work on a fork, not the course repo
 
-- Branch: separate a piece of work
-- Diff: inspect exactly what changed
-- Commit: record a named checkpoint
+- `origin` is your fork — where you push
+- `upstream` is the course repository — where you pull updates from
+- Start the day by fetching upstream, so you are not building on stale code
 
 <!--
 Slide ID: D1-M01-C3
@@ -417,13 +441,36 @@ Module: [01 Dev environment](https://github.com/AI-Aspire/Aspire_Titanium_Engine
 Instructor: Miriah, no-code orientation
 Type: core
 Minutes: 2
+Layout: 05 Two column 1
+Speaker notes:
+- Say: Two remotes, two jobs. You push to your fork and send changes back as pull requests.
+- Ask: You fetched upstream and your files did not change. Is something wrong?
+- Watch: Task 1 (cell#10) adds `upstream` if it is missing, reading the slug from `cohort.toml`. Task 2 (cell#13) fetches and then only *prints* the fast-forward command, so students run the merge deliberately.
+- Then: Note that fetching updates your copy of the remote branches without touching your working files.
+Sources: [GitHub flow](https://docs.github.com/en/get-started/using-github/github-flow); [Module 01 notebook, Tasks 1-2](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/01_Dev_Environment/Dev_Environment.ipynb).
+-->
+
+---
+
+# A small change should have a clear history
+
+- Branch: separate a piece of work, with a prefixed name a reviewer can scan
+- Diff: stage the change, then inspect exactly what will be committed
+- Commit: `type: summary`, so the history stays searchable
+
+<!--
+Slide ID: D1-M01-C4
+Module: [01 Dev environment](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/01_Dev_Environment/README.md)
+Instructor: Miriah, no-code orientation
+Type: core
+Minutes: 2
 Layout: 06 Process steps 1
 Speaker notes:
-- Say: A small change should have a clear history
+- Say: Keep `main` clean and do the work on a branch.
 - Ask: Does committing a change mean that someone else has reviewed it?
-- Watch: Inspect the named output and verify its provenance.
-- Then: Use the answer to decide whether to clarify or continue.
-Sources: [GitHub flow](https://docs.github.com/en/get-started/using-github/github-flow); [Module 01 notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/01_Dev_Environment/Dev_Environment.ipynb).
+- Watch: Task 4 (cell#21) creates `feat/<login>-daily-loop`; Task 6 (cell#27) stages, shows `git diff --staged`, then commits `docs: add <login> to members`.
+- Then: The answer to the ask is no — committing records, reviewing is the pull request, which comes next.
+Sources: [GitHub flow](https://docs.github.com/en/get-started/using-github/github-flow); [Module 01 notebook, Tasks 4-6](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/01_Dev_Environment/Dev_Environment.ipynb).
 -->
 
 ---
@@ -435,18 +482,18 @@ Sources: [GitHub flow](https://docs.github.com/en/get-started/using-github/githu
 - **Decide:** keep the simplest design that clears the check; record the gap when it does not.
 
 <!--
-Slide ID: D1-M01-C3B
+Slide ID: D1-M01-C4B
 Module: [01 Dev environment](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/01_Dev_Environment/README.md)
 Instructor: Miriah, no-code orientation
 Type: core
 Minutes: 2
 Layout: 07 Big stats
 Speaker notes:
-- Say: A small change should have a clear history
+- Say: The branch name and the commit message are the two things a reviewer reads first.
 - Ask: Does committing a change mean that someone else has reviewed it?
-- Watch: Inspect the named output and verify its provenance.
+- Watch: Before class, students were asked to read the last five commit messages on a repo they work in and mark which a reviewer could scan. Ask for one example.
 - Then: Carry the observation into the notebook exercise.
-Sources: [GitHub flow](https://docs.github.com/en/get-started/using-github/github-flow); [Module 01 notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/01_Dev_Environment/Dev_Environment.ipynb).
+Sources: [Module 01 before-you-arrive](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/01_Dev_Environment/README.md); [GitHub flow](https://docs.github.com/en/get-started/using-github/github-flow).
 -->
 
 ---
@@ -458,18 +505,18 @@ Sources: [GitHub flow](https://docs.github.com/en/get-started/using-github/githu
 - Preserve enough context to repeat the comparison
 
 <!--
-Slide ID: D1-M01-C4
+Slide ID: D1-M01-C5
 Module: [01 Dev environment](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/01_Dev_Environment/README.md)
 Instructor: Miriah, no-code orientation
 Type: core
 Minutes: 2
 Layout: 05 Two column 1
 Speaker notes:
-- Say: Review the change, not just the successful run
+- Say: This is the step where your AI editor does most of the typing, which is exactly why you read the diff.
 - Ask: What would a reviewer need beyond a screenshot of the answer?
-- Watch: Explain the proposed edit and its saved evidence to a teammate; troubleshooting belongs in the practical block.
-- Then: Carry the observation into the next exercise.
-Sources: [Module 01 Learn/Create/Grow](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/01_Dev_Environment/README.md); [GitHub flow](https://docs.github.com/en/get-started/using-github/github-flow).
+- Watch: The prior cohort's illustration is worth reusing: a diff replacing a hard-coded `sk-prod-...` key with `os.getenv`. The repo's own rule is that `.env` is never committed, `make scrub` strips keys from notebook outputs, and CI fails if one gets through.
+- Then: The notebook asks this as a question cell (cell#29) and the answer belongs to the student.
+Sources: [Module 01 notebook, Task 6](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/01_Dev_Environment/Dev_Environment.ipynb); [Keys and endpoints](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/00_Setup/keys.md).
 -->
 
 ---
@@ -481,18 +528,64 @@ Sources: [Module 01 Learn/Create/Grow](https://github.com/AI-Aspire/Aspire_Titan
 - **Decide:** keep the simplest design that clears the check; record the gap when it does not.
 
 <!--
-Slide ID: D1-M01-C4B
+Slide ID: D1-M01-C5B
 Module: [01 Dev environment](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/01_Dev_Environment/README.md)
 Instructor: Miriah, no-code orientation
 Type: core
 Minutes: 1
 Layout: 09 Lab and code 2
 Speaker notes:
-- Say: Review the change, not just the successful run
+- Say: A reviewer needs the diff, the destination, and enough context to rerun the comparison.
 - Ask: What would a reviewer need beyond a screenshot of the answer?
-- Watch: Explain the proposed edit and its saved evidence to a teammate; troubleshooting belongs in the practical block.
+- Watch: Point at the diff, not the output. A green run with an unreviewed diff is the failure mode.
 - Then: Carry the observation into the notebook exercise.
-Sources: [Module 01 Learn/Create/Grow](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/01_Dev_Environment/README.md); [GitHub flow](https://docs.github.com/en/get-started/using-github/github-flow).
+Sources: [Module 01 notebook, Task 6](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/01_Dev_Environment/Dev_Environment.ipynb); [Keys and endpoints](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/00_Setup/keys.md).
+-->
+
+---
+
+# The pull request is the unit of review
+
+- `git push -u` links your branch to your fork, so later pushes know where to go
+- `gh pr create --draft` opens the review without leaving the terminal
+- A second commit updates the *same* pull request — that is how you answer a reviewer
+
+<!--
+Slide ID: D1-M01-C6
+Module: [01 Dev environment](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/01_Dev_Environment/README.md)
+Instructor: Miriah, no-code orientation
+Type: core
+Minutes: 3
+Layout: 06 Process steps 1
+Speaker notes:
+- Say: The pull request keeps tracking its branch, so it picks up whatever you push next.
+- Ask: Predict what Task 8 prints. The notebook makes a second commit and pushes it — how many pull requests exist afterwards?
+- Watch: Task 7 (cell#31) pushes and opens a draft PR against the student's own fork; Task 8 (cell#34) commits again and prints a commit count of 2. One pull request, two commits.
+- Then: The demo targets their own fork, so it is safe to rerun; the cleanup cell (cell#39) closes the PR and deletes the branch. If someone's count reads 3 or more, they reran Task 8 without cleanup — cell#34 appends its line unconditionally.
+Sources: [Module 01 notebook, Tasks 7-8](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/01_Dev_Environment/Dev_Environment.ipynb); [GitHub flow](https://docs.github.com/en/get-started/using-github/github-flow).
+-->
+
+---
+
+# Two setup traps that cost the most time
+
+- `uv sync` and `uv run --group` are **exact**: they remove every group you do not name — always use the `make` targets
+- Run `make preflight` on your own desk: each host comes back open, intercepted, or blocked
+- `make check-day` validates *your* workspace and ignores the seed, so it fails on everything before your group saves work. That is expected
+
+<!--
+Slide ID: D1-M01-C7
+Module: [01 Dev environment](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/01_Dev_Environment/README.md)
+Instructor: Miriah, no-code orientation
+Type: core
+Minutes: 3
+Layout: 04 Icon cards
+Speaker notes:
+- Say: These three lines prevent most of the time the room would otherwise lose.
+- Ask: A notebook that worked an hour ago now fails with `ModuleNotFoundError`. What changed?
+- Watch: The answer is almost always that a bare `uv sync` or `uv run --group dev` removed an optional group. Fix: `make setup`, which keeps the groups already installed.
+- Then: For an intercepted host, the terminal works because the machine trusts the private CA, but a container will not — keep the CA file to hand.
+Sources: [Setup and troubleshooting](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/00_Setup/README.md); [Course concepts, setup traps](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/docs/CONCEPTS.md).
 -->
 
 ---
@@ -513,9 +606,85 @@ Layout: 04 Icon cards
 Speaker notes:
 - Say: Optional: make review a system property
 - Ask: Which failure would your current checks miss even if every check passed?
-- Watch: Optional follow-up only; no additional code exercise or core minutes.
+- Watch: The notebook's Grow section (cell#41) pairs each thing done by hand today with what production does automatically: branch protection, required checks, `CODEOWNERS`, a bot that syncs forks.
 - Then: Skip if time is short; offer as optional stretch or research.
-Sources: [GitHub protected branches](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches); [Module 01 production discussion](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/01_Dev_Environment/Dev_Environment.ipynb).
+Sources: [GitHub protected branches](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches); [Module 01 Grow section, cell#41](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/01_Dev_Environment/Dev_Environment.ipynb).
+-->
+
+---
+
+# Before and after class reading
+
+**Before (required)**
+- [GitHub flow](https://docs.github.com/en/get-started/using-github/github-flow) — the loop this module runs
+- [Setup guide](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/00_Setup/README.md) — tools, keys, `make setup`, `make preflight`
+- Bring a list: the last five commit messages from a repo you work in, marked for whether a reviewer could scan them
+
+**After (optional)**
+- [Protected branches](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches)
+
+<!--
+Slide ID: D1-M01-RD1
+Module: [01 Dev environment](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/01_Dev_Environment/README.md)
+Instructor: Miriah
+Type: reading
+Minutes: 1
+Layout: 02 Agenda 1
+Speaker notes:
+- Say: One required link, one required setup document, one exercise you were asked to bring.
+- Ask: Who brought the five commit messages? Take one example and read it aloud.
+- Watch: The course reading guide has no entry for this module; these come from the module README's "Before you arrive" and from the setup guide.
+- Then: Hold the protected-branches link for anyone who finishes the notebook early.
+Sources: [Module 01 before-you-arrive](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/01_Dev_Environment/README.md); [Setup guide](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/00_Setup/README.md).
+-->
+
+---
+
+# Resources
+
+- [Module 01 README](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/01_Dev_Environment/README.md) and [notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/01_Dev_Environment/Dev_Environment.ipynb)
+- [Setup](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/00_Setup/README.md) · [keys](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/00_Setup/keys.md) · [mac](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/00_Setup/mac.md) · [windows](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/00_Setup/windows.md)
+- [GitHub flow](https://docs.github.com/en/get-started/using-github/github-flow) · [GitHub CLI](https://cli.github.com) · [uv install](https://docs.astral.sh/uv/getting-started/installation/) · [git downloads](https://git-scm.com/downloads)
+- [Course concepts](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/docs/CONCEPTS.md)
+
+<!--
+Slide ID: D1-M01-RS1
+Module: [01 Dev environment](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/01_Dev_Environment/README.md)
+Instructor: Miriah
+Type: resources
+Minutes: 1
+Layout: 02 Agenda 1
+Speaker notes:
+- Say: Everything on this slide is in the repo or is official documentation.
+- Ask: Anyone still blocked on setup? Now is the moment, not tomorrow morning.
+- Watch: The mac and windows pages are the ones people skip and then need: Intel wheel pins, Git Bash or WSL, long paths.
+- Then: Point at office hours after wrap for anything unresolved.
+Sources: [Setup guide](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/00_Setup/README.md); [Module 01 overview](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/01_Dev_Environment/README.md).
+-->
+
+---
+
+# Check your understanding
+
+1. Which remote do you push to, and which do you pull course updates from?
+2. You run `--status` and every row says `seed`. Is that a problem?
+3. You make a second commit on the branch and push. How many pull requests are open?
+4. A notebook that worked yesterday now fails with `ModuleNotFoundError`. What is the first thing you check?
+5. Name one thing you did by hand today that production would enforce automatically.
+
+<!--
+Slide ID: D1-M01-Q1
+Module: [01 Dev environment](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/01_Dev_Environment/README.md)
+Instructor: Miriah
+Type: check
+Minutes: 3
+Layout: 02 Agenda 1
+Speaker notes:
+- Say: Five questions; answer them out loud at your table before the notebook.
+- Ask: Take question 3 as a show of hands first, then explain.
+- Watch: Answers — (1) push to `origin`, your fork; pull from `upstream`, the course repo. (2) No: on a fresh clone every artifact resolves to the seed, which is how notebooks run standalone. (3) One; a pull request tracks its branch. (4) Whether a bare `uv sync` or `--group` removed an optional group, then `make setup`. (5) Branch protection, required checks, or `CODEOWNERS`.
+- Then: Hand over to the notebook; the eight tasks run the loop end to end.
+Sources: [Module 01 notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/01_Dev_Environment/Dev_Environment.ipynb); [Course concepts](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/docs/CONCEPTS.md).
 -->
 
 ---
