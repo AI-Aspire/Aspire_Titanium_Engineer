@@ -69,12 +69,16 @@ Speaker notes:
 Sources: [OpenAI evals build guide](https://github.com/openai/evals/blob/main/docs/build-eval.md); [OpenAI graders reference](https://platform.openai.com/docs/api-reference/graders); [trajectory-evals notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/09_Agent_Evals/Trajectory_Evals.ipynb)
 -->
 ---
-# Reliability lives across runs
+# 80% is not what 80% sounds like
 
-- One run is a sample, not a reliability claim
-- Use pass rate and pass^k for repeated tasks
-- Compare the shape of failures across repeated runs
-- Plant a regression and verify the harness moves
+An agent that passes 80% of the time, run three times on the same task:
+
+| Metric | Value |
+|---|---|
+| pass rate | 0.80 |
+| **pass^3** — all three attempts succeed | **≈ 0.5** |
+
+One run is a sample of one. Plant a regression and check the number actually moves.
 
 <!--
 Slide ID: D3-M09-C3
@@ -115,7 +119,7 @@ Speaker notes:
 Sources: [OpenAI evals](https://evals.openai.com/); [trajectory-evals notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/09_Agent_Evals/Trajectory_Evals.ipynb); [Unit Testing Your Agents](https://soypetetech.substack.com/p/unit-testing-your-agents)
 -->
 ---
-# Research: from traces to state
+# Optional: a trace is evidence; state is what resumes
 
 - ReAct made tool interaction part of the task
 - τ-bench evaluates user, policy, tools, and end state
@@ -226,7 +230,7 @@ Speaker notes:
 Sources: [MemGPT](https://arxiv.org/abs/2310.08560); [memory notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/10_Agent_Memory/Three_Kinds_of_Memory.ipynb)
 -->
 ---
-# Research: memory as a managed resource
+# Optional: memory needs retention, scope, and an owner
 
 - Context windows remain a bounded active workspace
 - Paging can extend usable history without erasing raw evidence
@@ -247,7 +251,7 @@ Speaker notes:
 Sources: [MemGPT paper](https://arxiv.org/abs/2310.08560); [memory notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/10_Agent_Memory/Three_Kinds_of_Memory.ipynb)
 -->
 ---
-# Recap: model inside a harness
+# The model proposes; the harness decides
 
 `user → harness → model → proposed tool call → authorization → tool → observation → harness`
 
@@ -292,12 +296,18 @@ Speaker notes:
 Sources: [OpenAI Agents SDK guardrails](https://openai.github.io/openai-agents-js/guides/guardrails/); [ReAct](https://arxiv.org/abs/2210.03629); [module alignment](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/11_Agent_Architecture/README.md)
 -->
 ---
-# Tools, MCP, and skills have different jobs
+# Choose a mechanism by who owns it
 
-- Tool, skill, MCP, and sub-agent expose different boundaries
-- Code mode runs capability logic; a manifest describes an API
-- Choose an interface by ownership, auth, context, call count, and failure behavior
-- Interfaces do not grant permission; review and scope every capability
+The six options come next. The choice is not about novelty:
+
+| Ask | Because |
+|---|---|
+| Who owns the schema? | you cannot version someone else's contract |
+| What enters the context? | every mechanism costs tokens differently |
+| How does it authenticate? | a service boundary needs a credential |
+| What breaks first? | failure mode decides your fallback |
+
+No mechanism grants permission. Scope every capability regardless of how it is exposed.
 
 <!--
 Slide ID: D3-M11-C3
@@ -366,7 +376,7 @@ Speaker notes:
 Sources: [Six Ways notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/11_Agent_Architecture/Six_Ways.ipynb); [MCP architecture](https://modelcontextprotocol.io/docs/learn/architecture)
 -->
 ---
-# Research: durable state for long-running work
+# Optional: long work needs checkpoints, not a longer context
 
 - Graphs make state and recovery points explicit
 - Long runs need checkpoints and observable progress
@@ -389,10 +399,28 @@ Sources: [LangGraph: Thinking in LangGraph](https://docs.langchain.com/oss/pytho
 ---
 # Guardrails sit at choke points
 
-- Instructions influence; independent controls constrain
-- Gate input, tools, and output for different failures
-- A guardrail can block a behavior, but it does not grant permission
-- Authorization belongs to policy, not prose
+<div style="display:flex;justify-content:center;margin-top:.1em">
+<svg viewBox="0 0 720 150" width="880" role="img" aria-label="Three choke points around the agent loop: input before the model, the tool boundary, and output before the user">
+<rect x="246" y="44" width="150" height="62" rx="9" fill="#ede9fe" stroke="#7c3aed" stroke-width="2.5"/>
+<text x="321" y="70" font-size="15" font-weight="700" text-anchor="middle" fill="#5b21b6">the loop</text>
+<text x="321" y="90" font-size="12" text-anchor="middle" fill="#6d28d9">model + your code</text>
+<rect x="18" y="44" width="150" height="62" rx="9" fill="#fee2e2" stroke="#dc2626" stroke-width="2.5"/>
+<text x="93" y="68" font-size="13.5" font-weight="700" text-anchor="middle" fill="#7f1d1d">input</text>
+<text x="93" y="88" font-size="11.5" text-anchor="middle" fill="#b91c1c">scope · injection</text>
+<rect x="474" y="44" width="150" height="62" rx="9" fill="#fee2e2" stroke="#dc2626" stroke-width="2.5"/>
+<text x="549" y="68" font-size="13.5" font-weight="700" text-anchor="middle" fill="#7f1d1d">output</text>
+<text x="549" y="88" font-size="11.5" text-anchor="middle" fill="#b91c1c">unsupported claims</text>
+<rect x="246" y="118" width="150" height="28" rx="8" fill="#fef3c7" stroke="#d97706" stroke-width="3"/>
+<text x="321" y="137" font-size="12.5" font-weight="700" text-anchor="middle" fill="#92400e">tool boundary · authorization</text>
+<path d="M170 75 H242" stroke="#94a3b8" stroke-width="2.5" marker-end="url(#ck)"/>
+<path d="M398 75 H470" stroke="#94a3b8" stroke-width="2.5" marker-end="url(#ck)"/>
+<path d="M321 108 V114" stroke="#d97706" stroke-width="2.5"/>
+<text x="660" y="79" font-size="12" text-anchor="middle" fill="#475569" font-style="italic">user</text>
+<defs><marker id="ck" markerWidth="10" markerHeight="10" refX="8.5" refY="3" orient="auto"><path d="M0 0 L8.5 3 L0 6 z" fill="#94a3b8"/></marker></defs>
+</svg>
+</div>
+
+Instructions *influence*. Only a control at one of these three points can *constrain* — and none of them grants permission.
 
 <!--
 Slide ID: D3-M13-C1
@@ -509,7 +537,7 @@ Speaker notes:
 Sources: [OpenAI Agents SDK guardrails](https://openai.github.io/openai-agents-js/guides/guardrails/); [InjecAgent](https://arxiv.org/abs/2403.02691); [guardrail notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/13_Guardrails_101/Guardrail_Ladder.ipynb)
 -->
 ---
-# Research: untrusted context can steer action
+# Optional: retrieved text is data, never authority
 
 - Retrieved text is data, not authority
 - Tool authorization must survive model mistakes

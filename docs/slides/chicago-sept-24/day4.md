@@ -28,7 +28,7 @@ Sources: [17 Deep Research](https://github.com/AI-Aspire/Aspire_Titanium_Enginee
 
 ---
 
-# 17 · Make research inspectable
+# Make research inspectable
 
 - A question becomes a brief, plan, findings, evidence packet, and report.
 - Each boundary has a typed contract and a budget.
@@ -52,7 +52,7 @@ Sources: [LangGraph graph API](https://docs.langchain.com/oss/python/langgraph/g
 
 ---
 
-# 17 · Research is a bounded loop
+# Research is a bounded loop
 
 `plan → parallel research → search → extract → reflect → compress`
 
@@ -77,7 +77,7 @@ Sources: [LangGraph workflows](https://docs.langchain.com/oss/python/langgraph/w
 
 ---
 
-# 17 · Provenance is part of the answer
+# Provenance is part of the answer
 
 - Keep source paths beside findings, not in a hidden log.
 - Compress context without deleting gaps.
@@ -101,7 +101,7 @@ Sources: [LangGraph workflows](https://docs.langchain.com/oss/python/langgraph/w
 
 ---
 
-# 17 · The next step is evidence policy
+# The next step is evidence policy
 
 - A working prototype has typed boundaries and a readable trace.
 - Production also needs source trust, permissions, recovery, and evals.
@@ -125,7 +125,7 @@ Sources: [LangGraph durable execution](https://docs.langchain.com/oss/python/lan
 
 ---
 
-# 17 · Compile while the graph runs
+# Compile while the graph runs
 
 - The writer gets the brief and dossier, not the whole conversation.
 - Stream node updates and research queries as they happen.
@@ -149,7 +149,7 @@ Sources: [LangGraph graph API](https://docs.langchain.com/oss/python/langgraph/g
 
 ---
 
-# 18 · A guardrail is a boundary with a policy
+# A guardrail is a boundary with a policy
 
 - Input guardrails gate the model boundary on the blocking path.
 - Transforms change what proceeds; blocks stop a run.
@@ -174,7 +174,7 @@ Sources: [OpenAI Agents SDK guardrails](https://openai.github.io/openai-agents-p
 
 ---
 
-# 18 · Placement changes the failure
+# Placement changes the failure
 
 <div style="display:flex;justify-content:center;margin-top:.1em">
 <svg viewBox="0 0 720 200" width="900" role="img" aria-label="Three guardrail placements around the agent loop: before generation on the input, at the tool boundary, and after generation on the output">
@@ -226,7 +226,7 @@ Sources: [OpenAI guardrail execution modes](https://openai.github.io/openai-agen
 
 ---
 
-# 18 · Cheap rules are useful and brittle
+# Cheap rules are useful and brittle
 
 | Mechanism | Strength | Risk |
 |---|---|---|
@@ -254,7 +254,7 @@ Sources: [OpenAI Agents SDK guardrails](https://openai.github.io/openai-agents-p
 
 ---
 
-# 18 · The system still owns authorization
+# The system still owns authorization
 
 - A prompt can describe policy; it cannot enforce permission.
 - Guardrail results need severity, owner, and audit context.
@@ -278,7 +278,7 @@ Sources: [OpenAI Agents SDK tools](https://openai.github.io/openai-agents-python
 
 ---
 
-# 18 · Redaction transforms input before generation
+# Redaction transforms input before generation
 
 - Redaction removes the secret and keeps the legitimate question.
 - Record what kind of PII was removed, never its value.
@@ -301,7 +301,7 @@ Sources: [OpenAI Agents SDK guardrails](https://openai.github.io/openai-agents-p
 
 ---
 
-# Optional research · State graphs for research
+# Optional: a research loop is a state graph you can resume
 
 - Anthropic’s case delegates breadth-first research to parallel subagents.
 - Compare its contribution, cost, and fit with this notebook’s graph.
@@ -323,7 +323,7 @@ Sources: [Anthropic multi-agent research case study](https://www.anthropic.com/e
 
 ---
 
-# Optional research · Guardrails at the tool boundary
+# Optional: the tool boundary is the last place to say no
 
 - Agent checks and tool checks protect different boundaries.
 - Choose reject, warn, or halt deliberately.

@@ -397,3 +397,31 @@ its speaker notes, at 16:9. Run `uv run --no-project python scripts/marp_to_pptx
 Inline SVG diagrams are marked `[diagram — see the HTML deck]` rather than rasterised, since
 that needs a browser render. The generated .pptx stays untracked, per this branch's README
 scope ("HTML, PDF, PPTX … intentionally excluded").
+
+## Day 3 and 4 review (2026-09-17)
+
+Structure is sound after the earlier cut — modules leave 20–27 min for code, no duplicate
+titles, no scaffold, every core slide cites a verified cell. Content review found three
+patterns across 26 slides, all now fixed:
+
+**1. `NN · ` title prefixes, 10 slides (day 4 only).** Every day-4 module title read
+"17 · Make research inspectable". The module is already on the transition card and in the
+note metadata, so the prefix was noise on screen. Day 3 never did this. Stripped.
+
+**2. Label-style titles, 7 slides.** "Recap: …", "Research: …", "Optional research · …" name
+a category instead of the takeaway — the same problem as the "Paper finding:" prefix removed
+from day 1. Now e.g. "Optional: retrieved text is data, never authority" and
+"The model proposes; the harness decides".
+
+**3. Bullet walls where the content wanted a visual.** Three worst cases rewritten:
+
+- `D3-M09-C3` was four abstract bullets about reliability. It now shows the notebook's own
+  arithmetic as a table — pass rate 0.80, **pass^3 ≈ 0.5** — retitled "80% is not what 80%
+  sounds like". Verified: `Trajectory_Evals:cell#24` states exactly this, and 0.8³ = 0.512.
+- `D3-M13-C1` "Guardrails sit at choke points" had no choke points on it. It now carries an
+  SVG showing the three — input, tool boundary, output — around the loop.
+- `D3-M11-C3` enumerated tool/skill/MCP/sub-agent/code-mode/manifest in prose, then `C5`'s
+  diagram showed the same six. C3 is now "Choose a mechanism by who owns it", a four-row
+  table of the questions that decide it, so the pair is one idea told once.
+
+Day 3 visual mix went from 2 SVG / 2 tables to **3 SVG / 5 tables**.
