@@ -298,27 +298,6 @@ Speaker notes:
 Sources: [MemGPT](https://arxiv.org/abs/2310.08560); [memory notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/10_Agent_Memory/Three_Kinds_of_Memory.ipynb)
 -->
 ---
-# Optional: memory needs retention, scope, and an owner
-
-- Context windows remain a bounded active workspace
-- Paging can extend usable history without erasing raw evidence
-- Open question: how should privacy and deletion shape recall?
-
-<!--
-Slide ID: D3-M10-R1
-Module: [10 Memory](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/10_Agent_Memory/README.md)
-Instructor: Beric
-Type: optional
-Minutes: 0
-Layout: 08 Quote
-Speaker notes:
-- Say: Optional: memory is a managed store with retention and scope, not a transcript.
-- Ask: What does virtual context management move, and what remains fixed?
-- Watch: Compare the notebook’s raw archive plus summary with the paper’s tiered-context idea.
-- Then: Skip if time is short; offer as optional stretch or research.
-Sources: [MemGPT paper](https://arxiv.org/abs/2310.08560); [memory notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/10_Agent_Memory/Three_Kinds_of_Memory.ipynb)
--->
----
 # 11 · Agent architecture
 
 **One capability, six ways to give it to an agent.** · 35 min
