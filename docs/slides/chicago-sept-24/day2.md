@@ -4,12 +4,12 @@ theme: default
 paginate: true
 size: 16:9
 ---
+
 # Today: making retrieval measurable
 
-- 06 Advanced retrieval — 35m · 07 Agentic retrieval — 30m
+- 06 Advanced retrieval — 35m
+- 07 Agentic retrieval — 30m
 - 08 SDG and RAGAS — 30m
-
-Yesterday's retriever was one hand-picked guess. Today it gets compared.
 
 <!--
 Day 2 delivery map from the supplied formal schedule:
@@ -23,8 +23,6 @@ Day 2 delivery map from the supplied formal schedule:
 # Today: making the agent's evidence trustworthy
 
 06 Advanced retrieval · 35m  ·  07 Agentic retrieval · 30m  ·  08 SDG and RAGAS · 30m
-
-Day 1's retriever was one hand-picked guess; today measures and improves it.
 
 <!--
 Slide ID: D2-F0
@@ -43,7 +41,7 @@ Sources: Notebook:cell#27; [Day 2 schedule](https://github.com/AI-Aspire/Aspire_
 
 ---
 
-# Day 2 · From a prototype to a measured retrieval system
+# From a prototype to a measured retrieval system
 
 - Yesterday: a question, prompt, agent, and first RAG baseline
 - Today: evidence, retrieval choices, and repeatable measurement
@@ -65,21 +63,9 @@ Sources: [Day 2 schedule](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/
 -->
 
 ---
+# Three kinds of retrieval, named
 
-# 06 · Exact terms and related meanings need different signals
-
-- **BM25:** keeps exact codes, names, and rare terms visible
-- **Dense:** connects “remote access” with “VPN connection”
-- **Hybrid:** keeps both signals before deeper ranking
-
-Example question: `VPN-4312 fails after a password reset`
-
-| Retriever | Likely strength |
-|---|---|
-| BM25 | exact `VPN-4312` |
-| Dense | related “remote access” guidance |
-| Hybrid | both clues in the candidate set |
-
+<div style="display:flex;justify-content:center;margin-top:.1em">
 <svg viewBox="0 0 700 150" width="900" role="img" aria-label="Sparse retrieval preserves exact VPN code terms while dense retrieval connects related remote access wording, and hybrid keeps both candidate sets">
 <g text-anchor="middle">
 <rect x="18" y="38" width="190" height="58" rx="9" fill="#fef3c7" stroke="#d97706" stroke-width="2.5"/>
@@ -96,6 +82,15 @@ Example question: `VPN-4312 fails after a password reset`
 </g>
 <defs><marker id="dense-sparse-a" markerWidth="9" markerHeight="9" refX="8" refY="3" orient="auto"><path d="M0 0 L8 3 L0 6 z" fill="#94a3b8"/></marker></defs>
 </svg>
+</div>
+
+| | Matches on | Finds `VPN-4312` | Finds "remote access" |
+|---|---|---|---|
+| **Sparse** (BM25) | exact words | yes | no |
+| **Dense** (embeddings) | meaning | often not | yes |
+| **Hybrid** | both, then fuse | yes | yes |
+
+Example question: `VPN-4312 fails after a password reset` — it needs both signals.
 
 <!--
 Slide ID: D2-M06-C1
@@ -112,8 +107,13 @@ Speaker notes:
 Sources: [Dense Passage Retrieval](https://aclanthology.org/2020.emnlp-main.550/); [Lucene BM25Similarity](https://lucene.apache.org/core/9_12_1/core/org/apache/lucene/search/similarities/BM25Similarity.html); [local Retrieval Ladder notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/06_Advanced_Retrieval/Retrieval_Ladder.ipynb)
 -->
 ---
+# Which method would you use for each source?
 
-# Which retriever protects VPN-4312? Which connects “remote access”?
+| Source | What a question about it looks like |
+|---|---|
+| `tickets.jsonl` | "what happened with T-1001?" — exact IDs |
+| `vpn.md` | "why can't I reach staging?" — described, not named |
+| the whole KB | a user who does not know which page they need |
 
 <!--
 Slide ID: D2-M06-C1B
@@ -123,19 +123,20 @@ Type: core
 Minutes: 1
 Layout: 04 Icon cards
 Speaker notes:
-- Say: Exact terms and related meanings need different signals
-- Ask: Which part of the question would dense retrieval risk blurring, and which part would BM25 preserve?
+- Say: Take each row in turn. The answer is in the naming: exact identifiers are a sparse problem, described symptoms are a dense one.
+- Ask: Push on row three — most rooms say hybrid, and the reason matters: you do not know in advance which kind of question arrives.
 - Watch: Retrieval_Ladder Task 2 prints dense and scratch/library BM25 orders for one question; compare the disagreement. Retrieval_Ladder:cell#9 is Task 1 of 5 — Label the evidence.
 - Then: Reveal the answer, then tie it to the notebook artifact on screen.
 Sources: [Dense Passage Retrieval](https://aclanthology.org/2020.emnlp-main.550/); [Lucene BM25Similarity](https://lucene.apache.org/core/9_12_1/core/org/apache/lucene/search/similarities/BM25Similarity.html); [local Retrieval Ladder notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/06_Advanced_Retrieval/Retrieval_Ladder.ipynb)
 -->
 ---
+# Exact IDs are sparse; described symptoms are dense
 
-# BM25 keeps the code, dense widens the net
-- **Answer:** BM25 protects the exact code; dense search broadens the meaning.
-- **Why:** The two signals expose different candidate passages.
-- **Next step:** In the notebook, read the two orders side by side before judging either.
+- `tickets.jsonl` → **sparse**. `T-1001` is a token, not a meaning.
+- `vpn.md` → **dense**. "cannot reach staging" never says "split tunnel".
+- the whole KB → **hybrid**. You cannot predict which arrives.
 
+The two signals surface different passages, so the candidate set differs before any ranking happens.
 <!--
 Slide ID: D2-M06-C1A
 Module: [06 Advanced retrieval](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/06_Advanced_Retrieval/README.md)
@@ -147,40 +148,22 @@ Speaker notes:
 - Say: Reveal the answer and why it matters
 - Ask: What would change if the answer were different?
 - Watch: Point to the visible evidence and the notebook artifact. Retrieval_Ladder:cell#9 is Task 1 of 5 — Label the evidence.
-- Then: Tie the answer to the notebook artifact before moving on.
+- Then: Hybrid is the default precisely because the question shape is not knowable in advance.
 Sources: [Dense Passage Retrieval](https://aclanthology.org/2020.emnlp-main.550/); [Lucene BM25Similarity](https://lucene.apache.org/core/9_12_1/core/org/apache/lucene/search/similarities/BM25Similarity.html); [local Retrieval Ladder notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/06_Advanced_Retrieval/Retrieval_Ladder.ipynb)
 -->
 ---
+# Fusion: merging two ranked lists
 
-# Fuse ranks, then spend judgment carefully
+Sparse and dense each return their own ordering. **Reciprocal rank fusion** scores a page by where it lands in each list, then merges:
 
-`20 candidates → RRF top 10 → reranker top 5 → context top 3`
+```text
+sparse:  [A, B, C]      a page ranked highly by BOTH
+dense:   [C, A, D]      rises above one ranked highly by one
+         ──────────
+RRF:     [A, C, B, D]
+```
 
-<svg viewBox="0 0 700 145" width="900" role="img" aria-label="Retrieval ladder sequence from sparse and dense candidates through fusion and reranking to context">
-<g text-anchor="middle">
-<rect x="12" y="40" width="142" height="54" rx="9" fill="#fef3c7" stroke="#d97706" stroke-width="2.5"/>
-<text x="83" y="63" font-size="14" font-weight="700" fill="#92400e">sparse</text>
-<text x="83" y="81" font-size="11.5" fill="#b45309">exact terms</text>
-<rect x="190" y="40" width="142" height="54" rx="9" fill="#ede9fe" stroke="#7c3aed" stroke-width="2.5"/>
-<text x="261" y="63" font-size="14" font-weight="700" fill="#5b21b6">dense</text>
-<text x="261" y="81" font-size="11.5" fill="#6d28d9">related meaning</text>
-<rect x="368" y="40" width="142" height="54" rx="9" fill="#e0f2fe" stroke="#0284c7" stroke-width="2.5"/>
-<text x="439" y="63" font-size="14" font-weight="700" fill="#075985">fuse</text>
-<text x="439" y="81" font-size="11.5" fill="#0369a1">RRF shortlist</text>
-<rect x="546" y="40" width="142" height="54" rx="9" fill="#f8fafc" stroke="#94a3b8" stroke-width="2.5"/>
-<text x="617" y="63" font-size="14" font-weight="700" fill="#334155">rerank</text>
-<text x="617" y="81" font-size="11.5" fill="#475569">context top 3</text>
-<path d="M156 67 H184" stroke="#94a3b8" stroke-width="2.5" marker-end="url(#ladder-a)"/>
-<path d="M334 67 H362" stroke="#94a3b8" stroke-width="2.5" marker-end="url(#ladder-a)"/>
-<path d="M512 67 H540" stroke="#94a3b8" stroke-width="2.5" marker-end="url(#ladder-a)"/>
-</g>
-<defs><marker id="ladder-a" markerWidth="9" markerHeight="9" refX="8" refY="3" orient="auto"><path d="M0 0 L8 3 L0 6 z" fill="#94a3b8"/></marker></defs>
-</svg>
-
-- **Cheap first:** gather candidates with multiple signals
-- **Expensive later:** let a cross-encoder compare question + passage
-- **Hard limit:** a reranker cannot recover a passage that was never retrieved
-
+It is arithmetic — no model call, no judgment. That is why it comes first.
 <!--
 Slide ID: D2-M06-C2
 Module: [06 Advanced retrieval](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/06_Advanced_Retrieval/README.md)
@@ -189,15 +172,24 @@ Type: core
 Minutes: 1
 Layout: 06 Process steps
 Speaker notes:
-- Say: Fusion is cheap and mechanical. A reranker costs a model call per candidate — spend it last.
+- Say: Fusion is the cheapest thing on the ladder: it is arithmetic over two orderings, with no model in the loop.
 - Ask: If the correct passage never enters the fused shortlist, can reranking recover it?
 - Watch: Retrieval_Ladder Task 3 prints the fused list and cross-encoder order; inspect how many candidates reach the reranker. Retrieval_Ladder:cell#12 is Task 2 of 5 — Dense and sparse.
-- Then: Carry the observation into the next exercise.
+- Then: Now the expensive rung — a reranker that actually reads the passages.
 Sources: [Reciprocal rank fusion paper](https://cormack.uwaterloo.ca/cormacksigir09-rrf.pdf); [local Retrieval Ladder notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/06_Advanced_Retrieval/Retrieval_Ladder.ipynb)
 -->
 ---
+# A reranker reads the passage, not just the score
 
-# If the correct page is absent from the top 10, can the reranker find it?
+Fusion never opens a page — it merges positions. A **cross-encoder reranker** does read:
+
+| Stage | Sees | Cost |
+|---|---|---|
+| Sparse / dense | the query, the index | one search |
+| Fusion (RRF) | two orderings | arithmetic |
+| **Reranker** | query **and** passage text, together | one model call per candidate |
+
+So a reranker is accurate and expensive — you run it on a shortlist, never the corpus.
 
 <!--
 Slide ID: D2-M06-C2B
@@ -207,18 +199,21 @@ Type: core
 Minutes: 1
 Layout: 05 Two column 2
 Speaker notes:
-- Say: Fuse ranks, then spend judgment carefully
-- Ask: If the correct passage never enters the fused shortlist, can reranking recover it?
+- Say: This is the first rung that costs a model call, and it is the first that actually reads the text.
+- Ask: Now the room can answer the next slide's question. Ask it before advancing.
 - Watch: Retrieval_Ladder Task 3 prints the fused list and cross-encoder order; inspect how many candidates reach the reranker. Retrieval_Ladder:cell#12 is Task 2 of 5 — Dense and sparse.
-- Then: Reveal the answer, then tie it to the notebook artifact on screen.
+- Then: Pose it directly: if the right page is not in the shortlist, can the reranker rescue it?
 Sources: [Reciprocal rank fusion paper](https://cormack.uwaterloo.ca/cormacksigir09-rrf.pdf); [local Retrieval Ladder notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/06_Advanced_Retrieval/Retrieval_Ladder.ipynb)
 -->
 ---
-
 # A reranker cannot recover what was never retrieved
-- **Answer:** No. A reranker cannot recover a candidate absent from the shortlist.
-- **Why:** Later stages only reorder what earlier stages retrieved.
-- **Next step:** So tune recall first, then spend a reranker on the shortlist you trust.
+
+**If the right page is absent from the shortlist, the reranker cannot find it.**
+
+It only reorders what earlier stages handed it. So:
+
+- Tune **recall** first — sparse, dense, fusion, multi-query
+- Spend the reranker on a shortlist you already trust
 
 <!--
 Slide ID: D2-M06-C2A
@@ -228,21 +223,24 @@ Type: core
 Minutes: 1
 Layout: 08 Quote
 Speaker notes:
-- Say: Reveal the answer and why it matters
+- Say: Every later stage is a reordering. Recall is the only stage that can add a page.
 - Ask: What would change if the answer were different?
 - Watch: Point to the visible evidence and the notebook artifact. Retrieval_Ladder:cell#12 is Task 2 of 5 — Dense and sparse.
 - Then: Tie the answer to the notebook artifact before moving on.
 Sources: [Reciprocal rank fusion paper](https://cormack.uwaterloo.ca/cormacksigir09-rrf.pdf); [local Retrieval Ladder notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/06_Advanced_Retrieval/Retrieval_Ladder.ipynb)
 -->
 ---
+# Multi-query: ask the same thing three ways
 
-# Ask the question more than once
+One phrasing searches one neighbourhood. **Multi-query** rewrites the question and searches with each:
 
-- Original: `How do I restore VPN access?`
-- Rewrite A: `VPN password reset procedure`
-- Rewrite B: `remote access account locked`
+```text
+original:   How do I restore VPN access?
+rewrite A:  VPN password reset procedure
+rewrite B:  remote access account locked
+```
 
-Multi-query helps only when the rewrites expose different useful evidence.
+Each rewrite retrieves its own list; the results are fused. It helps only when a rewrite surfaces a page the original missed — new source IDs, not a longer list.
 
 <!--
 Slide ID: D2-M06-C3
@@ -252,68 +250,23 @@ Type: core
 Minutes: 1
 Layout: 06 Process steps 1
 Speaker notes:
-- Say: One phrasing finds one neighbourhood. Asking twice is how you find the pages a single query missed.
+- Say: Multi-query is a recall move: it buys coverage by paying for extra searches, not by ranking better.
 - Ask: What evidence would show that a rewrite changed coverage rather than merely added duplicates?
 - Watch: Retrieval_Ladder Task 3 prints three rewrites and one list per retriever; compare per-case reciprocal ranks in Task 4. Retrieval_Ladder:cell#17 is Task 3 of 5 — Fuse, rerank, expand.
-- Then: Hand into “Ask the question more than once · Question”.
+- Then: Watch the source IDs when this runs — repeated IDs mean you paid for nothing.
 Sources: [Iterative query generation for multi-hop QA](https://aclanthology.org/D19-1261/); [local Retrieval Ladder notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/06_Advanced_Retrieval/Retrieval_Ladder.ipynb)
 -->
 ---
+# Two ways to measure a retriever
 
-# Did the rewrites find new pages or repeat the same pages?
+Ranks of the correct page across three questions: `[2, 8, not found]`
 
-<!--
-Slide ID: D2-M06-C3B
-Module: [06 Advanced retrieval](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/06_Advanced_Retrieval/README.md)
-Instructor: Eli
-Type: core
-Minutes: 1
-Layout: 07 Big stats
-Speaker notes:
-- Say: Ask the question more than once
-- Ask: What evidence would show that a rewrite changed coverage rather than merely added duplicates?
-- Watch: Retrieval_Ladder Task 3 prints three rewrites and one list per retriever; compare per-case reciprocal ranks in Task 4. Retrieval_Ladder:cell#17 is Task 3 of 5 — Fuse, rerank, expand.
-- Then: Reveal the answer, then tie it to the notebook artifact on screen.
-Sources: [Iterative query generation for multi-hop QA](https://aclanthology.org/D19-1261/); [local Retrieval Ladder notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/06_Advanced_Retrieval/Retrieval_Ladder.ipynb)
--->
----
-
-# New IDs mean new coverage
-- **Answer:** New source IDs show changed coverage; repeated IDs show duplicated evidence.
-- **Why:** More results are not the same as more useful evidence.
-- **Next step:** Watch the source IDs, not the result count, when you add a rung.
-
-<!--
-Slide ID: D2-M06-C3A
-Module: [06 Advanced retrieval](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/06_Advanced_Retrieval/README.md)
-Instructor: Eli
-Type: core
-Minutes: 1
-Layout: 08 Quote
-Speaker notes:
-- Say: Reveal the answer and why it matters
-- Ask: What would change if the answer were different?
-- Watch: Point to the visible evidence and the notebook artifact. Retrieval_Ladder:cell#17 is Task 3 of 5 — Fuse, rerank, expand.
-- Then: Tie the answer to the notebook artifact before moving on.
-Sources: [Iterative query generation for multi-hop QA](https://aclanthology.org/D19-1261/); [local Retrieval Ladder notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/06_Advanced_Retrieval/Retrieval_Ladder.ipynb)
--->
----
-
-# Choose the cheapest rung that clears the bar
-
-| Signal | Question it answers | Use it for |
+| Metric | Asks | On this example |
 |---|---|---|
-| Hit rate | Did relevant evidence enter top-K? | Coverage |
-| MRR | How early did the first relevant result appear? | Ranking |
-| Latency and cost | What does this rung consume? | Shipping decision |
+| **hit@5** | did it land in the top 5 at all? | `1/3` — only rank 2 qualifies |
+| **MRR** | how *early* did it land? | `(1/2 + 1/8 + 0) / 3` |
 
-**Stop:** choose the least expensive rung that clears the task bar.
-
-Illustrative ranks for three questions: `[2, 8, not found]`
-
-`hit@5 = 1/3` · `MRR = (1/2 + 1/8 + 0) / 3`
-
-The numbers show how to reason about a ladder; they are not cohort results.
+hit@5 is a pass/fail cutoff. MRR rewards being early. Illustrative numbers, not cohort results.
 
 <!--
 Slide ID: D2-M06-C4
@@ -323,11 +276,36 @@ Type: core
 Minutes: 1
 Layout: 07 Big stats
 Speaker notes:
-- Say: Every rung adds latency and a new way to be wrong. Add one only when the numbers demand it.
-- Ask: Which evidence would change your conclusion?
-- Watch: Retrieval_Ladder Task 4 prints hit rate, MRR, latency, and a per-case reciprocal-rank matrix; use the matrix to choose one rung. Retrieval_Ladder:cell#22 is Task 4 of 5 — Score the ladder.
-- Then: Hand into “Choose the cheapest rung that clears the bar · Question”.
-Sources: [DPR retrieval formulation](https://aclanthology.org/2020.emnlp-main.550/); [local Retrieval Ladder notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/06_Advanced_Retrieval/Retrieval_Ladder.ipynb)
+- Say: Two metrics, two different questions — and a rung can improve one while leaving the other flat.
+- Ask: Rank 8 contributes 1/8 to MRR and nothing to hit@5. Which metric would you report to a stakeholder, and why?
+- Watch: Work the arithmetic on screen. The "not found" case contributes zero to both, which is what makes recall the first thing to fix. Retrieval_Ladder:cell#22 is Task 4 of 5 — Score the ladder.
+- Then: Now the choosing rule, on the next slide.
+Sources: [Lucene BM25Similarity](https://lucene.apache.org/core/9_12_1/core/org/apache/lucene/search/similarities/BM25Similarity.html), [local Retrieval Ladder notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/06_Advanced_Retrieval/Retrieval_Ladder.ipynb)
+-->
+---
+# Choose the cheapest rung that clears the bar
+
+| Signal | What it decides |
+|---|---|
+| Coverage — **hit@5** | is the evidence reaching the model at all? |
+| Ranking — **MRR** | is it arriving early enough to use? |
+| Latency and cost | can you afford this rung in production? |
+
+Add a rung only when the cheaper one misses your bar. Then stop.
+
+<!--
+Slide ID: D2-M06-C4X
+Module: [06 Advanced retrieval](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/06_Advanced_Retrieval/README.md)
+Instructor: Eli
+Type: core
+Minutes: 1
+Layout: 04 Icon cards
+Speaker notes:
+- Say: The ladder is not a checklist to complete. Each rung has to earn its latency.
+- Ask: A reranker lifts MRR but hit@5 does not move. Did the rung earn its cost?
+- Watch: The answer is usually no — if coverage did not change, a cheaper stage was already finding the page. Retrieval_Ladder:cell#22 is Task 4 of 5 — Score the ladder.
+- Then: The last rung is the one nobody measures: filtering before you rank.
+Sources: [local Retrieval Ladder notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/06_Advanced_Retrieval/Retrieval_Ladder.ipynb)
 -->
 ---
 
@@ -348,12 +326,16 @@ Speaker notes:
 Sources: [DPR retrieval formulation](https://aclanthology.org/2020.emnlp-main.550/); [local Retrieval Ladder notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/06_Advanced_Retrieval/Retrieval_Ladder.ipynb)
 -->
 ---
+# A correct page moves from rank 4 to rank 2
 
-# MRR sees rank, hit@5 sees the cutoff
-- **Answer:** MRR improves; hit@5 stays the same when both ranks are inside the cutoff.
-- **Why:** MRR sees exact rank; hit@5 sees whether the result crossed the cutoff.
-- **Next step:** Pick the metric that answers your question before you report a win.
+**MRR improves. hit@5 does not move.**
 
+| | rank 4 | rank 2 |
+|---|---|---|
+| hit@5 — inside the top 5? | yes | yes → **no change** |
+| MRR — how early? | `1/4` | `1/2` → **doubles** |
+
+Both ranks already cleared the cutoff, so a coverage metric cannot see the improvement. Pick the metric that answers your question before you report a win.
 <!--
 Slide ID: D2-M06-C4A
 Module: [06 Advanced retrieval](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/06_Advanced_Retrieval/README.md)
@@ -362,24 +344,24 @@ Type: core
 Minutes: 1
 Layout: 08 Quote
 Speaker notes:
-- Say: Reveal the answer and why it matters
-- Ask: What would change if the answer were different?
+- Say: A real improvement that one of your two metrics is blind to — which is why you report both.
+- Ask: Reverse it: what change would move hit@5 but leave MRR flat? Finding a page that was previously missing entirely.
 - Watch: Point to the visible evidence and the notebook artifact. Retrieval_Ladder:cell#22 is Task 4 of 5 — Score the ladder.
-- Then: Tie the answer to the notebook artifact before moving on.
+- Then: Coverage and ranking are different claims. The last rung in this module is the one that affects neither.
 Sources: [DPR retrieval formulation](https://aclanthology.org/2020.emnlp-main.550/); [local Retrieval Ladder notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/06_Advanced_Retrieval/Retrieval_Ladder.ipynb)
 -->
 ---
-
 # Filter before you rank
 
-Deskmate receives Priya's question: “Why can't I reach the staging database from the VPN?”
+A helpdesk agent gets: *"Why can't I reach the staging database from the VPN?"*
 
-- Identify the caller first
-- Scope the KB to that user's allowed pages
-- Rank only the permitted candidates
+The KB holds pages for every team, plus other people's tickets. So:
+
+1. Identify the caller
+2. Scope the index to the pages that caller may read
+3. Rank only those candidates
 
 **Retrieval is not an authorisation check.**
-
 <!--
 Slide ID: D2-M06-C5
 Module: [06 Advanced retrieval](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/06_Advanced_Retrieval/README.md)
@@ -392,48 +374,6 @@ Speaker notes:
 - Ask: Where in the pipeline would you attach the caller's identity?
 - Watch: Use Priya's staging-database question and Marcus's helpdesk scope as the contrast.
 - Then: Make the ordering explicit: authorize, filter, rank.
-Sources: Notebook:cell#27; [local Retrieval Ladder notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/06_Advanced_Retrieval/Retrieval_Ladder.ipynb)
--->
-
----
-
-# Deskmate has Priya's caller identity and a mixed KB. What is the first retrieval operation?
-
-<!--
-Slide ID: D2-M06-C5B
-Module: [06 Advanced retrieval](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/06_Advanced_Retrieval/README.md)
-Instructor: Eli
-Type: core
-Minutes: 1
-Layout: 05 Two column 2
-Speaker notes:
-- Say: Ask learners to name the boundary before they name a ranking method.
-- Ask: Which artifact would reveal that a result belonged to Marcus rather than Priya?
-- Watch: Listen for caller-scoped candidate construction, not a post-answer apology.
-- Then: Reveal the answer and connect it to the notebook's group filter.
-Sources: Notebook:cell#27; [local Retrieval Ladder notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/06_Advanced_Retrieval/Retrieval_Ladder.ipynb)
--->
-
----
-
-# Authorize the candidate set, then rank it
-
-- **Answer:** Filter the KB by Priya's allowed group before dense, sparse, or hybrid ranking.
-- **Why:** Ranking an unscoped index can surface Marcus's tickets to Priya.
-- **Next step:** Log the caller, filter, and returned source IDs for each Deskmate answer.
-
-<!--
-Slide ID: D2-M06-C5A
-Module: [06 Advanced retrieval](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/06_Advanced_Retrieval/README.md)
-Instructor: Eli
-Type: core
-Minutes: 1
-Layout: 08 Quote
-Speaker notes:
-- Say: The access boundary comes before retrieval quality.
-- Ask: What should Marcus be able to audit after a result is returned?
-- Watch: Name cross-user ticket leakage as the failure, not merely a poor relevance score.
-- Then: Carry the authorization boundary into the next module's corpus interfaces.
 Sources: Notebook:cell#27; [local Retrieval Ladder notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/06_Advanced_Retrieval/Retrieval_Ladder.ipynb)
 -->
 
