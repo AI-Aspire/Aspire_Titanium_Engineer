@@ -21,19 +21,19 @@ matching `dayN.md`. Do not create per-module deck files.
 | # | Module | Day | Time | Instructor | Status | Files touched | Principles | Open questions |
 |---|---|---|---|---|---|---|---|---|
 | 01 | Dev environment | 1 | 30m | Miriah (no code) | **done** | `day1.md` (slides `D1-M01-*`, 9→17 slides, 30 min exactly); `_loop/alignment/01-dev-environment.md`; `companions/01-dev-environment.md`; `_loop/prev-slides-text/` (cache); `_loop/build/day1.html` | 14 | 15 — see companion §10. Headlines: READING_GUIDE has no module-01 entry; 5 concepts missing from CONCEPTS.md (draft PR, `type: summary`, fetch-vs-merge, cleanup cell, `make preflight`); 3 terminology conflicts with the prior deck (workbench→workspace, saved results→artifact, invented `workbench_context.json` removed); Cohort-3 Session02 is PNG-only and cannot be text-extracted. |
-| 02 | Prompt patterns | 1 | 30m | Eli | todo | | | |
-| 03 | Agents 101 | 1 | 35m | Beric | todo | | | |
-| 04 | Vibe checks and judges | 1 | 30m | Beric | todo | | | |
-| 05 | RAG | 1 | 30m | Beric | todo | | | |
-| 06 | Advanced retrieval | 2 | 35m | Eli | todo | | | |
-| 07 | Agentic retrieval | 2 | 30m | Eli | todo | | | |
-| 08 | SDG and RAGAS | 2 | 30m | Beric | todo | | | |
-| 09 | Agent evals | 3 | 35m | Eli | todo | | | |
-| 10 | Agent memory | 3 | 30m | Beric | todo | | | |
-| 11 | Agent architecture | 3 | 35m | Rohit | todo | | | |
-| 13 | Guardrails 101 | 3 | 30m | Rohit | todo | | | |
-| 17 | Deep research | 4 | 35m | Eli | todo | | | |
-| 18 | Off-the-shelf guardrails | 4 | 30m | Beric | todo | | | |
+| 02 |Prompt patterns | 1 | 30m | Eli | **deck: partial** | `day1.md` | — | agenda, structured-output pair, ReAct→reasoning-budget fix, key terms. **Still owed by the loop spec: alignment file + companion sheet + prior-slide mapping.** |
+| 03 |Agents 101 | 1 | 35m | Beric | **deck: partial** | `day1.md` | — | evolution + loop + whole-system SVGs (earlier commit), key terms. **Still owed by the loop spec: alignment file + companion sheet + prior-slide mapping.** |
+| 04 |Vibe checks and judges | 1 | 30m | Beric | **deck: partial** | `day1.md` | — | baseline-judge pair, key terms. **Still owed by the loop spec: alignment file + companion sheet + prior-slide mapping.** |
+| 05 |RAG | 1 | 30m | Beric | **deck: partial** | `day1.md` | — | weak-first arc SVG, "chain" named, key terms. **Still owed by the loop spec: alignment file + companion sheet + prior-slide mapping.** |
+| 06 |Advanced retrieval | 2 | 35m | Eli | **deck: partial** | `day2.md` | — | "filter before you rank" triple, 2 SVGs, key terms. **Still owed by the loop spec: alignment file + companion sheet + prior-slide mapping.** |
+| 07 |Agentic retrieval | 2 | 30m | Eli | **deck: partial** | `day2.md` | — | "inspect the difference" triple, DCI/Agentic RAG/wiki named. **Still owed by the loop spec: alignment file + companion sheet + prior-slide mapping.** |
+| 08 |SDG and RAGAS | 2 | 30m | Beric | **deck: partial** | `day2.md` | — | "curate the test set" triple, datasheet named. **Still owed by the loop spec: alignment file + companion sheet + prior-slide mapping.** |
+| 09 |Agent evals | 3 | 35m | Eli | **deck: partial** | `day3.md` | — | day-3 agenda slide. **Still owed by the loop spec: alignment file + companion sheet + prior-slide mapping.** |
+| 10 |Agent memory | 3 | 30m | Beric | **deck: partial** | `day3.md` | — | root set named, memory-taxonomy note. **Still owed by the loop spec: alignment file + companion sheet + prior-slide mapping.** |
+| 11 |Agent architecture | 3 | 35m | Rohit | **deck: partial** | `day3.md` | — | MCP + UTCP pair. **Still owed by the loop spec: alignment file + companion sheet + prior-slide mapping.** |
+| 13 |Guardrails 101 | 3 | 30m | Rohit | **deck: partial** | `day3.md` | — | five-rung SVG ladder, day-3 closer. **Still owed by the loop spec: alignment file + companion sheet + prior-slide mapping.** |
+| 17 |Deep research | 4 | 35m | Eli | **deck: partial** | `day4.md` | — | day-4 agenda, compile/trace pair. **Still owed by the loop spec: alignment file + companion sheet + prior-slide mapping.** |
+| 18 |Off-the-shelf guardrails | 4 | 30m | Beric | **deck: partial** | `day4.md` | — | PII-redaction pair, placement SVG, fail-closed named. **Still owed by the loop spec: alignment file + companion sheet + prior-slide mapping.** |
 
 Not in scope: 12, 14, 15, 16, 19–23.
 
@@ -163,3 +163,36 @@ M09 15/35 · M10 15/30 · M11 19/35 · M13 19/30 · M17 19/35 · M18 19/30
 Note on themes: module 09 (Agent evals) is delivered on **day 3** but sits under the
 "Retrieval and agent evals" theme that spans days 2–3, which is why day 2's deck title mentions
 evals. Confirmed as correct; no slides moved.
+
+## Honest status, corrected 2026-09-17
+
+The table above previously showed 13 modules as `todo`, which understated the deck work but
+overstated nothing else. The accurate position:
+
+- **Module 01 is the only module with the full loop deliverables** — alignment file,
+  companion sheet, prior-slide mapping, and a revised deck block.
+- **The other 13 modules have had deck work only.** They have no
+  `_loop/alignment/NN-*.md` and no `companions/NN-*.md`. Their decks were improved by the
+  cross-cutting passes this session (foundation pass, repetition/instructor-name cleanup,
+  README key-terms audit, agentic-system diagrams), but none has been through Steps 1–4 of
+  the loop spec: full code inventory, CONCEPTS/READING_GUIDE extraction, prior-instructor
+  slide mapping, or a study sheet for the instructor.
+- So a future run picking up module 02 should **not** assume its deck is aligned; it should
+  run the full spec and expect to find more than the cross-cutting passes caught.
+
+What the cross-cutting passes did deliver for all 14 modules: zero instructor names in
+projected copy, zero duplicate titles, zero boilerplate note lines, every README key term on
+a slide (58/58), every module within its time budget, all cell pointers verified, and all
+five decks rendering.
+
+### Review-page generator fixed (2026-09-17)
+
+The slide-copy-beside-notes review pages were showing raw `<svg ...>` markup as if it were
+projected copy — the generator HTML-escaped every line, so diagrams appeared as walls of
+source. Fixed: it now passes `<div>`/`<svg>` blocks through verbatim, renders fenced code as
+styled `<pre>`, and converts markdown tables to real `<table>` elements.
+
+**All 14 modules now have a review page** at `preview/dayN-moduleNN-review.html`, generated
+from the decks, with zero escaped SVG: 13 live diagrams, 7 code blocks, 10 tables. The
+generator lives in the scratchpad (not committed — it is a tool, and `preview/` is untracked
+by the README's stated review scope).
