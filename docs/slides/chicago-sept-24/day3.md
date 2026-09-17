@@ -308,7 +308,7 @@ Sources: [MemGPT](https://arxiv.org/abs/2310.08560); [memory notebook](https://g
 ---
 # Budget memory deliberately
 
-- Protect instructions and recent turns
+- The **root set** — instructions and recent turns — is never trimmed
 - Drop low-relevance recalled facts first
 - Compact old turns, but keep raw recovery
 

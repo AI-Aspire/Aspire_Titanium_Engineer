@@ -2208,6 +2208,8 @@ Sources: [RAG from scratch and library pipeline](https://github.com/AI-Aspire/As
 
 For Deskmate and Priya's VPN question: paste all twelve KB pages, read the cost, then retrieve three chunks instead.
 
+The third step wires it into a **chain**: question → retriever → prompt → model → text, in one call.
+
 <!--
 Slide ID: D1-M05-C2A
 Module: [05 RAG](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/05_RAG/README.md)

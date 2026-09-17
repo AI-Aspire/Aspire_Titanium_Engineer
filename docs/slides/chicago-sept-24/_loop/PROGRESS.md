@@ -106,3 +106,30 @@ day4 1**, plus code slides on day 1.
 - Scope note: industry trends are deliberately **not** in these slides — Beric and Eli cover
   them live with the code, which also keeps the decks consistent with
   `cohort-outline/sources-and-coverage.md`, whose narrative section disclaims forecasting.
+
+## README key-terms audit (2026-09-17)
+
+Audited the "Plain English first" terms table in every module README against its slides.
+**58 terms across 11 modules; now 58/58 appear in projected slide copy** (was 51/58).
+
+Three of the 14 modules have no terms table at all — **01, 02, and 04** — so there was nothing
+to audit for them. Worth raising with the authors: modules 02 and 04 are dense with vocabulary
+(persona, few-shot, structured output; rubric, vibe check, judge, disagreement), and a table
+there would give the slides the same anchor the other eleven have.
+
+Fixes made (all minimal — every slide already taught the concept, it just used different
+wording than the README):
+
+| Module | Term | Fix |
+|---|---|---|
+| 05 | Chain | `D1-M05-C2A` now closes with the README's own definition: question → retriever → prompt → model → text, in one call |
+| 07 | **Agentic RAG**, **DCI** | `D2-M07-C1`'s comparison table said "Retriever" and "Direct corpus". The module's whole identity is DCI vs Agentic RAG — it is the notebook's filename — so both are now named |
+| 07 | Wiki | `D2-M07-C2` showed a page index without calling it the wiki |
+| 08 | Datasheet | added to the curation slide `D2-M08-C5`, which is where the artifact is produced |
+| 10 | **Root set** | genuinely absent from all five decks. `D3-M10-C3`'s first bullet already described it ("protect instructions and recent turns") and now names it |
+| 18 | Input/Output guardrail, **Fail closed** | `D4-M18-C1` said "input checks"/"output checks" and never contrasted fail-closed with fail-open. Both fixed with the README's wording |
+
+Method note: an early pass over-reported 16 gaps by matching whole phrases. Excluding SVG
+internals (whose `aria-label` text created false hits) and matching each term's distinctive
+head-word brought the real count to 7. Only **Root set** and **Fail closed** (on day 4) were
+absent outright; the rest were present under different words.

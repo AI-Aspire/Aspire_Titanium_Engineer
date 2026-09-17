@@ -742,8 +742,8 @@ Example question: `Which VPN policy applies to contractors?`
 
 | Interface | First move | What it can inspect next |
 |---|---|---|
-| Retriever | rank matching chunks | another query or result set |
-| Direct corpus | list/search pages | headings, full page, neighboring sections |
+| **Agentic RAG** — calls a retriever | rank matching chunks | another query or result set |
+| **DCI** — direct corpus interaction | list/search pages | headings, full page, neighboring sections |
 
 **Same question; different evidence path.**
 
@@ -811,7 +811,7 @@ Sources: [DCI research paper](https://arxiv.org/abs/2605.05242); [local DCI vers
 | `vpn.md` | contractor remote access | reset · device · escalation |
 | `mfa.md` | second-factor recovery | lost phone · backup code |
 
-The map helps the agent choose **which page to read** before it reads the whole page.
+This index is the **wiki**: it helps the agent choose **which page to read** before it reads the whole page.
 
 <!--
 Slide ID: D2-M07-C2
@@ -1378,6 +1378,7 @@ Generated cases are drafts. A case asking about a policy the KB never had is not
 - Check the source passage and expected answer
 - Remove unsupported or duplicate cases
 - Have a person review the set before it gates anything
+- Record a **datasheet**: the counts and caveats that travel with the set — what was removed, and what it cannot test
 
 **Measurement begins with a defensible case.**
 

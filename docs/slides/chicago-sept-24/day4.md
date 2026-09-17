@@ -262,10 +262,11 @@ Sources: [LangGraph graph API](https://docs.langchain.com/oss/python/langgraph/g
 
 # 18 · A guardrail is a boundary with a policy
 
-- Input checks gate the model boundary on the blocking path.
+- Input guardrails gate the model boundary on the blocking path.
 - Transforms change what proceeds; blocks stop a run.
 - Tool checks protect execution and side effects, not only text.
-- Output checks protect what the user receives.
+- Output guardrails protect what the user receives.
+- **Fail closed:** block when the check fires. Fail open warns and continues.
 
 <!--
 Slide ID: D4-M18-C1
