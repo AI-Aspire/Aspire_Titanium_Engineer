@@ -365,7 +365,7 @@ Type: core
 Minutes: 1
 Layout: 05 Two column
 Speaker notes:
-- Say: Exact terms and related meanings need different signals
+- Say: An exact code and a vague description are different search problems; one retriever cannot be good at both.
 - Ask: Which part of the question would dense retrieval risk blurring, and which part would BM25 preserve?
 - Watch: Retrieval_Ladder Task 2 prints dense and scratch/library BM25 orders for one question; compare the disagreement. Retrieval_Ladder:cell#9 is Task 1 of 5 — Label the evidence.
 - Then: A reranker is a later model that reads the question and candidate passage together to reorder a shortlist.
@@ -755,7 +755,7 @@ Type: core
 Minutes: 1
 Layout: 06 Process steps
 Speaker notes:
-- Say: Retrieval becomes an interface choice
+- Say: Retrieval is not one design. Choosing the interface is choosing what the agent can discover.
 - Ask: What stays constant in the notebook comparison, and what is deliberately changed?
 - Watch: DCI_vs_Agentic_RAG setup defines both modes and keeps model, loop, questions, and scoring the same. DCI_vs_Agentic_RAG:cell#9 is Task 1 of 5 — Build the wiki.
 - Then: Carry the observation into the next exercise.
@@ -1117,7 +1117,7 @@ Type: core
 Minutes: 1
 Layout: 06 Process steps
 Speaker notes:
-- Say: Synthetic data makes failures testable
+- Say: You cannot test a failure you have no case for — so generate the cases, then review them.
 - Ask: Which source artifact would let a reviewer reject a synthetic question as unsupported?
 - Watch: Put the named artifact on screen and trace where its values came from. Improving_RAG_with_RAGAS:cell#9 is Task 1 of 6 — A weak pipeline on purpose.
 - Then: Carry the observation into the next exercise.

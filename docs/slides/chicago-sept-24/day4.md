@@ -45,33 +45,8 @@ Layout: 06 Process steps
 Speaker notes:
 - Say: When the final answer fails, a visible handoff lets us locate the first broken contract.
 - Ask: Which boundary would you inspect first when the final answer is wrong?
-- Watch: Notebook:cell#9 — Task 1 defines the question and typed contracts that make each handoff inspectable.
+- Watch: Notebook:cell#9 — Task 1 defines the question and typed contracts that make each handoff inspectable. In the notebook: A trace earns trust only when it preserves the query, hits, and gaps needed to challenge the result.
 - Then: Compare the contract boundaries with the trace on the next slide.
-Sources: [LangGraph graph API](https://docs.langchain.com/oss/python/langgraph/graph-api), [Unroll deep research notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/17_Deep_Research/Unroll_Deep_Research.ipynb)
--->
-
----
-
-# The first broken handoff is visible in the trace
-
-`Priya: why can't I reach staging from the VPN?`
-`research event → query → corpus hits → web hits → gaps`
-`report claim → observed source`
-
-Takeaway: without the query and hits, there is no inspectable research.
-
-<!--
-Slide ID: D4-M17-C1B
-Module: [17 Unroll deep research](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/17_Deep_Research/README.md)
-Instructor: Eli
-Type: core
-Minutes: 2
-Layout: 04 Icon cards
-Speaker notes:
-- Say: A trace earns trust only when it preserves the query, hits, and gaps needed to challenge the result.
-- Ask: Which boundary would you inspect first when the final answer is wrong?
-- Watch: Notebook:cell#9 is Task 1 of 6 — The question and the contracts. Look for the query, corpus hits, web hits, and gaps in the trace.
-- Then: If the trace does not show the query and the hits, the research is not inspectable.
 Sources: [LangGraph graph API](https://docs.langchain.com/oss/python/langgraph/graph-api), [Unroll deep research notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/17_Deep_Research/Unroll_Deep_Research.ipynb)
 -->
 
@@ -95,34 +70,8 @@ Layout: 06 Process steps 1
 Speaker notes:
 - Say: A research run needs a stopping rule, or empty searches turn into confident-looking silence.
 - Ask: What should the report say when every search path returns zero hits?
-- Watch: Notebook:cell#19 — Task 4 runs research and compression while preserving source observations and gaps.
+- Watch: Notebook:cell#19 — Task 4 runs research and compression while preserving source observations and gaps. In the notebook: Zero hits are a result the report must expose, because silence can be mistaken for support.
 - Then: Surface the empty-source case on the next slide and make the gap explicit.
-Sources: [LangGraph workflows](https://docs.langchain.com/oss/python/langgraph/workflows-agents), [Unroll deep research notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/17_Deep_Research/Unroll_Deep_Research.ipynb)
--->
-
----
-
-# Zero hits become an explicit open gap
-
-`Priya: why can't I reach staging from the VPN?`
-`corpus search: no relevant page found`
-`web search: off`
-`report: Open gaps — evidence is incomplete`
-
-Takeaway: no evidence is a result; silence is not support.
-
-<!--
-Slide ID: D4-M17-C2B
-Module: [17 Unroll deep research](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/17_Deep_Research/README.md)
-Instructor: Eli
-Type: core
-Minutes: 2
-Layout: 05 Two column 2
-Speaker notes:
-- Say: Zero hits are a result the report must expose, because silence can be mistaken for support.
-- Ask: What should the report say when every search path returns zero hits?
-- Watch: Notebook:cell#19 is Task 4 of 6 — Research and compress. Check that source observations and gaps survive compression.
-- Then: Surface empty sources as gaps; silence reads as evidence.
 Sources: [LangGraph workflows](https://docs.langchain.com/oss/python/langgraph/workflows-agents), [Unroll deep research notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/17_Deep_Research/Unroll_Deep_Research.ipynb)
 -->
 
@@ -145,33 +94,8 @@ Layout: 05 Two column
 Speaker notes:
 - Say: A reader should be able to retrace every finding before acting on the report.
 - Ask: What does a valid citation prove, and what does it still not prove?
-- Watch: Notebook:cell#27 — Task 6 inspects the trace and saves sources, open gaps, and the report together.
+- Watch: Notebook:cell#27 — Task 6 inspects the trace and saves sources, open gaps, and the report together. In the notebook: A citation is only useful when the retrieved source actually supports the claim it sits beside.
 - Then: Test the citation-to-source link on the next slide.
-Sources: [LangGraph workflows](https://docs.langchain.com/oss/python/langgraph/workflows-agents), [Unroll deep research notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/17_Deep_Research/Unroll_Deep_Research.ipynb)
--->
-
----
-
-# A citation is only as strong as its observed source
-
-`finding.sources = ["kb/vpn.md"]`
-`report: Route private ranges through the VPN [kb/vpn.md]`
-`distinct sources: {"kb/vpn.md"}`
-
-Takeaway: reject a citation that is not in the retrieved-source set.
-
-<!--
-Slide ID: D4-M17-C3B
-Module: [17 Unroll deep research](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/17_Deep_Research/README.md)
-Instructor: Eli
-Type: core
-Minutes: 2
-Layout: 07 Big stats
-Speaker notes:
-- Say: A citation is only useful when the retrieved source actually supports the claim it sits beside.
-- Ask: What does a valid citation prove, and what does it still not prove?
-- Watch: Notebook:cell#27 is Task 6 of 6 — Inspect the trace and save the report. Compare report citations with the distinct-sources list.
-- Then: Refuse a citation you cannot trace to a retrieved source.
 Sources: [LangGraph workflows](https://docs.langchain.com/oss/python/langgraph/workflows-agents), [Unroll deep research notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/17_Deep_Research/Unroll_Deep_Research.ipynb)
 -->
 
@@ -194,34 +118,8 @@ Layout: 05 Two column 1
 Speaker notes:
 - Say: Web search expands reach and risk, so its permission belongs in the design before the key is present.
 - Ask: What permission would you require before enabling web search?
-- Watch: Notebook:cell#12 — Task 2 separates corpus search from optional web tools and makes the web path explicit.
+- Watch: Notebook:cell#12 — Task 2 separates corpus search from optional web tools and makes the web path explicit. In the notebook: Decide what evidence the agent may consult before enabling a tool that can broaden the claim surface.
 - Then: Carry the chosen web permission into the policy decision on the next slide.
-Sources: [LangGraph durable execution](https://docs.langchain.com/oss/python/langgraph/durable-execution), [Unroll deep research notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/17_Deep_Research/Unroll_Deep_Research.ipynb)
--->
-
----
-
-# Web access is a policy choice, not a default
-
-`web: off`
-`corpus search: allowed`
-`TavilySearch: optional`
-`open gaps: retained in the report`
-
-Takeaway: decide the evidence policy before enabling the web tool.
-
-<!--
-Slide ID: D4-M17-C4B
-Module: [17 Unroll deep research](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/17_Deep_Research/README.md)
-Instructor: Eli
-Type: core
-Minutes: 1
-Layout: 09 Lab and code 2
-Speaker notes:
-- Say: Decide what evidence the agent may consult before enabling a tool that can broaden the claim surface.
-- Ask: What permission would you require before enabling web search?
-- Watch: Notebook:cell#12 is Task 2 of 6 — The tools. Compare corpus search with the optional web path and its explicit `web: off` configuration.
-- Then: Decide the evidence policy before the tool is enabled, not after.
 Sources: [LangGraph durable execution](https://docs.langchain.com/oss/python/langgraph/durable-execution), [Unroll deep research notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/17_Deep_Research/Unroll_Deep_Research.ipynb)
 -->
 
@@ -244,34 +142,8 @@ Layout: 06 Process steps 1
 Speaker notes:
 - Say: Compilation is an observable handoff, not a hidden final model call.
 - Ask: Which streamed update would tell you that the research question is drifting?
-- Watch: Notebook:cell#24 — Task 5 compiles and streams the graph; connect Marcus's stale-policy question to the trace.
+- Watch: Notebook:cell#24 — Task 5 compiles and streams the graph; connect Marcus's stale-policy question to the trace. In the notebook: The report is the product; the trace is how you debug cost, latency, and source quality.
 - Then: Let the stream finish, then inspect the saved report and its evidence.
-Sources: [LangGraph graph API](https://docs.langchain.com/oss/python/langgraph/graph-api), [Unroll deep research notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/17_Deep_Research/Unroll_Deep_Research.ipynb)
--->
-
----
-
-# The trace explains a report’s uncertainty
-
-`report: answer about the VPN policy`
-`sources: retrieved pages`
-`open gaps: stale policy page`
-`trace: saved beside the report`
-
-Takeaway: inspect the trace before trusting the prose.
-
-<!--
-Slide ID: D4-M17-C5B
-Module: [17 Unroll deep research](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/17_Deep_Research/README.md)
-Instructor: Eli
-Type: core
-Minutes: 2
-Layout: 05 Two column 1
-Speaker notes:
-- Say: The report is the product; the trace is how you debug cost, latency, and source quality.
-- Ask: Which KB page was stale when Marcus asked about the VPN policy?
-- Watch: Notebook:cell#27 is Task 6 of 6 — Inspect the trace and save the report. Read the trace summary, sources, and open gaps together.
-- Then: Treat the stale-page observation as a trace finding, not as a guess about the final prose.
 Sources: [LangGraph graph API](https://docs.langchain.com/oss/python/langgraph/graph-api), [Unroll deep research notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/17_Deep_Research/Unroll_Deep_Research.ipynb)
 -->
 
@@ -293,36 +165,10 @@ Type: core
 Minutes: 2
 Layout: 06 Process steps
 Speaker notes:
-- Say: A guardrail is a boundary with a policy
+- Say: A guardrail without a stated policy is a hope with a log line.
 - Ask: Where would you put a check that prevents an unauthorized account change?
-- Watch: Notebook:cell#24 — Task 5 wires the guarded agent lifecycle from raw prompt through tripwires and answer.
+- Watch: Notebook:cell#24 — Task 5 wires the guarded agent lifecycle from raw prompt through tripwires and answer. In the notebook: A guardrail is a boundary with a policy
 - Then: It then checks scope and prompt injection before the model, and unsupported claims and tone after generation.
-Sources: [OpenAI Agents SDK guardrails](https://openai.github.io/openai-agents-python/guardrails/), [OTS guardrails notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/18_Off_The_Shelf_Guardrails/OTS_Guardrails.ipynb)
--->
-
----
-
-# An unauthorized action trips at the tool boundary
-
-`request: change account owner`
-`stage: tool`
-`policy: requester authorization required`
-`result: tripwire → tool does not run`
-
-Takeaway: name the policy and the stage together.
-
-<!--
-Slide ID: D4-M18-C1B
-Module: [18 Off-the-shelf guardrails](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/18_Off_The_Shelf_Guardrails/README.md)
-Instructor: Beric
-Type: core
-Minutes: 2
-Layout: 04 Icon cards
-Speaker notes:
-- Say: A guardrail is a boundary with a policy
-- Ask: Where would you put a check that prevents an unauthorized account change?
-- Watch: Notebook:cell#24 is Task 5 of 7 — Wire the protected agent. Read the stage and tripwire fields across the guarded lifecycle.
-- Then: State the policy and the stage together; a boundary without a policy is a hope.
 Sources: [OpenAI Agents SDK guardrails](https://openai.github.io/openai-agents-python/guardrails/), [OTS guardrails notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/18_Off_The_Shelf_Guardrails/OTS_Guardrails.ipynb)
 -->
 
@@ -373,33 +219,8 @@ Layout: 05 Two column 2
 Speaker notes:
 - Say: The same policy catches different failures depending on whether it runs before generation, at the tool, or after output.
 - Ask: Which boundary should enforce requester authorization, and why?
-- Watch: Notebook:cell#24 — Task 5 wires input, tool, and output stages into one guarded lifecycle.
+- Watch: Notebook:cell#24 — Task 5 wires input, tool, and output stages into one guarded lifecycle. In the notebook: Authorization belongs at the action boundary because an output block cannot undo a side effect.
 - Then: Use the placement choice to frame the boundary comparison on the next slide.
-Sources: [OpenAI guardrail execution modes](https://openai.github.io/openai-agents-python/guardrails/#execution-modes), [Tool guardrails](https://openai.github.io/openai-agents-python/ref/tool_guardrails/), [OTS guardrails notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/18_Off_The_Shelf_Guardrails/OTS_Guardrails.ipynb)
--->
-
----
-
-# Authorization belongs before the side effect
-
-`request → input check → model → tool authorization → action`
-`output check: too late to undo a completed reset`
-`tool check: requester is authorized`
-
-Takeaway: place the check where the unacceptable failure can still be stopped.
-
-<!--
-Slide ID: D4-M18-C2B
-Module: [18 Off-the-shelf guardrails](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/18_Off_The_Shelf_Guardrails/README.md)
-Instructor: Beric
-Type: core
-Minutes: 2
-Layout: 05 Two column 2
-Speaker notes:
-- Say: Authorization belongs at the action boundary because an output block cannot undo a side effect.
-- Ask: Which boundary should enforce requester authorization, and why?
-- Watch: Notebook:cell#24 is Task 5 of 7 — Wire the protected agent. Compare input, tool, and output stages in one lifecycle.
-- Then: Choose placement by which failure you can afford — input, output, or action.
 Sources: [OpenAI guardrail execution modes](https://openai.github.io/openai-agents-python/guardrails/#execution-modes), [Tool guardrails](https://openai.github.io/openai-agents-python/ref/tool_guardrails/), [OTS guardrails notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/18_Off_The_Shelf_Guardrails/OTS_Guardrails.ipynb)
 -->
 
@@ -424,35 +245,10 @@ Type: core
 Minutes: 2
 Layout: 07 Big stats
 Speaker notes:
-- Say: Cheap rules are useful and brittle
+- Say: Cheap rules catch the obvious cases and quietly miss the rest — so read the uncaught column.
 - Ask: Which policy would you make warn-only, and what evidence would change your mind?
-- Watch: Notebook:cell#31 — Task 7 runs every case and saves one tripwire result per guardrail row.
+- Watch: Notebook:cell#31 — Task 7 runs every case and saves one tripwire result per guardrail row. In the notebook: A control is only as credible as the legitimate requests and attacks it handles without hiding its misses.
 - Then: Inspect the uncaught cases on the next slide before choosing warn-only behavior.
-Sources: [OpenAI Agents SDK guardrails](https://openai.github.io/openai-agents-python/guardrails/), [OTS guardrails notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/18_Off_The_Shelf_Guardrails/OTS_Guardrails.ipynb)
--->
-
----
-
-# The uncaught column is part of the result
-
-`case × guardrail → tripped | reason`
-`legitimate request → false positive is visible`
-`attack → uncaught case is logged`
-
-Takeaway: a cheap rule is credible only when its misses are measured.
-
-<!--
-Slide ID: D4-M18-C3B
-Module: [18 Off-the-shelf guardrails](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/18_Off_The_Shelf_Guardrails/README.md)
-Instructor: Beric
-Type: core
-Minutes: 2
-Layout: 07 Big stats
-Speaker notes:
-- Say: A control is only as credible as the legitimate requests and attacks it handles without hiding its misses.
-- Ask: Which policy would you make warn-only, and what evidence would change your mind?
-- Watch: Notebook:cell#31 is Task 7 of 7 — Run every case and save. Inspect one tripwire result per guardrail row, including uncaught attacks.
-- Then: Cheap rules first, but log what they miss; brittleness only shows in the uncaught column.
 Sources: [OpenAI Agents SDK guardrails](https://openai.github.io/openai-agents-python/guardrails/), [OTS guardrails notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/18_Off_The_Shelf_Guardrails/OTS_Guardrails.ipynb)
 -->
 
@@ -473,35 +269,10 @@ Type: core
 Minutes: 2
 Layout: 05 Two column 3
 Speaker notes:
-- Say: The system still owns authorization
+- Say: The model asks. Only your system can verify identity and permit the side effect.
 - Ask: What must be true before a password-reset tool can execute?
-- Watch: Notebook:cell#24 — Task 5 places the agent and tool inside the guarded lifecycle, separating execution from model output.
+- Watch: Notebook:cell#24 — Task 5 places the agent and tool inside the guarded lifecycle, separating execution from model output. In the notebook: A model can request a password reset, but only the system can verify identity and authorize the side effect.
 - Then: Carry the authorization distinction into the model-boundary check on the next slide.
-Sources: [OpenAI Agents SDK tools](https://openai.github.io/openai-agents-python/tools/), [OpenAI Agents SDK guardrails](https://openai.github.io/openai-agents-python/guardrails/), [OTS guardrails notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/18_Off_The_Shelf_Guardrails/OTS_Guardrails.ipynb)
--->
-
----
-
-# A model request is not authorization
-
-`model request: reset password`
-`system facts: identity verified · registered phone or manager`
-`tool call: allowed only after system check`
-
-Takeaway: the system authorizes the side effect.
-
-<!--
-Slide ID: D4-M18-C4B
-Module: [18 Off-the-shelf guardrails](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/18_Off_The_Shelf_Guardrails/README.md)
-Instructor: Beric
-Type: core
-Minutes: 1
-Layout: 09 Lab and code 2
-Speaker notes:
-- Say: A model can request a password reset, but only the system can verify identity and authorize the side effect.
-- Ask: What must be true before a password-reset tool can execute?
-- Watch: Notebook:cell#24 is Task 5 of 7 — Wire the protected agent. Separate the model request from the tool’s execution boundary.
-- Then: The system authorizes the action, never the model's request.
 Sources: [OpenAI Agents SDK tools](https://openai.github.io/openai-agents-python/tools/), [OpenAI Agents SDK guardrails](https://openai.github.io/openai-agents-python/guardrails/), [OTS guardrails notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/18_Off_The_Shelf_Guardrails/OTS_Guardrails.ipynb)
 -->
 
@@ -523,33 +294,8 @@ Layout: 05 Two column 2
 Speaker notes:
 - Say: A transform can preserve a useful request while changing what reaches the model.
 - Ask: What evidence would prove the identifier was removed without exposing it?
-- Watch: Notebook:cell#16 — Task 3 distinguishes redaction from blocking and records only detected types.
+- Watch: Notebook:cell#16 — Task 3 distinguishes redaction from blocking and records only detected types. In the notebook: Redaction is not an authorization decision and should not be taught as one.
 - Then: Connect the transform to Deskmate's cross-user ticket leakage failure before moving to output checks.
-Sources: [OpenAI Agents SDK guardrails](https://openai.github.io/openai-agents-python/guardrails/), [OTS guardrails notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/18_Off_The_Shelf_Guardrails/OTS_Guardrails.ipynb)
--->
-
----
-
-# Redaction preserves the question while removing PII
-
-`input: Priya asks a VPN question + an email address`
-`transform: remove the email before model execution`
-`record: detected type, not the identifier value`
-
-Takeaway: changing the input does not grant permission for an action.
-
-<!--
-Slide ID: D4-M18-C5B
-Module: [18 Off-the-shelf guardrails](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/18_Off_The_Shelf_Guardrails/README.md)
-Instructor: Beric
-Type: core
-Minutes: 2
-Layout: 09 Lab and code 2
-Speaker notes:
-- Say: Redaction is not an authorization decision and should not be taught as one.
-- Ask: Which part of this path changes the data, and which part decides whether the action is allowed?
-- Watch: Notebook:cell#16 — Task 3's pre-pass removes PII before model execution while preserving the question.
-- Then: Carry the distinction into the next slide's placement and tripwire discussion.
 Sources: [OpenAI Agents SDK guardrails](https://openai.github.io/openai-agents-python/guardrails/), [OTS guardrails notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/18_Off_The_Shelf_Guardrails/OTS_Guardrails.ipynb)
 -->
 

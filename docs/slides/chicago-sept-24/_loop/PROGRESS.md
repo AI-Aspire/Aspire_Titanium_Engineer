@@ -284,3 +284,40 @@ Every code artifact on these slides was checked against the notebook rather than
 Verification: 5 decks render, 168 cell pointers in range, no module over budget (M01 exactly
 30, M02 20/30), zero instructor names in projected copy or notes, zero duplicate titles, zero
 scaffold, zero filler note lines.
+
+## Days 3 and 4 cut back for code (2026-09-17)
+
+The author asked for days 3 and 4 to be mostly code. Every module there was carrying a
+5-concept + 5-paired-example structure; the examples largely previewed what the notebook shows
+live. **All 28 paired "B" slides were removed from days 3 and 4**, and each one's example was
+folded into its parent concept slide's `Watch:` note so nothing was lost — an instructor can
+still tell it, it just no longer occupies a slide.
+
+| Module | Slides | Slide minutes | Minutes left for code |
+|---|---|---|---|
+| 09 Agent evals | 9 → 5 | 15 → 8 | 27 of 35 |
+| 10 Agent memory | 9 → 5 | 15 → 8 | 22 of 30 |
+| 11 Agent architecture | 11 → 6 | 19 → 10 | 25 of 35 |
+| 13 Guardrails 101 | 11 → 6 | 19 → 10 | 20 of 30 |
+| 17 Deep research | 11 → 6 | 19 → 10 | 25 of 35 |
+| 18 Off-the-shelf guardrails | 11 → 6 | 19 → 10 | 20 of 30 |
+
+All three SVG diagrams on those days survived the cut (the five-rung guardrail ladder, the six
+capability mechanisms, and guardrail placement). 10 duplicated cell pointers created by the
+merge were de-duplicated.
+
+Also this pass:
+
+- **Removed** "Today walks Deskmate from dev → prompt → agents → RAG once…" from `D1-F0` at
+  the author's request.
+- **Toolformer takeaway corrected.** The author's reading is the accurate one and mine was
+  vague: the paper's contribution is a *self-supervised* pass that keeps only API calls which
+  measurably help, so **format familiarity is a reliability property**. The slide now says so
+  and draws the practical conclusion — `bash` is the tool every model can already call — with
+  a pointer to `Six_Ways:cell#24`, module 11's code-mode task, where a model writes a program a
+  runtime executes. Verified against the arXiv abstract for 2302.04761.
+- **Six more `Say:` echoes found and fixed** (3 on day 2, 3 on day 4). My earlier check compared
+  the `Say:` line to the full title and so missed slides whose titles carry a `NN · ` module
+  prefix. The check is now prefix-aware; all decks are at zero.
+
+The review index now shows a **"min for code"** column so the balance is visible at a glance.

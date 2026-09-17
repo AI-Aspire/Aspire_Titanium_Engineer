@@ -12,7 +12,6 @@ title: Day 1 — Prototype and retrieve
 - 03 Agents 101 — 35m · 04 Vibe checks and judges — 30m
 - 05 RAG — 30m
 
-Today walks Deskmate from dev → prompt → agents → RAG once; the rest of the week deepens each stage.
 
 <!--
 Slide ID: D1-F0
@@ -1432,7 +1431,9 @@ brief = r.choices[0].message.parsed
 </div>
 </div>
 
-Toolformer showed a model *can* emit a callable request; a schema makes it parseable **every** time. `risk_level` is sortable, so `.parsed` hands code a value it can branch on — but a valid shape is not a true value.
+Toolformer trained a model to decide **which** API to call and **what arguments to pass**, keeping only the calls that measurably helped. The lesson for us: the more familiar the format, the more reliably a model emits it — which is why `bash` is the tool every model can already call.
+
+A valid shape is still not a true value.
 
 <!--
 Slide ID: D1-M02-C4AB
@@ -1444,8 +1445,8 @@ Layout: 09 Lab and code
 Speaker notes:
 - Say: This is the hinge of the week — a schema is what turns model output into something code can dispatch.
 - Ask: Where would you validate a field whose value is shaped correctly but factually wrong?
-- Watch: Prompt_Patterns:cell#20 is Task 4 of 7 — Structured output, and Agent_Harness:cell#18 records each call as {"name", "args"} — the same parseable shape.
-- Then: Hold this thought for module 03: the tool contract on the right is the same idea, and the harness is what decides whether the call runs.
+- Watch: Prompt_Patterns:cell#20 is Task 4 of 7 — Structured output. Agent_Harness:cell#18 records every call as {"name", "args"}; Six_Ways:cell#24 is Task 5 of 7 — Code mode, where the model writes a program a runtime executes.
+- Then: Worth saying if the room is technical: a familiar format is a reliability property, not a style choice — that is the argument for bash and for code mode in module 11.
 Sources: [Prompt patterns notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/02_Prompt_Patterns/Prompt_Patterns.ipynb); [Course concepts](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/docs/CONCEPTS.md).
 -->
 
