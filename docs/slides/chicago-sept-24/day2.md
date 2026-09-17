@@ -167,7 +167,7 @@ Sources: [Module 01 Dev Environment](https://github.com/AI-Aspire/Aspire_Titaniu
 
 - **Answer:** Save the question, prompt, evidence, answer, rubric result, and model/version.
 - **Why:** Without inputs and evidence, a score cannot explain a change.
-- **Next step:** Beric connects this principle to the evals notebook.
+- **Next step:** Carry this record forward — the evals notebook scores exactly these fields.
 
 <!--
 Slide ID: D2-F5A
@@ -180,7 +180,7 @@ Speaker notes:
 - Say: Reveal the answer and why it matters
 - Ask: What would change if the answer were different?
 - Watch: Point to the visible evidence and the notebook artifact.
-- Then: Miriah connects the answer to the notebook.
+- Then: Tie the answer to the notebook artifact before moving on.
 Sources: [Module 01 Dev Environment](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/01_Dev_Environment/README.md); [Machine Learning Yearning](https://github.com/ajaymache/machine-learning-yearning/blob/master/full%20book/machine-learning-yearning.pdf).
 -->
 
@@ -287,7 +287,7 @@ Sources: [Module 05 notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engin
 
 - **Answer:** Source coverage, retrieval, or generation, depending on where the evidence disappeared.
 - **Why:** Each gate points to a different engineering change.
-- **Next step:** Eli connects this principle to advanced retrieval.
+- **Next step:** Name the gate before you change code; each one points at different work.
 
 <!--
 Slide ID: D2-F9A
@@ -300,7 +300,7 @@ Speaker notes:
 - Say: Reveal the answer and why it matters
 - Ask: What would change if the answer were different?
 - Watch: Point to the visible evidence and the notebook artifact.
-- Then: Miriah connects the answer to the notebook.
+- Then: Tie the answer to the notebook artifact before moving on.
 Sources: [Module 05 notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/05_RAG/RAG_with_LangChain.ipynb); [RAG failure analysis](https://arxiv.org/abs/2005.11401).
 -->
 ---
@@ -350,7 +350,7 @@ Speaker notes:
 - Say: Exact terms and related meanings need different signals
 - Ask: Which part of the question would dense retrieval risk blurring, and which part would BM25 preserve?
 - Watch: Retrieval_Ladder Task 2 prints dense and scratch/library BM25 orders for one question; compare the disagreement.
-- Then: Eli reveals the answer and connects it to the notebook.
+- Then: Reveal the answer, then tie it to the notebook artifact on screen.
 Sources: [Dense Passage Retrieval](https://aclanthology.org/2020.emnlp-main.550/); [Lucene BM25Similarity](https://lucene.apache.org/core/9_12_1/core/org/apache/lucene/search/similarities/BM25Similarity.html); [local Retrieval Ladder notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/06_Advanced_Retrieval/Retrieval_Ladder.ipynb)
 -->
 ---
@@ -359,7 +359,7 @@ Sources: [Dense Passage Retrieval](https://aclanthology.org/2020.emnlp-main.550/
 
 - **Answer:** BM25 protects the exact code; dense search broadens the meaning.
 - **Why:** The two signals expose different candidate passages.
-- **Next step:** Eli connects this principle to the notebook.
+- **Next step:** In the notebook, read the two orders side by side before judging either.
 
 <!--
 Slide ID: D2-M06-C1A
@@ -372,7 +372,7 @@ Speaker notes:
 - Say: Reveal the answer and why it matters
 - Ask: What would change if the answer were different?
 - Watch: Point to the visible evidence and the notebook artifact.
-- Then: Eli connects the answer to the notebook.
+- Then: Tie the answer to the notebook artifact before moving on.
 Sources: [Dense Passage Retrieval](https://aclanthology.org/2020.emnlp-main.550/); [Lucene BM25Similarity](https://lucene.apache.org/core/9_12_1/core/org/apache/lucene/search/similarities/BM25Similarity.html); [local Retrieval Ladder notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/06_Advanced_Retrieval/Retrieval_Ladder.ipynb)
 -->
 ---
@@ -416,7 +416,7 @@ Speaker notes:
 - Say: Fuse ranks, then spend judgment carefully
 - Ask: If the correct passage never enters the fused shortlist, can reranking recover it?
 - Watch: Retrieval_Ladder Task 3 prints the fused list and cross-encoder order; inspect how many candidates reach the reranker.
-- Then: Eli reveals the answer and connects it to the notebook.
+- Then: Reveal the answer, then tie it to the notebook artifact on screen.
 Sources: [Reciprocal rank fusion paper](https://cormack.uwaterloo.ca/cormacksigir09-rrf.pdf); [local Retrieval Ladder notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/06_Advanced_Retrieval/Retrieval_Ladder.ipynb)
 -->
 ---
@@ -425,7 +425,7 @@ Sources: [Reciprocal rank fusion paper](https://cormack.uwaterloo.ca/cormacksigi
 
 - **Answer:** No. A reranker cannot recover a candidate absent from the shortlist.
 - **Why:** Later stages only reorder what earlier stages retrieved.
-- **Next step:** Eli connects this principle to the notebook.
+- **Next step:** So tune recall first, then spend a reranker on the shortlist you trust.
 
 <!--
 Slide ID: D2-M06-C2A
@@ -438,7 +438,7 @@ Speaker notes:
 - Say: Reveal the answer and why it matters
 - Ask: What would change if the answer were different?
 - Watch: Point to the visible evidence and the notebook artifact.
-- Then: Eli connects the answer to the notebook.
+- Then: Tie the answer to the notebook artifact before moving on.
 Sources: [Reciprocal rank fusion paper](https://cormack.uwaterloo.ca/cormacksigir09-rrf.pdf); [local Retrieval Ladder notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/06_Advanced_Retrieval/Retrieval_Ladder.ipynb)
 -->
 ---
@@ -482,7 +482,7 @@ Speaker notes:
 - Say: Ask the question more than once
 - Ask: What evidence would show that a rewrite changed coverage rather than merely added duplicates?
 - Watch: Retrieval_Ladder Task 3 prints three rewrites and one list per retriever; compare per-case reciprocal ranks in Task 4.
-- Then: Eli reveals the answer and connects it to the notebook.
+- Then: Reveal the answer, then tie it to the notebook artifact on screen.
 Sources: [Iterative query generation for multi-hop QA](https://aclanthology.org/D19-1261/); [local Retrieval Ladder notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/06_Advanced_Retrieval/Retrieval_Ladder.ipynb)
 -->
 ---
@@ -491,7 +491,7 @@ Sources: [Iterative query generation for multi-hop QA](https://aclanthology.org/
 
 - **Answer:** New source IDs show changed coverage; repeated IDs show duplicated evidence.
 - **Why:** More results are not the same as more useful evidence.
-- **Next step:** Eli connects this principle to the notebook.
+- **Next step:** Watch the source IDs, not the result count, when you add a rung.
 
 <!--
 Slide ID: D2-M06-C3A
@@ -504,7 +504,7 @@ Speaker notes:
 - Say: Reveal the answer and why it matters
 - Ask: What would change if the answer were different?
 - Watch: Point to the visible evidence and the notebook artifact.
-- Then: Eli connects the answer to the notebook.
+- Then: Tie the answer to the notebook artifact before moving on.
 Sources: [Iterative query generation for multi-hop QA](https://aclanthology.org/D19-1261/); [local Retrieval Ladder notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/06_Advanced_Retrieval/Retrieval_Ladder.ipynb)
 -->
 ---
@@ -556,7 +556,7 @@ Speaker notes:
 - Say: Choose the cheapest rung that clears the bar
 - Ask: Which evidence would change your conclusion?
 - Watch: Retrieval_Ladder Task 4 prints hit rate, MRR, latency, and a per-case reciprocal-rank matrix; use the matrix to choose one rung.
-- Then: Eli reveals the answer and connects it to the notebook.
+- Then: Reveal the answer, then tie it to the notebook artifact on screen.
 Sources: [DPR retrieval formulation](https://aclanthology.org/2020.emnlp-main.550/); [local Retrieval Ladder notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/06_Advanced_Retrieval/Retrieval_Ladder.ipynb)
 -->
 ---
@@ -565,7 +565,7 @@ Sources: [DPR retrieval formulation](https://aclanthology.org/2020.emnlp-main.55
 
 - **Answer:** MRR improves; hit@5 stays the same when both ranks are inside the cutoff.
 - **Why:** MRR sees exact rank; hit@5 sees whether the result crossed the cutoff.
-- **Next step:** Eli connects this principle to the notebook.
+- **Next step:** Pick the metric that answers your question before you report a win.
 
 <!--
 Slide ID: D2-M06-C4A
@@ -578,7 +578,7 @@ Speaker notes:
 - Say: Reveal the answer and why it matters
 - Ask: What would change if the answer were different?
 - Watch: Point to the visible evidence and the notebook artifact.
-- Then: Eli connects the answer to the notebook.
+- Then: Tie the answer to the notebook artifact before moving on.
 Sources: [DPR retrieval formulation](https://aclanthology.org/2020.emnlp-main.550/); [local Retrieval Ladder notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/06_Advanced_Retrieval/Retrieval_Ladder.ipynb)
 -->
 ---
@@ -652,7 +652,7 @@ Speaker notes:
 - Say: Retrieval becomes an interface choice
 - Ask: What stays constant in the notebook comparison, and what is deliberately changed?
 - Watch: DCI_vs_Agentic_RAG setup defines both modes and keeps model, loop, questions, and scoring the same.
-- Then: Eli reveals the answer and connects it to the notebook.
+- Then: Reveal the answer, then tie it to the notebook artifact on screen.
 Sources: [DCI research paper](https://arxiv.org/abs/2605.05242); [local DCI versus Agentic RAG notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/DCI_vs_Agentic_RAG.ipynb)
 -->
 ---
@@ -661,7 +661,7 @@ Sources: [DCI research paper](https://arxiv.org/abs/2605.05242); [local DCI vers
 
 - **Answer:** Keep the model, questions, loop, and scoring constant; change only the retrieval interface.
 - **Why:** Otherwise the comparison cannot explain which change caused the result.
-- **Next step:** Eli connects this principle to the notebook.
+- **Next step:** Hold everything else fixed in the notebook, or the comparison says nothing.
 
 <!--
 Slide ID: D2-M07-C1A
@@ -674,7 +674,7 @@ Speaker notes:
 - Say: Reveal the answer and why it matters
 - Ask: What would change if the answer were different?
 - Watch: Point to the visible evidence and the notebook artifact.
-- Then: Eli connects the answer to the notebook.
+- Then: Tie the answer to the notebook artifact before moving on.
 Sources: [DCI research paper](https://arxiv.org/abs/2605.05242); [local DCI versus Agentic RAG notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/DCI_vs_Agentic_RAG.ipynb)
 -->
 ---
@@ -719,7 +719,7 @@ Speaker notes:
 - Say: Let the agent navigate a persistent map
 - Ask: Why does DCI need a map before it receives a question?
 - Watch: Task 1 renders a wiki table; inspect whether each page has a distinct purpose and useful headings.
-- Then: Eli reveals the answer and connects it to the notebook.
+- Then: Reveal the answer, then tie it to the notebook artifact on screen.
 Sources: [DCI research paper](https://arxiv.org/abs/2605.05242); [local DCI versus Agentic RAG notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/DCI_vs_Agentic_RAG.ipynb)
 -->
 ---
@@ -728,7 +728,7 @@ Sources: [DCI research paper](https://arxiv.org/abs/2605.05242); [local DCI vers
 
 - **Answer:** They give the agent navigable clues before it reads a page.
 - **Why:** Filenames alone do not explain which page or section is relevant.
-- **Next step:** Eli connects this principle to the notebook.
+- **Next step:** Inspect what the agent sees before its first read, not after.
 
 <!--
 Slide ID: D2-M07-C2A
@@ -741,7 +741,7 @@ Speaker notes:
 - Say: Reveal the answer and why it matters
 - Ask: What would change if the answer were different?
 - Watch: Point to the visible evidence and the notebook artifact.
-- Then: Eli connects the answer to the notebook.
+- Then: Tie the answer to the notebook artifact before moving on.
 Sources: [DCI research paper](https://arxiv.org/abs/2605.05242); [local DCI versus Agentic RAG notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/DCI_vs_Agentic_RAG.ipynb)
 -->
 ---
@@ -788,7 +788,7 @@ Speaker notes:
 - Say: Compare traces, not just answers
 - Ask: What trace field distinguishes an evidence miss from a generation miss?
 - Watch: Tasks 4–5 print answer scores, named-page evidence, calls, characters, latency, and both traces.
-- Then: Eli reveals the answer and connects it to the notebook.
+- Then: Reveal the answer, then tie it to the notebook artifact on screen.
 Sources: [DCI research paper](https://arxiv.org/abs/2605.05242); [local DCI versus Agentic RAG notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/DCI_vs_Agentic_RAG.ipynb)
 -->
 ---
@@ -797,7 +797,7 @@ Sources: [DCI research paper](https://arxiv.org/abs/2605.05242); [local DCI vers
 
 - **Answer:** Evidence failure first; inspect the search path before changing the prompt.
 - **Why:** No relevant page means the answer had nothing reliable to synthesize.
-- **Next step:** Eli connects this principle to the notebook.
+- **Next step:** Read the search path first; the prompt is the last thing to change.
 
 <!--
 Slide ID: D2-M07-C3A
@@ -810,7 +810,7 @@ Speaker notes:
 - Say: Reveal the answer and why it matters
 - Ask: What would change if the answer were different?
 - Watch: Point to the visible evidence and the notebook artifact.
-- Then: Eli connects the answer to the notebook.
+- Then: Tie the answer to the notebook artifact before moving on.
 Sources: [DCI research paper](https://arxiv.org/abs/2605.05242); [local DCI versus Agentic RAG notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/DCI_vs_Agentic_RAG.ipynb)
 -->
 ---
@@ -854,7 +854,7 @@ Speaker notes:
 - Say: Stop at the smallest safe interface
 - Ask: What must be checked before a DCI read_page call on a user transcript?
 - Watch: Task 2’s notebook question explicitly asks which tool could leak a transcript and what to check on the caller.
-- Then: Eli reveals the answer and connects it to the notebook.
+- Then: Reveal the answer, then tie it to the notebook artifact on screen.
 Sources: [DCI research paper](https://arxiv.org/abs/2605.05242); [local DCI versus Agentic RAG notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/DCI_vs_Agentic_RAG.ipynb)
 -->
 ---
@@ -863,7 +863,7 @@ Sources: [DCI research paper](https://arxiv.org/abs/2605.05242); [local DCI vers
 
 - **Answer:** Caller identity, page permission, and purpose—not just the model request.
 - **Why:** The system owns authorization even when the model chooses the next tool.
-- **Next step:** Eli connects this principle to the notebook.
+- **Next step:** Put the check in the tool, not in the instructions to the model.
 
 <!--
 Slide ID: D2-M07-C4A
@@ -876,7 +876,7 @@ Speaker notes:
 - Say: Reveal the answer and why it matters
 - Ask: What would change if the answer were different?
 - Watch: Point to the visible evidence and the notebook artifact.
-- Then: Eli connects the answer to the notebook.
+- Then: Tie the answer to the notebook artifact before moving on.
 Sources: [DCI research paper](https://arxiv.org/abs/2605.05242); [local DCI versus Agentic RAG notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/DCI_vs_Agentic_RAG.ipynb)
 -->
 ---
@@ -946,7 +946,7 @@ Speaker notes:
 - Say: Synthetic data makes failures testable
 - Ask: Which source artifact would let a reviewer reject a synthetic question as unsupported?
 - Watch: Inspect the named output and verify its provenance.
-- Then: Beric reveals the answer and connects it to the notebook.
+- Then: Reveal the answer, then tie it to the notebook artifact on screen.
 Sources: [Ragas testset generation](https://docs.ragas.io/en/stable/concepts/test_data_generation/rag/); [Module 08 notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/08_SDG_RAGAS/Improving_RAG_with_RAGAS.ipynb)
 -->
 ---
@@ -955,7 +955,7 @@ Sources: [Ragas testset generation](https://docs.ragas.io/en/stable/concepts/tes
 
 - **Answer:** The source page, passage, and generation record.
 - **Why:** Provenance lets a reviewer reject unsupported or distorted candidates.
-- **Next step:** Beric connects this principle to the notebook.
+- **Next step:** Keep provenance on every generated case, or a reviewer cannot reject one.
 
 <!--
 Slide ID: D2-M08-C1A
@@ -968,7 +968,7 @@ Speaker notes:
 - Say: Reveal the answer and why it matters
 - Ask: What would change if the answer were different?
 - Watch: Point to the visible evidence and the notebook artifact.
-- Then: Beric connects the answer to the notebook.
+- Then: Tie the answer to the notebook artifact before moving on.
 Sources: [Ragas testset generation](https://docs.ragas.io/en/stable/concepts/test_data_generation/rag/); [Module 08 notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/08_SDG_RAGAS/Improving_RAG_with_RAGAS.ipynb)
 -->
 ---
@@ -1020,7 +1020,7 @@ Speaker notes:
 - Say: Metrics answer different diagnostic questions
 - Ask: If the correct passage is missing but the model says “I don’t know,” which retrieval lens is still failing?
 - Watch: Inspect the named output and verify its provenance.
-- Then: Beric reveals the answer and connects it to the notebook.
+- Then: Reveal the answer, then tie it to the notebook artifact on screen.
 Sources: [RAGAS paper](https://arxiv.org/abs/2309.15217); [RAGAS metrics documentation](https://docs.ragas.io/en/stable/concepts/metrics/); [Module 08 notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/08_SDG_RAGAS/Improving_RAG_with_RAGAS.ipynb); [Unit Testing Your Agents](https://soypetetech.substack.com/p/unit-testing-your-agents)
 -->
 ---
@@ -1029,7 +1029,7 @@ Sources: [RAGAS paper](https://arxiv.org/abs/2309.15217); [RAGAS metrics documen
 
 - **Answer:** Context recall; the needed evidence never reached the context.
 - **Why:** A fluent “I do not know” can still hide a retrieval failure.
-- **Next step:** Beric connects this principle to the notebook.
+- **Next step:** Separate the two metrics before deciding what to repair.
 
 <!--
 Slide ID: D2-M08-C2A
@@ -1042,7 +1042,7 @@ Speaker notes:
 - Say: Reveal the answer and why it matters
 - Ask: What would change if the answer were different?
 - Watch: Point to the visible evidence and the notebook artifact.
-- Then: Beric connects the answer to the notebook.
+- Then: Tie the answer to the notebook artifact before moving on.
 Sources: [RAGAS paper](https://arxiv.org/abs/2309.15217); [RAGAS metrics documentation](https://docs.ragas.io/en/stable/concepts/metrics/); [Module 08 notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/08_SDG_RAGAS/Improving_RAG_with_RAGAS.ipynb); [Unit Testing Your Agents](https://soypetetech.substack.com/p/unit-testing-your-agents)
 -->
 ---
@@ -1086,7 +1086,7 @@ Speaker notes:
 - Say: Review synthetic cases as measurement assets
 - Ask: Which dimension would expose a system that succeeds on polished questions but fails on terse error-code queries?
 - Watch: Module 08 notebook cue: inspect deduplication, schema validation, quoted-page checks, the datasheet, and the kept/removed counts.
-- Then: Beric reveals the answer and connects it to the notebook.
+- Then: Reveal the answer, then tie it to the notebook artifact on screen.
 Sources: [RAGAS paper](https://arxiv.org/abs/2309.15217); [Ragas testset generation](https://docs.ragas.io/en/stable/concepts/test_data_generation/rag/); [Module 08 notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/08_SDG_RAGAS/Improving_RAG_with_RAGAS.ipynb)
 -->
 ---
@@ -1095,7 +1095,7 @@ Sources: [RAGAS paper](https://arxiv.org/abs/2309.15217); [Ragas testset generat
 
 - **Answer:** A set with varied wording, codes, and source types—not only polished questions.
 - **Why:** The test set determines which failures can be seen.
-- **Next step:** Beric connects this principle to the notebook.
+- **Next step:** Build the varied set first; it decides which failures you can even see.
 
 <!--
 Slide ID: D2-M08-C3A
@@ -1108,7 +1108,7 @@ Speaker notes:
 - Say: Reveal the answer and why it matters
 - Ask: What would change if the answer were different?
 - Watch: Point to the visible evidence and the notebook artifact.
-- Then: Beric connects the answer to the notebook.
+- Then: Tie the answer to the notebook artifact before moving on.
 Sources: [RAGAS paper](https://arxiv.org/abs/2309.15217); [Ragas testset generation](https://docs.ragas.io/en/stable/concepts/test_data_generation/rag/); [Module 08 notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/08_SDG_RAGAS/Improving_RAG_with_RAGAS.ipynb)
 -->
 ---
@@ -1154,7 +1154,7 @@ Speaker notes:
 - Say: Stop when the diagnosis is actionable
 - Ask: What would make you reject a high metric score before changing the system?
 - Watch: Inspect the named output and verify its provenance.
-- Then: Beric reveals the answer and connects it to the notebook.
+- Then: Reveal the answer, then tie it to the notebook artifact on screen.
 Sources: [RAGAS paper](https://arxiv.org/abs/2309.15217); [RAGAS metrics documentation](https://docs.ragas.io/en/stable/concepts/metrics/); [Module 08 notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/08_SDG_RAGAS/Improving_RAG_with_RAGAS.ipynb)
 -->
 ---
@@ -1163,7 +1163,7 @@ Sources: [RAGAS paper](https://arxiv.org/abs/2309.15217); [RAGAS metrics documen
 
 - **Answer:** Unsupported cases, duplicates, a narrow test set, or a trace that contradicts the score.
 - **Why:** A high score is not useful when the measurement asset is weak.
-- **Next step:** Beric connects this principle to the notebook.
+- **Next step:** Audit the test set before you defend the score it produced.
 
 <!--
 Slide ID: D2-M08-C4A
@@ -1176,7 +1176,7 @@ Speaker notes:
 - Say: Reveal the answer and why it matters
 - Ask: What would change if the answer were different?
 - Watch: Point to the visible evidence and the notebook artifact.
-- Then: Beric connects the answer to the notebook.
+- Then: Tie the answer to the notebook artifact before moving on.
 Sources: [RAGAS paper](https://arxiv.org/abs/2309.15217); [RAGAS metrics documentation](https://docs.ragas.io/en/stable/concepts/metrics/); [Module 08 notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/08_SDG_RAGAS/Improving_RAG_with_RAGAS.ipynb)
 -->
 ---

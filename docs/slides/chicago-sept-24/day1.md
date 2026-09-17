@@ -335,9 +335,108 @@ Sources: [Course concepts](https://github.com/AI-Aspire/Aspire_Titanium_Engineer
 
 # The workspace holds what your group produces
 
-- `workspace/` is yours, untracked; `data/seed/` is the tracked worked example
+<div style="display:flex;gap:1.1em;align-items:flex-start">
+<div style="flex:1">
+
+- `workspace/` is yours, untracked
+
+</div>
+<div style="flex:1;font-size:.6em">
+
+```text
+$ uv run python scripts/check_workspace.py --status
+manifest       seed   manifest.json
+charter        seed   pitch/charter.md
+prompts        seed   prompts/prompts.jsonl
+transcripts    seed   transcripts/transcripts.jsonl
+judge_scores   seed   evals/judge_scores.jsonl
+```
+
+</div>
+</div>
+
+Every row says `seed` on a fresh clone. That is correct, not broken.
+
+<!--
+Slide ID: D1-M01-C1-B1
+Module: [01 Dev environment](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/01_Dev_Environment/README.md)
+Instructor: Miriah, no-code orientation
+Type: build
+Minutes: 0
+Layout: 05 Two column
+Speaker notes:
+- Say: Build step 1 of 3 — reveal this point, then advance.
+Sources: [Module 01 notebook, Task 3](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/01_Dev_Environment/Dev_Environment.ipynb); [Workspace concepts](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/docs/CONCEPTS.md).
+
+-->
+
+---
+
+# The workspace holds what your group produces
+
+<div style="display:flex;gap:1.1em;align-items:flex-start">
+<div style="flex:1">
+
+- `workspace/` is yours, untracked
+- `data/seed/` is the tracked worked example
+
+</div>
+<div style="flex:1;font-size:.6em">
+
+```text
+$ uv run python scripts/check_workspace.py --status
+manifest       seed   manifest.json
+charter        seed   pitch/charter.md
+prompts        seed   prompts/prompts.jsonl
+transcripts    seed   transcripts/transcripts.jsonl
+judge_scores   seed   evals/judge_scores.jsonl
+```
+
+</div>
+</div>
+
+Every row says `seed` on a fresh clone. That is correct, not broken.
+
+<!--
+Slide ID: D1-M01-C1-B2
+Module: [01 Dev environment](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/01_Dev_Environment/README.md)
+Instructor: Miriah, no-code orientation
+Type: build
+Minutes: 0
+Layout: 05 Two column
+Speaker notes:
+- Say: Build step 2 of 3 — reveal this point, then advance.
+Sources: [Module 01 notebook, Task 3](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/01_Dev_Environment/Dev_Environment.ipynb); [Workspace concepts](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/docs/CONCEPTS.md).
+
+-->
+
+---
+
+# The workspace holds what your group produces
+
+<div style="display:flex;gap:1.1em;align-items:flex-start">
+<div style="flex:1">
+
+- `workspace/` is yours, untracked
+- `data/seed/` is the tracked worked example
 - An **artifact** is one named, schema-validated output
-- Until your group produces one, the seed carries it — and the tooling says so
+
+</div>
+<div style="flex:1;font-size:.6em">
+
+```text
+$ uv run python scripts/check_workspace.py --status
+manifest       seed   manifest.json
+charter        seed   pitch/charter.md
+prompts        seed   prompts/prompts.jsonl
+transcripts    seed   transcripts/transcripts.jsonl
+judge_scores   seed   evals/judge_scores.jsonl
+```
+
+</div>
+</div>
+
+Every row says `seed` on a fresh clone. That is correct, not broken.
 
 <!--
 Slide ID: D1-M01-C1
@@ -356,11 +455,11 @@ Sources: [Module 01 notebook, Task 3](https://github.com/AI-Aspire/Aspire_Titani
 
 ---
 
-# The workspace holds what your group produces · The practical check
+# Tell your work from the worked example
 
 - **Ask:** If a notebook shows you data you do not recognise, what happened?
-- **Inspect:** `uv run python scripts/check_workspace.py --status` — one row per artifact, each marked as yours or from the seed.
-- **Decide:** never hand-write a file in `workspace/`; if an artifact is missing, run the notebook that writes it, or let the seed carry it.
+- **Inspect:** `uv run python scripts/check_workspace.py --status` — one row per artifact, each marked as yours or from the seed
+- **Decide:** never hand-write a file in `workspace/`; run the notebook that writes it, or let the seed carry it
 
 <!--
 Slide ID: D1-M01-C1B
@@ -371,10 +470,57 @@ Minutes: 1
 Layout: 04 Icon cards
 Speaker notes:
 - Say: The fallback is loud on purpose — `load()` prints a line when it falls back to the seed.
-- Ask: If a notebook shows you data you do not recognise, what happened?
+- Ask: Take the question on the slide as a show of hands, then let someone read the answer off their own `--status` output.
 - Watch: Run `--status` live if the room is ready; otherwise show the table from notebook cell#17.
 - Then: Name the rule that governs the rest of the week: a number you did not measure is not yours to defend.
 Sources: [Module 01 notebook, Task 3](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/01_Dev_Environment/Dev_Environment.ipynb); [Artifact integrity rules](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/AGENTS.md).
+-->
+
+---
+
+# The repo keeps a history of the work
+
+`spec → prompts → prompt history → checks + rubrics → results → docs`
+
+- The spec says what needs to be built
+
+> Source: [Module 01](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/01_Dev_Environment/README.md)
+
+<!--
+Slide ID: D1-M01-C2-B1
+Module: [01 Dev environment](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/01_Dev_Environment/README.md)
+Instructor: Miriah, no-code orientation
+Type: build
+Minutes: 0
+Layout: 06 Process steps
+Speaker notes:
+- Say: Build step 1 of 3 — reveal this point, then advance.
+Sources: [Module 01 overview](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/01_Dev_Environment/README.md); [Module 01 notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/01_Dev_Environment/Dev_Environment.ipynb); [Artifact integrity rules](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/AGENTS.md).
+
+-->
+
+---
+
+# The repo keeps a history of the work
+
+`spec → prompts → prompt history → checks + rubrics → results → docs`
+
+- The spec says what needs to be built
+- Prompts, checks, and rubrics make the work repeatable
+
+> Source: [Module 01](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/01_Dev_Environment/README.md)
+
+<!--
+Slide ID: D1-M01-C2-B2
+Module: [01 Dev environment](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/01_Dev_Environment/README.md)
+Instructor: Miriah, no-code orientation
+Type: build
+Minutes: 0
+Layout: 06 Process steps
+Speaker notes:
+- Say: Build step 2 of 3 — reveal this point, then advance.
+Sources: [Module 01 overview](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/01_Dev_Environment/README.md); [Module 01 notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/01_Dev_Environment/Dev_Environment.ipynb); [Artifact integrity rules](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/AGENTS.md).
+
 -->
 
 ---
@@ -406,11 +552,11 @@ Sources: [Module 01 overview](https://github.com/AI-Aspire/Aspire_Titanium_Engin
 
 ---
 
-# The repo keeps a history of the work · The practical check
+# Where the project keeps its evidence
 
 - **Ask:** If an answer changes, which part of the history would you inspect first?
-- **Inspect:** Miriah points out where the project keeps the spec, prompts, saved results, and reference docs. The code walkthroughs will use these materials later.
-- **Decide:** keep the simplest design that clears the check; record the gap when it does not.
+- **Inspect:** the spec, the prompts, the saved results, and the reference docs each live in a known place
+- **Decide:** `manifest.json` records which module wrote what and when — read it before you trust a number
 
 <!--
 Slide ID: D1-M01-C2B
@@ -421,9 +567,9 @@ Minutes: 1
 Layout: 05 Two column 2
 Speaker notes:
 - Say: Your GitHub repo is itself a certification deliverable, so this history is graded.
-- Ask: If an answer changes, which part of the history would you inspect first?
+- Ask: Push past the first answer — most people say the results; the spec and the prompts are usually where the change actually is.
 - Watch: Show `project/CHARTER.md` and note that notebooks use the seed until its template marker is removed.
-- Then: Carry the observation into the notebook exercise.
+- Then: Leave the manifest on screen going into the fork slide — it is the evidence a reviewer reads.
 Sources: [Module 01 overview](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/01_Dev_Environment/README.md); [Charter template](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/project/CHARTER.md).
 -->
 
@@ -431,9 +577,25 @@ Sources: [Module 01 overview](https://github.com/AI-Aspire/Aspire_Titanium_Engin
 
 # You work on a fork, not the course repo
 
-- `origin` is your fork — where you push
-- `upstream` is the course repository — where you pull updates from
-- Start the day by fetching upstream, so you are not building on stale code
+<div style="display:flex;justify-content:center;margin-top:.4em">
+<svg viewBox="0 0 620 170" width="880" role="img" aria-label="origin is your fork, which you push to; upstream is the course repository, which you fetch from">
+  <rect x="10" y="46" width="176" height="74" rx="9" fill="#e8f0fe" stroke="#2563eb" stroke-width="2.5"/>
+  <text x="98" y="76" font-size="17" font-weight="700" text-anchor="middle" fill="#1e3a8a">your fork</text>
+  <text x="98" y="99" font-size="14" font-family="monospace" text-anchor="middle" fill="#334155">origin</text>
+  <rect x="434" y="46" width="176" height="74" rx="9" fill="#f1f5f9" stroke="#64748b" stroke-width="2.5"/>
+  <text x="522" y="76" font-size="17" font-weight="700" text-anchor="middle" fill="#0f172a">course repo</text>
+  <text x="522" y="99" font-size="14" font-family="monospace" text-anchor="middle" fill="#334155">upstream</text>
+  <path d="M188 68 H430" stroke="#2563eb" stroke-width="2.5" marker-end="url(#ar1)"/>
+  <text x="309" y="58" font-size="14" text-anchor="middle" fill="#2563eb">push, then pull request</text>
+  <path d="M430 100 H192" stroke="#64748b" stroke-width="2.5" stroke-dasharray="6 4" marker-end="url(#ar2)"/>
+  <text x="309" y="122" font-size="14" text-anchor="middle" fill="#475569">git fetch upstream</text>
+  <text x="309" y="152" font-size="13" text-anchor="middle" fill="#64748b" font-style="italic">you have write access on the left, not the right</text>
+  <defs>
+    <marker id="ar1" markerWidth="10" markerHeight="10" refX="8.5" refY="3" orient="auto"><path d="M0 0 L8.5 3 L0 6 z" fill="#2563eb"/></marker>
+    <marker id="ar2" markerWidth="10" markerHeight="10" refX="8.5" refY="3" orient="auto"><path d="M0 0 L8.5 3 L0 6 z" fill="#64748b"/></marker>
+  </defs>
+</svg>
+</div>
 
 <!--
 Slide ID: D1-M01-C3
@@ -454,9 +616,31 @@ Sources: [GitHub flow](https://docs.github.com/en/get-started/using-github/githu
 
 # A small change should have a clear history
 
-- Branch: separate a piece of work, with a prefixed name a reviewer can scan
-- Diff: stage the change, then inspect exactly what will be committed
-- Commit: `type: summary`, so the history stays searchable
+<div style="display:flex;justify-content:center;margin-top:.3em">
+<svg viewBox="0 0 660 130" width="900" role="img" aria-label="branch, then change, then read the diff, then commit">
+  <g font-size="14" text-anchor="middle">
+    <rect x="6" y="34" width="140" height="58" rx="8" fill="#e8f0fe" stroke="#2563eb" stroke-width="2"/>
+    <text x="76" y="52" font-size="12" fill="#2563eb">STEP 1</text>
+    <text x="76" y="72" font-weight="700" fill="#1e3a8a">branch</text>
+    <rect x="176" y="34" width="140" height="58" rx="8" fill="#e8f0fe" stroke="#2563eb" stroke-width="2"/>
+    <text x="246" y="52" font-size="12" fill="#2563eb">STEP 2</text>
+    <text x="246" y="72" font-weight="700" fill="#1e3a8a">change</text>
+    <rect x="346" y="34" width="140" height="58" rx="8" fill="#fef3c7" stroke="#d97706" stroke-width="2.5"/>
+    <text x="416" y="52" font-size="12" fill="#b45309">STEP 3</text>
+    <text x="416" y="72" font-weight="700" fill="#92400e">read the diff</text>
+    <rect x="516" y="34" width="140" height="58" rx="8" fill="#e8f0fe" stroke="#2563eb" stroke-width="2"/>
+    <text x="586" y="52" font-size="12" fill="#2563eb">STEP 4</text>
+    <text x="586" y="72" font-weight="700" fill="#1e3a8a">commit</text>
+  </g>
+  <path d="M148 63 H172" stroke="#94a3b8" stroke-width="2" marker-end="url(#s1)"/>
+  <path d="M318 63 H342" stroke="#94a3b8" stroke-width="2" marker-end="url(#s1)"/>
+  <path d="M488 63 H512" stroke="#94a3b8" stroke-width="2" marker-end="url(#s1)"/>
+  <text x="416" y="112" font-size="13" text-anchor="middle" fill="#b45309" font-style="italic">the step your AI editor cannot do for you</text>
+  <defs><marker id="s1" markerWidth="9" markerHeight="9" refX="8" refY="3" orient="auto"><path d="M0 0 L8 3 L0 6 z" fill="#94a3b8"/></marker></defs>
+</svg>
+</div>
+
+Branch name a reviewer can scan · commit as `type: summary`
 
 <!--
 Slide ID: D1-M01-C4
@@ -475,11 +659,11 @@ Sources: [GitHub flow](https://docs.github.com/en/get-started/using-github/githu
 
 ---
 
-# A small change should have a clear history · The practical check
+# Four things to check before you share
 
 - **Ask:** Does committing a change mean that someone else has reviewed it?
-- **Inspect:** Miriah shows location, branch, diff, and destination. Stop before sharing if the diff contains unexpected files or the remote is unfamiliar.
-- **Decide:** keep the simplest design that clears the check; record the gap when it does not.
+- **Inspect:** where you are, which branch, what the diff says, and where it is going
+- **Decide:** stop if the diff holds files you did not mean to touch, or the remote is unfamiliar
 
 <!--
 Slide ID: D1-M01-C4B
@@ -490,9 +674,9 @@ Minutes: 2
 Layout: 07 Big stats
 Speaker notes:
 - Say: The branch name and the commit message are the two things a reviewer reads first.
-- Ask: Does committing a change mean that someone else has reviewed it?
+- Ask: Expect a split on the slide's question. The answer is no: committing records, reviewing is the pull request.
 - Watch: Before class, students were asked to read the last five commit messages on a repo they work in and mark which a reviewer could scan. Ask for one example.
-- Then: Carry the observation into the notebook exercise.
+- Then: That split is the hand-off — the next slide is the pull request, where review actually happens.
 Sources: [Module 01 before-you-arrive](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/01_Dev_Environment/README.md); [GitHub flow](https://docs.github.com/en/get-started/using-github/github-flow).
 -->
 
@@ -500,9 +684,105 @@ Sources: [Module 01 before-you-arrive](https://github.com/AI-Aspire/Aspire_Titan
 
 # Review the change, not just the successful run
 
-- Check intended files and shared destinations
-- Keep credentials and private data out of history
-- Preserve enough context to repeat the comparison
+<div style="display:flex;gap:1.1em;align-items:flex-start">
+<div style="flex:1">
+
+- Check intended files and destinations
+
+</div>
+<div style="flex:1.25;font-size:.62em">
+
+```diff
+  def deploy_agent():
+      destination = "/shared/exports/v1"
+-     api_key = "sk-prod-8f921a99b01c"
++     api_key = os.getenv("SECRET_API_KEY")
+      validate_schema(destination)
+```
+
+</div>
+</div>
+
+> The green run and the safe run are not the same run.
+
+<!--
+Slide ID: D1-M01-C5-B1
+Module: [01 Dev environment](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/01_Dev_Environment/README.md)
+Instructor: Miriah, no-code orientation
+Type: build
+Minutes: 0
+Layout: 05 Two column 1
+Speaker notes:
+- Say: Build step 1 of 3 — reveal this point, then advance.
+Sources: [Module 01 notebook, Task 6](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/01_Dev_Environment/Dev_Environment.ipynb); [Keys and endpoints](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/00_Setup/keys.md).
+
+-->
+
+---
+
+# Review the change, not just the successful run
+
+<div style="display:flex;gap:1.1em;align-items:flex-start">
+<div style="flex:1">
+
+- Check intended files and destinations
+- Keep credentials out of history
+
+</div>
+<div style="flex:1.25;font-size:.62em">
+
+```diff
+  def deploy_agent():
+      destination = "/shared/exports/v1"
+-     api_key = "sk-prod-8f921a99b01c"
++     api_key = os.getenv("SECRET_API_KEY")
+      validate_schema(destination)
+```
+
+</div>
+</div>
+
+> The green run and the safe run are not the same run.
+
+<!--
+Slide ID: D1-M01-C5-B2
+Module: [01 Dev environment](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/01_Dev_Environment/README.md)
+Instructor: Miriah, no-code orientation
+Type: build
+Minutes: 0
+Layout: 05 Two column 1
+Speaker notes:
+- Say: Build step 2 of 3 — reveal this point, then advance.
+Sources: [Module 01 notebook, Task 6](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/01_Dev_Environment/Dev_Environment.ipynb); [Keys and endpoints](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/00_Setup/keys.md).
+
+-->
+
+---
+
+# Review the change, not just the successful run
+
+<div style="display:flex;gap:1.1em;align-items:flex-start">
+<div style="flex:1">
+
+- Check intended files and destinations
+- Keep credentials out of history
+- Preserve enough context to repeat it
+
+</div>
+<div style="flex:1.25;font-size:.62em">
+
+```diff
+  def deploy_agent():
+      destination = "/shared/exports/v1"
+-     api_key = "sk-prod-8f921a99b01c"
++     api_key = os.getenv("SECRET_API_KEY")
+      validate_schema(destination)
+```
+
+</div>
+</div>
+
+> The green run and the safe run are not the same run.
 
 <!--
 Slide ID: D1-M01-C5
@@ -521,11 +801,11 @@ Sources: [Module 01 notebook, Task 6](https://github.com/AI-Aspire/Aspire_Titani
 
 ---
 
-# Review the change, not just the successful run · The practical check
+# Explain the change to someone who was not there
 
 - **Ask:** What would a reviewer need beyond a screenshot of the answer?
-- **Inspect:** Explain the proposed edit and its saved evidence to a teammate; troubleshooting belongs in the practical block.
-- **Decide:** keep the simplest design that clears the check; record the gap when it does not.
+- **Inspect:** walk a teammate through the edit and the evidence you saved for it
+- **Decide:** if you cannot explain why a line changed, do not ask anyone to review it yet
 
 <!--
 Slide ID: D1-M01-C5B
@@ -536,9 +816,9 @@ Minutes: 1
 Layout: 09 Lab and code 2
 Speaker notes:
 - Say: A reviewer needs the diff, the destination, and enough context to rerun the comparison.
-- Ask: What would a reviewer need beyond a screenshot of the answer?
+- Ask: Have one pair actually try it out loud for thirty seconds; the gaps surface fast.
 - Watch: Point at the diff, not the output. A green run with an unreviewed diff is the failure mode.
-- Then: Carry the observation into the notebook exercise.
+- Then: Keep the rule for the notebook: the AI editor types, you still read the diff before Task 6 commits it.
 Sources: [Module 01 notebook, Task 6](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/01_Dev_Environment/Dev_Environment.ipynb); [Keys and endpoints](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/00_Setup/keys.md).
 -->
 
@@ -546,9 +826,41 @@ Sources: [Module 01 notebook, Task 6](https://github.com/AI-Aspire/Aspire_Titani
 
 # The pull request is the unit of review
 
-- `git push -u` links your branch to your fork, so later pushes know where to go
-- `gh pr create --draft` opens the review without leaving the terminal
-- A second commit updates the *same* pull request — that is how you answer a reviewer
+```bash
+git push -u origin feat/<you>-daily-loop   # -u links branch to your fork
+gh pr create --base main --head feat/<you>-daily-loop --draft
+```
+
+- Then commit again and push: the **same** pull request picks it up
+
+> One pull request, two commits.
+
+<!--
+Slide ID: D1-M01-C6-B1
+Module: [01 Dev environment](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/01_Dev_Environment/README.md)
+Instructor: Miriah, no-code orientation
+Type: build
+Minutes: 0
+Layout: 06 Process steps 1
+Speaker notes:
+- Say: Build step 1 of 2 — reveal this point, then advance.
+Sources: [Module 01 notebook, Tasks 7-8](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/01_Dev_Environment/Dev_Environment.ipynb); [GitHub flow](https://docs.github.com/en/get-started/using-github/github-flow).
+
+-->
+
+---
+
+# The pull request is the unit of review
+
+```bash
+git push -u origin feat/<you>-daily-loop   # -u links branch to your fork
+gh pr create --base main --head feat/<you>-daily-loop --draft
+```
+
+- Then commit again and push: the **same** pull request picks it up
+- That is how you answer a reviewer — not by opening a second PR
+
+> One pull request, two commits.
 
 <!--
 Slide ID: D1-M01-C6
@@ -569,9 +881,42 @@ Sources: [Module 01 notebook, Tasks 7-8](https://github.com/AI-Aspire/Aspire_Tit
 
 # Two setup traps that cost the most time
 
-- `uv sync` and `uv run --group` are **exact**: they remove every group you do not name — always use the `make` targets
-- Run `make preflight` on your own desk: each host comes back open, intercepted, or blocked
-- `make check-day` validates *your* workspace and ignores the seed, so it fails on everything before your group saves work. That is expected
+```bash
+make setup       # keeps optional groups. a bare `uv sync` REMOVES them
+make preflight   # each host: open | intercepted | blocked
+make check-day   # fails on everything before you save work — expected
+```
+
+- `uv sync` and `uv run --group` are **exact**: they remove every group you do not name
+
+<!--
+Slide ID: D1-M01-C7-B1
+Module: [01 Dev environment](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/01_Dev_Environment/README.md)
+Instructor: Miriah, no-code orientation
+Type: build
+Minutes: 0
+Layout: 04 Icon cards
+Speaker notes:
+- Say: Build step 1 of 2 — reveal this point, then advance.
+Sources: [Setup and troubleshooting](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/00_Setup/README.md); [Course concepts, setup traps](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/docs/CONCEPTS.md).
+
+-->
+
+---
+
+# Two setup traps that cost the most time
+
+```bash
+make setup       # keeps optional groups. a bare `uv sync` REMOVES them
+make preflight   # each host: open | intercepted | blocked
+make check-day   # fails on everything before you save work — expected
+```
+
+- `uv sync` and `uv run --group` are **exact**: they remove every group you do not name
+- `intercepted` means a proxy signs the certs — your terminal trusts it, a container will not
+
+<!--
+ keep the ordering: the first line is the one that prevents the most lost time -->
 
 <!--
 Slide ID: D1-M01-C7
@@ -586,6 +931,66 @@ Speaker notes:
 - Watch: The answer is almost always that a bare `uv sync` or `uv run --group dev` removed an optional group. Fix: `make setup`, which keeps the groups already installed.
 - Then: For an intercepted host, the terminal works because the machine trusts the private CA, but a container will not — keep the CA file to hand.
 Sources: [Setup and troubleshooting](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/00_Setup/README.md); [Course concepts, setup traps](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/docs/CONCEPTS.md).
+-->
+
+---
+
+# How to survive a notebook
+
+- Every cell prints the command it ran, as `$ git …`, then that command's output
+
+<!--
+Slide ID: D1-M01-C8-B1
+Module: [01 Dev environment](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/01_Dev_Environment/README.md)
+Instructor: Miriah, no-code orientation
+Type: build
+Minutes: 0
+Layout: 04 Icon cards
+Speaker notes:
+- Say: Build step 1 of 4 — reveal this point, then advance.
+Sources: [Course concepts, laptop setup floor](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/docs/CONCEPTS.md); [Module 01 notebook, Setup cell](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/01_Dev_Environment/Dev_Environment.ipynb).
+
+-->
+
+---
+
+# How to survive a notebook
+
+- Every cell prints the command it ran, as `$ git …`, then that command's output
+- **Run cells in order, top to bottom.** Half of all "it broke" is stale kernel state
+
+<!--
+Slide ID: D1-M01-C8-B2
+Module: [01 Dev environment](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/01_Dev_Environment/README.md)
+Instructor: Miriah, no-code orientation
+Type: build
+Minutes: 0
+Layout: 04 Icon cards
+Speaker notes:
+- Say: Build step 2 of 4 — reveal this point, then advance.
+Sources: [Course concepts, laptop setup floor](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/docs/CONCEPTS.md); [Module 01 notebook, Setup cell](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/01_Dev_Environment/Dev_Environment.ipynb).
+
+-->
+
+---
+
+# How to survive a notebook
+
+- Every cell prints the command it ran, as `$ git …`, then that command's output
+- **Run cells in order, top to bottom.** Half of all "it broke" is stale kernel state
+- If a cell fails: read the last line, fix it, rerun *that* cell — not the whole notebook
+
+<!--
+Slide ID: D1-M01-C8-B3
+Module: [01 Dev environment](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/01_Dev_Environment/README.md)
+Instructor: Miriah, no-code orientation
+Type: build
+Minutes: 0
+Layout: 04 Icon cards
+Speaker notes:
+- Say: Build step 3 of 4 — reveal this point, then advance.
+Sources: [Course concepts, laptop setup floor](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/docs/CONCEPTS.md); [Module 01 notebook, Setup cell](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/01_Dev_Environment/Dev_Environment.ipynb).
+
 -->
 
 ---

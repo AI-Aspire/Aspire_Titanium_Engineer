@@ -236,6 +236,51 @@ the product-market fit framework.
 | "Saved Results" (#14) | Generic | **Artifact** — "one named, schema-validated output" | Use **artifact**. |
 | "Dependencies & Settings" (#14) | Generic | `.env` / `uv` groups — and the trap is that groups are *exact* | Name `.env` and `uv` groups; the generic phrasing hides the week's most expensive trap. |
 
+## Step 2b — Narrative analysis of the prior deck, and what to copy
+
+The prior deck's module-01 slides are weak on *content* (see the mapping table) but its
+**visual grammar is better than ours**, and that is the thing worth taking forward.
+
+### The pattern the prior instructor used
+
+| Device | Where | What it does |
+|---|---|---|
+| **Claim + artifact, side by side** | #14: three abstract bullets (source / settings / results) next to a `workbench_context.json` file | The bullets name the idea; the artifact makes it concrete. The eye has somewhere to land. |
+| **A diff that shows the failure** | #17: three review rules next to a real diff replacing `api_key = "sk-prod-8f921a99b01c" # LEAK!` with `os.getenv(...)` | The rule "keep credentials out of history" is abstract. The diff makes it visceral in one glance. |
+| **Numbered step flow** | #24 (ReAct): Reason → Act → Observe as STEP 01/02/03 | A sequence rendered as a sequence, not as three bullets. |
+| **Big-stat slide** | #38: `3×`, `60%`, `< 1 hr` | One number, large, per claim. (Theirs was marked "illustrative figures — replace with your own" and so is unusable as evidence, but the *device* is sound.) |
+| **Pull-quote slide** | #39: the IDEO prototype quote, full-bleed | A beat of rest between dense sections. |
+| **Code the student will type** | #40: an actual `summarize.py` | Shows the shape of the work before the lab. |
+
+### What our deck does instead
+
+**All 65 Day 1 slides are bullet lists.** Measured: 0 code fences, 0 diagrams, 0 tables,
+0 quote-only slides. Worse, the `Layout:` metadata *promises* variety the markdown never
+delivers — 21 slides across the decks claim `07 Big stats`, 13 claim `09 Lab and code`,
+17 claim `06 Process steps`, and every one of them is three or four bullets. A designer
+building from these notes would be misled.
+
+### Implementation plan for module 01
+
+Marp v4.2.3 does **not** render ```mermaid``` fences — verified: the fence survives as a
+`<pre>` block. Inline `<svg>` **does** work, including `marker-end` arrowheads and text —
+verified by rendering a test slide. So diagrams are hand-authored inline SVG, sized to the
+16:9 canvas, with an `aria-label`.
+
+| Slide | Current | Becomes |
+|---|---|---|
+| `C3` You work on a fork | 3 bullets | Inline SVG: two boxes (`origin: your fork`, `upstream: course repo`) with a solid `push / pull request` arrow one way and a dashed `git fetch upstream` arrow back |
+| `C4` A small change | 3 bullets | Numbered step flow: branch → change → diff → commit, rendered as a sequence |
+| `C5` Review the change | 3 bullets | Claim + artifact: the three rules beside a real diff, carrying forward the prior deck's leaked-key example (tied to `00_Setup/keys.md`, which is the repo's actual rule) |
+| `C6` The pull request | 3 bullets | The two `gh` commands students actually type, as code, beside the outcome |
+| `C1` The workspace | 3 bullets | Claim + artifact: bullets beside real `--status` output showing `seed` rows |
+| `C7` Setup traps | 3 bullets | The three commands as code, each with its one-line consequence |
+| `C8` Survive a notebook | 4 bullets | Keep as bullets — it is a checklist, and not everything should be a diagram |
+
+Rule of thumb applied: a slide earns a diagram when it describes a **relationship or
+sequence**; it earns code when the student will **type that exact thing**; it stays a list
+when it is genuinely a list. Not every slide becomes a picture.
+
 ## Step 3 — Deck changelog
 
 Edited `day1.md`, the `D1-M01-*` block (was lines 312–521). The day-file structure and the
