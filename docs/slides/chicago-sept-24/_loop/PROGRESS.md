@@ -366,3 +366,34 @@ Also this pass, at the author's request:
   `D1-M02-C4A`, `D1-Z1`, `D3-F1`, `D3-M11-C5`, `D3-M13-C2A`, `D3-Z1`.
   Deskmate stays in projected copy only where it **is** the content: the seed slide
   (`D1-M01-C1B`) and day 2's worked question/answer triples.
+
+### Day 2 stops re-teaching day 1 (2026-09-17)
+
+The author flagged "Prepare once; retrieve for each question" as a day-1 RAG recap sitting in
+day 2. An audit found the whole framing block was doing that: **11 of its 13 slides re-taught
+day-1 modules** — four on module 04 (evals and judges), two on module 01 (the eval record),
+five on module 05 (RAG basics and the three gates). All 11 removed, **18 minutes freed**.
+
+Day 2 now opens on its agenda and one "yesterday → today" bridge, then goes straight into
+module 06. Slide time per module: 06 leaves 20 of 35 min for code, 07 leaves 15 of 30, 08
+leaves 15 of 30.
+
+Two bugs surfaced while doing it:
+
+- **`D2-F0` had no projected copy at all** — an empty slide since the foundation pass, which
+  every verification run had missed because the checks looked for *duplicate* titles, never
+  *missing* ones. It now carries the day-2 agenda. The structural verifier gains check **2c**,
+  which fails on any slide with empty projected copy.
+- `D2-F1`'s `Say:` repeated its title; rewritten.
+
+Also this round: all 17 day-2 question slides now project only the question (the title had
+said "… · Question: …" with a `**Question:**` bullet restating it), and `D2-F5A` became a
+table of the six fields a reusable eval record needs, each with what you cannot do without it.
+
+### PowerPoint export
+
+`scripts/marp_to_pptx.py` builds a .pptx from a Chicago deck — 91 slides for day 1, each with
+its speaker notes, at 16:9. Run `uv run --no-project python scripts/marp_to_pptx.py 1`.
+Inline SVG diagrams are marked `[diagram — see the HTML deck]` rather than rasterised, since
+that needs a browser render. The generated .pptx stays untracked, per this branch's README
+scope ("HTML, PDF, PPTX … intentionally excluded").
