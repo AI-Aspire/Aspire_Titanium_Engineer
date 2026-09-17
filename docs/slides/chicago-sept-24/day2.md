@@ -166,9 +166,7 @@ Sources: [Module 04 overview](https://github.com/AI-Aspire/Aspire_Titanium_Engin
 
 ---
 
-# Quick check · Question: what would you record?
-
-- **Question:** What evidence should a reusable eval record?
+# What evidence should a reusable eval record?
 
 <!--
 Slide ID: D2-F5
@@ -186,10 +184,18 @@ Sources: [Module 01 Dev Environment](https://github.com/AI-Aspire/Aspire_Titaniu
 -->
 ---
 
-# What the record has to contain
-- **Answer:** Save the question, prompt, evidence, answer, rubric result, and model/version.
-- **Why:** Without inputs and evidence, a score cannot explain a change.
-- **Next step:** Carry this record forward — the evals notebook scores exactly these fields.
+# Six fields, and why each one earns its place
+
+| Field | Without it you cannot… |
+|---|---|
+| Question | rerun the case |
+| Prompt | tell a prompt change from a model change |
+| Evidence | tell a retrieval failure from a generation one |
+| Answer | see what actually happened |
+| Rubric result | compare two runs |
+| Model / version | explain why last week's score differed |
+
+A score without its inputs cannot explain a change.
 
 <!--
 Slide ID: D2-F5A
@@ -199,10 +205,10 @@ Type: core
 Minutes: 1
 Layout: 08 Quote
 Speaker notes:
-- Say: Reveal the answer and why it matters
-- Ask: What would change if the answer were different?
-- Watch: Point to the visible evidence and the notebook artifact. Dev_Environment:cell#16 is Task 3 of 8 — Initialise your workspace.
-- Then: Tie the answer to the notebook artifact before moving on.
+- Say: Take answers from the room first, then reveal. Most rooms name question and answer, and stop there.
+- Ask: Push on the two people usually miss — evidence and model/version. Ask what they would do if a score dropped and they had neither.
+- Watch: These are the fields the workspace artifacts already carry, which is why later notebooks can score a run they did not produce. Dev_Environment:cell#16 is Task 3 of 8 — Initialise your workspace.
+- Then: The evals notebook scores exactly these fields, so the record is the contract between today and Wednesday.
 Sources: [Module 01 Dev Environment](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/01_Dev_Environment/README.md); [Machine Learning Yearning](https://github.com/ajaymache/machine-learning-yearning/blob/master/full%20book/machine-learning-yearning.pdf).
 -->
 
@@ -285,9 +291,7 @@ Sources: [RAG](https://arxiv.org/abs/2005.11401); [Module 05 overview](https://g
 
 ---
 
-# Quick check · Question: locate the miss
-
-- **Question:** Which failure gate would you inspect first?
+# Which failure gate would you inspect first?
 
 <!--
 Slide ID: D2-F9
@@ -373,9 +377,7 @@ Sources: [Dense Passage Retrieval](https://aclanthology.org/2020.emnlp-main.550/
 -->
 ---
 
-# 06 · Exact terms and related meanings need different signals · Question
-
-- **Question:** Which retriever protects VPN-4312? Which connects “remote access”?
+# Which retriever protects VPN-4312? Which connects “remote access”?
 
 <!--
 Slide ID: D2-M06-C1B
@@ -459,9 +461,7 @@ Sources: [Reciprocal rank fusion paper](https://cormack.uwaterloo.ca/cormacksigi
 -->
 ---
 
-# Fuse ranks, then spend judgment carefully · Question
-
-- **Question:** If the correct page is absent from the top 10, can the reranker find it?
+# If the correct page is absent from the top 10, can the reranker find it?
 
 <!--
 Slide ID: D2-M06-C2B
@@ -524,9 +524,7 @@ Sources: [Iterative query generation for multi-hop QA](https://aclanthology.org/
 -->
 ---
 
-# Ask the question more than once · Question
-
-- **Question:** Did the rewrites find new pages or repeat the same pages?
+# Did the rewrites find new pages or repeat the same pages?
 
 <!--
 Slide ID: D2-M06-C3B
@@ -597,9 +595,7 @@ Sources: [DPR retrieval formulation](https://aclanthology.org/2020.emnlp-main.55
 -->
 ---
 
-# Choose the cheapest rung that clears the bar · Question
-
-- **Question:** A correct page moves from rank 4 to rank 2. Which metric improves?
+# A correct page moves from rank 4 to rank 2. Which metric improves?
 
 <!--
 Slide ID: D2-M06-C4B
@@ -665,9 +661,7 @@ Sources: Notebook:cell#27; [local Retrieval Ladder notebook](https://github.com/
 
 ---
 
-# Filter before you rank · Question
-
-- **Question:** Deskmate has Priya's caller identity and a mixed KB. What is the first retrieval operation?
+# Deskmate has Priya's caller identity and a mixed KB. What is the first retrieval operation?
 
 <!--
 Slide ID: D2-M06-C5B
@@ -763,9 +757,7 @@ Sources: [DCI research paper](https://arxiv.org/abs/2605.05242); [local DCI vers
 -->
 ---
 
-# 07 · Retrieval becomes an interface choice · Question
-
-- **Question:** What stays constant in the comparison: the model, questions, and scoring—or the tool set?
+# What stays constant in the comparison: the model, questions, and scoring—or the tool set?
 
 <!--
 Slide ID: D2-M07-C1B
@@ -829,9 +821,7 @@ Sources: [DCI research paper](https://arxiv.org/abs/2605.05242); [local DCI vers
 -->
 ---
 
-# Let the agent navigate a persistent map · Question
-
-- **Question:** Why store page purpose and headings instead of only filenames?
+# Why store page purpose and headings instead of only filenames?
 
 <!--
 Slide ID: D2-M07-C2B
@@ -897,9 +887,7 @@ Sources: [DCI research paper](https://arxiv.org/abs/2605.05242); [local DCI vers
 -->
 ---
 
-# Compare traces, not just answers · Question
-
-- **Question:** No relevant page appears in the trace. Is that a generation or evidence failure?
+# No relevant page appears in the trace. Is that a generation or evidence failure?
 
 <!--
 Slide ID: D2-M07-C3B
@@ -962,9 +950,7 @@ Sources: [DCI research paper](https://arxiv.org/abs/2605.05242); [local DCI vers
 -->
 ---
 
-# Stop at the smallest safe interface · Question
-
-- **Question:** Before read_page("jordan-ticket.md"), what must the system check?
+# Before read_page("jordan-ticket.md"), what must the system check?
 
 <!--
 Slide ID: D2-M07-C4B
@@ -1031,9 +1017,7 @@ Sources: Notebook:cell#24; [local DCI versus Agentic RAG notebook](https://githu
 
 ---
 
-# Inspect the difference · Question
-
-- **Question:** Which trace would show that Deskmate found the exact split-tunnel menu path?
+# Which trace would show that Deskmate found the exact split-tunnel menu path?
 
 <!--
 Slide ID: D2-M07-C5B
@@ -1125,9 +1109,7 @@ Sources: [Ragas testset generation](https://docs.ragas.io/en/stable/concepts/tes
 -->
 ---
 
-# 08 · Synthetic data makes failures testable · Question
-
-- **Question:** What source artifact lets a reviewer reject an unsupported case?
+# What source artifact lets a reviewer reject an unsupported case?
 
 <!--
 Slide ID: D2-M08-C1B
@@ -1198,9 +1180,7 @@ Sources: [RAGAS paper](https://arxiv.org/abs/2309.15217); [RAGAS metrics documen
 -->
 ---
 
-# Metrics answer different diagnostic questions · Question
-
-- **Question:** If the passage is missing but the model says “I do not know,” what failed?
+# If the passage is missing but the model says “I do not know,” what failed?
 
 <!--
 Slide ID: D2-M08-C2B
@@ -1263,9 +1243,7 @@ Sources: [RAGAS paper](https://arxiv.org/abs/2309.15217); [Ragas testset generat
 -->
 ---
 
-# Review synthetic cases as measurement assets · Question
-
-- **Question:** Which case set exposes failure on terse error-code queries?
+# Which case set exposes failure on terse error-code queries?
 
 <!--
 Slide ID: D2-M08-C3B
@@ -1330,9 +1308,7 @@ Sources: [RAGAS paper](https://arxiv.org/abs/2309.15217); [RAGAS metrics documen
 -->
 ---
 
-# Stop when the diagnosis is actionable · Question
-
-- **Question:** What would make you reject a high score?
+# What would make you reject a high score?
 
 <!--
 Slide ID: D2-M08-C4B
@@ -1399,9 +1375,7 @@ Sources: Notebook:cell#18; [Module 08 notebook](https://github.com/AI-Aspire/Asp
 
 ---
 
-# Curate the test set before you trust it · Question
-
-- **Question:** A generated case asks about a policy absent from the KB. Should it score Deskmate?
+# A generated case asks about a policy absent from the KB. Should it score Deskmate?
 
 <!--
 Slide ID: D2-M08-C5B
