@@ -2283,15 +2283,19 @@ Sources: [RAG, Lewis et al., 2020](https://arxiv.org/abs/2005.11401); [RAG noteb
 
 ---
 
-# The VPN answer needs the routing evidence
+# Retrieval grounds the answer, or the model invents one
+
+**Ask two questions against the same KB page:**
 
 ```text
-Question: VPN is green; staging times out
-Evidence: Settings → Routing → “Route private ranges”
-Next: restart the client; then file a ticket with ping output
+"VPN is green but staging times out"
+  → grounded: Settings → Routing → "Route private ranges", then restart
+
+"What does a yellow VPN shield mean?"
+  → the page documents only a green shield. There is no answer to ground.
 ```
 
-Takeaway: retrieval helps when it supplies the exact setting and path.
+Takeaway: retrieval lets the model cite the page — and lets you catch the question it should refuse.
 
 <!--
 Slide ID: D1-M05-C1B
@@ -2301,10 +2305,10 @@ Type: core
 Minutes: 2
 Layout: 04 Icon cards
 Speaker notes:
-- Say: The answer becomes actionable when the source supplies the setting and path.
-- Ask: Which line would be missing from a fluent answer with no KB evidence?
-- Watch: Compare the exact routing setting and menu path with the vibe check's expected content. RAG_with_LangChain:cell#9 is Task 1 of 7 — See the gap.
-- Then: Retrieval helps when it supplies the exact setting and path.
+- Say: Retrieval is a hallucination control. Grounded, the model quotes the page; ungrounded, it produces something plausible anyway.
+- Ask: Ask the room what a model with no KB access says to the yellow-shield question. Someone will guess "degraded connection" — which is exactly the invented answer.
+- Watch: `data/seed/corpus/kb/vpn.md` documents a green shield and the split-tunnel fix; it says nothing about yellow. The first question has evidence to cite, the second does not. RAG_with_LangChain:cell#9 is Task 1 of 7 — See the gap.
+- Then: A grounded system answers the first and declines the second. That refusal is a feature, and it is what module 04's judge scores.
 Sources: [RAG, Lewis et al., 2020](https://arxiv.org/abs/2005.11401); [RAG notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/05_RAG/RAG_with_LangChain.ipynb).
 -->
 
@@ -2401,12 +2405,13 @@ Sources: [RAG from scratch and library pipeline](https://github.com/AI-Aspire/As
 
 ---
 
-# Diagnose the missing evidence before the answer
+# What to look for when a RAG answer is wrong
 
-- Did the source contain the needed fact?
-- Did retrieval put it into the model’s context?
-- Did the final answer preserve the meaning and limits of the source?
-- Did the answer use it correctly?
+Three gates, in order. Only one of them is the model's fault:
+
+- **Source** — did the corpus contain the fact at all?
+- **Retrieval** — did it reach the model's context?
+- **Generation** — did the answer use the passage, and keep its limits?
 
 <!--
 Slide ID: D1-M05-C3
@@ -2416,10 +2421,10 @@ Type: core
 Minutes: 2
 Layout: 04 Icon cards 2
 Speaker notes:
-- Say: When the answer is wrong, look at the evidence it was given before blaming the model.
+- Say: Check them in order. Two of the three gates fail before the model ever sees the evidence.
 - Ask: Which component should change if the answer-bearing passage never reaches the prompt?
 - Watch: Compare two k settings on the same question and inspect actual chunks. Keep baseline contexts with each answer. RAG_with_LangChain:cell#28 is Task 6 of 7 — Retrieval quality is a dial.
-- Then: The lab stores questions, answers, and contexts together so later checks can identify the failure stage.
+- Then: Same three gates on day 2 when the ladder gets measured, so use these words. The lab stores questions, answers and contexts together so a later check can name which gate failed.
 Sources: [RAG setup, top-k comparison, saved baseline](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/05_RAG/RAG_with_LangChain.ipynb); [RAG artifact contract](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/05_RAG/README.md).
 -->
 
