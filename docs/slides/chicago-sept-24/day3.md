@@ -279,10 +279,10 @@ Type: core
 Minutes: 2
 Layout: 04 Icon cards 1
 Speaker notes:
-- Say: Give each memory a job
-- Ask: Which memory type should preserve the tool call that actually ran?
-- Watch: Put the named artifact on screen and trace where its values came from.
-- Then: Use the answer to decide whether to clarify or continue.
+- Say: Give each memory a job. An undifferentiated store recalls the wrong thing.
+- Ask: Which memory type should preserve the tool call that actually ran? (Episodic — it is what happened, not what is true.)
+- Watch: These four are the token-budget tiers the notebook assembles in cell#21. The notebook is named for three *kinds* — episodic, semantic, working — because procedural here is the instructions tier, not a store the group writes to.
+- Then: Worth saying if it comes up: the cleaner split is episodic / semantic / procedural by *content*, with working memory being a lifetime — the per-turn view assembled from the other three. "Periodic memory" is not a fourth type; scheduled consolidation is what this module calls compaction.
 Sources: [MemGPT](https://arxiv.org/abs/2310.08560); [memory notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/10_Agent_Memory/Three_Kinds_of_Memory.ipynb)
 -->
 ---

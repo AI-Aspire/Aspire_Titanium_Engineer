@@ -133,3 +133,33 @@ Method note: an early pass over-reported 16 gaps by matching whole phrases. Excl
 internals (whose `aria-label` text created false hits) and matching each term's distinctive
 head-word brought the real count to 7. Only **Root set** and **Fail closed** (on day 4) were
 absent outright; the rest were present under different words.
+
+## Memory taxonomy + schedule check (2026-09-17)
+
+**"Periodic memory" is not a memory type**, and the repo already treats it correctly. The word
+appears nowhere in module 10; what a scheduled consolidation policy does is what this module
+calls **compaction** (17 mentions across its README and notebook).
+
+The module teaches **three kinds** — episodic, semantic, working — per its notebook name
+`Three_Kinds_of_Memory.ipynb`. **Procedural** is present in the code as the instructions tier
+of the token budget (`cell#21`: `"procedural (instructions)"`, `"semantic (recalled)"`,
+`"episodic (summary)"`, `"working (recent turns)"`), so `D3-M10-C2`'s four-row table is
+accurate to the code.
+
+Open authoring question for the module owners (not fixed — module is read-only): a cleaner
+split is **episodic / semantic / procedural** by *content*, with **working memory** being a
+*lifetime* (turn-local) rather than a content type — since working memory holds a mix of the
+other three for one turn. The README treats working as a third peer type. Decision taken for
+the slides: **follow the code**, and carry the distinction in `D3-M10-C2`'s speaker notes so an
+instructor can address it if the room raises it.
+
+**Schedule verified against the authoritative module list.** All 14 selected modules appear on
+their scheduled day with the scheduled instructor, no unselected module (12, 14, 15, 16, 19–23)
+appears in any deck, and every module is within its time budget:
+
+M01 30/30 · M02 19/30 · M03 21/35 · M04 19/30 · M05 17/30 · M06 15/35 · M07 15/30 · M08 15/30 ·
+M09 15/35 · M10 15/30 · M11 19/35 · M13 19/30 · M17 19/35 · M18 19/30
+
+Note on themes: module 09 (Agent evals) is delivered on **day 3** but sits under the
+"Retrieval and agent evals" theme that spans days 2–3, which is why day 2's deck title mentions
+evals. Confirmed as correct; no slides moved.
