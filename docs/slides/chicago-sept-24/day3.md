@@ -9,6 +9,7 @@ size: 16:9
 - 09 Agent evals — 35m
 - 10 Agent memory — 30m
 - 11 Agent architecture — 35m
+- 12 Multi-agent — 30m
 - 13 Guardrails 101 — 30m
 
 <!--
@@ -451,6 +452,104 @@ Speaker notes:
 - Watch: Put the named artifact on screen and trace where its values came from.
 - Then: Skip if time is short; offer as optional stretch or research.
 Sources: [LangGraph: Thinking in LangGraph](https://docs.langchain.com/oss/python/langgraph/thinking-in-langgraph); [Anthropic: Effective harnesses for long-running agents](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents); [module alignment](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/11_Agent_Architecture/README.md)
+-->
+---
+# 12 · Multi-agent
+
+**One agent that browses freely writes a report you cannot audit.** · 30 min
+
+- A scoper, specialist researchers, a verifier, a writer with no tools, a citation audit
+- Not "more agents are better" — narrow roles so the output can be checked
+
+<!--
+Slide ID: D3-T12
+Module: [12 Multi-agent](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/12_Multi_Agent/README.md)
+Instructor: Rohit
+Type: transition
+Minutes: 0
+Layout: 01 Title
+Speaker notes:
+- Say: Module 11 gave one agent six ways to hold a capability. This one splits the work across several, and the reason is auditability, not horsepower.
+- Ask: Hold for a beat — this is the hand-off, not content.
+- Watch: The notebook's first line is the whole argument: one agent that browses freely writes a report you cannot audit.
+- Then: Straight into the first content slide.
+Sources: [Module 12 overview](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/12_Multi_Agent/README.md).
+-->
+---
+# Split the roles so the output can be checked
+
+| Role | Why it is separate |
+|---|---|
+| specialists | a narrow prompt and a narrow toolbox each |
+| verifier | re-opens the sources before approving a claim |
+| writer | **has no tools**, so it cannot introduce a fact or a URL |
+| audit | plain code — markers, URLs, duplicates; no model |
+
+The writer's missing toolbox is the design. A role that cannot fetch cannot invent.
+
+<!--
+Slide ID: D3-M12-C1
+Module: [12 Multi-agent](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/12_Multi_Agent/README.md)
+Instructor: Rohit
+Type: core
+Minutes: 3
+Layout: 05 Two column
+Speaker notes:
+- Say: More agents is not the point, and it is the wrong reason to reach for this. Each role here is narrow so that something downstream can check it. Take the writer: it is handed the findings and given no tools at all, so a fact it did not receive cannot appear in the report. That is a structural guarantee, not a prompt asking nicely.
+- Ask: Which of these four roles would you drop first under deadline pressure, and what breaks?
+- Watch: Report_Generator:cell#21 is Task 4 of 5 — verify, write, audit, and evaluate as a graph. In the notebook: the verifier re-opens sources before approving claims; the writer has no tools, so it cannot introduce a fact or a URL; the audit is code, and the evaluator is a model that sees the audit.
+- Then: The audit being plain code matters — it is the one check in the chain that cannot be talked out of its answer. Same verdict-versus-score line we drew on the guardrail ladder.
+Sources: [Anthropic multi-agent research system](https://www.anthropic.com/engineering/multi-agent-research-system); [multi-agent notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/12_Multi_Agent/Report_Generator.ipynb)
+-->
+---
+# Typed output proves the shape, never the truth
+
+- Every agent returns structured data, so the graph has something to check
+- A model can emit a URL it **never actually opened** — and the schema will pass it
+- A provenance guard drops any URL that did not appear in a tool result
+- Give every source a `local://` handle first, so a citation is checkable at all
+
+<!--
+Slide ID: D3-M12-C2
+Module: [12 Multi-agent](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/12_Multi_Agent/README.md)
+Instructor: Rohit
+Type: core
+Minutes: 3
+Layout: 06 Process steps
+Speaker notes:
+- Say: This is the trap worth carrying out of the module. Structured output was one of the two capabilities we called non-optional on Monday, and it does exactly one job: it proves the shape is valid. It says nothing about whether the contents are true. A well-formed citation to a page the agent never opened validates perfectly.
+- Ask: If the schema cannot catch a fabricated URL, what can?
+- Watch: Report_Generator:cell#12 is Task 2 of 5 — contracts and the audit. In the notebook: typed output proves the shape is valid, it does not prove the facts are true, and a model can put a URL it never opened into a valid object. Report_Generator:cell#9 is Task 1 of 5, where each section gets a local:// URL so a citation can be checked.
+- Then: The provenance guard is the answer — it compares claimed URLs against what the tools actually returned. Tomorrow's deep-research module hits the same failure from the other side, where the source is real but the claim is not in it.
+Sources: [Anthropic multi-agent research system](https://www.anthropic.com/engineering/multi-agent-research-system); [multi-agent notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/12_Multi_Agent/Report_Generator.ipynb)
+-->
+---
+# Isolated workers still need a shared way to point
+
+```python
+{"url": f"local://{kind}/{slugify(page)}/{slugify(title)}", ...}
+```
+
+- A **scheme over paths** — the Unix habit: everything is addressable, nothing is ambient
+- Each worker is one delegate tool with **its own context and budget** — it cannot read another's
+- So the only thing crossing a boundary is a handle, and a handle can be re-opened
+- The verifier re-opens every `local://` URL *independently* before approving a claim
+
+Isolation is what makes the record trustworthy. A shared namespace is what makes it *possible*.
+
+<!--
+Slide ID: D3-M12-C3
+Module: [12 Multi-agent](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/12_Multi_Agent/README.md)
+Instructor: Rohit
+Type: core
+Minutes: 4
+Layout: 04 Lab and code
+Speaker notes:
+- Say: Two ideas that only work together. The workers are isolated — each one is a delegate tool with its own context window and its own call budget, so a specialist cannot see what another specialist read. That isolation is why their findings are worth combining rather than just correlated noise. But isolation alone would make the output uncheckable, because nothing would connect one worker's claim to evidence anyone else can reach. The shared addressing scheme is what fixes that, and it is a deliberately Unix-shaped choice: a scheme over hierarchical paths, so every piece of evidence has a name any process can resolve and nothing is passed ambiently.
+- Ask: Your workers each summarise what they read instead of returning handles. What can you no longer check?
+- Watch: Report_Generator:cell#10 builds the local:// URL for every section; cell#17 is Task 3, where the notebook says each worker is one delegate tool with its own context and budget; cell#22 is the verifier prompt, which re-opens every local:// source with get_source and approves a source only if the URL appeared in a tool result and supports the claim.
+- Then: Worth widening for a beat, because this is the part that transfers. Any multi-agent system needs the same two things — a namespace every agent can resolve, and a record of what was actually exchanged. The industry is solving it in several places at once: MCP standardises the tool and resource boundary, agent-to-agent protocols standardise the message, and the Hugging Face Hub is a shared namespace for weights and datasets in exactly this sense, which is where this course's own reranker comes from. Swarm-style frameworks are the opposite bet — many cheap agents, emergent coordination — and they run into this hardest, because with no shared addressing and no interaction log you get a result nobody can retrace. The design question is not how many agents you run, it is what they are allowed to hand each other.
+Sources: [Anthropic multi-agent research system](https://www.anthropic.com/engineering/multi-agent-research-system); [multi-agent notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/12_Multi_Agent/Report_Generator.ipynb)
 -->
 ---
 # 13 · Guardrails 101
