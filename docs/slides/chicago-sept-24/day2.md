@@ -870,11 +870,16 @@ Speaker notes:
 Sources: [RAGAS paper](https://arxiv.org/abs/2309.15217); [RAGAS metrics documentation](https://docs.ragas.io/en/stable/concepts/metrics/); [Module 08 notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/08_SDG_RAGAS/Improving_RAG_with_RAGAS.ipynb); [Unit Testing Your Agents](https://soypetetech.substack.com/p/unit-testing-your-agents)
 -->
 ---
-# The refusal is correct; the silence is not
+# This is why you measure: to detect, then remediate
 
-- The system should have **recorded that retrieval returned nothing** — and scored it as a retrieval miss, not an answer.
+- The refusal was correct. **The system still owed you a recorded retrieval miss.**
 
-Context recall catches it. Answer quality never will: a fluent "I do not know" reads like good behaviour, so the retrieval bug ships and nobody sees it.
+| | |
+|---|---|
+| Without per-gate metrics | a fluent "I do not know" looks like success |
+| With context recall | the miss is visible, and you know to fix retrieval |
+
+Measurement is not grading the answer. It is **detecting which part failed so it can be repaired** — that is what makes the system reliable rather than lucky.
 <!--
 Slide ID: D2-M08-C2A
 Module: [08 SDG/RAGAS](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/08_SDG_RAGAS/README.md)
@@ -883,73 +888,37 @@ Type: core
 Minutes: 1
 Layout: 08 Quote
 Speaker notes:
-- Say: Two things are true at once: the model did the right thing, and the system failed.
-- Ask: Audience — this one usually splits the room, which is the useful moment.
+- Say: This is the reliability argument, not a scoring argument. Metrics exist to localise a failure so you can act on it.
+- Ask: Audience — how many silent retrieval misses would it take to erode trust in the product? One, if it is the question someone escalated.
 - Watch: Point to the visible evidence and the notebook artifact. Improving_RAG_with_RAGAS:cell#13 is Task 2 of 6 — Generate the test set.
-- Then: Name the gate before you choose a repair — this one is Retrieval, not Generation.
+- Then: Detect, localise, repair. The rest of the module is about keeping the instrument honest enough to do that.
 Sources: [RAGAS paper](https://arxiv.org/abs/2309.15217); [RAGAS metrics documentation](https://docs.ragas.io/en/stable/concepts/metrics/); [Module 08 notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/08_SDG_RAGAS/Improving_RAG_with_RAGAS.ipynb); [Unit Testing Your Agents](https://soypetetech.substack.com/p/unit-testing-your-agents)
 -->
 ---
+# The agent has to survive a bare error code
 
-# Review synthetic cases as measurement assets
+`VPN-4312` and *"my vpn is broken again"* are the same intent in different clothes.
 
-Candidate A: “What happens after two failed resets?” — supported
-Candidate B: “Who is the CEO of the vendor?” — unsupported by the page
-Candidate C: duplicate wording — remove before scoring
+| Your test set holds | It can detect failure on |
+|---|---|
+| polished questions only | polished questions |
+| **bare codes, terse phrasing, mixed sources** | what users actually type |
 
-**Curation protects the measurement set from synthetic noise.**
+A well-formed test set cannot see the failure on the terse one. **The set decides which failures are visible at all.**
 
 <!--
-Slide ID: D2-M08-C3
-Module: [08 SDG/RAGAS](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/08_SDG_RAGAS/README.md)
+Slide ID: D2-M08-C3T
+Module: [08 SDG and RAGAS](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/08_SDG_RAGAS/README.md)
 Instructor: Beric
 Type: core
 Minutes: 1
-Layout: 04 Icon cards
+Layout: 05 Two column
 Speaker notes:
-- Say: A generated test set is a measurement instrument. Review it before it gates anything.
-- Ask: Which dimension would expose a system that succeeds on polished questions but fails on terse error-code queries?
-- Watch: Module 08 notebook cue: inspect deduplication, schema validation, quoted-page checks, the datasheet, and the kept/removed counts. Improving_RAG_with_RAGAS:cell#18 is Task 3 of 6 — Curate the test set before you trust it.
-- Then: Curate once, then compare two system versions on the same set.
-Sources: [RAGAS paper](https://arxiv.org/abs/2309.15217); [Ragas testset generation](https://docs.ragas.io/en/stable/concepts/test_data_generation/rag/); [Module 08 notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/08_SDG_RAGAS/Improving_RAG_with_RAGAS.ipynb)
--->
----
-
-# Which case set exposes failure on terse error-code queries?
-
-<!--
-Slide ID: D2-M08-C3B
-Module: [08 SDG/RAGAS](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/08_SDG_RAGAS/README.md)
-Instructor: Beric
-Type: core
-Minutes: 1
-Layout: 07 Big stats
-Speaker notes:
-- Say: Review synthetic cases as measurement assets
-- Ask: Which dimension would expose a system that succeeds on polished questions but fails on terse error-code queries?
-- Watch: Module 08 notebook cue: inspect deduplication, schema validation, quoted-page checks, the datasheet, and the kept/removed counts. Improving_RAG_with_RAGAS:cell#18 is Task 3 of 6 — Curate the test set before you trust it.
-- Then: Reveal it — “Test on the questions users actually type”.
-Sources: [RAGAS paper](https://arxiv.org/abs/2309.15217); [Ragas testset generation](https://docs.ragas.io/en/stable/concepts/test_data_generation/rag/); [Module 08 notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/08_SDG_RAGAS/Improving_RAG_with_RAGAS.ipynb)
--->
----
-# Test on the questions users actually type
-
-- A set with **varied wording, bare error codes, and mixed source types** — not only polished questions.
-
-`VPN-4312` and "my vpn is broken again" are the same intent in different clothes. A set of well-formed questions cannot see the failure on the terse one.
-<!--
-Slide ID: D2-M08-C3A
-Module: [08 SDG/RAGAS](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/08_SDG_RAGAS/README.md)
-Instructor: Beric
-Type: core
-Minutes: 1
-Layout: 08 Quote
-Speaker notes:
-- Say: Your test set decides which failures are visible at all.
-- Ask: Rhetorical — the example does the work; no need to poll.
-- Watch: Point to the visible evidence and the notebook artifact. Improving_RAG_with_RAGAS:cell#18 is Task 3 of 6 — Curate the test set before you trust it.
-- Then: Build the varied set first; the score comes after.
-Sources: [RAGAS paper](https://arxiv.org/abs/2309.15217); [Ragas testset generation](https://docs.ragas.io/en/stable/concepts/test_data_generation/rag/); [Module 08 notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/08_SDG_RAGAS/Improving_RAG_with_RAGAS.ipynb)
+- Say: Generated questions come out fluent and well-formed. Real ones arrive as three characters and a complaint.
+- Ask: Audience — what does your own helpdesk queue actually look like? Nobody types a well-formed question.
+- Watch: This is why the generator needs varied personas: a set of polished questions measures a product nobody uses. Improving_RAG_with_RAGAS:cell#18 is Task 3 of 6 — Curate the test set before you trust it.
+- Then: So curation is not only removing bad cases — it is checking the set covers how people really ask.
+Sources: [Ragas testset generation](https://docs.ragas.io/en/stable/concepts/test_data_generation/rag/), [local RAGAS notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/08_SDG_RAGAS/Improving_RAG_with_RAGAS.ipynb)
 -->
 ---
 
