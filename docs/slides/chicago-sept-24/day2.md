@@ -545,18 +545,18 @@ Speaker notes:
 Sources: [DCI research paper](https://arxiv.org/abs/2605.05242); [local DCI versus Agentic RAG notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/DCI_vs_Agentic_RAG.ipynb)
 -->
 ---
-# Why compare traces, not answers
+# A trace is the sequence of tool calls a run made
+
+...with how much text came back. That is what you compare — not the prose.
 
 | The trace shows | What it tells you |
 |---|---|
 | `search_chunks → 3 hits` | which evidence path ran, and how much came back |
 | `read_page(vpn.md)` | the page actually inspected |
 | `calls=2 · latency=1.8s` | what the path cost |
-| answer + source IDs | whether the synthesis used the evidence |
 
-Cost is a function of the path: **latency ≈ calls × (retrieval + model time)**. Two calls at 0.9s is not the same product as six.
+Cost follows the path: **latency ≈ calls × (retrieval + model time)**. One polished answer can hide a failed search.
 
-One polished answer can hide a failed search path.
 <!--
 Slide ID: D2-M07-C3
 Module: [07 Agentic retrieval](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/README.md)
@@ -565,7 +565,7 @@ Type: core
 Minutes: 1
 Layout: 05 Two column 1
 Speaker notes:
-- Say: An answer is one sample of the output. The trace is the whole run, including what it cost.
+- Say: Define it once: a trace is the sequence of tool calls a run made, with how much text came back. Everything else today reads off one.
 - Ask: Rhetorical — set it up, then use the next slide's question for the room.
 - Watch: Tasks 4–5 print answer scores, named-page evidence, calls, characters, latency, and both traces. DCI_vs_Agentic_RAG:cell#16 is Task 3 of 5 — One loop for both.
 - Then: Now put the comparison to the room on the next slide.
@@ -679,80 +679,13 @@ Speaker notes:
 Sources: [DCI research paper](https://arxiv.org/abs/2605.05242); [local DCI versus Agentic RAG notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/DCI_vs_Agentic_RAG.ipynb)
 -->
 ---
+# Direct corpus interaction widens the search interface
 
-# Inspect the difference
-
-Deskmate asks the same agent the split-tunnel question through two corpus interfaces.
-
-| Interface | Evidence to compare |
-|---|---|
-| chunk retriever | ranked section and source ID |
-| direct corpus tools | page path and exact menu heading |
-
-**The answer is not the whole trace.**
-
-<!--
-Slide ID: D2-M07-C5
-Module: [07 Agentic retrieval](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/README.md)
-Instructor: Eli
-Type: core
-Minutes: 1
-Layout: 05 Two column
-Speaker notes:
-- Say: Compare the evidence path when the same agent sees two interfaces.
-- Ask: Which trace field would let Marcus audit the exact menu path?
-- Watch: Keep the question fixed so only the corpus interface changes.
-- Then: Move from a polished answer to the evidence each mode actually inspected.
-Sources: Notebook:cell#24; [local DCI versus Agentic RAG notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/DCI_vs_Agentic_RAG.ipynb)
--->
-
----
-
-# Which trace would show that Deskmate found the exact split-tunnel menu path?
-
-<!--
-Slide ID: D2-M07-C5B
-Module: [07 Agentic retrieval](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/README.md)
-Instructor: Eli
-Type: core
-Minutes: 1
-Layout: 07 Big stats
-Speaker notes:
-- Say: Ask for the observable difference, not a preference for one interface.
-- Ask: What would you put side by side before accepting the answer?
-- Watch: Listen for source IDs, page reads, and the exact evidence text.
-- Then: Reveal the answer and connect it to the notebook's comparison trace.
-Sources: Notebook:cell#24; [local DCI versus Agentic RAG notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/DCI_vs_Agentic_RAG.ipynb)
--->
-
----
-# A trace names the evidence; prose does not
-
-- Compare **the page path, the quoted heading, and the calls used** — not the wording.
-
-Two interfaces can produce near-identical prose while inspecting entirely different evidence. Only one of them can show you where the answer came from.
-<!--
-Slide ID: D2-M07-C5A
-Module: [07 Agentic retrieval](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/README.md)
-Instructor: Eli
-Type: core
-Minutes: 1
-Layout: 08 Quote
-Speaker notes:
-- Say: Prose is the one part of a run you cannot audit.
-- Ask: Rhetorical — lands the point that led into the trace comparison.
-- Watch: Tie exact menu-path evidence to the user's question, not to call count alone.
-- Then: This is why the notebook saves traces, not just answers.
-Sources: Notebook:cell#24; [local DCI versus Agentic RAG notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/DCI_vs_Agentic_RAG.ipynb)
--->
-
----
-
-# Research: direct corpus interaction widens the search interface
-
-- Fixed top-k can discard clues before reasoning
+- Fixed top-k can discard clues before the model reasons over them
 - DCI trades broader access for calls, latency, and controls
-- Test the interface on local traces before routing to it
+- Test the interface on your own traces before routing questions to it
+
+> [Direct Corpus Interaction (2026)](https://arxiv.org/abs/2605.05242)
 
 <!--
 Slide ID: D2-M07-R1
@@ -762,13 +695,35 @@ Type: optional
 Minutes: 0
 Layout: 08 Quote
 Speaker notes:
-- Say: Optional: giving the agent file-like access changes what it can discover, and what it can reach.
+- Say: Optional — skip if the room is behind. The paper's claim is about interface width, not a guarantee for your corpus.
 - Ask: What evidence would falsify the claim that DCI is worth its extra calls for our questions?
 - Watch: Alignment is present through the notebook’s controlled two-mode comparison; no cohort score is assumed.
-- Then: Skip if time is short; offer as optional stretch or research.
+- Then: Optional extra: offer it as reading rather than teaching it if time is short.
 Sources: [Beyond Semantic Similarity: Rethinking Retrieval for Agentic Search via Direct Corpus Interaction](https://arxiv.org/abs/2605.05242); [local DCI versus Agentic RAG notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/DCI_vs_Agentic_RAG.ipynb)
 -->
 
+---
+# 08 · Synthetic data and RAGAS
+
+**You have a retriever. Where do the test cases come from?** · 30 min
+
+- Modules 06 and 07 compared retrievers on cases that already existed
+- Module 08 generates the cases, then decides which ones count
+
+<!--
+Slide ID: D2-T08
+Module: [08 SDG and RAGAS](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/08_SDG_RAGAS/README.md)
+Instructor: Beric
+Type: transition
+Minutes: 0
+Layout: 01 Title
+Speaker notes:
+- Say: Every measurement so far assumed a test set. This module builds one, and then argues about whether to trust it.
+- Ask: Hold for a beat — this is the hand-off, not content.
+- Watch: Generation is the easy half. Curation is where the work is.
+- Then: Straight into what a generated case looks like.
+Sources: [Module 08 overview](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/08_SDG_RAGAS/README.md).
+-->
 ---
 
 # 08 · Synthetic data makes failures testable
