@@ -176,11 +176,11 @@ Speaker notes:
 Sources: [DSPy](https://arxiv.org/abs/2310.03714), [optimiser notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/15_Prompt_Optimization/DSPy_Optimizers.ipynb)
 -->
 ---
-# The signature declares fields; the metric is just a function
+# DSPy: declare the interface, let it write the prompt
 
 ```python
 class ScoreAnswer(dspy.Signature):
-    """Score a support assistant's answer to a user's question."""
+    """Score a support assistant's answer to a user's question."""   # ← rewritable
     question: str = dspy.InputField()
     response: str = dspy.InputField()
     score:    int = dspy.OutputField(desc="an integer score")
@@ -190,7 +190,9 @@ def agreement(example, pred, trace=None) -> bool:
     return abs(as_int(pred.score) - example.score) <= TOL
 ```
 
-`agreement` is the whole objective — the optimiser can only chase what this returns.
+**signature** = the interface · **metric** = the objective · **optimiser** = the search
+
+No prompt string anywhere. `agreement` is the whole objective — the optimiser can only chase what it returns.
 
 <!--
 Slide ID: D4-M15-C1A
@@ -200,9 +202,9 @@ Type: core
 Minutes: 3
 Layout: 04 Lab and code
 Speaker notes:
-- Say: Two things to notice. The signature is a declaration — fields in, fields out, one docstring instruction — and no prompt text. And the metric is an ordinary Python function returning a bool, comparing the prediction to the score a human gave, with a tolerance.
+- Say: This is DSPy's whole premise on one slide, and it is worth naming as a framework choice rather than a coding style. You declare the interface — fields in, fields out, one docstring — and you never write the prompt. The metric is an ordinary Python function returning a bool. Then an optimiser searches for the instruction and demos that maximise it. Three parts: signature, metric, optimiser, and the next slide is about the third.
 - Ask: The metric allows a tolerance. What does that choice do to what the optimiser learns?
-- Watch: Notebook:cell#13 — Task 2 defines the program and the metric. Point at the docstring and at with_instructions: that string is what MIPROv2 and GEPA are allowed to rewrite, which is why the instruction lives in one place.
+- Watch: Notebook:cell#13 — Task 2 defines the program and the metric. Point at the docstring and at with_instructions: that string is what MIPROv2 and GEPA are allowed to rewrite, which is why the instruction lives in exactly one place. If anyone already uses DSPy, this is the slide to check their intuition against — the framework is familiar to some rooms and completely new to others.
 - Then: This is the sharpest version of a point from Monday — the objective you write down is the only thing that gets optimised. A loose tolerance buys agreement cheaply and teaches the judge less.
 Sources: [DSPy](https://arxiv.org/abs/2310.03714), [optimiser notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/15_Prompt_Optimization/DSPy_Optimizers.ipynb)
 -->
