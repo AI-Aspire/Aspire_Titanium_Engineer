@@ -102,8 +102,6 @@ Sources: [$\tau$-bench](https://arxiv.org/abs/2406.12045); [trajectory-evals not
 - A score without the trace can hide the first incorrect step
 - Stop when coverage and known-failure bars are met
 
-> “If you are not running repeated evals on your agents, you are not measuring behavior—you are observing randomness.” — SoyPete Tech
-
 <!--
 Slide ID: D3-M09-C4
 Module: [09 Agent evals](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/09_Agent_Evals/README.md)

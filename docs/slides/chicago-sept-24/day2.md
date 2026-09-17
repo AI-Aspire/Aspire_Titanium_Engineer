@@ -930,7 +930,7 @@ Decision: keep the change only if the relevant metric and trace improve
 
 **A metric starts the diagnosis; it does not finish it.**
 
-> “Evals are not validation, they are development.” — SoyPete Tech
+Evaluate what failed, fix that one thing, then move to the next. The score is the trigger, not the work.
 
 <!--
 Slide ID: D2-M08-C4
@@ -985,18 +985,16 @@ Speaker notes:
 Sources: [RAGAS paper](https://arxiv.org/abs/2309.15217); [RAGAS metrics documentation](https://docs.ragas.io/en/stable/concepts/metrics/); [Module 08 notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/08_SDG_RAGAS/Improving_RAG_with_RAGAS.ipynb)
 -->
 ---
-
 # Curate the test set before you trust it
 
-Generated cases are drafts. A case asking about a policy the KB never had is not a Deskmate failure.
+A **test set** is a set of eval cases: a question, the reference answer, and its provenance. Generated cases are *drafts*.
 
-- Check the source passage and expected answer
+- Check the source passage and the expected answer
 - Remove unsupported or duplicate cases
 - Have a person review the set before it gates anything
-- Record a **datasheet**: the counts and caveats that travel with the set — what was removed, and what it cannot test
+- Record a **datasheet**: counts and caveats that travel with the set — what was removed, and what it cannot test
 
 **Measurement begins with a defensible case.**
-
 <!--
 Slide ID: D2-M08-C5
 Module: [08 SDG/RAGAS](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/08_SDG_RAGAS/README.md)
@@ -1005,38 +1003,16 @@ Type: core
 Minutes: 1
 Layout: 04 Icon cards
 Speaker notes:
-- Say: Synthetic generation expands coverage, but it does not decide what counts.
+- Say: Same artifact you met in module 06 as eval cases — here you are generating them, so they need review before they gate anything.
 - Ask: Which generated Deskmate case would you remove before scoring?
 - Watch: Distinguish an unsupported policy question from a real system failure.
-- Then: Put human review before any eval gate.
+- Then: A case asking about a policy the corpus never had is not a product failure. That is the next slide.
 Sources: Notebook:cell#18; [Module 08 notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/08_SDG_RAGAS/Improving_RAG_with_RAGAS.ipynb)
 -->
 
 ---
+# What is an example of a bad eval case?
 
-# A generated case asks about a policy absent from the KB. Should it score Deskmate?
-
-<!--
-Slide ID: D2-M08-C5B
-Module: [08 SDG/RAGAS](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/08_SDG_RAGAS/README.md)
-Instructor: Beric
-Type: core
-Minutes: 1
-Layout: 05 Two column 2
-Speaker notes:
-- Say: Ask whether the case tests the product or the generator's imagination.
-- Ask: What evidence would make this case valid for the helpdesk corpus?
-- Watch: Look for a quoted source passage, expected answer, and review decision.
-- Then: Reveal the answer and connect it to the notebook's curation checks.
-Sources: Notebook:cell#18; [Module 08 notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/08_SDG_RAGAS/Improving_RAG_with_RAGAS.ipynb)
--->
-
----
-# A case with no source tests nothing
-
-- Remove it. **A question the corpus cannot answer cannot measure the product.**
-
-A synthetic question can be fluent, plausible, and still test nothing you promised. Record the review decision, and gate only on the curated set.
 <!--
 Slide ID: D2-M08-C5A
 Module: [08 SDG/RAGAS](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/08_SDG_RAGAS/README.md)
@@ -1045,10 +1021,10 @@ Type: core
 Minutes: 1
 Layout: 08 Quote
 Speaker notes:
-- Say: Fluent and plausible is not the same as testable.
-- Ask: Rhetorical — but pause; someone usually argues it tests refusal, which is a separate case.
-- Watch: Keep human review distinct from changing the system to pass a case.
-- Then: Record the decision, then gate only on the curated set.
+- Say: Open it to the room. You are listening for the shapes, not one right answer.
+- Ask: Audience — collect three or four before commenting. Expect: no source in the corpus, a duplicate, an ambiguous question, a reference answer that is itself wrong, a question the product never promised to answer.
+- Watch: Every example the room gives is something curation has to catch. Improving_RAG_with_RAGAS:cell#18 is Task 3 of 6 — Curate the test set before you trust it.
+- Then: A synthetic question can be fluent, plausible, and still test nothing you promised. Record the review decision and gate only on the curated set.
 Sources: Notebook:cell#18; [Module 08 notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/08_SDG_RAGAS/Improving_RAG_with_RAGAS.ipynb)
 -->
 
