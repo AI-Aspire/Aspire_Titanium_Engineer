@@ -281,6 +281,34 @@ Speaker notes:
 Sources: [graph notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/16_GraphRAG/GraphRAG.ipynb)
 -->
 ---
+# How does it *know* two things are related?
+
+Same sections in, a graph out — **only the extractor differs**:
+
+| Extractor | How it decides | Cost | Fails by |
+|---|---|---|---|
+| **spaCy NER** | two entities share a sentence → one *untyped* edge | cheap | domain-blind |
+| **Ontology** | hand-written phrase schema: actors, objects, actions | free at run time | finds only what it anticipated |
+| **Model** | reads a section, emits typed triples | one call per section | relation drift |
+
+Structure alone gives you a graph. Only semantics give you a *knowledge* graph.
+
+<!--
+Slide ID: D4-M16-C1A
+Module: [16 GraphRAG](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/16_GraphRAG/README.md)
+Instructor: Eli
+Type: core
+Minutes: 4
+Layout: 05 Two column
+Speaker notes:
+- Say: The previous slide claimed a graph knows two things are connected. This is where that claim gets paid for, because knowing is not free and it is not automatic. Three extractors, same input, and the edge means something different in each. spaCy joins any two named entities that appear in one sentence, so an edge means co-occurrence and nothing more. The ontology is a hand-written schema, so an edge means a relationship someone anticipated. The model reads and emits typed triples, so an edge means whatever the model inferred — flexible, and it drifts, because two pages can describe the same relationship with different relation names.
+- Ask: Which of the three would you trust to connect a failed trajectory to the knowledge-base page that would have fixed it?
+- Watch: GraphRAG:cell#16 is Task 3 of 7 — spaCy and the ontology; cell#20 is Task 4 — the model extractor. In the notebook: same sections in, a graph out, only the extractor differs, and the part that matters when comparing the three is what a node and an edge mean in each. Every graph also gets structural edges from their trajectories: which task each run tried, which tools it called, whether it passed.
+- Then: Those structural edges are the honest answer to the Ask — the trajectory-to-task-to-tool edges are known facts from their own workspace, not inferred text, so they are the reliable part of the graph. The extracted edges are the uncertain part.
+- Then: If the room has database people, the storage model is worth a beat. Three ways to hold this: recursive queries on a relational table, which is a self-join you already know how to index and tune; a labelled property graph, where attributes hang on nodes and edges and traversal is the primitive; and RDF triples, where every fact is subject-relation-object and the query language reasons over types. This notebook builds triples and views them two ways — networkx for traversal, rdflib serialised to Turtle at cell#18, where the ontology's types show up as rdf:type statements. The choice drives what is cheap: k-hop traversal, or a type-constrained query, or a join plan.
+Sources: [graph notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/16_GraphRAG/GraphRAG.ipynb)
+-->
+---
 # Build the steelman, or the comparison is worthless
 
 - The baseline is **not** a toy top-k: dense **+** BM25, unioned, then a cross-encoder rerank
@@ -629,33 +657,6 @@ Speaker notes:
 Sources: [OpenAI guardrail execution modes](https://openai.github.io/openai-agents-python/guardrails/#execution-modes), [Tool guardrails](https://openai.github.io/openai-agents-python/ref/tool_guardrails/), [OTS guardrails notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/18_Off_The_Shelf_Guardrails/OTS_Guardrails.ipynb)
 -->
 
----
-
-# Cheap rules are useful and brittle
-
-| Mechanism | Strength | Risk |
-|---|---|---|
-| Regex | Fast and explainable | Misses paraphrases |
-| Classifier | Broader language coverage | Threshold and drift |
-| LLM judge | Interprets open-ended cases | Cost and calibration |
-
-- False positives decide whether a control survives.
-- Test legitimate requests alongside attacks.
-
-<!--
-Slide ID: D4-M18-C3
-Module: [18 Off-the-shelf guardrails](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/18_Off_The_Shelf_Guardrails/README.md)
-Instructor: Beric
-Type: core
-Minutes: 2
-Layout: 07 Big stats
-Speaker notes:
-- Say: Cheap rules catch the obvious cases and quietly miss the rest — so read the uncaught column.
-- Ask: Which policy would you make warn-only, and what evidence would change your mind?
-- Watch: Notebook:cell#31 — Task 7 runs every case and saves one tripwire result per guardrail row. In the notebook: A control is only as credible as the legitimate requests and attacks it handles without hiding its misses.
-- Then: Inspect the uncaught cases on the next slide before choosing warn-only behavior.
-Sources: [OpenAI Agents SDK guardrails](https://openai.github.io/openai-agents-python/guardrails/), [OTS guardrails notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/18_Off_The_Shelf_Guardrails/OTS_Guardrails.ipynb)
--->
 ---
 # A "cheap rule" is a named pattern
 
