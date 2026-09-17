@@ -613,15 +613,16 @@ Speaker notes:
 Sources: [DCI research paper](https://arxiv.org/abs/2605.05242); [local DCI versus Agentic RAG notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/DCI_vs_Agentic_RAG.ipynb)
 -->
 ---
+# DCI trades access for exposure
 
-# Stop at the smallest safe interface
+`read_page` can open **any** page the agent names. A chunk retriever only ever returns what it scored.
 
-`caller → authorization check → list/search/read → evidence → answer`
+| | Agent can reach | Risk it creates |
+|---|---|---|
+| Agentic RAG | scored chunks | narrow — and may miss context |
+| **DCI** | any page it can list | a transcript, a ticket, another team's doc |
 
-- A tool can be useful and still be too powerful
-- No evidence means stop or escalate; it does not mean guess
-- Stop on sufficient evidence, bounded turns, or human escalation
-
+That is the trade: broader raw access produces better answers on structural questions, and a larger blast radius on everything else.
 <!--
 Slide ID: D2-M07-C4
 Module: [07 Agentic retrieval](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/README.md)
@@ -630,10 +631,10 @@ Type: core
 Minutes: 1
 Layout: 05 Two column 2
 Speaker notes:
-- Say: More capability is more attack surface. Take the smallest interface that passes.
-- Ask: What must be checked before a DCI read_page call on a user transcript?
-- Watch: Task 2’s notebook question explicitly asks which tool could leak a transcript and what to check on the caller. DCI_vs_Agentic_RAG:cell#20 is Task 4 of 5 — Score every case.
-- Then: Hand into “Stop at the smallest safe interface · Question”.
+- Say: DCI's advantage and its risk are the same property: the agent can reach more.
+- Ask: Rhetorical — set up the next slide, which asks what has to be checked first.
+- Watch: The notebook says DCI earns its extra calls when page structure or exact identifiers matter, and that it gives the model broader raw access. DCI_vs_Agentic_RAG:cell#24 is Task 5 of 5 — Inspect the difference.
+- Then: So the question is not whether to allow the tool, but what runs before it.
 Sources: [DCI research paper](https://arxiv.org/abs/2605.05242); [local DCI versus Agentic RAG notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/DCI_vs_Agentic_RAG.ipynb)
 -->
 ---
