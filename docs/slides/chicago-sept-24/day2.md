@@ -65,25 +65,6 @@ Sources: [Day 2 schedule](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/
 ---
 # Three kinds of retrieval, named
 
-<div style="display:flex;justify-content:center;margin-top:.1em">
-<svg viewBox="0 0 700 150" width="900" role="img" aria-label="Sparse retrieval preserves exact VPN code terms while dense retrieval connects related remote access wording, and hybrid keeps both candidate sets">
-<g text-anchor="middle">
-<rect x="18" y="38" width="190" height="58" rx="9" fill="#fef3c7" stroke="#d97706" stroke-width="2.5"/>
-<text x="113" y="63" font-size="15" font-weight="700" fill="#92400e">sparse / BM25</text>
-<text x="113" y="82" font-size="12" fill="#b45309">VPN-4312</text>
-<rect x="255" y="38" width="190" height="58" rx="9" fill="#ede9fe" stroke="#7c3aed" stroke-width="2.5"/>
-<text x="350" y="63" font-size="15" font-weight="700" fill="#5b21b6">dense</text>
-<text x="350" y="82" font-size="12" fill="#6d28d9">remote access</text>
-<rect x="492" y="38" width="190" height="58" rx="9" fill="#e0f2fe" stroke="#0284c7" stroke-width="2.5"/>
-<text x="587" y="63" font-size="15" font-weight="700" fill="#075985">hybrid</text>
-<text x="587" y="82" font-size="12" fill="#0369a1">both candidate signals</text>
-<path d="M210 67 H250" stroke="#94a3b8" stroke-width="2.5" marker-end="url(#dense-sparse-a)"/>
-<path d="M447 67 H487" stroke="#94a3b8" stroke-width="2.5" marker-end="url(#dense-sparse-a)"/>
-</g>
-<defs><marker id="dense-sparse-a" markerWidth="9" markerHeight="9" refX="8" refY="3" orient="auto"><path d="M0 0 L8 3 L0 6 z" fill="#94a3b8"/></marker></defs>
-</svg>
-</div>
-
 | | Matches on | Finds `VPN-4312` | Finds "remote access" |
 |---|---|---|---|
 | **Sparse** (BM25) | exact words | yes | no |
@@ -126,7 +107,7 @@ Speaker notes:
 - Say: Take each row in turn. The answer is in the naming: exact identifiers are a sparse problem, described symptoms are a dense one.
 - Ask: Push on row three — most rooms say hybrid, and the reason matters: you do not know in advance which kind of question arrives.
 - Watch: Retrieval_Ladder Task 2 prints dense and scratch/library BM25 orders for one question; compare the disagreement. Retrieval_Ladder:cell#9 is Task 1 of 5 — Label the evidence.
-- Then: Reveal the answer, then tie it to the notebook artifact on screen.
+- Then: Reveal it — “Exact IDs are sparse; described symptoms are dense”.
 Sources: [Dense Passage Retrieval](https://aclanthology.org/2020.emnlp-main.550/); [Lucene BM25Similarity](https://lucene.apache.org/core/9_12_1/core/org/apache/lucene/search/similarities/BM25Similarity.html); [local Retrieval Ladder notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/06_Advanced_Retrieval/Retrieval_Ladder.ipynb)
 -->
 ---
@@ -146,7 +127,7 @@ Minutes: 1
 Layout: 08 Quote
 Speaker notes:
 - Say: Reveal the answer and why it matters
-- Ask: What would change if the answer were different?
+- Ask: Take answers from two tables before revealing; the wrong answers are the teachable ones.
 - Watch: Point to the visible evidence and the notebook artifact. Retrieval_Ladder:cell#9 is Task 1 of 5 — Label the evidence.
 - Then: Hybrid is the default precisely because the question shape is not knowable in advance.
 Sources: [Dense Passage Retrieval](https://aclanthology.org/2020.emnlp-main.550/); [Lucene BM25Similarity](https://lucene.apache.org/core/9_12_1/core/org/apache/lucene/search/similarities/BM25Similarity.html); [local Retrieval Ladder notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/06_Advanced_Retrieval/Retrieval_Ladder.ipynb)
@@ -227,7 +208,7 @@ Minutes: 1
 Layout: 08 Quote
 Speaker notes:
 - Say: Every later stage is a reordering. Recall is the only stage that can add a page.
-- Ask: What would change if the answer were different?
+- Ask: Take answers from two tables before revealing; the wrong answers are the teachable ones.
 - Watch: Point to the visible evidence and the notebook artifact. Retrieval_Ladder:cell#12 is Task 2 of 5 — Dense and sparse.
 - Then: Tie the answer to the notebook artifact before moving on.
 Sources: [Reciprocal rank fusion paper](https://cormack.uwaterloo.ca/cormacksigir09-rrf.pdf); [local Retrieval Ladder notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/06_Advanced_Retrieval/Retrieval_Ladder.ipynb)
@@ -325,7 +306,7 @@ Speaker notes:
 - Say: Choose the cheapest rung that clears the bar
 - Ask: Which evidence would change your conclusion?
 - Watch: Retrieval_Ladder Task 4 prints hit rate, MRR, latency, and a per-case reciprocal-rank matrix; use the matrix to choose one rung. Retrieval_Ladder:cell#22 is Task 4 of 5 — Score the ladder.
-- Then: Reveal the answer, then tie it to the notebook artifact on screen.
+- Then: Reveal it — “A correct page moves from rank 4 to rank 2”.
 Sources: [DPR retrieval formulation](https://aclanthology.org/2020.emnlp-main.550/); [local Retrieval Ladder notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/06_Advanced_Retrieval/Retrieval_Ladder.ipynb)
 -->
 ---
@@ -423,7 +404,7 @@ Speaker notes:
 - Say: Retrieval is not one design. Choosing the interface is choosing what the agent can discover.
 - Ask: What stays constant in the notebook comparison, and what is deliberately changed?
 - Watch: DCI_vs_Agentic_RAG setup defines both modes and keeps model, loop, questions, and scoring the same. DCI_vs_Agentic_RAG:cell#9 is Task 1 of 5 — Build the wiki.
-- Then: Carry the observation into the next exercise.
+- Then: Hold this until the notebook block, where the numbers appear.
 Sources: [DCI research paper](https://arxiv.org/abs/2605.05242); [local DCI versus Agentic RAG notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/DCI_vs_Agentic_RAG.ipynb)
 -->
 ---
@@ -484,22 +465,30 @@ Minutes: 1
 Layout: 08 Quote
 Speaker notes:
 - Say: One variable. Everything else is a control.
-- Ask: What would change if the answer were different?
+- Ask: Take answers from two tables before revealing; the wrong answers are the teachable ones.
 - Watch: Point to the visible evidence and the notebook artifact. DCI_vs_Agentic_RAG:cell#9 is Task 1 of 5 — Build the wiki.
 - Then: With the comparison fixed, the next question is what the agent can actually see.
 Sources: [DCI research paper](https://arxiv.org/abs/2605.05242); [local DCI versus Agentic RAG notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/DCI_vs_Agentic_RAG.ipynb)
 -->
 ---
+# DCI is retrieval through tool calls
 
-# Let the agent navigate a persistent map
+The agent gets file tools, not a search endpoint:
+
+```text
+list_pages()          → what exists
+read_page("vpn.md")   → the whole page, headings and all
+search_chunks(query)  → the Agentic RAG path, for contrast
+```
+
+The **wiki** is one markdown index of the corpus — page names, what each is for, its section headings:
 
 | Page | Purpose | Headings |
 |---|---|---|
 | `vpn.md` | contractor remote access | reset · device · escalation |
 | `mfa.md` | second-factor recovery | lost phone · backup code |
 
-This index is the **wiki**: it helps the agent choose **which page to read** before it reads the whole page.
-
+Without it the agent reads pages at random. With it, it chooses before it reads.
 <!--
 Slide ID: D2-M07-C2
 Module: [07 Agentic retrieval](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/README.md)
@@ -508,10 +497,10 @@ Type: core
 Minutes: 1
 Layout: 06 Process steps 1
 Speaker notes:
-- Say: An index of what exists lets the agent choose before it reads, instead of reading to find out.
-- Ask: Why does DCI need a map before it receives a question?
-- Watch: Task 1 renders a wiki table; inspect whether each page has a distinct purpose and useful headings. DCI_vs_Agentic_RAG:cell#12 is Task 2 of 5 — Two corpus interfaces.
-- Then: Carry the observation into the next exercise.
+- Say: Retrieval stops being an endpoint you call and becomes a set of tools the agent decides between.
+- Ask: A page index costs tokens on every turn. What does that buy you that a ranked chunk list does not?
+- Watch: The wiki skeleton is built from the headings by hand; the model writes each one-line purpose. DCI_vs_Agentic_RAG:cell#9 is Task 1 of 5 — Build the wiki.
+- Then: The map is what makes the next tool call a choice rather than a guess.
 Sources: [DCI research paper](https://arxiv.org/abs/2605.05242); [local DCI versus Agentic RAG notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/DCI_vs_Agentic_RAG.ipynb)
 -->
 ---
@@ -529,16 +518,15 @@ Speaker notes:
 - Say: Let the agent navigate a persistent map
 - Ask: Why does DCI need a map before it receives a question?
 - Watch: Task 1 renders a wiki table; inspect whether each page has a distinct purpose and useful headings. DCI_vs_Agentic_RAG:cell#12 is Task 2 of 5 — Two corpus interfaces.
-- Then: Reveal the answer, then tie it to the notebook artifact on screen.
+- Then: Reveal it — “Filenames do not say what is inside”.
 Sources: [DCI research paper](https://arxiv.org/abs/2605.05242); [local DCI versus Agentic RAG notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/DCI_vs_Agentic_RAG.ipynb)
 -->
 ---
+# Filenames do not say what is inside
 
-# Clues before the agent reads a page
-- **Answer:** They give the agent navigable clues before it reads a page.
-- **Why:** Filenames alone do not explain which page or section is relevant.
-- **Next step:** Inspect what the agent sees before its first read, not after.
+- A filename is an identifier. **Purpose and headings are navigable clues.**
 
+`vpn.md` tells the agent nothing about which section covers contractors. "contractor remote access · reset · device · escalation" tells it where to read — before it spends a read on the whole page.
 <!--
 Slide ID: D2-M07-C2A
 Module: [07 Agentic retrieval](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/README.md)
@@ -547,25 +535,25 @@ Type: core
 Minutes: 1
 Layout: 08 Quote
 Speaker notes:
-- Say: Reveal the answer and why it matters
-- Ask: What would change if the answer were different?
+- Say: A filename is an identifier; a purpose line is a routing decision.
+- Ask: Rhetorical — answer it yourself; the room has not seen a wiki entry yet.
 - Watch: Point to the visible evidence and the notebook artifact. DCI_vs_Agentic_RAG:cell#12 is Task 2 of 5 — Two corpus interfaces.
-- Then: Tie the answer to the notebook artifact before moving on.
+- Then: The map is what turns the next tool call into a choice.
 Sources: [DCI research paper](https://arxiv.org/abs/2605.05242); [local DCI versus Agentic RAG notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/DCI_vs_Agentic_RAG.ipynb)
 -->
 ---
+# Why compare traces, not answers
 
-# Compare traces, not just answers
-
-| Trace | What it tells us |
+| The trace shows | What it tells you |
 |---|---|
-| `search_chunks → 3 hits` | evidence path and volume |
-| `read_page(vpn.md)` | page actually inspected |
-| `calls=2, latency=1.8s` | cost of the path |
-| answer + source IDs | whether synthesis used evidence |
+| `search_chunks → 3 hits` | which evidence path ran, and how much came back |
+| `read_page(vpn.md)` | the page actually inspected |
+| `calls=2 · latency=1.8s` | what the path cost |
+| answer + source IDs | whether the synthesis used the evidence |
+
+Cost is a function of the path: **latency ≈ calls × (retrieval + model time)**. Two calls at 0.9s is not the same product as six.
 
 One polished answer can hide a failed search path.
-
 <!--
 Slide ID: D2-M07-C3
 Module: [07 Agentic retrieval](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/README.md)
@@ -574,16 +562,16 @@ Type: core
 Minutes: 1
 Layout: 05 Two column 1
 Speaker notes:
-- Say: Two agents can reach the same answer by paths of very different quality.
-- Ask: What trace field distinguishes an evidence miss from a generation miss?
+- Say: An answer is one sample of the output. The trace is the whole run, including what it cost.
+- Ask: Rhetorical — set it up, then use the next slide's question for the room.
 - Watch: Tasks 4–5 print answer scores, named-page evidence, calls, characters, latency, and both traces. DCI_vs_Agentic_RAG:cell#16 is Task 3 of 5 — One loop for both.
-- Then: Carry the observation into the next exercise.
+- Then: Now put the comparison to the room on the next slide.
 Sources: [DCI research paper](https://arxiv.org/abs/2605.05242); [local DCI versus Agentic RAG notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/DCI_vs_Agentic_RAG.ipynb)
 -->
 ---
+# The trace shows no relevant page. Which gate failed?
 
-# No relevant page appears in the trace. Is that a generation or evidence failure?
-
+**Source** · **Retrieval** · **Generation**
 <!--
 Slide ID: D2-M07-C3B
 Module: [07 Agentic retrieval](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/README.md)
@@ -592,19 +580,24 @@ Type: core
 Minutes: 1
 Layout: 07 Big stats
 Speaker notes:
-- Say: Compare traces, not just answers
-- Ask: What trace field distinguishes an evidence miss from a generation miss?
+- Say: Same three gates from day 1, now read off a trace instead of guessed at.
+- Ask: Audience — put it to the room. It is a genuine diagnostic, and the wrong answer is instructive.
 - Watch: Tasks 4–5 print answer scores, named-page evidence, calls, characters, latency, and both traces. DCI_vs_Agentic_RAG:cell#16 is Task 3 of 5 — One loop for both.
-- Then: Reveal the answer, then tie it to the notebook artifact on screen.
+- Then: Reveal it — the trace tells you which two gates you can rule out.
 Sources: [DCI research paper](https://arxiv.org/abs/2605.05242); [local DCI versus Agentic RAG notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/DCI_vs_Agentic_RAG.ipynb)
 -->
 ---
+# Retrieval, and the trace proves it
 
-# Evidence failure comes first
-- **Answer:** Evidence failure first; inspect the search path before changing the prompt.
-- **Why:** No relevant page means the answer had nothing reliable to synthesize.
-- **Next step:** Read the search path first; the prompt is the last thing to change.
+- The page never entered the context, so **Generation never had it to use.**
 
+| Gate | What the trace says |
+|---|---|
+| Source | the page exists in the corpus — not this |
+| **Retrieval** | it was never returned — **this one** |
+| Generation | it answered from what it was given — not this |
+
+A trace rules gates out. Without one you would be rewriting the prompt.
 <!--
 Slide ID: D2-M07-C3A
 Module: [07 Agentic retrieval](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/README.md)
@@ -613,10 +606,10 @@ Type: core
 Minutes: 1
 Layout: 08 Quote
 Speaker notes:
-- Say: Reveal the answer and why it matters
-- Ask: What would change if the answer were different?
+- Say: This is what a trace buys you: it eliminates two of the three gates before you change anything.
+- Ask: Audience — they have the three gates from module 06, so put it to the room.
 - Watch: Point to the visible evidence and the notebook artifact. DCI_vs_Agentic_RAG:cell#16 is Task 3 of 5 — One loop for both.
-- Then: Tie the answer to the notebook artifact before moving on.
+- Then: Fix retrieval. The prompt is the last thing to touch.
 Sources: [DCI research paper](https://arxiv.org/abs/2605.05242); [local DCI versus Agentic RAG notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/DCI_vs_Agentic_RAG.ipynb)
 -->
 ---
@@ -658,16 +651,15 @@ Speaker notes:
 - Say: Stop at the smallest safe interface
 - Ask: What must be checked before a DCI read_page call on a user transcript?
 - Watch: Task 2’s notebook question explicitly asks which tool could leak a transcript and what to check on the caller. DCI_vs_Agentic_RAG:cell#20 is Task 4 of 5 — Score every case.
-- Then: Reveal the answer, then tie it to the notebook artifact on screen.
+- Then: Reveal it — “The system checks, not the model”.
 Sources: [DCI research paper](https://arxiv.org/abs/2605.05242); [local DCI versus Agentic RAG notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/DCI_vs_Agentic_RAG.ipynb)
 -->
 ---
+# The system checks, not the model
 
-# Identity, permission, and purpose
-- **Answer:** Caller identity, page permission, and purpose—not just the model request.
-- **Why:** The system owns authorization even when the model chooses the next tool.
-- **Next step:** Put the check in the tool, not in the instructions to the model.
+- Before any `read_page`: **caller identity, page permission, and purpose.**
 
+The model chose the next tool, but choosing is not authorising. Put the check inside the tool — instructions to the model are not a control.
 <!--
 Slide ID: D2-M07-C4A
 Module: [07 Agentic retrieval](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/README.md)
@@ -676,10 +668,10 @@ Type: core
 Minutes: 1
 Layout: 08 Quote
 Speaker notes:
-- Say: Reveal the answer and why it matters
-- Ask: What would change if the answer were different?
+- Say: Choosing a tool is not the same as being allowed to run it.
+- Ask: Audience — most rooms say 'permission' and stop; push for identity and purpose.
 - Watch: Point to the visible evidence and the notebook artifact. DCI_vs_Agentic_RAG:cell#20 is Task 4 of 5 — Score every case.
-- Then: Tie the answer to the notebook artifact before moving on.
+- Then: The check belongs in the tool, where the model cannot talk its way past it.
 Sources: [DCI research paper](https://arxiv.org/abs/2605.05242); [local DCI versus Agentic RAG notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/DCI_vs_Agentic_RAG.ipynb)
 -->
 ---
@@ -730,13 +722,11 @@ Sources: Notebook:cell#24; [local DCI versus Agentic RAG notebook](https://githu
 -->
 
 ---
+# A trace names the evidence; prose does not
 
-# The winning trace names the evidence
+- Compare **the page path, the quoted heading, and the calls used** — not the wording.
 
-- **Answer:** Compare the retrieved source or page path, the quoted menu heading, and the calls used.
-- **Why:** Two interfaces can produce similar prose while inspecting different evidence.
-- **Next step:** Keep the same split-tunnel case and inspect both traces before routing future questions.
-
+Two interfaces can produce near-identical prose while inspecting entirely different evidence. Only one of them can show you where the answer came from.
 <!--
 Slide ID: D2-M07-C5A
 Module: [07 Agentic retrieval](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/README.md)
@@ -745,10 +735,10 @@ Type: core
 Minutes: 1
 Layout: 08 Quote
 Speaker notes:
-- Say: A comparison is useful only when the evidence path is visible.
-- Ask: Which difference would matter if both answers scored equally?
+- Say: Prose is the one part of a run you cannot audit.
+- Ask: Rhetorical — lands the point that led into the trace comparison.
 - Watch: Tie exact menu-path evidence to the user's question, not to call count alone.
-- Then: Carry the inspection habit into measurement and curation.
+- Then: This is why the notebook saves traces, not just answers.
 Sources: Notebook:cell#24; [local DCI versus Agentic RAG notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/DCI_vs_Agentic_RAG.ipynb)
 -->
 
@@ -799,7 +789,7 @@ Speaker notes:
 - Say: You cannot test a failure you have no case for — so generate the cases, then review them.
 - Ask: Which source artifact would let a reviewer reject a synthetic question as unsupported?
 - Watch: Put the named artifact on screen and trace where its values came from. Improving_RAG_with_RAGAS:cell#9 is Task 1 of 6 — A weak pipeline on purpose.
-- Then: Carry the observation into the next exercise.
+- Then: Hold this until the notebook block, where the numbers appear.
 Sources: [Ragas testset generation](https://docs.ragas.io/en/stable/concepts/test_data_generation/rag/); [Module 08 notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/08_SDG_RAGAS/Improving_RAG_with_RAGAS.ipynb)
 -->
 ---
@@ -817,16 +807,15 @@ Speaker notes:
 - Say: Synthetic data makes failures testable
 - Ask: Which source artifact would let a reviewer reject a synthetic question as unsupported?
 - Watch: Put the named artifact on screen and trace where its values came from. Improving_RAG_with_RAGAS:cell#9 is Task 1 of 6 — A weak pipeline on purpose.
-- Then: Reveal the answer, then tie it to the notebook artifact on screen.
+- Then: Reveal it — “Provenance is what makes rejection possible”.
 Sources: [Ragas testset generation](https://docs.ragas.io/en/stable/concepts/test_data_generation/rag/); [Module 08 notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/08_SDG_RAGAS/Improving_RAG_with_RAGAS.ipynb)
 -->
 ---
+# Provenance is what makes rejection possible
 
-# Provenance on every generated case
-- **Answer:** The source page, passage, and generation record.
-- **Why:** Provenance lets a reviewer reject unsupported or distorted candidates.
-- **Next step:** Keep provenance on every generated case, or a reviewer cannot reject one.
+- Every generated case carries **its source page, the passage, and the generation record.**
 
+Without them a reviewer can only guess whether a case is supported. With them, rejecting a bad case takes seconds.
 <!--
 Slide ID: D2-M08-C1A
 Module: [08 SDG/RAGAS](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/08_SDG_RAGAS/README.md)
@@ -835,10 +824,10 @@ Type: core
 Minutes: 1
 Layout: 08 Quote
 Speaker notes:
-- Say: Reveal the answer and why it matters
-- Ask: What would change if the answer were different?
+- Say: A generated case without a source is an assertion, not a test.
+- Ask: Audience — ask what they would need to throw a case out; they will name the source.
 - Watch: Point to the visible evidence and the notebook artifact. Improving_RAG_with_RAGAS:cell#9 is Task 1 of 6 — A weak pipeline on purpose.
-- Then: Tie the answer to the notebook artifact before moving on.
+- Then: Provenance is what lets a human reject one quickly.
 Sources: [Ragas testset generation](https://docs.ragas.io/en/stable/concepts/test_data_generation/rag/); [Module 08 notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/08_SDG_RAGAS/Improving_RAG_with_RAGAS.ipynb)
 -->
 ---
@@ -888,16 +877,15 @@ Speaker notes:
 - Say: Metrics answer different diagnostic questions
 - Ask: If the correct passage is missing but the model says “I don’t know,” which retrieval lens is still failing?
 - Watch: Put the named artifact on screen and trace where its values came from. Improving_RAG_with_RAGAS:cell#13 is Task 2 of 6 — Generate the test set.
-- Then: Reveal the answer, then tie it to the notebook artifact on screen.
+- Then: Reveal it — “Context recall failed, not the answer”.
 Sources: [RAGAS paper](https://arxiv.org/abs/2309.15217); [RAGAS metrics documentation](https://docs.ragas.io/en/stable/concepts/metrics/); [Module 08 notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/08_SDG_RAGAS/Improving_RAG_with_RAGAS.ipynb); [Unit Testing Your Agents](https://soypetetech.substack.com/p/unit-testing-your-agents)
 -->
 ---
+# Context recall failed, not the answer
 
-# Context recall, not answer quality
-- **Answer:** Context recall; the needed evidence never reached the context.
-- **Why:** A fluent “I do not know” can still hide a retrieval failure.
-- **Next step:** Separate the two metrics before deciding what to repair.
+- The evidence never reached the context, so **retrieval failed** — the model behaved correctly.
 
+A fluent "I do not know" looks like good behaviour and hides a retrieval bug. Separate the two metrics before deciding what to repair.
 <!--
 Slide ID: D2-M08-C2A
 Module: [08 SDG/RAGAS](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/08_SDG_RAGAS/README.md)
@@ -906,10 +894,10 @@ Type: core
 Minutes: 1
 Layout: 08 Quote
 Speaker notes:
-- Say: Reveal the answer and why it matters
-- Ask: What would change if the answer were different?
+- Say: The model did the right thing and the system still failed. Both can be true.
+- Ask: Audience — this one usually splits the room, which is the useful moment.
 - Watch: Point to the visible evidence and the notebook artifact. Improving_RAG_with_RAGAS:cell#13 is Task 2 of 6 — Generate the test set.
-- Then: Tie the answer to the notebook artifact before moving on.
+- Then: Name the gate before you choose a repair.
 Sources: [RAGAS paper](https://arxiv.org/abs/2309.15217); [RAGAS metrics documentation](https://docs.ragas.io/en/stable/concepts/metrics/); [Module 08 notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/08_SDG_RAGAS/Improving_RAG_with_RAGAS.ipynb); [Unit Testing Your Agents](https://soypetetech.substack.com/p/unit-testing-your-agents)
 -->
 ---
@@ -951,16 +939,15 @@ Speaker notes:
 - Say: Review synthetic cases as measurement assets
 - Ask: Which dimension would expose a system that succeeds on polished questions but fails on terse error-code queries?
 - Watch: Module 08 notebook cue: inspect deduplication, schema validation, quoted-page checks, the datasheet, and the kept/removed counts. Improving_RAG_with_RAGAS:cell#18 is Task 3 of 6 — Curate the test set before you trust it.
-- Then: Reveal the answer, then tie it to the notebook artifact on screen.
+- Then: Reveal it — “Test on the questions users actually type”.
 Sources: [RAGAS paper](https://arxiv.org/abs/2309.15217); [Ragas testset generation](https://docs.ragas.io/en/stable/concepts/test_data_generation/rag/); [Module 08 notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/08_SDG_RAGAS/Improving_RAG_with_RAGAS.ipynb)
 -->
 ---
+# Test on the questions users actually type
 
-# Varied wording beats polished questions
-- **Answer:** A set with varied wording, codes, and source types—not only polished questions.
-- **Why:** The test set determines which failures can be seen.
-- **Next step:** Build the varied set first; it decides which failures you can even see.
+- A set with **varied wording, bare error codes, and mixed source types** — not only polished questions.
 
+`VPN-4312` and "my vpn is broken again" are the same intent in different clothes. A set of well-formed questions cannot see the failure on the terse one.
 <!--
 Slide ID: D2-M08-C3A
 Module: [08 SDG/RAGAS](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/08_SDG_RAGAS/README.md)
@@ -969,10 +956,10 @@ Type: core
 Minutes: 1
 Layout: 08 Quote
 Speaker notes:
-- Say: Reveal the answer and why it matters
-- Ask: What would change if the answer were different?
+- Say: Your test set decides which failures are visible at all.
+- Ask: Rhetorical — the example does the work; no need to poll.
 - Watch: Point to the visible evidence and the notebook artifact. Improving_RAG_with_RAGAS:cell#18 is Task 3 of 6 — Curate the test set before you trust it.
-- Then: Tie the answer to the notebook artifact before moving on.
+- Then: Build the varied set first; the score comes after.
 Sources: [RAGAS paper](https://arxiv.org/abs/2309.15217); [Ragas testset generation](https://docs.ragas.io/en/stable/concepts/test_data_generation/rag/); [Module 08 notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/08_SDG_RAGAS/Improving_RAG_with_RAGAS.ipynb)
 -->
 ---
@@ -998,7 +985,7 @@ Speaker notes:
 - Say: Stop measuring when you know which component to change, not when the number looks good.
 - Ask: What would make you reject a high metric score before changing the system?
 - Watch: Put the named artifact on screen and trace where its values came from. Improving_RAG_with_RAGAS:cell#21 is Task 4 of 6 — Run the baseline over the test set.
-- Then: Carry the observation into the next exercise.
+- Then: Hold this until the notebook block, where the numbers appear.
 Sources: [RAGAS paper](https://arxiv.org/abs/2309.15217); [RAGAS metrics documentation](https://docs.ragas.io/en/stable/concepts/metrics/); [Module 08 notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/08_SDG_RAGAS/Improving_RAG_with_RAGAS.ipynb)
 -->
 ---
@@ -1016,16 +1003,15 @@ Speaker notes:
 - Say: Stop when the diagnosis is actionable
 - Ask: What would make you reject a high metric score before changing the system?
 - Watch: Put the named artifact on screen and trace where its values came from. Improving_RAG_with_RAGAS:cell#21 is Task 4 of 6 — Run the baseline over the test set.
-- Then: Reveal the answer, then tie it to the notebook artifact on screen.
+- Then: Reveal it — “Audit the asset, not the number”.
 Sources: [RAGAS paper](https://arxiv.org/abs/2309.15217); [RAGAS metrics documentation](https://docs.ragas.io/en/stable/concepts/metrics/); [Module 08 notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/08_SDG_RAGAS/Improving_RAG_with_RAGAS.ipynb)
 -->
 ---
+# Audit the asset, not the number
 
-# Audit the test set, not the score
-- **Answer:** Unsupported cases, duplicates, a narrow test set, or a trace that contradicts the score.
-- **Why:** A high score is not useful when the measurement asset is weak.
-- **Next step:** Audit the test set before you defend the score it produced.
+- Reject a high score when the set has **unsupported cases, duplicates, narrow coverage, or a trace that contradicts it.**
 
+The score is only as good as the set that produced it. A weak measurement asset makes a strong number meaningless.
 <!--
 Slide ID: D2-M08-C4A
 Module: [08 SDG/RAGAS](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/08_SDG_RAGAS/README.md)
@@ -1034,10 +1020,10 @@ Type: core
 Minutes: 1
 Layout: 08 Quote
 Speaker notes:
-- Say: Reveal the answer and why it matters
-- Ask: What would change if the answer were different?
+- Say: A number inherits the weakness of the set behind it.
+- Ask: Audience — a good one for the room; it is the Friday panel's question.
 - Watch: Point to the visible evidence and the notebook artifact. Improving_RAG_with_RAGAS:cell#21 is Task 4 of 6 — Run the baseline over the test set.
-- Then: Tie the answer to the notebook artifact before moving on.
+- Then: This is the question Friday's panel will ask about your own numbers.
 Sources: [RAGAS paper](https://arxiv.org/abs/2309.15217); [RAGAS metrics documentation](https://docs.ragas.io/en/stable/concepts/metrics/); [Module 08 notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/08_SDG_RAGAS/Improving_RAG_with_RAGAS.ipynb)
 -->
 ---
@@ -1088,13 +1074,11 @@ Sources: Notebook:cell#18; [Module 08 notebook](https://github.com/AI-Aspire/Asp
 -->
 
 ---
+# A case with no source tests nothing
 
-# Human review makes the test set count
+- Remove it. **A question the corpus cannot answer cannot measure the product.**
 
-- **Answer:** Remove the unsupported case; it cannot measure Deskmate behavior without a source in the KB.
-- **Why:** A synthetic question can be fluent, plausible, and still test nothing the product promises.
-- **Next step:** Record the review decision and gate only on the curated set.
-
+A synthetic question can be fluent, plausible, and still test nothing you promised. Record the review decision, and gate only on the curated set.
 <!--
 Slide ID: D2-M08-C5A
 Module: [08 SDG/RAGAS](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/08_SDG_RAGAS/README.md)
@@ -1103,10 +1087,10 @@ Type: core
 Minutes: 1
 Layout: 08 Quote
 Speaker notes:
-- Say: The test set is a measurement asset with an owner and a review boundary.
-- Ask: What would Marcus want recorded before trusting a regression result?
+- Say: Fluent and plausible is not the same as testable.
+- Ask: Rhetorical — but pause; someone usually argues it tests refusal, which is a separate case.
 - Watch: Keep human review distinct from changing the system to pass a case.
-- Then: Close by connecting curation to the production table's reviewed gate.
+- Then: Record the decision, then gate only on the curated set.
 Sources: Notebook:cell#18; [Module 08 notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/08_SDG_RAGAS/Improving_RAG_with_RAGAS.ipynb)
 -->
 
