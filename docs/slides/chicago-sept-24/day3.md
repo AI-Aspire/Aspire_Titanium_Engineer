@@ -584,20 +584,24 @@ Type: core
 Minutes: 2
 Layout: 06 Process steps
 Speaker notes:
-- Say: The ladder names five different jobs; only the last one answers who may perform an action.
-- Ask: Where would you place Marcus’s request to reset Priya’s entitlement, and what evidence would that rung need?
+- Say: Rungs 0 and 1 give a verdict. Rung 2 and up give a score you have to threshold — which is a different kind of control.
+- Ask: Audience — which of these five can only answer yes or no? Constrained decoding and rules. Everything above returns a number.
 - Watch: Notebook:cell#12 (Guardrail_Ladder) is Rung 0, constrained decoding; Notebook:cell#16 is Rung 1, rules; Notebook:cell#19 is Rung 2, a classifier; Notebook:cell#23 is Rung 3, an LLM judge; Notebook:cell#26 is Rung 4, a policy layer. In the notebook: A higher rung is not automatically better; it is a different control with a different failure surface.
-- Then: Keep the ladder visible while comparing cost, coverage, and authority. Deskmate’s “never reset an entitlement without confirmation” is a policy question, not a regex.
+- Then: Worth saying out loud, and it is a point the industry glosses over: once a check returns a score rather than a verdict — the Rung 2 classifier, the Rung 3 LLM judge, any follow-up model detecting content — it is not really a guardrail, it is a validation layer. A guardrail lets an action through or it does not. A validation layer hands you a probability you must threshold, so it has a false-positive rate and can be argued with. The classifier is deterministic at inference, but you still choose the cutoff. Industry calls all five guardrails, which blurs a real engineering difference: only Rungs 0 and 1 and the Rung 4 policy layer reliably block. A policy question like "never reset an entitlement without confirmation" is not a regex, and it is not a threshold either.
 Sources: [guardrail notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/13_Guardrails_101/Guardrail_Ladder.ipynb); [NIST AI RMF](https://www.nist.gov/itl/ai-risk-management-framework)
 -->
 ---
-# Measure protection and friction
+# Every rung gets three numbers
 
-- Coverage without false positives is misleading
-- Latency belongs in the release decision
-- Test both harmful requests and legitimate requests that resemble them
-- Real benign inputs are part of the test set
+Run all five rungs against the same case set. Per rung:
 
+| Measure | The question it answers |
+|---|---|
+| attacks caught | does it protect? |
+| false positives | does it block legitimate traffic? |
+| mean latency (ms) | can you afford it on every request? |
+
+Coverage alone is not a result. A rule that catches every attack **and** blocks real users has failed.
 <!--
 Slide ID: D3-M13-C3
 Module: [13 Guardrails 101](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/13_Guardrails_101/README.md)
@@ -606,20 +610,23 @@ Type: core
 Minutes: 2
 Layout: 05 Two column 3
 Speaker notes:
-- Say: Coverage without a false-positive number is half a measurement.
-- Ask: Why must false positives appear beside attack coverage?
-- Watch: Compare the notebook’s rungs table; observe attacks caught, false positives, and mean milliseconds for each rung. Guardrail_Ladder:cell#16 is Task 3 of 7 — Rung 1, rules. In the notebook: Measure protection and friction together; a rule can catch an attack and still block legitimate traffic.
-- Then: Hand into “Caught attacks against false positives”.
+- Say: Three numbers per rung, and you need all three. Protection without friction is an unfinished measurement.
+- Ask: Audience — a rung catches 100% of attacks. What do you still need to know before shipping it?
+- Watch: The case set holds planted attacks and real benign inputs that resemble them, which is what makes the false-positive column meaningful. Guardrail_Ladder:cell#31 is Task 7 of 7 — Measure them all, then assemble the ladder.
+- Then: Those numbers are what the release decision is made from — not a sense that the guardrails feel strict enough.
 Sources: [NIST AI RMF GenAI Profile](https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.600-1.pdf); [guardrail notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/13_Guardrails_101/Guardrail_Ladder.ipynb)
 -->
 ---
-# Stop safely and record why
+# Your harness handles the block, not the model
 
-- Cheapest first; stop at the first block
-- Fail closed on guardrail errors
-- Log the stage, reason, and owner for every blocked request
-- Keep policy authorization outside text checks
+The ladder runs inside your loop, so the loop owns what happens on a block:
 
+- Run cheapest first, and **stop at the first block**
+- **Fail closed:** a rung that throws counts as a block — otherwise it switches itself off during an outage while the logs stay quiet
+- Log the stage, the reason, and the owner for every blocked request
+- Keep policy authorization outside the text checks entirely
+
+A block nobody can explain gets switched off by the first person it inconveniences.
 <!--
 Slide ID: D3-M13-C4
 Module: [13 Guardrails 101](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/13_Guardrails_101/README.md)
@@ -628,10 +635,10 @@ Type: core
 Minutes: 2
 Layout: 06 Process steps 1
 Speaker notes:
-- Say: Fail closed, and log which rung stopped it — a block nobody can explain gets switched off.
-- Ask: What happens when one rung raises an exception?
-- Watch: Run the full ladder; observe the stopped_at rung, ran list, false-positive summary, and saved ladder_results artifact. Guardrail_Ladder:cell#19 is Task 4 of 7 — Rung 2, a classifier. In the notebook: Stop safely and record why; the ladder returns the first blocking rung and the stages it ran.
-- Then: Carry the observation into the next exercise.
+- Say: This is harness work, not model work. The model never sees any of it.
+- Ask: Audience — what happens if your classifier service times out? If the answer is "the request goes through", the guardrail is decorative.
+- Watch: Each rung is wrapped so an exception counts as a block, for exactly that reason. Guardrail_Ladder:cell#31 is Task 7 of 7 — Measure them all, then assemble the ladder.
+- Then: Fail closed, log which rung stopped it and why, and keep authorization in policy rather than in a text check.
 Sources: [OpenAI Agents SDK guardrails](https://openai.github.io/openai-agents-js/guides/guardrails/); [InjecAgent](https://arxiv.org/abs/2403.02691); [guardrail notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/13_Guardrails_101/Guardrail_Ladder.ipynb)
 -->
 ---
