@@ -725,18 +725,20 @@ Speaker notes:
 Sources: [Module 08 overview](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/08_SDG_RAGAS/README.md).
 -->
 ---
+# A generated case carries its provenance
 
-# 08 · Synthetic data makes failures testable
+**Provenance** = where a case came from: its origin, so a reviewer can check it.
 
-Source passage: `VPN access requires manager approval after two failed resets.`
+Source row, from `access-requests.md`:
+`warehouse-write | write access to the warehouse | the data platform lead and your manager`
 
-Generated candidate:
-- Question: “What happens after two failed resets?”
-- Reference: “Manager approval is required.”
-- Provenance: source page and quoted passage
+| The generated case | |
+|---|---|
+| Question | "Who approves warehouse write access?" |
+| Reference answer | "The data platform lead and your manager." |
+| **Provenance** | `access-requests.md`, the entitlements table row above |
 
-**Generated means proposed. Review decides whether it becomes a test.**
-
+Generated means *proposed*. Provenance is what lets review reject it.
 <!--
 Slide ID: D2-M08-C1
 Module: [08 SDG/RAGAS](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/08_SDG_RAGAS/README.md)
@@ -745,36 +747,18 @@ Type: core
 Minutes: 1
 Layout: 06 Process steps
 Speaker notes:
-- Say: You cannot test a failure you have no case for — so generate the cases, then review them.
-- Ask: Which source artifact would let a reviewer reject a synthetic question as unsupported?
-- Watch: Put the named artifact on screen and trace where its values came from. Improving_RAG_with_RAGAS:cell#9 is Task 1 of 6 — A weak pipeline on purpose.
-- Then: Hold this until the notebook block, where the numbers appear.
+- Say: Provenance is just origin — where this case came from. Say it plainly, because the whole curation argument rests on it.
+- Ask: Rhetorical — with the passage on screen, ask what you would check to decide the case is fair.
+- Watch: The row is real — `warehouse-write` needs two approvers, which is what makes it a good case: an answer naming only one is wrong in a checkable way. Improving_RAG_with_RAGAS:cell#13 is Task 2 of 6 — Generate the test set.
+- Then: Without provenance a reviewer is guessing. With it, rejecting a bad case takes seconds.
 Sources: [Ragas testset generation](https://docs.ragas.io/en/stable/concepts/test_data_generation/rag/); [Module 08 notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/08_SDG_RAGAS/Improving_RAG_with_RAGAS.ipynb)
 -->
 ---
+# No provenance, no rejection
 
-# What source artifact lets a reviewer reject an unsupported case?
+- A case without a source page is an **assertion**, not a test.
 
-<!--
-Slide ID: D2-M08-C1B
-Module: [08 SDG/RAGAS](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/08_SDG_RAGAS/README.md)
-Instructor: Beric
-Type: core
-Minutes: 1
-Layout: 04 Icon cards
-Speaker notes:
-- Say: Synthetic data makes failures testable
-- Ask: Which source artifact would let a reviewer reject a synthetic question as unsupported?
-- Watch: Put the named artifact on screen and trace where its values came from. Improving_RAG_with_RAGAS:cell#9 is Task 1 of 6 — A weak pipeline on purpose.
-- Then: Reveal it — “Provenance is what makes rejection possible”.
-Sources: [Ragas testset generation](https://docs.ragas.io/en/stable/concepts/test_data_generation/rag/); [Module 08 notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/08_SDG_RAGAS/Improving_RAG_with_RAGAS.ipynb)
--->
----
-# Provenance is what makes rejection possible
-
-- Every generated case carries **its source page, the passage, and the generation record.**
-
-Without them a reviewer can only guess whether a case is supported. With them, rejecting a bad case takes seconds.
+A reviewer cannot disprove a plausible-sounding question that names no origin — so it ships, and it measures nothing.
 <!--
 Slide ID: D2-M08-C1A
 Module: [08 SDG/RAGAS](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/08_SDG_RAGAS/README.md)
@@ -788,6 +772,33 @@ Speaker notes:
 - Watch: Point to the visible evidence and the notebook artifact. Improving_RAG_with_RAGAS:cell#9 is Task 1 of 6 — A weak pipeline on purpose.
 - Then: Provenance is what lets a human reject one quickly.
 Sources: [Ragas testset generation](https://docs.ragas.io/en/stable/concepts/test_data_generation/rag/); [Module 08 notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/08_SDG_RAGAS/Improving_RAG_with_RAGAS.ipynb)
+-->
+---
+# Why one score is not enough
+
+A single "quality: 7/10" cannot tell you what to fix.
+
+| The failure | What you would change |
+|---|---|
+| The page was never in the corpus | write the page |
+| It was there, retrieval missed it | tune retrieval |
+| Retrieved, but the answer ignored it | change the prompt or model |
+
+Same low score, three different repairs. **You need a metric per gate.**
+
+<!--
+Slide ID: D2-M08-C2Y
+Module: [08 SDG and RAGAS](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/08_SDG_RAGAS/README.md)
+Instructor: Beric
+Type: core
+Minutes: 1
+Layout: 05 Two column
+Speaker notes:
+- Say: This is the argument for four metrics instead of one number: a single score tells you something is wrong and nothing about where.
+- Ask: Audience — a score drops from 8 to 5. What is your first move? The honest answer is you cannot know yet.
+- Watch: These are the three gates from this morning, now with a metric attached to each. Improving_RAG_with_RAGAS:cell#25 is Task 5 of 6 — Measure with RAGAS.
+- Then: So here are the four RAGAS metrics, and which gate each one watches.
+Sources: [RAGAS metrics documentation](https://docs.ragas.io/en/stable/concepts/metrics/), [local RAGAS notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/08_SDG_RAGAS/Improving_RAG_with_RAGAS.ipynb)
 -->
 ---
 # Four RAGAS metrics, four different questions
@@ -816,16 +827,16 @@ Sources: [RAGAS paper](https://arxiv.org/abs/2309.15217); [RAGAS metrics documen
 ---
 # One answer, three different verdicts
 
-The retrieved page says **"manager approval"**. The answer says **"automatic approval."**
+The page says **"the data platform lead and your manager."**
+The answer says **"your manager approves it."**
 
 | Metric | Verdict |
 |---|---|
-| Context recall | **pass** — the right passage was retrieved |
-| Faithfulness | **fail** — the answer contradicts it |
-| Answer relevancy | **pass** — it did answer the question asked |
+| Context recall | **pass** — the right row was retrieved |
+| Faithfulness | **fail** — it dropped an approver the passage names |
+| Answer relevancy | **pass** — it did answer who approves |
 
 An answer can be relevant and still be unfaithful. One score cannot tell you which.
-
 <!--
 Slide ID: D2-M08-C2E
 Module: [08 SDG and RAGAS](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/08_SDG_RAGAS/README.md)
@@ -836,14 +847,14 @@ Layout: 05 Two column
 Speaker notes:
 - Say: This is the case that justifies four metrics instead of one score.
 - Ask: Audience — which metric would a single "quality" number have hidden here? All three.
-- Watch: Relevancy and faithfulness disagree on the same answer, which is the whole argument for scoring them apart. Improving_RAG_with_RAGAS:cell#25 is Task 5 of 6 — Measure with RAGAS.
+- Watch: Same entitlements row as the provenance slide, so the room already knows the ground truth. Dropping one of two approvers is a faithfulness failure that a single quality score would hide. Improving_RAG_with_RAGAS:cell#25 is Task 5 of 6 — Measure with RAGAS.
 - Then: A high score on the wrong metric is how a bad answer ships.
 Sources: [RAGAS metrics documentation](https://docs.ragas.io/en/stable/concepts/metrics/), [local RAGAS notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/08_SDG_RAGAS/Improving_RAG_with_RAGAS.ipynb)
 -->
 ---
+# The passage never arrived and the model said "I do not know."
 
-# If the passage is missing but the model says “I do not know,” what failed?
-
+**What should have happened instead?**
 <!--
 Slide ID: D2-M08-C2B
 Module: [08 SDG/RAGAS](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/08_SDG_RAGAS/README.md)
@@ -852,18 +863,18 @@ Type: core
 Minutes: 1
 Layout: 05 Two column 2
 Speaker notes:
-- Say: Metrics answer different diagnostic questions
-- Ask: If the correct passage is missing but the model says “I don’t know,” which retrieval lens is still failing?
+- Say: The model behaved correctly. So what does a correct-looking run owe you?
+- Ask: Audience — push past "nothing, it was right". The system should have told you retrieval came back empty.
 - Watch: Put the named artifact on screen and trace where its values came from. Improving_RAG_with_RAGAS:cell#13 is Task 2 of 6 — Generate the test set.
-- Then: Reveal it — “Context recall failed, not the answer”.
+- Then: Reveal it — the honest refusal is right, and it still has to be visible as a retrieval miss.
 Sources: [RAGAS paper](https://arxiv.org/abs/2309.15217); [RAGAS metrics documentation](https://docs.ragas.io/en/stable/concepts/metrics/); [Module 08 notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/08_SDG_RAGAS/Improving_RAG_with_RAGAS.ipynb); [Unit Testing Your Agents](https://soypetetech.substack.com/p/unit-testing-your-agents)
 -->
 ---
-# Context recall failed, not the answer
+# The refusal is correct; the silence is not
 
-- The evidence never reached the context, so **retrieval failed** — the model behaved correctly.
+- The system should have **recorded that retrieval returned nothing** — and scored it as a retrieval miss, not an answer.
 
-A fluent "I do not know" looks like good behaviour and hides a retrieval bug. Separate the two metrics before deciding what to repair.
+Context recall catches it. Answer quality never will: a fluent "I do not know" reads like good behaviour, so the retrieval bug ships and nobody sees it.
 <!--
 Slide ID: D2-M08-C2A
 Module: [08 SDG/RAGAS](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/08_SDG_RAGAS/README.md)
@@ -872,10 +883,10 @@ Type: core
 Minutes: 1
 Layout: 08 Quote
 Speaker notes:
-- Say: The model did the right thing and the system still failed. Both can be true.
+- Say: Two things are true at once: the model did the right thing, and the system failed.
 - Ask: Audience — this one usually splits the room, which is the useful moment.
 - Watch: Point to the visible evidence and the notebook artifact. Improving_RAG_with_RAGAS:cell#13 is Task 2 of 6 — Generate the test set.
-- Then: Name the gate before you choose a repair.
+- Then: Name the gate before you choose a repair — this one is Retrieval, not Generation.
 Sources: [RAGAS paper](https://arxiv.org/abs/2309.15217); [RAGAS metrics documentation](https://docs.ragas.io/en/stable/concepts/metrics/); [Module 08 notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/08_SDG_RAGAS/Improving_RAG_with_RAGAS.ipynb); [Unit Testing Your Agents](https://soypetetech.substack.com/p/unit-testing-your-agents)
 -->
 ---
