@@ -8,12 +8,20 @@ class: invert
 
 # Today: longer horizons, more sources, more ways to be wrong
 
-- 14 Voice agents · 40m
-- 15 Prompt optimisation · 35m
-- 16 GraphRAG · 40m
-- 17 Deep research · 35m
-- 18 Off-the-shelf guardrails · 30m
-- A six-step loop running unsupervised across many sources has a different failure surface than one you watch.
+<div style="display:flex;justify-content:center;margin-top:.3em">
+<svg viewBox="0 0 860 200" width="1080" role="img" aria-label="The five modules of the day drawn to their length in minutes: voice agents 40, prompt optimisation 35, GraphRAG 40, deep research 35, off-the-shelf guardrails 30, 180 minutes in all">
+<text x="10" y="34" font-size="14" fill="#94a3b8">Five modules, 180 minutes, each one a loop that runs longer or sees more than the last</text>
+<rect x="10" y="60" width="181" height="88" rx="9" fill="#1e293b" stroke="#94a3b8" stroke-width="2.5"/><text x="20" y="84" font-size="15" font-weight="700" fill="#cbd5e1">14</text><text x="20" y="105" font-size="13" fill="#f1f5f9">Voice agents</text><text x="20" y="138" font-size="12" fill="#94a3b8">40 min</text>
+<rect x="197" y="60" width="159" height="88" rx="9" fill="#0b2b40" stroke="#38bdf8" stroke-width="2.5"/><text x="207" y="84" font-size="15" font-weight="700" fill="#7dd3fc">15</text><text x="207" y="105" font-size="13" fill="#f1f5f9">Prompt optimisation</text><text x="207" y="138" font-size="12" fill="#94a3b8">35 min</text>
+<rect x="362" y="60" width="181" height="88" rx="9" fill="#2a1d5a" stroke="#a78bfa" stroke-width="2.5"/><text x="372" y="84" font-size="15" font-weight="700" fill="#c4b5fd">16</text><text x="372" y="105" font-size="13" fill="#f1f5f9">GraphRAG</text><text x="372" y="138" font-size="12" fill="#94a3b8">40 min</text>
+<rect x="549" y="60" width="159" height="88" rx="9" fill="#3a2a0a" stroke="#fbbf24" stroke-width="2.5"/><text x="559" y="84" font-size="15" font-weight="700" fill="#fcd34d">17</text><text x="559" y="105" font-size="13" fill="#f1f5f9">Deep research</text><text x="559" y="138" font-size="12" fill="#94a3b8">35 min</text>
+<rect x="714" y="60" width="136" height="88" rx="9" fill="#0f3320" stroke="#4ade80" stroke-width="2.5"/><text x="724" y="84" font-size="15" font-weight="700" fill="#86efac">18</text><text x="724" y="105" font-size="13" fill="#f1f5f9">Off-the-shelf</text><text x="724" y="121" font-size="13" fill="#f1f5f9">guardrails</text><text x="724" y="138" font-size="12" fill="#94a3b8">30 min</text>
+<path d="M10 164 H850" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4 4"/>
+<g font-size="12" fill="#94a3b8"><text x="10" y="184">0 min</text><text x="197" y="184">40</text><text x="362" y="184">75</text><text x="549" y="184">115</text><text x="714" y="184">150</text><text x="850" y="184" text-anchor="end">180 min</text></g>
+</svg>
+</div>
+
+A six-step loop running unsupervised across many sources has a different failure surface than one you watch.
 
 <!--
 Slide ID: D4-F1
@@ -155,12 +163,35 @@ Sources: [Module 15 overview](https://github.com/AI-Aspire/Aspire_Titanium_Engin
 ---
 # An optimiser is a search, so it needs a bar
 
-- A **signature** is the fields in and out, with one instruction
-- A **metric** says whether one prediction was good — here, agreement with *your* hand scores
-- Score the un-optimised program on held-out examples **first**
-- That number is the bar every optimiser has to beat
+<div style="font-size:.8em">A <b>signature</b> is the fields in and out, with one instruction. A <b>metric</b> says whether one prediction was good — here, agreement with <i>your</i> hand scores. Score the un-optimised program on held-out examples <b>first</b>: that number is the bar every optimiser has to beat.</div>
 
-Without the baseline, "the optimiser helped" is a feeling.
+<div style="display:flex;justify-content:center;margin-top:.2em">
+<svg viewBox="0 0 860 236" width="960" role="img" aria-label="Bar chart of held-out agreement for the baseline judge and three optimisers from the seed run: baseline, BootstrapFewShot and GEPA all reach one of three, MIPROv2 was skipped, and the dashed baseline bar sits at one of three">
+<path d="M90 30 V196 H560" fill="none" stroke="#94a3b8" stroke-width="1.5"/>
+<g font-size="12" fill="#94a3b8" text-anchor="end">
+<text x="82" y="200">0 of 3</text><text x="82" y="145">1 of 3</text><text x="82" y="89">2 of 3</text><text x="82" y="34">3 of 3</text>
+</g>
+<g stroke="#334155" stroke-width="1"><path d="M90 140 H560"/><path d="M90 85 H560"/><path d="M90 30 H560"/></g>
+<text x="40" y="112" font-size="12" fill="#94a3b8" text-anchor="middle" transform="rotate(-90 40 112)">held-out agreement</text>
+<rect x="115" y="140" width="70" height="56" rx="4" fill="#1e293b" stroke="#94a3b8" stroke-width="2"/>
+<rect x="230" y="140" width="70" height="56" rx="4" fill="#0b2b40" stroke="#38bdf8" stroke-width="2"/>
+<rect x="345" y="30" width="70" height="166" rx="4" fill="none" stroke="#475569" stroke-width="1.5" stroke-dasharray="5 4"/>
+<rect x="460" y="140" width="70" height="56" rx="4" fill="#0b2b40" stroke="#38bdf8" stroke-width="2"/>
+<g font-size="13" fill="#f1f5f9" text-anchor="middle"><text x="150" y="165">33%</text><text x="265" y="165">33%</text><text x="495" y="165">33%</text></g>
+<text x="380" y="118" font-size="12" fill="#94a3b8" text-anchor="middle">skipped</text>
+<text x="380" y="134" font-size="12" fill="#94a3b8" text-anchor="middle">that run</text>
+<g font-size="12" fill="#cbd5e1" text-anchor="middle"><text x="150" y="216">baseline</text><text x="265" y="216">BootstrapFewShot</text><text x="380" y="216">MIPROv2</text><text x="495" y="216">GEPA</text></g>
+<path d="M90 140 H560" stroke="#fbbf24" stroke-width="2.5" stroke-dasharray="7 4"/>
+<text x="96" y="132" font-size="12" font-weight="700" fill="#fcd34d">the bar: baseline, 1 of 3</text>
+<rect x="600" y="30" width="250" height="166" rx="10" fill="#3a2a0a" stroke="#fbbf24" stroke-width="2.5"/>
+<text x="616" y="56" font-size="15" font-weight="700" fill="#fcd34d">Seed run, real numbers</text>
+<g font-size="13" fill="#f1f5f9"><text x="616" y="82">3 train, 3 held out</text><text x="616" y="102">agree = within 1 point on 1 to 10</text><text x="616" y="122">nothing cleared the bar</text><text x="616" y="142">winner saved: baseline</text></g>
+<text x="616" y="166" font-size="12" fill="#fcd34d">a tie goes to the cheapest program,</text>
+<text x="616" y="182" font-size="12" fill="#fcd34d">which is no optimiser at all</text>
+</svg>
+</div>
+
+Without the baseline, "the optimiser helped" is a feeling. With 3 held-out examples, one disagreement moves the bar by 33 points.
 
 <!--
 Slide ID: D4-M15-C1
@@ -385,10 +416,44 @@ Sources: [Anthropic multi-agent research system](https://www.anthropic.com/engin
 
 # Make research inspectable
 
-- A question becomes a brief, plan, findings, evidence packet, and report.
-- Each boundary has a typed contract and a budget.
-- The graph makes each handoff inspectable.
-- The trace shows where evidence and uncertainty entered.
+<style scoped>
+@media (prefers-reduced-motion: reduce) { .d4-mover { display: none; } }
+</style>
+
+<div style="display:flex;justify-content:center;margin-top:.2em">
+<svg viewBox="0 0 860 250" width="1040" role="img" aria-label="A six-node state graph from START to END: clarify, brief, plan, research, compress, write. Under each node the typed object it writes; under plan and research the budget that caps them; a trace bar along the bottom with one event per node">
+<defs><marker id="d4c1" markerWidth="9" markerHeight="9" refX="8" refY="3" orient="auto"><path d="M0 0 L8 3 L0 6 z" fill="#38bdf8"/></marker></defs>
+<circle cx="22" cy="100" r="8" fill="#1e293b" stroke="#94a3b8" stroke-width="2"/>
+<text x="22" y="82" font-size="12" fill="#94a3b8" text-anchor="middle">START</text>
+<circle cx="838" cy="100" r="8" fill="#1e293b" stroke="#94a3b8" stroke-width="2"/>
+<text x="838" y="82" font-size="12" fill="#94a3b8" text-anchor="middle">END</text>
+<g stroke="#38bdf8" stroke-width="2.5" marker-end="url(#d4c1)">
+<path d="M30 100 H46"/><path d="M160 100 H176"/><path d="M290 100 H306"/><path d="M420 100 H436"/><path d="M550 100 H566"/><path d="M680 100 H696"/><path d="M810 100 H828"/>
+</g>
+<g font-size="15" font-weight="700" fill="#7dd3fc" text-anchor="middle">
+<rect x="48" y="78" width="112" height="44" rx="9" fill="#0b2b40" stroke="#38bdf8" stroke-width="2.5"/><text x="104" y="105">clarify</text>
+<rect x="178" y="78" width="112" height="44" rx="9" fill="#0b2b40" stroke="#38bdf8" stroke-width="2.5"/><text x="234" y="105">brief</text>
+<rect x="308" y="78" width="112" height="44" rx="9" fill="#0b2b40" stroke="#38bdf8" stroke-width="2.5"/><text x="364" y="105">plan</text>
+<rect x="438" y="78" width="112" height="44" rx="9" fill="#0b2b40" stroke="#38bdf8" stroke-width="2.5"/><text x="494" y="105">research</text>
+<rect x="568" y="78" width="112" height="44" rx="9" fill="#0b2b40" stroke="#38bdf8" stroke-width="2.5"/><text x="624" y="105">compress</text>
+<rect x="698" y="78" width="112" height="44" rx="9" fill="#0b2b40" stroke="#38bdf8" stroke-width="2.5"/><text x="754" y="105">write</text>
+</g>
+<text x="430" y="30" font-size="14" fill="#94a3b8" text-anchor="middle">a path you cannot predict: under each node, the typed object it writes and the cap it runs under</text>
+<g font-size="12" font-weight="700" fill="#fcd34d" text-anchor="middle">
+<text x="104" y="150">ClarificationDecision</text><text x="234" y="168">ResearchBrief</text><text x="364" y="150">ResearchPlan</text><text x="494" y="168">list[ResearchFinding]</text><text x="624" y="150">CompressedDossier</text><text x="754" y="168">FinalReport</text>
+</g>
+<g font-size="12" fill="#c4b5fd" text-anchor="middle">
+<text x="364" y="192">tasks ≤ 6</text><text x="494" y="192">loops per task ≤ 3 · workers ≤ 3</text>
+</g>
+<rect x="48" y="210" width="762" height="28" rx="6" fill="#3a2a0a" stroke="#fbbf24" stroke-width="1.5"/>
+<text x="429" y="229" font-size="13" fill="#fcd34d" text-anchor="middle">trace_events: one event per node, so the trace shows where evidence and uncertainty entered</text>
+<circle class="d4-mover" cx="22" cy="100" r="6" fill="#fcd34d"><animateMotion dur="6s" repeatCount="indefinite" path="M0 0 H816" calcMode="linear"/></circle>
+</svg>
+</div>
+
+A question becomes a brief, plan, findings, dossier, and report. When the final answer fails, the first broken contract is where to look.
+
+> Source: [LangGraph graph API](https://docs.langchain.com/oss/python/langgraph/graph-api)
 
 <!--
 Slide ID: D4-M17-C1
@@ -443,9 +508,35 @@ Sources: [LangGraph graph API](https://docs.langchain.com/oss/python/langgraph/g
 
 `plan → parallel research → search → extract → reflect → compress`
 
-- Search the corpus first; web search is optional.
-- Parallel work can reduce wall-clock time while increasing coordination cost.
-- Stop when the budget is spent or evidence is empty.
+<div style="display:flex;justify-content:center;margin-top:.1em">
+<svg viewBox="0 0 860 236" width="1000" role="img" aria-label="Left: one researcher's loop of search, extract, reflect, which either loops back with a follow-up query or hands over a finding. Right: four budget gauges from the seed run: research tasks 2 of a cap of 6, loops per task 1 of a cap of 3, corpus hits 6 of 6, web hits 0 because web search was off">
+<defs><marker id="d4c2s" markerWidth="9" markerHeight="9" refX="8" refY="3" orient="auto"><path d="M0 0 L8 3 L0 6 z" fill="#94a3b8"/></marker><marker id="d4c2a" markerWidth="9" markerHeight="9" refX="8" refY="3" orient="auto"><path d="M0 0 L8 3 L0 6 z" fill="#fbbf24"/></marker><marker id="d4c2g" markerWidth="9" markerHeight="9" refX="8" refY="3" orient="auto"><path d="M0 0 L8 3 L0 6 z" fill="#4ade80"/></marker></defs>
+<text x="20" y="20" font-size="14" fill="#94a3b8">one researcher, one task: corpus first, web only if a key is set</text>
+<g font-size="14" font-weight="700" text-anchor="middle">
+<rect x="20" y="40" width="100" height="38" rx="8" fill="#0b2b40" stroke="#38bdf8" stroke-width="2.5"/><text x="70" y="64" fill="#7dd3fc">search</text>
+<rect x="260" y="40" width="100" height="38" rx="8" fill="#0b2b40" stroke="#38bdf8" stroke-width="2.5"/><text x="310" y="64" fill="#7dd3fc">extract</text>
+<rect x="140" y="112" width="100" height="38" rx="8" fill="#2a1d5a" stroke="#a78bfa" stroke-width="2.5"/><text x="190" y="136" fill="#c4b5fd">reflect</text>
+<rect x="120" y="190" width="140" height="36" rx="8" fill="#0f3320" stroke="#4ade80" stroke-width="2.5"/><text x="190" y="213" fill="#86efac">finding + gaps</text>
+</g>
+<path d="M122 59 H256" stroke="#94a3b8" stroke-width="2" marker-end="url(#d4c2s)"/>
+<path d="M300 80 L232 112" stroke="#94a3b8" stroke-width="2" marker-end="url(#d4c2s)"/>
+<path d="M148 112 L80 80" stroke="#fbbf24" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#d4c2a)"/>
+<text x="20" y="134" font-size="12" fill="#fcd34d">follow-up query,</text>
+<text x="20" y="148" font-size="12" fill="#fcd34d">while loops remain</text>
+<path d="M190 152 V186" stroke="#4ade80" stroke-width="2.5" marker-end="url(#d4c2g)"/>
+<text x="204" y="174" font-size="12" fill="#86efac">no follow-up, or budget spent</text>
+<text x="620" y="20" font-size="14" fill="#94a3b8" text-anchor="middle">the seed run against its ceilings</text>
+<g font-size="12" fill="#cbd5e1">
+<text x="420" y="52">research tasks</text><rect x="540" y="40" width="280" height="16" rx="4" fill="#1e293b" stroke="#475569"/><rect x="540" y="40" width="93" height="16" rx="4" fill="#0b2b40" stroke="#38bdf8" stroke-width="2"/><text x="828" y="52" fill="#f1f5f9">2</text><text x="633" y="70" fill="#a78bfa" text-anchor="middle">budget 2</text><text x="820" y="70" fill="#94a3b8" text-anchor="end">cap 6</text>
+<text x="420" y="100">loops per task</text><rect x="540" y="88" width="280" height="16" rx="4" fill="#1e293b" stroke="#475569"/><rect x="540" y="88" width="93" height="16" rx="4" fill="#0b2b40" stroke="#38bdf8" stroke-width="2"/><text x="828" y="100" fill="#f1f5f9">1</text><text x="633" y="118" fill="#a78bfa" text-anchor="middle">budget 1</text><text x="820" y="118" fill="#94a3b8" text-anchor="end">cap 3</text>
+<text x="420" y="148">corpus hits</text><rect x="540" y="136" width="280" height="16" rx="4" fill="#1e293b" stroke="#475569"/><rect x="540" y="136" width="280" height="16" rx="4" fill="#3a2a0a" stroke="#fbbf24" stroke-width="2"/><text x="828" y="148" fill="#f1f5f9">6</text><text x="820" y="166" fill="#94a3b8" text-anchor="end">3 per search, 2 searches</text>
+<text x="420" y="196">web hits</text><rect x="540" y="184" width="280" height="16" rx="4" fill="none" stroke="#475569" stroke-dasharray="4 3"/><text x="828" y="196" fill="#f1f5f9">0</text><text x="820" y="214" fill="#94a3b8" text-anchor="end">web search off, no key</text>
+</g>
+<g stroke="#a78bfa" stroke-width="2"><path d="M633 36 V60"/><path d="M633 84 V108"/></g>
+</svg>
+</div>
+
+<div style="font-size:.78em">Search the corpus first; web search is optional. Parallel tasks cut wall-clock time and add coordination cost. Stop when the budget is spent or the evidence is empty — and an empty result set reaches the report as a gap, not as silence.</div>
 
 <!--
 Slide ID: D4-M17-C2
@@ -489,10 +580,46 @@ Sources: [Anthropic multi-agent research system](https://www.anthropic.com/engin
 
 # Provenance is part of the answer
 
-- Keep source paths beside findings, not in a hidden log.
-- Compress context without deleting gaps.
-- Citation presence is not proof that a claim is supported.
-- A report is usable when a reader can retrace it.
+<div style="display:flex;justify-content:center;margin-top:.2em">
+<svg viewBox="0 0 860 250" width="1000" role="img" aria-label="Left: the seed research report with each finding carrying an inline source citation, an open gaps section with three gaps, and a trace line. Right: the source ledger of the four corpus pages the researchers observed, each citation joined to its ledger row, and a dashed red row for any citation that is not in the ledger">
+<rect x="10" y="10" width="470" height="212" rx="10" fill="#1e293b" stroke="#94a3b8" stroke-width="2"/>
+<text x="26" y="34" font-size="15" font-weight="700" fill="#cbd5e1">research_report.md</text>
+<text x="400" y="34" font-size="12" fill="#94a3b8">the product</text>
+<g font-size="13" fill="#f1f5f9">
+<text x="26" y="58">Accuracy ≥ 95%: cannot be assessed</text>
+<text x="26" y="86">Traceability: JSON contract, reason given</text>
+<text x="26" y="114">Scope: inferred from prompt examples</text>
+<text x="26" y="142">Empirical void: no eval data anywhere</text>
+<text x="26" y="170">Open gaps (3): void · scope · regression, kept through compression</text>
+</g>
+<g font-size="12" font-weight="700" fill="#fcd34d">
+<rect x="358" y="46" width="112" height="16" rx="4" fill="#3a2a0a" stroke="#fbbf24"/><text x="414" y="58" text-anchor="middle">[few-shot-zero.md]</text>
+<rect x="296" y="74" width="174" height="16" rx="4" fill="#3a2a0a" stroke="#fbbf24"/><text x="383" y="86" text-anchor="middle">[few-shot-two-examples.md]</text>
+<rect x="404" y="102" width="66" height="16" rx="4" fill="#3a2a0a" stroke="#fbbf24"/><text x="437" y="114" text-anchor="middle">[kb/vpn.md]</text>
+<rect x="292" y="130" width="178" height="16" rx="4" fill="#3a2a0a" stroke="#fbbf24"/><text x="381" y="142" text-anchor="middle">[meta-prompt-generate.md]</text>
+</g>
+<path d="M26 186 H464" stroke="#475569" stroke-width="1"/>
+<text x="26" y="208" font-size="12" fill="#94a3b8">Trace: 2 tasks · 2 searches · 6 corpus hits · 0 web · 4 extracted · 4 distinct</text>
+<rect x="540" y="10" width="310" height="212" rx="10" fill="#3a2a0a" stroke="#fbbf24" stroke-width="2.5"/>
+<text x="556" y="34" font-size="15" font-weight="700" fill="#fcd34d">source ledger</text>
+<text x="834" y="34" font-size="12" fill="#fbbf24" text-anchor="end">what a researcher observed</text>
+<g font-size="12" fill="#f1f5f9">
+<text x="556" y="58">prompts/few-shot-zero.md</text><text x="834" y="58" fill="#86efac" text-anchor="end">observed</text>
+<text x="556" y="86">prompts/few-shot-two-examples.md</text><text x="834" y="86" fill="#86efac" text-anchor="end">observed</text>
+<text x="556" y="114">kb/vpn.md</text><text x="834" y="114" fill="#86efac" text-anchor="end">observed</text>
+<text x="556" y="142">prompts/meta-prompt-generate.md</text><text x="834" y="142" fill="#86efac" text-anchor="end">observed</text>
+</g>
+<rect x="552" y="162" width="286" height="44" rx="6" fill="none" stroke="#f87171" stroke-width="1.5" stroke-dasharray="5 4"/>
+<text x="695" y="181" font-size="12" fill="#fca5a5" text-anchor="middle">a citation not on this ledger is invented:</text>
+<text x="695" y="197" font-size="12" fill="#fca5a5" text-anchor="middle">the writer may cite only what was observed</text>
+<g stroke="#fbbf24" stroke-width="1.5" fill="none">
+<path d="M470 54 H540"/><path d="M470 82 H540"/><path d="M470 110 H540"/><path d="M470 138 H540"/>
+</g>
+<text x="430" y="244" font-size="13" fill="#94a3b8" text-anchor="middle">Source paths sit beside the findings, the three gaps survived compression, and the trace says how much research stands behind the report.</text>
+</svg>
+</div>
+
+Citation presence is not proof that a claim is supported. A report is usable when a reader can retrace it.
 
 <!--
 Slide ID: D4-M17-C3A
@@ -536,10 +663,26 @@ Sources: [LangGraph durable execution](https://docs.langchain.com/oss/python/lan
 
 # Compile while the graph runs
 
-- The writer gets the brief and dossier, not the whole conversation.
-- Stream node updates and research queries as they happen.
-- Each line names the node that finished and the state it wrote.
-- Keep the trace that shows which source was stale.
+<div style="display:flex;gap:1.2em;align-items:stretch;margin-top:.2em">
+<div style="flex:1.45;background:#0b2b40;border-left:6px solid #38bdf8;border-radius:10px;padding:.6em .9em;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.62em;line-height:1.55;color:#f1f5f9;white-space:pre">graph.stream(state, stream_mode="updates")
+
+<span style="color:#7dd3fc">[clarify]</span>  updated <span style="color:#fcd34d">['clarification', 'trace_events']</span>
+<span style="color:#7dd3fc">[brief]</span>    updated <span style="color:#fcd34d">['brief', 'trace_events']</span>
+<span style="color:#7dd3fc">[plan]</span>     updated <span style="color:#fcd34d">['tasks', 'trace_events']</span>
+<span style="color:#7dd3fc">[research]</span> updated <span style="color:#fcd34d">['findings', 'trace_events']</span>
+  <span style="color:#94a3b8">‹task 1›: query='…' corpus=3 web=0</span>
+  <span style="color:#94a3b8">‹task 2›: query='…' corpus=3 web=0</span>
+<span style="color:#7dd3fc">[compress]</span> updated <span style="color:#fcd34d">['dossier', 'trace_events']</span>
+<span style="color:#7dd3fc">[write]</span>    updated <span style="color:#fcd34d">['final_report', 'trace_events']</span></div>
+<div style="flex:1;display:flex;flex-direction:column;gap:.5em;font-size:.66em">
+<div style="background:#1e293b;border-radius:8px;padding:.5em .8em"><b style="color:#7dd3fc">[node]</b><br>the node that just finished, in lifecycle order</div>
+<div style="background:#1e293b;border-radius:8px;padding:.5em .8em"><b style="color:#fcd34d">updated [...]</b><br>the state keys it wrote; every node appends to the trace</div>
+<div style="background:#1e293b;border-radius:8px;padding:.5em .8em"><b style="color:#cbd5e1">query lines</b><br>one per research task: where the budget went. Seed run: two tasks, three corpus hits each, web off</div>
+<div style="color:#94a3b8;padding:.2em .8em">Query text elided here; the notebook prints it.</div>
+</div>
+</div>
+
+<div style="font-size:.8em">The writer gets the brief and dossier, not the whole conversation. Keep the trace that shows which source was stale.</div>
 
 <!--
 Slide ID: D4-M17-C5
@@ -643,6 +786,8 @@ Sources: [OpenAI Agents SDK guardrails](https://openai.github.io/openai-agents-p
 
 No placement can undo a side effect that already happened.
 
+> Source: [OpenAI Agents SDK guardrails](https://openai.github.io/openai-agents-python/guardrails/)
+
 <!--
 Slide ID: D4-M18-C2
 Module: [18 Off-the-shelf guardrails](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/18_Off_The_Shelf_Guardrails/README.md)
@@ -691,12 +836,43 @@ Sources: [OpenAI Agents SDK guardrails](https://openai.github.io/openai-agents-p
 
 # The system still owns authorization
 
-- A prompt can describe policy; it cannot enforce permission.
-- Guardrail results need severity, owner, and audit context.
-- Test refusal, escalation, and safe completion — not only blocking.
-- Test legitimate requests and attacks together.
+<div style="display:flex;justify-content:center;margin-top:.1em">
+<svg viewBox="0 0 860 250" width="1000" role="img" aria-label="Heatmap of six guardrail cases against five guardrails from the seed run: four legitimate cases pass every check, attack g05 trips prompt injection, attack g06 trips scope, and the output checks are not reached for either attack. A sixth dashed column labelled who asked is empty for every case">
+<g font-size="12" fill="#cbd5e1" text-anchor="middle">
+<text x="185" y="42">scope</text><text x="255" y="42">injection</text><text x="325" y="42">pii</text><text x="395" y="42">claims</text><text x="465" y="42">tone</text>
+</g>
+<text x="545" y="42" font-size="12" font-weight="700" fill="#c4b5fd" text-anchor="middle">who asked?</text>
+<g font-size="12" fill="#cbd5e1">
+<text x="60" y="68">g01</text><text x="60" y="96">g02</text><text x="60" y="124">g03</text><text x="60" y="152">g04</text><text x="60" y="180" fill="#fca5a5">g05</text><text x="60" y="208" fill="#fca5a5">g06</text>
+</g>
+<g font-size="12" fill="#94a3b8"><text x="95" y="68">legit</text><text x="95" y="96">legit</text><text x="95" y="124">legit</text><text x="95" y="152">legit</text><text x="95" y="180" fill="#fca5a5">attack</text><text x="95" y="208" fill="#fca5a5">attack</text></g>
+<g fill="#0f3320" stroke="#4ade80" stroke-width="1">
+<rect x="152" y="52" width="66" height="24" rx="3"/><rect x="222" y="52" width="66" height="24" rx="3"/><rect x="292" y="52" width="66" height="24" rx="3"/><rect x="362" y="52" width="66" height="24" rx="3"/><rect x="432" y="52" width="66" height="24" rx="3"/>
+<rect x="152" y="80" width="66" height="24" rx="3"/><rect x="222" y="80" width="66" height="24" rx="3"/><rect x="292" y="80" width="66" height="24" rx="3"/><rect x="362" y="80" width="66" height="24" rx="3"/><rect x="432" y="80" width="66" height="24" rx="3"/>
+<rect x="152" y="108" width="66" height="24" rx="3"/><rect x="222" y="108" width="66" height="24" rx="3"/><rect x="292" y="108" width="66" height="24" rx="3"/><rect x="362" y="108" width="66" height="24" rx="3"/><rect x="432" y="108" width="66" height="24" rx="3"/>
+<rect x="152" y="136" width="66" height="24" rx="3"/><rect x="222" y="136" width="66" height="24" rx="3"/><rect x="292" y="136" width="66" height="24" rx="3"/><rect x="362" y="136" width="66" height="24" rx="3"/><rect x="432" y="136" width="66" height="24" rx="3"/>
+<rect x="152" y="164" width="66" height="24" rx="3"/><rect x="292" y="164" width="66" height="24" rx="3"/>
+<rect x="222" y="192" width="66" height="24" rx="3"/><rect x="292" y="192" width="66" height="24" rx="3"/>
+</g>
+<g fill="#3f1212" stroke="#f87171" stroke-width="2.5"><rect x="222" y="164" width="66" height="24" rx="3"/><rect x="152" y="192" width="66" height="24" rx="3"/></g>
+<g font-size="12" font-weight="700" fill="#fca5a5" text-anchor="middle"><text x="255" y="180">tripwire</text><text x="185" y="208">tripwire</text></g>
+<g fill="#1e293b" stroke="#475569" stroke-width="1" stroke-dasharray="3 3"><rect x="362" y="164" width="66" height="24" rx="3"/><rect x="432" y="164" width="66" height="24" rx="3"/><rect x="362" y="192" width="66" height="24" rx="3"/><rect x="432" y="192" width="66" height="24" rx="3"/></g>
+<g font-size="12" fill="#94a3b8" text-anchor="middle"><text x="395" y="180">not run</text><text x="465" y="180">not run</text><text x="395" y="208">not run</text><text x="465" y="208">not run</text></g>
+<g fill="none" stroke="#a78bfa" stroke-width="1.5" stroke-dasharray="4 3"><rect x="512" y="52" width="66" height="24" rx="3"/><rect x="512" y="80" width="66" height="24" rx="3"/><rect x="512" y="108" width="66" height="24" rx="3"/><rect x="512" y="136" width="66" height="24" rx="3"/><rect x="512" y="164" width="66" height="24" rx="3"/><rect x="512" y="192" width="66" height="24" rx="3"/></g>
+<g font-size="12" fill="#c4b5fd" text-anchor="middle"><text x="545" y="68">?</text><text x="545" y="96">?</text><text x="545" y="124">?</text><text x="545" y="152">?</text><text x="545" y="180">?</text><text x="545" y="208">?</text></g>
+<g font-size="12" fill="#94a3b8"><rect x="152" y="230" width="12" height="12" rx="2" fill="#0f3320" stroke="#4ade80"/><text x="170" y="240">passed</text><rect x="232" y="230" width="12" height="12" rx="2" fill="#3f1212" stroke="#f87171"/><text x="250" y="240">tripped</text><rect x="316" y="230" width="12" height="12" rx="2" fill="#1e293b" stroke="#475569" stroke-dasharray="3 3"/><text x="334" y="240">blocked at input, never ran</text></g>
+<text x="610" y="240" font-size="12" fill="#c4b5fd">no guardrail answers the dashed column</text>
+<g font-size="13" fill="#f1f5f9">
+<text x="610" y="64">A prompt can describe policy;</text><text x="610" y="82">it cannot enforce permission.</text>
+<text x="610" y="110">Results need severity, owner,</text><text x="610" y="128">and audit context.</text>
+<text x="610" y="156">Test refusal, escalation, and safe</text><text x="610" y="174">completion, not only blocking.</text>
+<text x="610" y="202">Test legitimate requests and</text><text x="610" y="220">attacks together.</text>
+</g>
+<text x="430" y="22" font-size="13" fill="#94a3b8" text-anchor="middle">Seed run: six cases through five guardrails. Legitimate requests untouched; each attack caught by a different check.</text>
+</svg>
+</div>
 
-Every one of these lives in **middleware** — between the model and the systems that can act.
+Every one of these lives in **middleware** — between the model and the systems that can act. Who asked, and whether they may, is decided there.
 
 <!--
 Slide ID: D4-M18-C4
