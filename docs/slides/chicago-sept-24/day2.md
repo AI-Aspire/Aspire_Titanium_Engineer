@@ -383,6 +383,70 @@ Speaker notes:
 Sources: [Module 07 overview](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/README.md).
 -->
 ---
+# The wiki is the map that makes choosing possible
+
+One markdown index of the corpus — page names, what each is for, its section headings:
+
+| Page | Purpose | Headings |
+|---|---|---|
+| `vpn.md` | VPN connection and routing | connecting · split tunnelling · known issues |
+| `password-and-mfa.md` | password and second-factor recovery | reset · MFA · lockouts |
+
+Without it the agent reads pages at random. With it, it chooses before it reads.
+
+<!--
+Slide ID: D2-M07-C1
+Module: [07 Agentic retrieval](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/README.md)
+Instructor: Eli
+Type: core
+Minutes: 1
+Layout: 05 Two column
+Speaker notes:
+- Say: A file tool without a map is a guess. The wiki is what turns the next call into a decision.
+- Ask: A page index costs tokens on every turn. What does that buy that a ranked chunk list does not?
+- Watch: The skeleton is built from the headings by hand; the model writes each one-line purpose. DCI_vs_Agentic_RAG:cell#9 is Task 1 of 5 — Build the wiki.
+- Then: Purpose and headings are the clues — which is what the next question turns on. Note the wiki is Task 1 in the notebook, before either interface exists.
+Sources: [local DCI versus Agentic RAG notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/DCI_vs_Agentic_RAG.ipynb)
+-->
+---
+
+# Why store page purpose and headings instead of only filenames?
+
+<!--
+Slide ID: D2-M07-C1B
+Module: [07 Agentic retrieval](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/README.md)
+Instructor: Eli
+Type: core
+Minutes: 1
+Layout: 05 Two column 2
+Speaker notes:
+- Say: Let the agent navigate a persistent map
+- Ask: Why does DCI need a map before it receives a question?
+- Watch: Task 1 renders a wiki table; inspect whether each page has a distinct purpose and useful headings. DCI_vs_Agentic_RAG:cell#12 is Task 2 of 5 — Two corpus interfaces.
+- Then: Reveal it — “Filenames do not say what is inside”.
+Sources: [DCI research paper](https://arxiv.org/abs/2605.05242); [local DCI versus Agentic RAG notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/DCI_vs_Agentic_RAG.ipynb)
+-->
+---
+# Filenames do not say what is inside
+
+- A filename is an identifier. **Purpose and headings are navigable clues.**
+
+`vpn.md` tells the agent nothing about which section covers contractors. "contractor remote access · reset · device · escalation" tells it where to read — before it spends a read on the whole page.
+<!--
+Slide ID: D2-M07-C1A
+Module: [07 Agentic retrieval](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/README.md)
+Instructor: Eli
+Type: core
+Minutes: 1
+Layout: 08 Quote
+Speaker notes:
+- Say: A filename is an identifier; a purpose line is a routing decision.
+- Ask: Rhetorical — answer it from the two rows they just saw.
+- Watch: Point to the visible evidence and the notebook artifact. DCI_vs_Agentic_RAG:cell#12 is Task 2 of 5 — Two corpus interfaces.
+- Then: They have the map now. Next: the two interfaces it makes a choice between.
+Sources: [DCI research paper](https://arxiv.org/abs/2605.05242); [local DCI versus Agentic RAG notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/DCI_vs_Agentic_RAG.ipynb)
+-->
+---
 # A retrieval interface is what the agent can ask for
 
 The corpus does not change. **The interface is what the agent gets access to:**
@@ -394,7 +458,7 @@ The corpus does not change. **The interface is what the agent gets access to:**
 
 Same corpus, same question, different evidence path.
 <!--
-Slide ID: D2-M07-C1
+Slide ID: D2-M07-C2
 Module: [07 Agentic retrieval](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/README.md)
 Instructor: Eli
 Type: core
@@ -421,7 +485,7 @@ Example question: `Which VPN policy applies to contractors?`
 A retriever returns fragments it scored. File tools let the agent navigate to the page and read around the answer.
 
 <!--
-Slide ID: D2-M07-C1X
+Slide ID: D2-M07-C2X
 Module: [07 Agentic retrieval](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/README.md)
 Instructor: Eli
 Type: core
@@ -440,7 +504,7 @@ Sources: [DCI research paper](https://arxiv.org/abs/2605.05242), [local DCI vers
 - Hold the **model, questions, agent loop, and scoring** constant — vary the interface alone.
 
 <!--
-Slide ID: D2-M07-C1A
+Slide ID: D2-M07-C2A
 Module: [07 Agentic retrieval](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/README.md)
 Instructor: Eli
 Type: core
@@ -459,15 +523,15 @@ Sources: [DCI research paper](https://arxiv.org/abs/2605.05242); [local DCI vers
 The agent gets file tools, not a search endpoint:
 
 ```text
-list_pages()          → what exists
-read_page("vpn.md")   → the whole page, headings and all
-search_chunks(query)  → the Agentic RAG path, for contrast
+list_pages()              → the wiki: every page, purpose, headings
+grep_wiki("split tunnel") → matching lines, with page and line number
+read_page("vpn.md")       → the whole page, headings and all
 ```
 
-It chooses what to open, so it can read around an answer instead of taking scored fragments.
+Three tools, no search endpoint. It chooses what to open, so it can read around an answer instead of taking scored fragments.
 
 <!--
-Slide ID: D2-M07-C2
+Slide ID: D2-M07-C3
 Module: [07 Agentic retrieval](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/README.md)
 Instructor: Eli
 Type: core
@@ -475,74 +539,10 @@ Minutes: 1
 Layout: 09 Lab and code
 Speaker notes:
 - Say: Retrieval stops being an endpoint you call and becomes a set of tools the agent decides between.
-- Ask: Rhetorical — name the three tools, then move to what makes choosing possible.
+- Ask: Rhetorical — name the three tools, then point back at the wiki they opened on.
 - Watch: These are the real tool names in the notebook. DCI_vs_Agentic_RAG:cell#12 is Task 2 of 5 — Two corpus interfaces.
-- Then: Choosing only works if the agent knows what is there — which is the next slide.
+- Then: Choosing only works because they already have the map. list_pages returns that wiki — say so explicitly, it closes the loop.
 Sources: [DCI research paper](https://arxiv.org/abs/2605.05242), [local DCI versus Agentic RAG notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/DCI_vs_Agentic_RAG.ipynb)
--->
----
-# The wiki is the map that makes choosing possible
-
-One markdown index of the corpus — page names, what each is for, its section headings:
-
-| Page | Purpose | Headings |
-|---|---|---|
-| `vpn.md` | VPN connection and routing | connecting · split tunnelling · known issues |
-| `password-and-mfa.md` | password and second-factor recovery | reset · MFA · lockouts |
-
-Without it the agent reads pages at random. With it, it chooses before it reads.
-
-<!--
-Slide ID: D2-M07-C2W
-Module: [07 Agentic retrieval](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/README.md)
-Instructor: Eli
-Type: core
-Minutes: 1
-Layout: 05 Two column
-Speaker notes:
-- Say: A file tool without a map is a guess. The wiki is what turns the next call into a decision.
-- Ask: A page index costs tokens on every turn. What does that buy that a ranked chunk list does not?
-- Watch: The skeleton is built from the headings by hand; the model writes each one-line purpose. DCI_vs_Agentic_RAG:cell#9 is Task 1 of 5 — Build the wiki.
-- Then: Purpose and headings are the clues — which is what the next question turns on.
-Sources: [local DCI versus Agentic RAG notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/DCI_vs_Agentic_RAG.ipynb)
--->
----
-
-# Why store page purpose and headings instead of only filenames?
-
-<!--
-Slide ID: D2-M07-C2B
-Module: [07 Agentic retrieval](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/README.md)
-Instructor: Eli
-Type: core
-Minutes: 1
-Layout: 05 Two column 2
-Speaker notes:
-- Say: Let the agent navigate a persistent map
-- Ask: Why does DCI need a map before it receives a question?
-- Watch: Task 1 renders a wiki table; inspect whether each page has a distinct purpose and useful headings. DCI_vs_Agentic_RAG:cell#12 is Task 2 of 5 — Two corpus interfaces.
-- Then: Reveal it — “Filenames do not say what is inside”.
-Sources: [DCI research paper](https://arxiv.org/abs/2605.05242); [local DCI versus Agentic RAG notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/DCI_vs_Agentic_RAG.ipynb)
--->
----
-# Filenames do not say what is inside
-
-- A filename is an identifier. **Purpose and headings are navigable clues.**
-
-`vpn.md` tells the agent nothing about which section covers contractors. "contractor remote access · reset · device · escalation" tells it where to read — before it spends a read on the whole page.
-<!--
-Slide ID: D2-M07-C2A
-Module: [07 Agentic retrieval](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/README.md)
-Instructor: Eli
-Type: core
-Minutes: 1
-Layout: 08 Quote
-Speaker notes:
-- Say: A filename is an identifier; a purpose line is a routing decision.
-- Ask: Rhetorical — answer it yourself; the room has not seen a wiki entry yet.
-- Watch: Point to the visible evidence and the notebook artifact. DCI_vs_Agentic_RAG:cell#12 is Task 2 of 5 — Two corpus interfaces.
-- Then: The map is what turns the next tool call into a choice.
-Sources: [DCI research paper](https://arxiv.org/abs/2605.05242); [local DCI versus Agentic RAG notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/DCI_vs_Agentic_RAG.ipynb)
 -->
 ---
 # A trace is the sequence of tool calls a run made
@@ -558,7 +558,7 @@ Sources: [DCI research paper](https://arxiv.org/abs/2605.05242); [local DCI vers
 Cost follows the path: **latency ≈ calls × (retrieval + model time)**. One polished answer can hide a failed search.
 
 <!--
-Slide ID: D2-M07-C3
+Slide ID: D2-M07-C4
 Module: [07 Agentic retrieval](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/README.md)
 Instructor: Eli
 Type: core
@@ -576,7 +576,7 @@ Sources: [DCI research paper](https://arxiv.org/abs/2605.05242); [local DCI vers
 
 **Source** · **Retrieval** · **Generation**
 <!--
-Slide ID: D2-M07-C3B
+Slide ID: D2-M07-C4B
 Module: [07 Agentic retrieval](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/README.md)
 Instructor: Eli
 Type: core
@@ -602,7 +602,7 @@ Sources: [DCI research paper](https://arxiv.org/abs/2605.05242); [local DCI vers
 
 A trace rules gates out. Without one you would be rewriting the prompt.
 <!--
-Slide ID: D2-M07-C3A
+Slide ID: D2-M07-C4A
 Module: [07 Agentic retrieval](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/README.md)
 Instructor: Eli
 Type: core
@@ -627,7 +627,7 @@ Sources: [DCI research paper](https://arxiv.org/abs/2605.05242); [local DCI vers
 
 That is the trade: broader raw access produces better answers on structural questions, and a larger blast radius on everything else.
 <!--
-Slide ID: D2-M07-C4
+Slide ID: D2-M07-C5
 Module: [07 Agentic retrieval](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/README.md)
 Instructor: Eli
 Type: core
@@ -645,7 +645,7 @@ Sources: [DCI research paper](https://arxiv.org/abs/2605.05242); [local DCI vers
 # Before read_page("jordan-ticket.md"), what must the system check?
 
 <!--
-Slide ID: D2-M07-C4B
+Slide ID: D2-M07-C5B
 Module: [07 Agentic retrieval](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/README.md)
 Instructor: Eli
 Type: core
@@ -665,7 +665,7 @@ Sources: [DCI research paper](https://arxiv.org/abs/2605.05242); [local DCI vers
 
 The model chose the next tool, but choosing is not authorising. Put the check inside the tool — instructions to the model are not a control.
 <!--
-Slide ID: D2-M07-C4A
+Slide ID: D2-M07-C5A
 Module: [07 Agentic retrieval](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/07_Agentic_Retrieval/README.md)
 Instructor: Eli
 Type: core
