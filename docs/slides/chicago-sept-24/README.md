@@ -1,17 +1,36 @@
 # Chicago · September 24 slide outlines
 
-This directory is the Markdown-only review set for the Chicago September 24
-cohort. It is prepared for Chris and the instructional team to review the
-concept coverage, speaker notes, layouts, research links, and module handoffs
-before anything is transferred into Google Slides.
+This directory is the review set for the Chicago September 24 cohort. It is
+prepared for Chris and the instructional team to review the concept coverage,
+speaker notes, layouts, research links, and module handoffs before anything is
+transferred into Google Slides.
 
 ## Decks
 
-- [Day 1 · Prototype and retrieve](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/docs/slides/chicago-sept-24/day1.md)
-- [Day 2 · Retrieval and agent evals](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/docs/slides/chicago-sept-24/day2.md)
-- [Day 3 · Agents in practice](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/docs/slides/chicago-sept-24/day3.md)
-- [Day 4 · Advanced prototyping](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/docs/slides/chicago-sept-24/day4.md)
-- [Day 5 · Demo day](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/docs/slides/chicago-sept-24/day5.md)
+One directory per day, holding the Markdown source and the rendered HTML. The
+Markdown is the source of truth; the HTML is generated from it and is there so
+a reviewer can page through the deck without installing anything. **Quote the
+slide title, not a slide number, when giving notes** — numbering shifts as
+slides are added.
+
+| Day | Source | Rendered |
+|---|---|---|
+| Day 1 · Prototype and retrieve | [`day1/day1.md`](day1/day1.md) | [`day1/day1.html`](day1/day1.html) |
+| Day 2 · Retrieval and agent evals | [`day2/day2.md`](day2/day2.md) | [`day2/day2.html`](day2/day2.html) |
+| Day 3 · Agents in practice | [`day3/day3.md`](day3/day3.md) | [`day3/day3.html`](day3/day3.html) |
+| Day 4 · Advanced prototyping | [`day4/day4.md`](day4/day4.md) | [`day4/day4.html`](day4/day4.html) |
+| Day 5 · Demo day and optional modules | [`day5/day5.md`](day5/day5.md) | [`day5/day5.html`](day5/day5.html) |
+
+Regenerate the HTML after editing any Markdown, so the two never disagree:
+
+```bash
+for n in 1 2 3 4 5; do
+  marp --no-stdin --html --allow-local-files \
+    -o docs/slides/chicago-sept-24/day$n/day$n.html \
+       docs/slides/chicago-sept-24/day$n/day$n.md
+done
+uv run --no-project python scripts/marp_to_pptx.py 1 2 3 4 5   # PowerPoint, untracked
+```
 
 The day files are Marp-compatible outlines. Each slide includes concise
 projected copy plus speaker notes, a named Google Slides layout template, and
