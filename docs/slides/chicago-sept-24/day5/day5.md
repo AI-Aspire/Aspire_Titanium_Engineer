@@ -3,6 +3,7 @@ marp: true
 theme: default
 paginate: true
 size: 16:9
+class: invert
 ---
 
 # Show one working application flow

@@ -3,6 +3,7 @@ marp: true
 theme: default
 paginate: true
 size: 16:9
+class: invert
 ---
 # Today: making the agent behave, not just answer
 
@@ -349,13 +350,13 @@ Sources: [Module 11 README](https://github.com/AI-Aspire/Aspire_Titanium_Enginee
 
 <div style="display:flex;justify-content:center;margin-top:.1em">
 <svg viewBox="0 0 760 245" width="900" role="img" aria-label="Six capability mechanisms: tool, skill, MCP server, sub-agent, code mode, and API manifest">
-<rect x="28" y="34" width="210" height="62" rx="9" fill="#ede9fe" stroke="#7c3aed" stroke-width="2.5"/><text x="133" y="61" font-size="16" font-weight="700" text-anchor="middle" fill="#5b21b6">tool</text><text x="133" y="82" font-size="12.5" text-anchor="middle" fill="#6d28d9">your process</text>
-<rect x="275" y="34" width="210" height="62" rx="9" fill="#fef3c7" stroke="#d97706" stroke-width="2.5"/><text x="380" y="61" font-size="16" font-weight="700" text-anchor="middle" fill="#92400e">skill</text><text x="380" y="82" font-size="12.5" text-anchor="middle" fill="#b45309">versioned capability</text>
-<rect x="522" y="34" width="210" height="62" rx="9" fill="#e0f2fe" stroke="#0284c7" stroke-width="2.5"/><text x="627" y="61" font-size="16" font-weight="700" text-anchor="middle" fill="#075985">MCP server</text><text x="627" y="82" font-size="12.5" text-anchor="middle" fill="#0369a1">separate service</text>
-<rect x="28" y="139" width="210" height="62" rx="9" fill="#e0f2fe" stroke="#0284c7" stroke-width="2.5"/><text x="133" y="166" font-size="16" font-weight="700" text-anchor="middle" fill="#075985">sub-agent</text><text x="133" y="187" font-size="12.5" text-anchor="middle" fill="#0369a1">delegated role</text>
-<rect x="275" y="139" width="210" height="62" rx="9" fill="#fef3c7" stroke="#d97706" stroke-width="2.5"/><text x="380" y="166" font-size="16" font-weight="700" text-anchor="middle" fill="#92400e">code mode</text><text x="380" y="187" font-size="12.5" text-anchor="middle" fill="#b45309">capability logic</text>
-<rect x="522" y="139" width="210" height="62" rx="9" fill="#ede9fe" stroke="#7c3aed" stroke-width="2.5"/><text x="627" y="166" font-size="16" font-weight="700" text-anchor="middle" fill="#5b21b6">API manifest</text><text x="627" y="187" font-size="12.5" text-anchor="middle" fill="#6d28d9">described endpoint</text>
-<path d="M380 214 V232" stroke="#94a3b8" stroke-width="2" marker-end="url(#m11a)"/><text x="380" y="243" font-size="12.5" text-anchor="middle" fill="#475569">choose by ownership, auth, context, and failure behavior</text>
+<rect x="28" y="34" width="210" height="62" rx="9" fill="#2a1d5a" stroke="#a78bfa" stroke-width="2.5"/><text x="133" y="61" font-size="16" font-weight="700" text-anchor="middle" fill="#c4b5fd">tool</text><text x="133" y="82" font-size="12.5" text-anchor="middle" fill="#a78bfa">your process</text>
+<rect x="275" y="34" width="210" height="62" rx="9" fill="#3a2a0a" stroke="#fbbf24" stroke-width="2.5"/><text x="380" y="61" font-size="16" font-weight="700" text-anchor="middle" fill="#fcd34d">skill</text><text x="380" y="82" font-size="12.5" text-anchor="middle" fill="#fbbf24">versioned capability</text>
+<rect x="522" y="34" width="210" height="62" rx="9" fill="#0b2b40" stroke="#38bdf8" stroke-width="2.5"/><text x="627" y="61" font-size="16" font-weight="700" text-anchor="middle" fill="#7dd3fc">MCP server</text><text x="627" y="82" font-size="12.5" text-anchor="middle" fill="#38bdf8">separate service</text>
+<rect x="28" y="139" width="210" height="62" rx="9" fill="#0b2b40" stroke="#38bdf8" stroke-width="2.5"/><text x="133" y="166" font-size="16" font-weight="700" text-anchor="middle" fill="#7dd3fc">sub-agent</text><text x="133" y="187" font-size="12.5" text-anchor="middle" fill="#38bdf8">delegated role</text>
+<rect x="275" y="139" width="210" height="62" rx="9" fill="#3a2a0a" stroke="#fbbf24" stroke-width="2.5"/><text x="380" y="166" font-size="16" font-weight="700" text-anchor="middle" fill="#fcd34d">code mode</text><text x="380" y="187" font-size="12.5" text-anchor="middle" fill="#fbbf24">capability logic</text>
+<rect x="522" y="139" width="210" height="62" rx="9" fill="#2a1d5a" stroke="#a78bfa" stroke-width="2.5"/><text x="627" y="166" font-size="16" font-weight="700" text-anchor="middle" fill="#c4b5fd">API manifest</text><text x="627" y="187" font-size="12.5" text-anchor="middle" fill="#a78bfa">described endpoint</text>
+<path d="M380 214 V232" stroke="#94a3b8" stroke-width="2" marker-end="url(#m11a)"/><text x="380" y="243" font-size="12.5" text-anchor="middle" fill="#cbd5e1">choose by ownership, auth, context, and failure behavior</text>
 <defs><marker id="m11a" markerWidth="9" markerHeight="9" refX="8" refY="3" orient="auto"><path d="M0 0 L8 3 L0 6 z" fill="#94a3b8"/></marker></defs>
 </svg>
 </div>
@@ -577,21 +578,21 @@ Sources: [Module 13 overview](https://github.com/AI-Aspire/Aspire_Titanium_Engin
 
 <div style="display:flex;justify-content:center;margin-top:.1em">
 <svg viewBox="0 0 720 150" width="880" role="img" aria-label="Three choke points around the agent loop: input before the model, the tool boundary, and output before the user">
-<rect x="246" y="44" width="150" height="62" rx="9" fill="#ede9fe" stroke="#7c3aed" stroke-width="2.5"/>
-<text x="321" y="70" font-size="15" font-weight="700" text-anchor="middle" fill="#5b21b6">the loop</text>
-<text x="321" y="90" font-size="12" text-anchor="middle" fill="#6d28d9">model + your code</text>
-<rect x="18" y="44" width="150" height="62" rx="9" fill="#fee2e2" stroke="#dc2626" stroke-width="2.5"/>
-<text x="93" y="68" font-size="13.5" font-weight="700" text-anchor="middle" fill="#7f1d1d">input</text>
-<text x="93" y="88" font-size="11.5" text-anchor="middle" fill="#b91c1c">scope · injection</text>
-<rect x="474" y="44" width="150" height="62" rx="9" fill="#fee2e2" stroke="#dc2626" stroke-width="2.5"/>
-<text x="549" y="68" font-size="13.5" font-weight="700" text-anchor="middle" fill="#7f1d1d">output</text>
-<text x="549" y="88" font-size="11.5" text-anchor="middle" fill="#b91c1c">unsupported claims</text>
-<rect x="246" y="118" width="150" height="28" rx="8" fill="#fef3c7" stroke="#d97706" stroke-width="3"/>
-<text x="321" y="137" font-size="12.5" font-weight="700" text-anchor="middle" fill="#92400e">tool boundary · authorization</text>
+<rect x="246" y="44" width="150" height="62" rx="9" fill="#2a1d5a" stroke="#a78bfa" stroke-width="2.5"/>
+<text x="321" y="70" font-size="15" font-weight="700" text-anchor="middle" fill="#c4b5fd">the loop</text>
+<text x="321" y="90" font-size="12" text-anchor="middle" fill="#a78bfa">model + your code</text>
+<rect x="18" y="44" width="150" height="62" rx="9" fill="#3f1212" stroke="#f87171" stroke-width="2.5"/>
+<text x="93" y="68" font-size="13.5" font-weight="700" text-anchor="middle" fill="#fecaca">input</text>
+<text x="93" y="88" font-size="11.5" text-anchor="middle" fill="#fca5a5">scope · injection</text>
+<rect x="474" y="44" width="150" height="62" rx="9" fill="#3f1212" stroke="#f87171" stroke-width="2.5"/>
+<text x="549" y="68" font-size="13.5" font-weight="700" text-anchor="middle" fill="#fecaca">output</text>
+<text x="549" y="88" font-size="11.5" text-anchor="middle" fill="#fca5a5">unsupported claims</text>
+<rect x="246" y="118" width="150" height="28" rx="8" fill="#3a2a0a" stroke="#fbbf24" stroke-width="3"/>
+<text x="321" y="137" font-size="12.5" font-weight="700" text-anchor="middle" fill="#fcd34d">tool boundary · authorization</text>
 <path d="M170 75 H242" stroke="#94a3b8" stroke-width="2.5" marker-end="url(#ck)"/>
 <path d="M398 75 H470" stroke="#94a3b8" stroke-width="2.5" marker-end="url(#ck)"/>
-<path d="M321 108 V114" stroke="#d97706" stroke-width="2.5"/>
-<text x="660" y="79" font-size="12" text-anchor="middle" fill="#475569" font-style="italic">user</text>
+<path d="M321 108 V114" stroke="#fbbf24" stroke-width="2.5"/>
+<text x="660" y="79" font-size="12" text-anchor="middle" fill="#cbd5e1" font-style="italic">user</text>
 <defs><marker id="ck" markerWidth="10" markerHeight="10" refX="8.5" refY="3" orient="auto"><path d="M0 0 L8.5 3 L0 6 z" fill="#94a3b8"/></marker></defs>
 </svg>
 </div>
@@ -643,14 +644,14 @@ Sources: [JSONSchemaBench constrained-decoding study](https://arxiv.org/abs/2501
 
 <div style="display:flex;justify-content:center;margin-top:.1em">
 <svg viewBox="0 0 760 280" width="900" role="img" aria-label="A five-rung guardrail ladder from constrained decoding through rules, a classifier, an LLM judge, and a policy layer">
-<text x="380" y="22" font-size="14" text-anchor="middle" fill="#475569">cheapest and most mechanical</text>
+<text x="380" y="22" font-size="14" text-anchor="middle" fill="#cbd5e1">cheapest and most mechanical</text>
 <path d="M112 52 V238" stroke="#94a3b8" stroke-width="4"/><path d="M648 52 V238" stroke="#94a3b8" stroke-width="4"/>
-<rect x="112" y="48" width="536" height="34" rx="7" fill="#ede9fe" stroke="#7c3aed" stroke-width="2"/><text x="380" y="70" font-size="15" font-weight="700" text-anchor="middle" fill="#5b21b6">Rung 0 · constrained decoding</text>
-<rect x="112" y="86" width="536" height="34" rx="7" fill="#fef3c7" stroke="#d97706" stroke-width="2"/><text x="380" y="108" font-size="15" font-weight="700" text-anchor="middle" fill="#92400e">Rung 1 · rules</text>
-<rect x="112" y="124" width="536" height="34" rx="7" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/><text x="380" y="146" font-size="15" font-weight="700" text-anchor="middle" fill="#075985">Rung 2 · a classifier</text>
-<rect x="112" y="162" width="536" height="34" rx="7" fill="#ede9fe" stroke="#7c3aed" stroke-width="2"/><text x="380" y="184" font-size="15" font-weight="700" text-anchor="middle" fill="#5b21b6">Rung 3 · an LLM judge</text>
-<rect x="112" y="200" width="536" height="34" rx="7" fill="#fef3c7" stroke="#d97706" stroke-width="2"/><text x="380" y="222" font-size="15" font-weight="700" text-anchor="middle" fill="#92400e">Rung 4 · a policy layer</text>
-<text x="380" y="265" font-size="14" text-anchor="middle" fill="#475569">more context and authority</text>
+<rect x="112" y="48" width="536" height="34" rx="7" fill="#2a1d5a" stroke="#a78bfa" stroke-width="2"/><text x="380" y="70" font-size="15" font-weight="700" text-anchor="middle" fill="#c4b5fd">Rung 0 · constrained decoding</text>
+<rect x="112" y="86" width="536" height="34" rx="7" fill="#3a2a0a" stroke="#fbbf24" stroke-width="2"/><text x="380" y="108" font-size="15" font-weight="700" text-anchor="middle" fill="#fcd34d">Rung 1 · rules</text>
+<rect x="112" y="124" width="536" height="34" rx="7" fill="#0b2b40" stroke="#38bdf8" stroke-width="2"/><text x="380" y="146" font-size="15" font-weight="700" text-anchor="middle" fill="#7dd3fc">Rung 2 · a classifier</text>
+<rect x="112" y="162" width="536" height="34" rx="7" fill="#2a1d5a" stroke="#a78bfa" stroke-width="2"/><text x="380" y="184" font-size="15" font-weight="700" text-anchor="middle" fill="#c4b5fd">Rung 3 · an LLM judge</text>
+<rect x="112" y="200" width="536" height="34" rx="7" fill="#3a2a0a" stroke="#fbbf24" stroke-width="2"/><text x="380" y="222" font-size="15" font-weight="700" text-anchor="middle" fill="#fcd34d">Rung 4 · a policy layer</text>
+<text x="380" y="265" font-size="14" text-anchor="middle" fill="#cbd5e1">more context and authority</text>
 </svg>
 </div>
 

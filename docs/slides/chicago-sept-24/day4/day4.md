@@ -3,6 +3,7 @@ marp: true
 theme: default
 paginate: true
 size: 16:9
+class: invert
 ---
 
 # Today: longer horizons, more sources, more ways to be wrong
@@ -78,37 +79,37 @@ Sources: [OpenAI speech to text](https://developers.openai.com/api/docs/guides/s
 
 <div style="display:flex;justify-content:center;margin-top:.1em">
 <svg viewBox="0 0 760 180" width="900" role="img" aria-label="The voice panel loop: a planner splits a question into three angles, three researchers work in parallel, an aggregator drafts, then a critic and judge loop back until the judge passes the draft">
-<rect x="10" y="60" width="104" height="50" rx="8" fill="#ede9fe" stroke="#7c3aed" stroke-width="2.5"/>
-<text x="62" y="82" font-size="13" font-weight="700" text-anchor="middle" fill="#5b21b6">planner</text>
-<text x="62" y="99" font-size="10.5" text-anchor="middle" fill="#6d28d9">3 angles</text>
-<rect x="148" y="22" width="104" height="30" rx="6" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
-<text x="200" y="42" font-size="11.5" text-anchor="middle" fill="#075985">researcher</text>
-<rect x="148" y="60" width="104" height="30" rx="6" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
-<text x="200" y="80" font-size="11.5" text-anchor="middle" fill="#075985">researcher</text>
-<rect x="148" y="98" width="104" height="30" rx="6" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
-<text x="200" y="118" font-size="11.5" text-anchor="middle" fill="#075985">researcher</text>
-<rect x="286" y="60" width="104" height="50" rx="8" fill="#ede9fe" stroke="#7c3aed" stroke-width="2.5"/>
-<text x="338" y="82" font-size="13" font-weight="700" text-anchor="middle" fill="#5b21b6">aggregator</text>
-<text x="338" y="99" font-size="10.5" text-anchor="middle" fill="#6d28d9">drafts</text>
-<rect x="424" y="60" width="90" height="50" rx="8" fill="#fee2e2" stroke="#dc2626" stroke-width="2.5"/>
-<text x="469" y="82" font-size="13" font-weight="700" text-anchor="middle" fill="#7f1d1d">critic</text>
-<text x="469" y="99" font-size="10.5" text-anchor="middle" fill="#b91c1c">attacks</text>
-<rect x="548" y="60" width="90" height="50" rx="8" fill="#fef3c7" stroke="#d97706" stroke-width="2.5"/>
-<text x="593" y="82" font-size="13" font-weight="700" text-anchor="middle" fill="#92400e">judge</text>
-<text x="593" y="99" font-size="10.5" text-anchor="middle" fill="#92400e">pass?</text>
-<rect x="668" y="68" width="82" height="34" rx="8" fill="#dcfce7" stroke="#16a34a" stroke-width="2.5"/>
-<text x="709" y="90" font-size="12.5" font-weight="700" text-anchor="middle" fill="#166534">answer</text>
+<rect x="10" y="60" width="104" height="50" rx="8" fill="#2a1d5a" stroke="#a78bfa" stroke-width="2.5"/>
+<text x="62" y="82" font-size="13" font-weight="700" text-anchor="middle" fill="#c4b5fd">planner</text>
+<text x="62" y="99" font-size="10.5" text-anchor="middle" fill="#a78bfa">3 angles</text>
+<rect x="148" y="22" width="104" height="30" rx="6" fill="#0b2b40" stroke="#38bdf8" stroke-width="2"/>
+<text x="200" y="42" font-size="11.5" text-anchor="middle" fill="#7dd3fc">researcher</text>
+<rect x="148" y="60" width="104" height="30" rx="6" fill="#0b2b40" stroke="#38bdf8" stroke-width="2"/>
+<text x="200" y="80" font-size="11.5" text-anchor="middle" fill="#7dd3fc">researcher</text>
+<rect x="148" y="98" width="104" height="30" rx="6" fill="#0b2b40" stroke="#38bdf8" stroke-width="2"/>
+<text x="200" y="118" font-size="11.5" text-anchor="middle" fill="#7dd3fc">researcher</text>
+<rect x="286" y="60" width="104" height="50" rx="8" fill="#2a1d5a" stroke="#a78bfa" stroke-width="2.5"/>
+<text x="338" y="82" font-size="13" font-weight="700" text-anchor="middle" fill="#c4b5fd">aggregator</text>
+<text x="338" y="99" font-size="10.5" text-anchor="middle" fill="#a78bfa">drafts</text>
+<rect x="424" y="60" width="90" height="50" rx="8" fill="#3f1212" stroke="#f87171" stroke-width="2.5"/>
+<text x="469" y="82" font-size="13" font-weight="700" text-anchor="middle" fill="#fecaca">critic</text>
+<text x="469" y="99" font-size="10.5" text-anchor="middle" fill="#fca5a5">attacks</text>
+<rect x="548" y="60" width="90" height="50" rx="8" fill="#3a2a0a" stroke="#fbbf24" stroke-width="2.5"/>
+<text x="593" y="82" font-size="13" font-weight="700" text-anchor="middle" fill="#fcd34d">judge</text>
+<text x="593" y="99" font-size="10.5" text-anchor="middle" fill="#fcd34d">pass?</text>
+<rect x="668" y="68" width="82" height="34" rx="8" fill="#0f3320" stroke="#4ade80" stroke-width="2.5"/>
+<text x="709" y="90" font-size="12.5" font-weight="700" text-anchor="middle" fill="#86efac">answer</text>
 <path d="M116 85 H144" stroke="#94a3b8" stroke-width="2" marker-end="url(#va)"/>
 <path d="M254 75 H282" stroke="#94a3b8" stroke-width="2" marker-end="url(#va)"/>
 <path d="M392 85 H420" stroke="#94a3b8" stroke-width="2" marker-end="url(#va)"/>
 <path d="M516 85 H544" stroke="#94a3b8" stroke-width="2" marker-end="url(#va)"/>
-<path d="M640 85 H664" stroke="#16a34a" stroke-width="2.5" marker-end="url(#vg)"/>
-<path d="M593 114 V140 H338 V114" fill="none" stroke="#dc2626" stroke-width="2.5" stroke-dasharray="5 3" marker-end="url(#vr)"/>
-<text x="466" y="155" font-size="11.5" text-anchor="middle" fill="#b91c1c" font-style="italic">sent back for a revision · capped rounds</text>
+<path d="M640 85 H664" stroke="#4ade80" stroke-width="2.5" marker-end="url(#vg)"/>
+<path d="M593 114 V140 H338 V114" fill="none" stroke="#f87171" stroke-width="2.5" stroke-dasharray="5 3" marker-end="url(#vr)"/>
+<text x="466" y="155" font-size="11.5" text-anchor="middle" fill="#fca5a5" font-style="italic">sent back for a revision · capped rounds</text>
 <defs>
 <marker id="va" markerWidth="9" markerHeight="9" refX="7.5" refY="3" orient="auto"><path d="M0 0 L7.5 3 L0 6 z" fill="#94a3b8"/></marker>
-<marker id="vg" markerWidth="9" markerHeight="9" refX="7.5" refY="3" orient="auto"><path d="M0 0 L7.5 3 L0 6 z" fill="#16a34a"/></marker>
-<marker id="vr" markerWidth="9" markerHeight="9" refX="7.5" refY="3" orient="auto"><path d="M0 0 L7.5 3 L0 6 z" fill="#dc2626"/></marker>
+<marker id="vg" markerWidth="9" markerHeight="9" refX="7.5" refY="3" orient="auto"><path d="M0 0 L7.5 3 L0 6 z" fill="#4ade80"/></marker>
+<marker id="vr" markerWidth="9" markerHeight="9" refX="7.5" refY="3" orient="auto"><path d="M0 0 L7.5 3 L0 6 z" fill="#f87171"/></marker>
 </defs>
 </svg>
 </div>
@@ -611,31 +612,31 @@ Sources: [OpenAI Agents SDK guardrails](https://openai.github.io/openai-agents-p
 
 <div style="display:flex;justify-content:center;margin-top:.1em">
 <svg viewBox="0 0 720 200" width="900" role="img" aria-label="Three guardrail placements around the agent loop: before generation on the input, at the tool boundary, and after generation on the output">
-<rect x="236" y="62" width="150" height="66" rx="9" fill="#ede9fe" stroke="#7c3aed" stroke-width="2.5"/>
-<text x="311" y="89" font-size="15" font-weight="700" text-anchor="middle" fill="#5b21b6">the loop</text>
-<text x="311" y="110" font-size="12" text-anchor="middle" fill="#6d28d9">model + your code</text>
+<rect x="236" y="62" width="150" height="66" rx="9" fill="#2a1d5a" stroke="#a78bfa" stroke-width="2.5"/>
+<text x="311" y="89" font-size="15" font-weight="700" text-anchor="middle" fill="#c4b5fd">the loop</text>
+<text x="311" y="110" font-size="12" text-anchor="middle" fill="#a78bfa">model + your code</text>
 
-<rect x="14" y="62" width="150" height="66" rx="9" fill="#fee2e2" stroke="#dc2626" stroke-width="2.5"/>
-<text x="89" y="84" font-size="13.5" font-weight="700" text-anchor="middle" fill="#7f1d1d">before generation</text>
-<text x="89" y="103" font-size="11.5" text-anchor="middle" fill="#b91c1c">scope · injection</text>
-<text x="89" y="119" font-size="11" text-anchor="middle" fill="#b91c1c">blocks: nothing runs</text>
+<rect x="14" y="62" width="150" height="66" rx="9" fill="#3f1212" stroke="#f87171" stroke-width="2.5"/>
+<text x="89" y="84" font-size="13.5" font-weight="700" text-anchor="middle" fill="#fecaca">before generation</text>
+<text x="89" y="103" font-size="11.5" text-anchor="middle" fill="#fca5a5">scope · injection</text>
+<text x="89" y="119" font-size="11" text-anchor="middle" fill="#fca5a5">blocks: nothing runs</text>
 
-<rect x="458" y="62" width="150" height="66" rx="9" fill="#fee2e2" stroke="#dc2626" stroke-width="2.5"/>
-<text x="533" y="84" font-size="13.5" font-weight="700" text-anchor="middle" fill="#7f1d1d">after generation</text>
-<text x="533" y="103" font-size="11.5" text-anchor="middle" fill="#b91c1c">unsupported claims</text>
-<text x="533" y="119" font-size="11" text-anchor="middle" fill="#b91c1c">blocks: output withheld</text>
+<rect x="458" y="62" width="150" height="66" rx="9" fill="#3f1212" stroke="#f87171" stroke-width="2.5"/>
+<text x="533" y="84" font-size="13.5" font-weight="700" text-anchor="middle" fill="#fecaca">after generation</text>
+<text x="533" y="103" font-size="11.5" text-anchor="middle" fill="#fca5a5">unsupported claims</text>
+<text x="533" y="119" font-size="11" text-anchor="middle" fill="#fca5a5">blocks: output withheld</text>
 
-<rect x="236" y="158" width="150" height="38" rx="9" fill="#fef3c7" stroke="#d97706" stroke-width="3"/>
-<text x="311" y="175" font-size="13.5" font-weight="700" text-anchor="middle" fill="#92400e">tool boundary</text>
-<text x="311" y="190" font-size="11" text-anchor="middle" fill="#b45309">authorization · side effects</text>
+<rect x="236" y="158" width="150" height="38" rx="9" fill="#3a2a0a" stroke="#fbbf24" stroke-width="3"/>
+<text x="311" y="175" font-size="13.5" font-weight="700" text-anchor="middle" fill="#fcd34d">tool boundary</text>
+<text x="311" y="190" font-size="11" text-anchor="middle" fill="#fbbf24">authorization · side effects</text>
 
 <path d="M166 95 H232" stroke="#94a3b8" stroke-width="2.5" marker-end="url(#p1)"/>
 <path d="M388 95 H454" stroke="#94a3b8" stroke-width="2.5" marker-end="url(#p1)"/>
-<path d="M311 130 V154" stroke="#d97706" stroke-width="2.5" marker-end="url(#p2)"/>
-<text x="656" y="99" font-size="12" text-anchor="middle" fill="#475569" font-style="italic">answer</text>
+<path d="M311 130 V154" stroke="#fbbf24" stroke-width="2.5" marker-end="url(#p2)"/>
+<text x="656" y="99" font-size="12" text-anchor="middle" fill="#cbd5e1" font-style="italic">answer</text>
 <defs>
 <marker id="p1" markerWidth="10" markerHeight="10" refX="8.5" refY="3" orient="auto"><path d="M0 0 L8.5 3 L0 6 z" fill="#94a3b8"/></marker>
-<marker id="p2" markerWidth="10" markerHeight="10" refX="8.5" refY="3" orient="auto"><path d="M0 0 L8.5 3 L0 6 z" fill="#d97706"/></marker>
+<marker id="p2" markerWidth="10" markerHeight="10" refX="8.5" refY="3" orient="auto"><path d="M0 0 L8.5 3 L0 6 z" fill="#fbbf24"/></marker>
 </defs>
 </svg>
 </div>

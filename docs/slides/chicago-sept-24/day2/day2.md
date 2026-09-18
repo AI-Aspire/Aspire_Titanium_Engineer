@@ -3,6 +3,7 @@ marp: true
 theme: default
 paginate: true
 size: 16:9
+class: invert
 ---
 
 # Today: making retrieval measurable
