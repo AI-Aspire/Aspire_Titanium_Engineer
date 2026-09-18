@@ -373,27 +373,36 @@ Sources: [Module 01 overview](https://github.com/AI-Aspire/Aspire_Titanium_Engin
 -->
 ---
 
-# One endpoint, three compatible clients
+# One endpoint shape, whatever is behind it
 
 <div style="display:flex;justify-content:center;margin-top:.35em">
-<svg viewBox="0 0 720 190" width="900" role="img" aria-label="OpenAI, vLLM, and Ollama clients point to one OpenAI-compatible chat completions endpoint">
+<svg viewBox="0 0 860 200" width="980" role="img" aria-label="OpenAI, vLLM, Ollama, and the AIP gateway all speak the same OpenAI-compatible chat completions endpoint; the AIP gateway is the one this cohort uses">
 <g text-anchor="middle">
-<rect x="260" y="18" width="200" height="58" rx="9" fill="#e8f0fe" stroke="#0284c7" stroke-width="2.5"/>
-<text x="360" y="43" font-size="15" font-weight="700" fill="#075985">POST /v1/chat/completions</text>
-<text x="360" y="62" font-size="12" fill="#0369a1">your endpoint</text>
-<rect x="24" y="118" width="170" height="54" rx="9" fill="#f1f5f9" stroke="#94a3b8" stroke-width="2"/>
-<text x="109" y="151" font-size="15" font-weight="700" fill="#334155">OpenAI</text>
-<rect x="275" y="118" width="170" height="54" rx="9" fill="#f1f5f9" stroke="#94a3b8" stroke-width="2"/>
-<text x="360" y="151" font-size="15" font-weight="700" fill="#334155">vLLM</text>
-<rect x="526" y="118" width="170" height="54" rx="9" fill="#f1f5f9" stroke="#94a3b8" stroke-width="2"/>
-<text x="611" y="151" font-size="15" font-weight="700" fill="#334155">Ollama</text>
+<rect x="330" y="14" width="200" height="58" rx="9" fill="#e8f0fe" stroke="#0284c7" stroke-width="2.5"/>
+<text x="430" y="39" font-size="15" font-weight="700" fill="#075985">POST /v1/chat/completions</text>
+<text x="430" y="58" font-size="12" fill="#0369a1">one client shape</text>
+<rect x="14" y="120" width="180" height="56" rx="9" fill="#f1f5f9" stroke="#94a3b8" stroke-width="2"/>
+<text x="104" y="154" font-size="15" font-weight="700" fill="#334155">OpenAI</text>
+<rect x="212" y="120" width="180" height="56" rx="9" fill="#f1f5f9" stroke="#94a3b8" stroke-width="2"/>
+<text x="302" y="154" font-size="15" font-weight="700" fill="#334155">vLLM</text>
+<rect x="410" y="120" width="180" height="56" rx="9" fill="#f1f5f9" stroke="#94a3b8" stroke-width="2"/>
+<text x="500" y="154" font-size="15" font-weight="700" fill="#334155">Ollama</text>
+<rect x="622" y="116" width="224" height="64" rx="9" fill="#fef3c7" stroke="#d97706" stroke-width="3"/>
+<text x="734" y="142" font-size="15" font-weight="700" fill="#92400e">AIP gateway</text>
+<text x="734" y="164" font-size="12" fill="#92400e">this week — via VPN</text>
 </g>
-<path d="M109 114 L300 79" stroke="#94a3b8" stroke-width="2" marker-end="url(#compat-arrow)"/>
-<path d="M360 114 V80" stroke="#94a3b8" stroke-width="2" marker-end="url(#compat-arrow)"/>
-<path d="M611 114 L420 79" stroke="#94a3b8" stroke-width="2" marker-end="url(#compat-arrow)"/>
-<defs><marker id="compat-arrow" markerWidth="9" markerHeight="9" refX="8" refY="3" orient="auto"><path d="M0 0 L8 3 L0 6 z" fill="#94a3b8"/></marker></defs>
+<path d="M104 116 L370 76" stroke="#94a3b8" stroke-width="2" marker-end="url(#compat-arrow)"/>
+<path d="M302 116 L400 76" stroke="#94a3b8" stroke-width="2" marker-end="url(#compat-arrow)"/>
+<path d="M500 116 L460 76" stroke="#94a3b8" stroke-width="2" marker-end="url(#compat-arrow)"/>
+<path d="M734 112 L495 74" stroke="#d97706" stroke-width="3" marker-end="url(#compat-arrow-hi)"/>
+<defs>
+<marker id="compat-arrow" markerWidth="9" markerHeight="9" refX="8" refY="3" orient="auto"><path d="M0 0 L8 3 L0 6 z" fill="#94a3b8"/></marker>
+<marker id="compat-arrow-hi" markerWidth="9" markerHeight="9" refX="8" refY="3" orient="auto"><path d="M0 0 L8 3 L0 6 z" fill="#d97706"/></marker>
+</defs>
 </svg>
 </div>
+
+Same code, either way. Only `.env` changes: `OPENAI_BASE_URL`, `OPENAI_API_KEY`, `APIM_KEY`, `LLM_MODEL`.
 
 Every notebook reads `OPENAI_BASE_URL`, so **the same code runs against a cloud key, a self-hosted server, or a local model.**
 
