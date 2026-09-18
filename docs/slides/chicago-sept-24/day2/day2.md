@@ -64,6 +64,31 @@ Sources: [Day 2 schedule](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/
 -->
 
 ---
+# Worth watching: Typesafe.ai
+
+Launched this year. **"Composable AI: Build Prod, Not God."**
+
+> "The bottleneck isn't raw intelligence. It's that today's intelligence is hard to build on."
+>
+> "Intelligence today is like **databases before SQL**: powerful, but every use is bespoke."
+
+Their bet: a model built to be *invoked by software*, not chatted with — so a smart decision becomes as dependable as a database query. First model: **Jev**.
+
+<!--
+Slide ID: D2-M06-R0
+Module: [06 Advanced retrieval](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/06_Advanced_Retrieval/README.md)
+Instructor: Eli
+Type: optional
+Minutes: 2
+Layout: 08 Quote
+Speaker notes:
+- Say: One slide on something brand new, because it names the gap this whole day is about. Their claim is that the models are already smart enough and the missing piece is being able to build on them — to bury one five layers deep in a system and trust it.
+- Ask: Rhetorical — no answer needed, just plant it.
+- Watch: The databases-before-SQL line is the one worth repeating. Nobody who built databases imagined Google; they made a lower-level capability dependable enough to layer on. Their argument is that safety is a precondition for layering: you let a component run unattended if it is reliable, and you only build on top of it if it is trustworthy.
+- Then: Say plainly that the course does not use this — it launched recently and is here as context. Then land the connection: today is about making retrieval dependable enough to build on, which is the same problem at a smaller scale. Everything after this slide is how you get there — measure it, then choose the cheapest rung that clears the bar.
+Sources: [Typesafe.ai manifesto](https://typesafe.ai/manifesto)
+-->
+---
 # Three kinds of retrieval, named
 
 | | Matches on | Finds `VPN-4312` | Finds "remote access" |
