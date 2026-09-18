@@ -20,13 +20,17 @@ title: Day 1 — Prototype and retrieve
 # Days 2 through 5 are still authored in markdown, and edits to those belong
 # here as usual.
 ---
-
 # Today: from a repo to a retrieving agent
 
-- 01 Dev environment — 30m · 02 Prompt patterns — 30m
-- 03 Agents 101 — 35m · 04 Vibe checks and judges — 30m
-- 05 RAG — 30m
-
+<div style="display:flex;justify-content:center;margin-top:.3em">
+<svg viewBox="0 0 860 200" width="1080" role="img" aria-label="The five modules of the day, drawn to their length in minutes, ending in pitches">
+<text x="10" y="34" font-size="14" fill="#94a3b8">Five demos, 155 minutes of them, one question carried through all five</text>
+<rect x="10" y="60" width="157" height="74" rx="9" fill="#1e293b" stroke="#94a3b8" stroke-width="2.5"/><text x="20" y="86" font-size="15" font-weight="700" fill="#cbd5e1">01</text><text x="20" y="108" font-size="13" fill="#f1f5f9">Dev environment</text><text x="20" y="126" font-size="12" fill="#94a3b8">30 min</text><rect x="173" y="60" width="157" height="74" rx="9" fill="#0b2b40" stroke="#38bdf8" stroke-width="2.5"/><text x="183" y="86" font-size="15" font-weight="700" fill="#7dd3fc">02</text><text x="183" y="108" font-size="13" fill="#f1f5f9">Prompt patterns</text><text x="183" y="126" font-size="12" fill="#94a3b8">30 min</text><rect x="335" y="60" width="184" height="74" rx="9" fill="#2a1d5a" stroke="#a78bfa" stroke-width="2.5"/><text x="345" y="86" font-size="15" font-weight="700" fill="#c4b5fd">03</text><text x="345" y="108" font-size="13" fill="#f1f5f9">Agents 101</text><text x="345" y="126" font-size="12" fill="#94a3b8">35 min</text><rect x="525" y="60" width="157" height="74" rx="9" fill="#3a2a0a" stroke="#fbbf24" stroke-width="2.5"/><text x="535" y="86" font-size="15" font-weight="700" fill="#fcd34d">04</text><text x="535" y="108" font-size="13" fill="#f1f5f9">Vibe checks and judges</text><text x="535" y="126" font-size="12" fill="#94a3b8">30 min</text><rect x="687" y="60" width="157" height="74" rx="9" fill="#0f3320" stroke="#4ade80" stroke-width="2.5"/><text x="697" y="86" font-size="15" font-weight="700" fill="#86efac">05</text><text x="697" y="108" font-size="13" fill="#f1f5f9">RAG</text><text x="697" y="126" font-size="12" fill="#94a3b8">30 min</text>
+<path d="M10 160 H850" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4 4"/>
+<text x="10" y="186" font-size="13" fill="#94a3b8">charter first</text>
+<text x="850" y="186" font-size="13" fill="#fcd34d" text-anchor="end">then pitches, four minutes per group</text>
+</svg>
+</div>
 
 <!--
 Slide ID: D1-F0
@@ -44,12 +48,21 @@ Sources: [Day 1 schedule](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/
 -->
 
 ---
-
 # Start with a question, not a technology
 
-- Name one person and one difficult recurring question
-- Identify the decision that follows the answer
-- Leave the technology choice open
+<div style="display:flex;gap:1.2em;align-items:stretch;margin-top:.2em">
+<div style="flex:1.3;background:#0b2b40;border-left:6px solid #38bdf8;border-radius:10px;padding:.7em 1em;display:flex;flex-direction:column;justify-content:center">
+<div style="font-size:.55em;letter-spacing:.12em;text-transform:uppercase;color:#7dd3fc">One person, one recurring question</div>
+<div style="font-size:1.25em;line-height:1.25;color:#f1f5f9;margin-top:.3em">“How do I restore access to my work account?”</div>
+<div style="font-size:.6em;color:#94a3b8;margin-top:.5em">An illustrative shape only. Your group names its own person and question.</div>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:.55em;font-size:.68em">
+<div style="background:#1e293b;border-radius:8px;padding:.5em .8em"><b style="color:#7dd3fc">Who</b><br>a named person, not “users”</div>
+<div style="background:#1e293b;border-radius:8px;padding:.5em .8em"><b style="color:#fcd34d">Recurring</b><br>asked often enough to be worth a system</div>
+<div style="background:#1e293b;border-radius:8px;padding:.5em .8em"><b style="color:#c4b5fd">Decision</b><br>what becomes easier once it is answered</div>
+<div style="color:#94a3b8;padding:.2em .8em">The technology stays open until the question is fixed.</div>
+</div>
+</div>
 
 > Source: [Concrete Idea Worksheet](https://corporate.aiaspire.ai/accenture/titanium/NA/agenda/cohort_2/Concrete_Idea_Worksheet.pdf)
 
@@ -97,12 +110,31 @@ Sources: [Concrete Idea Worksheet](https://corporate.aiaspire.ai/accenture/titan
 -->
 
 ---
-
 # Separate the task, the evidence, and the decision
 
-- Task: what question must be answered?
-- Evidence: what facts can change?
-- Decision: who acts, and what requires approval?
+<div style="display:flex;justify-content:center;margin-top:.1em">
+<svg viewBox="0 0 860 300" width="900" role="img" aria-label="Task at the top, evidence bottom left, decision bottom right; the evidence changes when policy changes, the decision has an owner">
+<defs><marker id="tri-a" markerWidth="9" markerHeight="9" refX="8" refY="3" orient="auto"><path d="M0 0 L8 3 L0 6 z" fill="#94a3b8"/></marker></defs>
+<path d="M430 96 L190 214" stroke="#94a3b8" stroke-width="2" marker-end="url(#tri-a)"/>
+<path d="M430 96 L670 214" stroke="#94a3b8" stroke-width="2" marker-end="url(#tri-a)"/>
+<path d="M270 244 H590" stroke="#94a3b8" stroke-width="2" stroke-dasharray="5 5"/>
+<g text-anchor="middle">
+<rect x="320" y="22" width="220" height="64" rx="10" fill="#0b2b40" stroke="#38bdf8" stroke-width="2.5"/>
+<text x="430" y="49" font-size="17" font-weight="700" fill="#7dd3fc">Task</text>
+<text x="430" y="70" font-size="13" fill="#f1f5f9">what question must be answered</text>
+<rect x="60" y="214" width="220" height="64" rx="10" fill="#3a2a0a" stroke="#fbbf24" stroke-width="2.5"/>
+<text x="170" y="241" font-size="17" font-weight="700" fill="#fcd34d">Evidence</text>
+<text x="170" y="262" font-size="13" fill="#f1f5f9">the facts that can change</text>
+<rect x="580" y="214" width="220" height="64" rx="10" fill="#2a1d5a" stroke="#a78bfa" stroke-width="2.5"/>
+<text x="690" y="241" font-size="17" font-weight="700" fill="#c4b5fd">Decision</text>
+<text x="690" y="262" font-size="13" fill="#f1f5f9">who acts, what needs approval</text>
+<text x="430" y="236" font-size="12" fill="#94a3b8">a policy update moves this edge</text>
+<text x="260" y="150" font-size="12" fill="#94a3b8" transform="rotate(-26 260 150)">is answered from</text>
+<text x="600" y="150" font-size="12" fill="#94a3b8" transform="rotate(26 600 150)">is owned by</text>
+</g>
+<text x="430" y="296" font-size="13" fill="#94a3b8" text-anchor="middle">A prompt that says “you are an administrator” moves none of the three.</text>
+</svg>
+</div>
 
 > Source: [Semantic contracts research notes](https://github.com/soypete/ctx-eng-book/blob/main/research/semantic-contracts.md)
 
@@ -122,12 +154,28 @@ Sources: [Author's semantic-contract notes](https://github.com/soypete/ctx-eng-b
 -->
 
 ---
-
 # A prototype tests your ability to answer a question
 
-- Can the approach answer the question at all?
-- What failure would change the design?
-- What evidence is enough to stop?
+<div style="display:flex;justify-content:center;margin-top:.1em">
+<svg viewBox="0 0 860 240" width="1040" role="img" aria-label="Five candidate questions on the left narrow through a funnel to one uncertainty in the middle, which produces one observable failure and a stopping rule on the right">
+<text x="24" y="34" font-size="12" fill="#94a3b8" letter-spacing="1.5">CANDIDATE UNCERTAINTIES</text>
+<text x="24" y="62" font-size="13" fill="#94a3b8" font-weight="400">Will it find the right procedure?</text><text x="24" y="92" font-size="13" fill="#f1f5f9" font-weight="700">Will it keep the evidence?</text><text x="24" y="122" font-size="13" fill="#94a3b8" font-weight="400">Will it know when it lacks enough?</text><text x="24" y="152" font-size="13" fill="#94a3b8" font-weight="400">Will it answer fast enough?</text><text x="24" y="182" font-size="13" fill="#94a3b8" font-weight="400">Will it refuse the wrong things?</text>
+<path d="M300 44 L420 96 L420 156 L300 210 Z" fill="#1e293b" stroke="#94a3b8" stroke-width="1.5"/>
+<path d="M300 44 H290 M300 210 H290" stroke="#94a3b8" stroke-width="1.5"/>
+<rect x="436" y="88" width="180" height="76" rx="10" fill="#3a2a0a" stroke="#fbbf24" stroke-width="2.5"/>
+<text x="526" y="118" font-size="13" fill="#fcd34d" text-anchor="middle" letter-spacing="1.5">ONE UNCERTAINTY</text>
+<text x="526" y="142" font-size="14" fill="#f1f5f9" text-anchor="middle">tested by this prototype</text>
+<path d="M616 126 H636" stroke="#94a3b8" stroke-width="2"/>
+<rect x="640" y="52" width="210" height="70" rx="10" fill="#3f1212" stroke="#f87171" stroke-width="2"/>
+<text x="745" y="76" font-size="13" fill="#fca5a5" text-anchor="middle" font-weight="700">the failure that changes</text>
+<text x="745" y="92" font-size="13" fill="#fca5a5" text-anchor="middle" font-weight="700">the design</text>
+<text x="745" y="112" font-size="12" fill="#f1f5f9" text-anchor="middle">written down before the run</text>
+<rect x="640" y="134" width="210" height="70" rx="10" fill="#0f3320" stroke="#4ade80" stroke-width="2"/>
+<text x="745" y="158" font-size="13" fill="#86efac" text-anchor="middle" font-weight="700">the evidence that is</text>
+<text x="745" y="174" font-size="13" fill="#86efac" text-anchor="middle" font-weight="700">enough to stop</text>
+<text x="745" y="194" font-size="12" fill="#f1f5f9" text-anchor="middle">a number, not a feeling</text>
+</svg>
+</div>
 
 > Source: [Machine Learning Yearning](https://github.com/ajaymache/machine-learning-yearning/blob/master/full%20book/machine-learning-yearning.pdf)
 
@@ -147,12 +195,14 @@ Sources: [Machine Learning Yearning](https://github.com/ajaymache/machine-learni
 -->
 
 ---
-
 # PoC: prove the mechanism manually
 
-- Ask the question in a chat
-- Copy in the relevant facts by hand
-- Check the answer against the source and criteria
+<div style="display:flex;justify-content:center;margin-top:.3em">
+<svg viewBox="0 0 860 200" width="1060" role="img" aria-label="Three chevrons: ask the question, paste the facts by hand, check the answer against the source">
+<polygon points="14,40 260,40 282,94 260,148 14,148 14,94" fill="#0b2b40" stroke="#38bdf8" stroke-width="2.5"/><text x="54" y="80" font-size="22" font-weight="700" fill="#7dd3fc">Ask</text><text x="54" y="106" font-size="13" fill="#f1f5f9">the question, in a chat</text><text x="54" y="130" font-size="12" fill="#94a3b8">nothing automated yet</text><polygon points="290,40 536,40 558,94 536,148 290,148 312,94" fill="#3a2a0a" stroke="#fbbf24" stroke-width="2.5"/><text x="330" y="80" font-size="22" font-weight="700" fill="#fcd34d">Paste</text><text x="330" y="106" font-size="13" fill="#f1f5f9">the relevant facts, by hand</text><text x="330" y="130" font-size="12" fill="#94a3b8">you are the retriever</text><polygon points="566,40 812,40 834,94 812,148 566,148 588,94" fill="#2a1d5a" stroke="#a78bfa" stroke-width="2.5"/><text x="606" y="80" font-size="22" font-weight="700" fill="#c4b5fd">Check</text><text x="606" y="106" font-size="13" fill="#f1f5f9">the answer against source and criteria</text><text x="606" y="130" font-size="12" fill="#94a3b8">you are the judge</text>
+<text x="430" y="186" font-size="13" fill="#94a3b8" text-anchor="middle">Each of these becomes a component later. Automate the one you can already measure.</text>
+</svg>
+</div>
 
 > Source: [The LLM application stack](https://a16z.com/emerging-architectures-for-llm-applications/)
 
@@ -222,12 +272,20 @@ Sources: [The product-market fit framework](https://pmarchive.com/guide_to_start
 -->
 
 ---
-
 # The MVP is one designed experience
 
-- Like a car prepared for a test drive
-- One coherent design, not every possible feature
-- Test the route, controls, and failure response
+<div style="font-size:.72em;margin-top:.2em">
+
+| A car prepared for a test drive | Your MVP |
+|---|---|
+| One route the salesperson has driven | One user task, start to finish |
+| Controls that work without explanation | A flow the user completes without a teammate narrating |
+| The brakes are tested before the customer sits down | The failure response is designed, not discovered live |
+| Not every option on the price list | Not every feature the roadmap imagines |
+
+</div>
+
+<div style="font-size:.7em;color:#94a3b8;margin-top:.4em">Mark the one flow you will show, and the options it deliberately leaves out.</div>
 
 > Source: [The product-market fit framework](https://pmarchive.com/guide_to_startups_part4.html)
 
@@ -272,12 +330,17 @@ Sources: [Building effective agents](https://www.anthropic.com/engineering/build
 -->
 
 ---
-
 # Production is the infrastructure around the car
 
-- Context is prepared, refreshed, and scoped
-- Workflows execute with permissions and recovery
-- Evals and observability decide whether changes ship
+<div style="display:flex;justify-content:center;margin-top:0">
+<svg viewBox="0 0 860 300" width="960" role="img" aria-label="The model sits at the centre of four rings: context, workflows, evals and observability, infrastructure">
+<circle cx="300" cy="150" r="150.0" fill="#1e293b" stroke="#94a3b8" stroke-width="2"/><circle cx="300" cy="150" r="116.0" fill="#0f3320" stroke="#4ade80" stroke-width="2"/><circle cx="300" cy="150" r="82.0" fill="#2a1d5a" stroke="#a78bfa" stroke-width="2"/><circle cx="300" cy="150" r="50.0" fill="#3a2a0a" stroke="#fbbf24" stroke-width="2"/>
+<circle cx="300" cy="150" r="30" fill="#0b2b40" stroke="#38bdf8" stroke-width="2.5"/>
+<text x="300" y="155" font-size="13" font-weight="700" fill="#7dd3fc" text-anchor="middle">model</text>
+<text x="620" y="54" font-size="15" font-weight="700" fill="#cbd5e1">infrastructure</text><text x="620" y="72" font-size="12" fill="#f1f5f9">hosting, secrets, identity, cost</text><path d="M444.0 150 Q 490.0 46 612 48" stroke="#94a3b8" stroke-width="1.5" fill="none" stroke-dasharray="3 4"/><text x="620" y="106" font-size="15" font-weight="700" fill="#86efac">evals and observability</text><text x="620" y="124" font-size="12" fill="#f1f5f9">decide whether a change ships</text><path d="M410.0 150 Q 456.0 98 612 100" stroke="#4ade80" stroke-width="1.5" fill="none" stroke-dasharray="3 4"/><text x="620" y="158" font-size="15" font-weight="700" fill="#c4b5fd">workflows</text><text x="620" y="176" font-size="12" fill="#f1f5f9">permissions and recovery</text><path d="M376.0 150 Q 422.0 150 612 152" stroke="#a78bfa" stroke-width="1.5" fill="none" stroke-dasharray="3 4"/><text x="620" y="210" font-size="15" font-weight="700" fill="#fcd34d">context</text><text x="620" y="228" font-size="12" fill="#f1f5f9">prepared, refreshed, scoped</text><path d="M344.0 150 Q 390.0 202 612 204" stroke="#fbbf24" stroke-width="1.5" fill="none" stroke-dasharray="3 4"/>
+<text x="300" y="292" font-size="13" fill="#94a3b8" text-anchor="middle">The car is the smallest part of the road trip.</text>
+</svg>
+</div>
 
 > Source: [The LLM application stack](https://a16z.com/emerging-architectures-for-llm-applications/)
 
@@ -297,12 +360,13 @@ Sources: [The LLM application stack](https://a16z.com/emerging-architectures-for
 -->
 
 ---
-
 # The same build ladder applies to AI
 
-- PoC: prompt plus manual context and checks
-- MVP: one usable path with skills, code, or MCP
-- Production: workflows, context, evals, and infrastructure
+<div style="display:flex;justify-content:center;margin-top:.2em">
+<svg viewBox="0 0 860 250" width="1060" role="img" aria-label="Three risers from proof of concept to minimum viable product to production, each naming what it adds and the question it answers">
+<rect x="20" y="150" width="268" height="90" rx="8" fill="#0b2b40" stroke="#38bdf8" stroke-width="2.5"/><text x="36" y="182" font-size="20" font-weight="700" fill="#7dd3fc">PoC</text><text x="36" y="206" font-size="12" fill="#f1f5f9">prompt, manual context, manual checks</text><text x="36" y="228" font-size="12" fill="#94a3b8">asks: does the mechanism work at all</text><text x="296" y="134" font-size="12" fill="#94a3b8">evidence, not a component, moves you up →</text><rect x="300" y="95" width="268" height="145" rx="8" fill="#3a2a0a" stroke="#fbbf24" stroke-width="2.5"/><text x="316" y="127" font-size="20" font-weight="700" fill="#fcd34d">MVP</text><text x="316" y="151" font-size="12" fill="#f1f5f9">one usable path: skills, code, or MCP</text><text x="316" y="173" font-size="12" fill="#94a3b8">asks: can one person complete one flow</text><text x="576" y="79" font-size="12" fill="#94a3b8">evidence, not a component, moves you up →</text><rect x="580" y="40" width="268" height="200" rx="8" fill="#0f3320" stroke="#4ade80" stroke-width="2.5"/><text x="596" y="72" font-size="20" font-weight="700" fill="#86efac">Production</text><text x="596" y="96" font-size="12" fill="#f1f5f9">workflows, context, evals, infrastructure</text><text x="596" y="118" font-size="12" fill="#94a3b8">asks: does it hold under expected variation</text>
+</svg>
+</div>
 
 > Source: [The LLM application stack](https://a16z.com/emerging-architectures-for-llm-applications/)
 
