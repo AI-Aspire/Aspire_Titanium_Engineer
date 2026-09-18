@@ -405,9 +405,11 @@ Type: core
 Minutes: 1
 Layout: 02 Agenda 1
 Speaker notes:
-- Say: The client shape stays stable while the endpoint can be OpenAI, vLLM, or Ollama.
-- Ask: What would you change for Priya's VPN question if the endpoint moved from a hosted service to your own server?
-- Watch: Keep the answer operational: `OPENAI_BASE_URL` selects the compatible endpoint; the notebook also reads the model and key from environment variables.
+- Say: The client shape stays stable while the endpoint can be OpenAI, vLLM, Ollama — or a corporate API gateway. Nothing in the notebooks changes when the endpoint does.
+- Ask: What would you change in the notebook if the endpoint moved from a hosted service to your own server?
+- Watch: Keep the answer operational: `OPENAI_BASE_URL` selects the compatible endpoint; the notebook also reads the model and key from environment variables. The answer to the Ask is "nothing in the notebook" — only `.env`.
+- Watch: Say plainly that this is exactly what they are doing this week. On the AIP environment the calls go through an Accenture API gateway rather than straight to a provider, so `OPENAI_BASE_URL` points at that gateway and a personal subscription key goes in `.env` as `APIM_KEY` alongside `OPENAI_API_KEY`. One key covers the models, the embeddings, and the reranker. Values come from the AIP setup guide and the provisioning tracker on SharePoint, not from a slide — and never from a chat message.
+- Then: Two consequences worth naming now, because they cost the most time later. The VPN has to be connected before any API call, or every call returns 401 and it looks like a bad key. And the models behind the gateway are not the defaults in this repo's docs, so the model names in `.env` come from the guide too.
 - Then: Notebook:cell#9 — Task 1 introduces the provider-independent setup before the rest of the repo loop.
 Sources: [Course concepts](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/docs/CONCEPTS.md); [Module 01 notebook](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/01_Dev_Environment/Dev_Environment.ipynb).
 -->
@@ -731,10 +733,11 @@ Type: core
 Minutes: 2
 Layout: 05 Two column 1
 Speaker notes:
-- Say: Two remotes, two jobs. You push to your fork and send changes back as pull requests.
+- Say: Two remotes, two jobs. You push to the one you have write access to, and send changes back as pull requests.
 - Ask: You fetched upstream and your files did not change. Is something wrong?
 - Watch: Task 1 (cell#10) adds `upstream` if it is missing, reading the slug from `cohort.toml`. Task 2 (cell#13) fetches, shows the last five upstream commits with `git log --oneline -5` and the branch's position with `git status -sb`, then only *prints* the fast-forward command, so students run the merge deliberately.
 - Then: Note that fetching updates your copy of the remote branches without touching your working files.
+- Then: The shape is the same on the AIP environment, with different names. There the curriculum repo lives in Azure DevOps and is read-only — that is the box on the right — and each team has its own repo with write access, which is the box on the left. So "fork" and "upstream" become "your team repo" and "the shared labs repo", and the two-remote habit is unchanged. The clone is from a specific branch, not the default one, so anyone whose repo looks empty or wrong has probably cloned the default branch; the guide has the exact command.
 Sources: [GitHub flow](https://docs.github.com/en/get-started/using-github/github-flow); [Module 01 notebook, Tasks 1-2](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/01_Dev_Environment/Dev_Environment.ipynb).
 -->
 
@@ -1046,6 +1049,7 @@ make check-day   # fails on everything before you save work — expected
 ```
 
 - `uv sync` and `uv run --group` are **exact**: they remove every group you do not name
+- Two modules need an extra group: **`make setup-optim`** (15, DSPy) and **`make setup-graph`** (16)
 - `intercepted` means a proxy signs the certs — your terminal trusts it, a container will not
 
 <!--
@@ -1059,10 +1063,12 @@ Type: core
 Minutes: 3
 Layout: 04 Icon cards
 Speaker notes:
-- Say: These three lines prevent most of the time the room would otherwise lose.
+- Say: These lines prevent most of the time the room would otherwise lose.
 - Ask: A notebook that worked an hour ago now fails with `ModuleNotFoundError`. What changed?
 - Watch: The answer is almost always that a bare `uv sync` or `uv run --group dev` removed an optional group. Fix: `make setup`, which keeps the groups already installed. Dev_Environment:cell#33 is Task 8 of 8 — Update the open pull request.
+- Watch: This is not hypothetical — it came back from device testing as "No module named 'dspy'", because a setup guide's install command left out the optional group that carries it. If anyone hits it on a module, the fix is the matching make target, not a bare uv sync.
 - Then: For an intercepted host, the terminal works because the machine trusts the private CA, but a container will not — keep the CA file to hand.
+- Then: On the AIP environment the install command differs by platform: Mac and ALCS run `make setup`, and Windows is told to spell the groups out in full rather than use a bare `uv sync`. Either way the rule on this slide is the same one. A wrong Jupyter kernel produces the same symptom, so if a package is definitely installed, check the kernel before reinstalling anything.
 Sources: [Setup and troubleshooting](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/00_Setup/README.md); [Course concepts, setup traps](https://github.com/AI-Aspire/Aspire_Titanium_Engineer/blob/main/docs/CONCEPTS.md).
 -->
 
