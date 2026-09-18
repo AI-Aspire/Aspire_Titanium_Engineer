@@ -4,6 +4,20 @@ theme: default
 paginate: true
 size: 16:9
 title: Day 1 — Prototype and retrieve
+# ⚠️ GOOGLE SLIDES IS AUTHORITATIVE FOR DAY 1.
+#
+# The day-1 deck has been revised by hand in Google Slides — slide variety,
+# wording, and ordering were corrected there, and those changes are not
+# reflected in this file. Review and edit day 1 in Google Slides.
+#
+# This markdown and the day1.html beside it are a historical record of the
+# pre-revision deck, kept for the speaker notes, the cell# anchors, and the
+# source links, which are all still accurate. Do not port edits from here into
+# Google Slides: you would reintroduce the repetition that was removed, most of
+# all in the opening framing slides.
+#
+# Days 2 through 5 are still authored in markdown, and edits to those belong
+# here as usual.
 ---
 
 # Today: from a repo to a retrieving agent

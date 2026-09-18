@@ -13,9 +13,15 @@ a reviewer can page through the deck without installing anything. **Quote the
 slide title, not a slide number, when giving notes** — numbering shifts as
 slides are added.
 
+> ⚠️ **Day 1 is authored in Google Slides, not here.** That deck was revised by
+> hand — slide variety, wording, and ordering — and those corrections are not in
+> the markdown below. Review and edit day 1 in Google Slides. The files here are
+> a historical record, kept for their speaker notes, `cell#` anchors, and source
+> links. Days 2–5 are authored in markdown as usual.
+
 | Day | Source | Rendered |
 |---|---|---|
-| Day 1 · Prototype and retrieve | [`day1/day1.md`](day1/day1.md) | [`day1/day1.html`](day1/day1.html) |
+| Day 1 · Prototype and retrieve *(historical — see note above)* | [`day1/day1.md`](day1/day1.md) | [`day1/day1.html`](day1/day1.html) |
 | Day 2 · Retrieval and agent evals | [`day2/day2.md`](day2/day2.md) | [`day2/day2.html`](day2/day2.html) |
 | Day 3 · Agents in practice | [`day3/day3.md`](day3/day3.md) | [`day3/day3.html`](day3/day3.html) |
 | Day 4 · Advanced prototyping | [`day4/day4.md`](day4/day4.md) | [`day4/day4.html`](day4/day4.html) |
